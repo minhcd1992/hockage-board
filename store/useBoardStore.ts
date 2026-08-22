@@ -111,8 +111,27 @@ export const useBoardStore = create<BoardState>((set) => ({
     if (newTabs.length === 0) {
       newTabs.push({ id: 'main', type: 'whiteboard', title: 'Bảng Trắng' });
     }
-    const newActiveTabId = state.activeTabId === id ? newTabs[newTabs.length - 1].id : state.activeTabId;
-    return { tabs: newTabs, activeTabId: newActiveTabId };
+    
+    if (state.activeTabId !== id) {
+      return { tabs: newTabs };
+    }
+    
+    const newActiveTabId = newTabs[newTabs.length - 1].id;
+    const targetTab = newTabs.find(t => t.id === newActiveTabId);
+    
+    if (!targetTab) return { tabs: newTabs, activeTabId: newActiveTabId };
+    
+    return {
+      tabs: newTabs,
+      activeTabId: newActiveTabId,
+      zoom: targetTab.zoom !== undefined ? targetTab.zoom : 1,
+      panX: targetTab.panX !== undefined ? targetTab.panX : 0,
+      panY: targetTab.panY !== undefined ? targetTab.panY : 0,
+      gridEnabled: targetTab.gridEnabled !== undefined ? targetTab.gridEnabled : true,
+      viewMode: targetTab.viewMode || 'continuous',
+      theme: targetTab.theme || 'green',
+      editingObjectId: null
+    };
   }),
   setActiveTab: (id) => set((state) => {
     const newTabs = state.tabs.map(tab => {
