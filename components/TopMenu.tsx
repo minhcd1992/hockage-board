@@ -59,8 +59,7 @@ export function TopMenu() {
       borderBottom: '1px solid var(--border-color)',
       gap: '12px',
       zIndex: 20,
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch'
+      flexWrap: 'wrap'
     }}>
 
 

@@ -516,7 +516,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           };
 
           let newPanY = state.panY - dampen(dy);
-          let newPanX = state.panX - dampen(dx);
+          let newPanX = state.panX;
           
           // Prevent scrolling out of bounds on top
           if (newPanY > 0) newPanY = 0;
@@ -962,9 +962,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
 
       // Middle mouse panning
       if (isPanning && panStartScreen && initialPan) {
-        const dx = (e.clientX - panStartScreen.x);
         const dy = (e.clientY - panStartScreen.y);
-        let newPanX = initialPan.x + dx;
+        let newPanX = state.panX;
         let newPanY = initialPan.y + dy;
         if (newPanY > 0) newPanY = 0;
         
@@ -1369,7 +1368,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       let newZoom = oldZoom * scaleDelta;
       newZoom = Math.min(Math.max(newZoom, minZoom), maxZoom);
       
-      let newPanX = center.x - worldX * newZoom + panDeltaX;
+      let newPanX = center.x - worldX * newZoom; // Keep zoom centered but no horizontal pan drag
       let newPanY = center.y - worldY * newZoom + panDeltaY;
       
       if (newPanY > 0) newPanY = 0;
