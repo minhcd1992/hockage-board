@@ -383,13 +383,6 @@ export class Shape extends BoardObject {
     s.start = { ...this.start };
     s.end = { ...this.end };
     s.controlPoint = { ...this.controlPoint };
-    s.isPhysicsObject = this.isPhysicsObject;
-    s.isStatic = this.isStatic;
-    s.physicsMass = this.physicsMass;
-    s.physicsVelocityX = this.physicsVelocityX;
-    s.physicsVelocityY = this.physicsVelocityY;
-    s.physicsAccelerationX = this.physicsAccelerationX;
-    s.physicsAccelerationY = this.physicsAccelerationY;
     s.copyTransforms(this);
     return s;
   }

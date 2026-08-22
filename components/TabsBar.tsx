@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { useBoardStore } from '../store/useBoardStore';
-import { FileUp, X, PenTool, FlaskConical } from 'lucide-react';
+import { FileUp, X, PenTool, FlaskConical, FileText } from 'lucide-react';
 
 export function TabsBar() {
   const { tabs, activeTabId, setActiveTab, removeTab, addTab } = useBoardStore();
