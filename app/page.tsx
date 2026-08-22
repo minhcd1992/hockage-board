@@ -1,69 +1,50 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
 
-export default function Home() {
+import React from 'react';
+import { CanvasBoard } from '../components/CanvasBoard';
+import { TopMenu } from '../components/TopMenu';
+import { TabsBar } from '../components/TabsBar';
+import { PropertiesBar } from '../components/PropertiesBar';
+import { FloatingProperties } from '../components/FloatingProperties';
+import { useBoardStore } from '../store/useBoardStore';
+
+export default function BoardPage() {
+  const { tabs, activeTabId } = useBoardStore();
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>
+      {/* UI Layer */}
+      <div className="ui-toolbar" style={{ zIndex: 30, display: 'flex', flexDirection: 'column', paddingBottom: '0px', borderBottom: '1px solid var(--border-color)', background: 'rgba(255, 255, 255, 0.95)' }}>
+        <TopMenu />
+        <TabsBar />
+        <PropertiesBar />
+      </div>
+
+      <FloatingProperties />
+
+      {/* Canvas Layers */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        {tabs.map(tab => (
+           <div 
+             key={tab.id} 
+             style={{ 
+               position: 'absolute', 
+               top: 0, 
+               left: 0, 
+               right: 0, 
+               bottom: 0,
+               visibility: tab.id === activeTabId ? 'visible' : 'hidden',
+               opacity: tab.id === activeTabId ? 1 : 0,
+               pointerEvents: tab.id === activeTabId ? 'auto' : 'none'
+             }}
+           >
+             <CanvasBoard 
+               pdfFile={tab.file} 
+               isActive={tab.id === activeTabId} 
+             />
+           </div>
+        ))}
+      </div>
     </div>
   );
 }
