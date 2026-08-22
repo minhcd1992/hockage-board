@@ -48,29 +48,9 @@ export async function loadPDFToScene(file: File, scene: Scene, renderer: CanvasR
       // Move Y down for the next page
       currentY += viewport.height + PAGE_SPACING;
     }
-    // Calculate zoom to fit window width (leaving 50px margin on each side)
-    const targetWidth = window.innerWidth - 100;
-    
-    // We assume all pages have roughly similar width, so we take the first page's viewport width to calculate zoom
-    if (scene.objects.length > 0) {
-      const firstPage = scene.objects[0] as PdfObject;
-      const scaleToFit = targetWidth / firstPage.width;
-      
-      const store = useBoardStore.getState();
-      store.setZoom(scaleToFit);
-      
-      // Center horizontally: panX should be 50 to leave the 50px margin on the left
-      store.setPan(50, 0); // Start at top with 0px margin
-      
-      // Turn off grid for reader mode
-      store.setGridEnabled(false);
-      
-      // Sync to engine camera immediately so the first render is correct
-      camera.zoom = scaleToFit;
-      camera.x = 50;
-      camera.y = 0;
-    }
-    
+    // Reset camera position
+    camera.x = 0;
+    camera.y = 0;
     // Force a re-render
     renderer.renderMain();
   } catch (error) {
