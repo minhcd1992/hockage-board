@@ -8,6 +8,7 @@ export class PointerManager {
   
   activePointers: Map<number, PointerEvent> = new Map();
   isPinching: boolean = false;
+  initialPinchDistance: number = 0;
   lastPinchCenter: Point | null = null;
   lastPinchDistance: number = 0;
 
@@ -57,6 +58,7 @@ export class PointerManager {
       const p2 = this.getPoint(pts[1]);
       
       this.lastPinchDistance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+      this.initialPinchDistance = this.lastPinchDistance;
       this.lastPinchCenter = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
       
       if (this.onPinchStart) this.onPinchStart(this.lastPinchCenter);
@@ -87,14 +89,19 @@ export class PointerManager {
       const center = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
       
       if (this.lastPinchCenter && this.lastPinchDistance > 0) {
-        const scaleDelta = dist / this.lastPinchDistance;
+        let scaleDelta = 1;
+        
+        if (Math.abs(dist - this.initialPinchDistance) >= 20) {
+          scaleDelta = dist / this.lastPinchDistance;
+          this.lastPinchDistance = dist;
+        }
+
         const panDeltaX = center.x - this.lastPinchCenter.x;
         const panDeltaY = center.y - this.lastPinchCenter.y;
         
         if (this.onPinchMove) this.onPinchMove(center, scaleDelta, panDeltaX, panDeltaY);
       }
       
-      this.lastPinchDistance = dist;
       this.lastPinchCenter = center;
       return;
     }

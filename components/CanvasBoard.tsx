@@ -1707,7 +1707,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
 
         {/* Page Navigator & Zoom Controls */}
         <div style={{
-          position: 'absolute', bottom: '24px', right: '24px', zIndex: 30,
+          position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)', zIndex: 30,
           display: 'flex', alignItems: 'center', gap: '8px',
           background: 'rgba(255, 255, 255, 0.95)', color: 'var(--text-primary)', backdropFilter: 'blur(12px)',
           padding: '8px', borderRadius: '12px', border: '1px solid var(--border-color)',
