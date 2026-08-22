@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { MousePointer2, Hand, Pen, Highlighter, Eraser, Type, Minus, ArrowRight, Square, Circle, ChevronDown, Download, Wand2, Play, Pause, RotateCcw } from 'lucide-react';
 import { ToolType } from '../types';
 import { useBoardStore } from '../store/useBoardStore';
@@ -15,11 +16,15 @@ export function TopMenu() {
   const [showShapeDropdown, setShowShapeDropdown] = useState(false);
   const [showLabModal, setShowLabModal] = useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const menuRef = React.useRef<HTMLDivElement>(null);
   const [dropdownPos, setDropdownPos] = React.useState({ top: 0, left: 0 });
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current && !dropdownRef.current.contains(e.target as Node) &&
+        (!menuRef.current || !menuRef.current.contains(e.target as Node))
+      ) {
         setShowShapeDropdown(false);
       }
     };
@@ -121,8 +126,8 @@ export function TopMenu() {
           </button>
         </div>
 
-        {showShapeDropdown && (
-          <div style={{
+        {showShapeDropdown && typeof document !== 'undefined' && createPortal(
+          <div ref={menuRef} style={{
             position: 'fixed',
             top: dropdownPos.top,
             left: dropdownPos.left,
@@ -151,7 +156,8 @@ export function TopMenu() {
             <button className={`tool-btn ${currentShapeTool === 'bezier' ? 'active' : ''}`} onClick={() => handleShapeSelect('bezier')} title="Đường cong Bezier">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 Q 12 3 21 12 M 12 3 L 12 3" /></svg>
             </button>
-          </div>
+          </div>,
+          document.body
         )}
       </div>
 
