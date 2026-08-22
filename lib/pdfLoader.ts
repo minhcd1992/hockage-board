@@ -48,9 +48,25 @@ export async function loadPDFToScene(file: File, scene: Scene, renderer: CanvasR
       // Move Y down for the next page
       currentY += viewport.height + PAGE_SPACING;
     }
-    // Reset camera position
-    camera.x = 0;
-    camera.y = 0;
+    // Auto-fit width logic
+    if (scene.objects.length > 0) {
+      const targetWidth = window.innerWidth - 100;
+      const firstPage = scene.objects[0] as PdfObject;
+      const scaleToFit = targetWidth / firstPage.width;
+      
+      const store = useBoardStore.getState();
+      store.setZoom(scaleToFit);
+      
+      const panX = (window.innerWidth - targetWidth) / 2;
+      store.setPan(panX, 20);
+      
+      camera.zoom = scaleToFit;
+      camera.x = panX;
+      camera.y = 20;
+    } else {
+      camera.x = 0;
+      camera.y = 0;
+    }
     // Force a re-render
     renderer.renderMain();
   } catch (error) {

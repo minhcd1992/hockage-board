@@ -442,8 +442,9 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         
         const rect = interactionLayerRef.current?.getBoundingClientRect();
         if (rect) {
-          const screenX = e.clientX - rect.left;
-          const screenY = e.clientY - rect.top;
+          // Always zoom from center as requested by user
+          const screenX = rect.width / 2;
+          const screenY = rect.height / 2;
           
           const worldX = (screenX - oldPanX) / oldZoom;
           const worldY = (screenY - oldPanY) / oldZoom;
