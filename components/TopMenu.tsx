@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { MousePointer2, Pen, Highlighter, Eraser, Type, Minus, ArrowRight, Square, Circle, ChevronDown, Download, Wand2, Play, Pause, RotateCcw } from 'lucide-react';
+import { MousePointer2, Hand, Pen, Highlighter, Eraser, Type, Minus, ArrowRight, Square, Circle, ChevronDown, Download, Wand2, Play, Pause, RotateCcw } from 'lucide-react';
 import { ToolType } from '../types';
 import { useBoardStore } from '../store/useBoardStore';
 
@@ -51,18 +51,23 @@ export function TopMenu() {
     <div style={{
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       padding: '8px 16px',
       background: 'rgba(255, 255, 255, 0.95)',
       color: 'var(--text-primary)',
       backdropFilter: 'blur(12px)',
       borderBottom: '1px solid var(--border-color)',
       gap: '12px',
-      zIndex: 20
+      zIndex: 20,
+      overflowX: 'auto',
+      WebkitOverflowScrolling: 'touch'
     }}>
 
 
-      <div style={{ display: 'flex', gap: '4px' }}>
+      <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
+        <button className={`tool-btn ${tool === 'hand' ? 'active' : ''}`} onClick={() => setTool('hand')} title="Di chuyển trang (Hand/Space)">
+          <Hand size={20} />
+        </button>
         <button className={`tool-btn ${tool === 'select-object' ? 'active' : ''}`} onClick={() => setTool('select-object')} title="Chọn (V)">
           <MousePointer2 size={20} />
         </button>
@@ -70,7 +75,7 @@ export function TopMenu() {
 
       <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
 
-      <div style={{ display: 'flex', gap: '4px' }}>
+      <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
         <button className={`tool-btn ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')} title="Bút vẽ (P)">
           <Pen size={20} />
         </button>
@@ -91,7 +96,7 @@ export function TopMenu() {
       <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
 
       <div style={{ position: 'relative' }} ref={dropdownRef}>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', flexShrink: 0 }}>
           <button 
             className={`tool-btn ${isShapeActive ? 'active' : ''}`} 
             onClick={() => setTool(currentShapeTool)}
@@ -144,7 +149,7 @@ export function TopMenu() {
       </div>
 
       <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', flexShrink: 0 }}>
         <button 
           className="tool-btn" 
           onClick={() => {
@@ -158,7 +163,7 @@ export function TopMenu() {
 
       <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
       
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', flexShrink: 0 }}>
         <button className="tool-btn" onClick={() => window.dispatchEvent(new CustomEvent('export-pdf'))} title="Lưu thành PDF">
           <Download size={20} />
         </button>

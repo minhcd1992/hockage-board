@@ -1,5 +1,6 @@
 export type ToolType =  
   | 'select-object' 
+  | 'hand'
   | 'pen' 
   | 'highlighter' 
   | 'eraser-object' 

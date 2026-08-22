@@ -189,6 +189,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
 
       
       let newTool = storeState.tool;
+      if (key === ' ') newTool = 'hand';
       if (key === 'p') newTool = 'pen';
       if (key === 'v') newTool = 'select-object';
       if (key === 'h') newTool = 'highlighter';
@@ -783,8 +784,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       const state = useBoardStore.getState();
       const engine = engineRef.current!;
       
-      // Middle mouse button panning
-      if (e.button === 1) {
+      // Panning (Middle mouse or Hand tool)
+      if (e.button === 1 || state.tool === 'hand') {
         isPanning = true;
         panStartScreen = { x: e.clientX, y: e.clientY };
         initialPan = { x: state.panX, y: state.panY };
@@ -1189,7 +1190,10 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         panStartScreen = null;
         initialPan = null;
         if (interactionLayerRef.current) {
-          interactionLayerRef.current.style.cursor = useBoardStore.getState().tool === 'text' ? 'text' : 'crosshair';
+          const tool = useBoardStore.getState().tool;
+          if (tool === 'text') interactionLayerRef.current.style.cursor = 'text';
+          else if (tool === 'hand') interactionLayerRef.current.style.cursor = 'grab';
+          else interactionLayerRef.current.style.cursor = 'crosshair';
         }
         return;
       }
@@ -1329,6 +1333,60 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       }
     };
 
+    pointer.onPointerCancel = () => {
+      const engine = engineRef.current!;
+      if (engine.currentStroke) {
+        engine.currentStroke = null;
+        engine.renderer.clearDraft();
+        draftNeedsUpdate = false;
+      }
+      if (engine.currentShape) {
+        engine.currentShape = null;
+        engine.renderer.clearDraft();
+        draftNeedsUpdate = false;
+      }
+      arcState = 'idle';
+      bezierState = 'idle';
+      isDraggingSelection = false;
+      transformAction = null;
+    };
+
+    pointer.onPinchStart = (center) => {
+      if (interactionLayerRef.current) interactionLayerRef.current.style.cursor = 'grabbing';
+    };
+
+    pointer.onPinchMove = (center, scaleDelta, panDeltaX, panDeltaY) => {
+      const state = useBoardStore.getState();
+      const oldZoom = state.zoom;
+      const oldPanX = state.panX;
+      const oldPanY = state.panY;
+      
+      const worldX = (center.x - oldPanX) / oldZoom;
+      const worldY = (center.y - oldPanY) / oldZoom;
+      
+      const minZoom = 0.1;
+      const maxZoom = 5;
+      let newZoom = oldZoom * scaleDelta;
+      newZoom = Math.min(Math.max(newZoom, minZoom), maxZoom);
+      
+      let newPanX = center.x - worldX * newZoom + panDeltaX;
+      let newPanY = center.y - worldY * newZoom + panDeltaY;
+      
+      if (newPanY > 0) newPanY = 0;
+      
+      state.setZoom(newZoom);
+      state.setPan(newPanX, newPanY);
+    };
+
+    pointer.onPinchEnd = () => {
+      if (interactionLayerRef.current) {
+        const tool = useBoardStore.getState().tool;
+        if (tool === 'text') interactionLayerRef.current.style.cursor = 'text';
+        else if (tool === 'hand') interactionLayerRef.current.style.cursor = 'grab';
+        else interactionLayerRef.current.style.cursor = 'crosshair';
+      }
+    };
+
     loop.start();
 
     return () => {
@@ -1389,6 +1447,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     }
     if (tool === 'text') return 'text';
     if (tool === 'select-object') return 'default';
+    if (tool === 'hand') return 'grab';
     
     // shape tools
     return 'crosshair';
