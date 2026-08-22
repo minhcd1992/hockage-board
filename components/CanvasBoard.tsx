@@ -208,8 +208,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         storeState.setStrokeSize(newSize);
         if (storeState.editingObjectId && engineRef.current) {
           const obj = engineRef.current.scene.objects.find((o: any) => o.id === storeState.editingObjectId);
-          if (obj && typeof obj.size !== 'undefined') {
-            obj.size = newSize;
+          if (obj && typeof (obj as any).size !== 'undefined') {
+            (obj as any).size = newSize;
             engineRef.current.renderer.renderMain();
             window.dispatchEvent(new Event('requestBoardRender'));
           }
