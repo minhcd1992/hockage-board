@@ -11,6 +11,7 @@ export interface BoardTab {
   panY?: number;
   gridEnabled?: boolean;
   viewMode?: 'continuous' | 'single-page';
+  theme?: 'green' | 'white';
 }
 
 interface BoardState {
@@ -55,6 +56,7 @@ interface BoardState {
   // UI State
   currentShapeTool: ToolType;
   viewMode: 'continuous' | 'single-page';
+  theme: 'green' | 'white';
 
   setTool: (tool: ToolType) => void;
   setViewMode: (mode: 'continuous' | 'single-page') => void;
@@ -74,6 +76,7 @@ interface BoardState {
   setFontFamily: (font: string) => void;
   setFontSize: (size: number) => void;
   setCurrentShapeTool: (tool: ToolType) => void;
+  setTheme: (theme: 'green' | 'white') => void;
 }
 
 export const useBoardStore = create<BoardState>((set) => ({
@@ -100,6 +103,7 @@ export const useBoardStore = create<BoardState>((set) => ({
   fontSize: 24,
   currentShapeTool: 'line',
   viewMode: 'continuous',
+  theme: 'green',
   
   addTab: (tab) => set((state) => ({ tabs: [...state.tabs, tab] })),
   removeTab: (id) => set((state) => {
@@ -119,7 +123,8 @@ export const useBoardStore = create<BoardState>((set) => ({
           panX: state.panX,
           panY: state.panY,
           gridEnabled: state.gridEnabled,
-          viewMode: state.viewMode
+          viewMode: state.viewMode,
+          theme: state.theme
         };
       }
       return tab;
@@ -136,6 +141,7 @@ export const useBoardStore = create<BoardState>((set) => ({
       panY: targetTab.panY !== undefined ? targetTab.panY : 0,
       gridEnabled: targetTab.gridEnabled !== undefined ? targetTab.gridEnabled : true,
       viewMode: targetTab.viewMode || 'continuous',
+      theme: targetTab.theme || 'green',
       editingObjectId: null
     };
   }),
@@ -161,4 +167,5 @@ export const useBoardStore = create<BoardState>((set) => ({
   setFontFamily: (font) => set({ fontFamily: font }),
   setFontSize: (size) => set({ fontSize: size }),
   setCurrentShapeTool: (tool) => set({ currentShapeTool: tool }),
+  setTheme: (theme) => set({ theme })
 }));

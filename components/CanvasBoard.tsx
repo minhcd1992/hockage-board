@@ -214,7 +214,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           storeState.setPan(storeState.panX, newPanY);
           engineRef.current.camera.y = newPanY;
           engineRef.current.renderer.renderMain();
-          engineRef.current.renderer.renderBackground(storeState.gridEnabled, !!pdfFile);
+          engineRef.current.renderer.renderBackground(storeState.gridEnabled, storeState.theme, !!pdfFile);
         }
       }
       
@@ -530,7 +530,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       const dpr = window.devicePixelRatio || 1;
       renderer.resize(containerRef.current.clientWidth, containerRef.current.clientHeight, dpr);
       const state = useBoardStore.getState();
-      renderer.renderBackground(state.gridEnabled, !!pdfFile);
+      renderer.renderBackground(state.gridEnabled, state.theme, !!pdfFile);
       updateScrollbar();
     };
     window.addEventListener('resize', handleResize);
@@ -551,6 +551,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     let lastCamY = -1;
     let lastZoom = -1;
     let lastGridEnabled = false;
+    let lastTheme = 'green';
 
     // Drag selection state
     let isDraggingSelection = false;
@@ -595,20 +596,21 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
 
       let bgNeedsUpdate = false;
       if (engine.camera.x !== lastCamX || engine.camera.y !== lastCamY || engine.camera.zoom !== lastZoom ||
-          state.gridEnabled !== lastGridEnabled) {
+          state.gridEnabled !== lastGridEnabled || state.theme !== lastTheme) {
           
         bgNeedsUpdate = true;
-        lastCamX = engine.camera.x;
-        lastCamY = engine.camera.y;
-        lastZoom = engine.camera.zoom;
-        lastGridEnabled = state.gridEnabled;
-        
         updateScrollbar();
       }
 
       if (bgNeedsUpdate) {
-        engine.renderer.renderBackground(state.gridEnabled, !!pdfFile);
+        engine.renderer.renderBackground(state.gridEnabled, state.theme, !!pdfFile);
         engine.renderer.renderMain();
+        
+        lastCamX = engine.camera.x;
+        lastCamY = engine.camera.y;
+        lastZoom = engine.camera.zoom;
+        lastGridEnabled = state.gridEnabled;
+        lastTheme = state.theme;
       }
 
       // Handle pending points for stroke/highlighter
@@ -1451,7 +1453,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     if (engineRef.current) {
         engineRef.current.camera.y = newPanY;
         engineRef.current.renderer.renderMain();
-        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, !!pdfFile);
+        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, !!pdfFile);
     }
   };
 
@@ -1476,7 +1478,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       engineRef.current.camera.x = newPanX;
       engineRef.current.camera.y = newPanY;
       engineRef.current.camera.zoom = newZoom;
-      engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, !!pdfFile);
+      engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, !!pdfFile);
       engineRef.current.renderer.renderMain();
     }
   };
@@ -1509,7 +1511,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       if (engineRef.current) {
         engineRef.current.camera.zoom = newZoom;
         engineRef.current.camera.x = newPanX;
-        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, !!pdfFile);
+        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, !!pdfFile);
         engineRef.current.renderer.renderMain();
       }
     }
@@ -1550,7 +1552,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       
       for (let i = 0; i < totalPages; i++) {
         engine.camera.y = -i * canvasH * engine.camera.zoom;
-        engine.renderer.renderBackground(originalGrid, !!pdfFile);
+        engine.renderer.renderBackground(originalGrid, useBoardStore.getState().theme, !!pdfFile);
         engine.renderer.renderMain(true);
         
         ctx.fillStyle = '#ffffff';
@@ -1565,7 +1567,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       }
       
       engine.camera.y = originalY;
-      engine.renderer.renderBackground(originalGrid, !!pdfFile);
+      engine.renderer.renderBackground(originalGrid, useBoardStore.getState().theme, !!pdfFile);
       engine.renderer.renderMain();
       
       pdf.save('board-export.pdf');

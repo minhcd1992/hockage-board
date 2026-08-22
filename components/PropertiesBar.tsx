@@ -6,7 +6,7 @@ import { Shape } from '../objects/Shape';
 import { Stroke } from '../objects/Stroke';
 import { Text } from '../objects/Text';
 import { ArrowHeadType } from '../types';
-import { PaintBucket, Grid, Magnet } from 'lucide-react';
+import { PaintBucket, Grid, Magnet, Sun, Moon } from 'lucide-react';
 
 export function PropertiesBar() {
   const state = useBoardStore();
@@ -172,6 +172,16 @@ export function PropertiesBar() {
         </button>
         <button className={`tool-btn ${state.snapToGrid ? 'active' : ''}`} onClick={state.toggleSnapToGrid} title="Bắt điểm vào lưới" style={{ padding: '4px', width: 'auto', height: 'auto' }}>
           <Magnet size={16} /> <span style={{ marginLeft: '4px' }}>Snap</span>
+        </button>
+        <div style={{ width: '1px', height: '24px', background: 'var(--border-color)', margin: '0 4px' }} />
+        <button 
+          className="tool-btn" 
+          onClick={() => state.setTheme(state.theme === 'green' ? 'white' : 'green')} 
+          title="Đổi màu nền bảng" 
+          style={{ padding: '4px', width: 'auto', height: 'auto', color: state.theme === 'white' ? '#000' : 'inherit' }}
+        >
+          {state.theme === 'white' ? <Moon size={16} /> : <Sun size={16} />}
+          <span style={{ marginLeft: '4px' }}>{state.theme === 'white' ? 'Nền xanh' : 'Nền trắng'}</span>
         </button>
       </div>
 

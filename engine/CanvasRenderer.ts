@@ -58,6 +58,7 @@ export class CanvasRenderer {
 
   renderBackground(
     gridEnabled: boolean,
+    theme: 'green' | 'white' = 'green',
     isPDF: boolean = false
   ) {
     this.clearContext(this.bgCtx, this.bgCanvas);
@@ -68,6 +69,8 @@ export class CanvasRenderer {
     
     if (isPDF) {
       this.bgCtx.fillStyle = '#323639'; // Standard Chrome PDF viewer background
+    } else if (theme === 'white') {
+      this.bgCtx.fillStyle = '#f8f9fa'; // Slightly off-white background
     } else {
       const centerX = w / 2;
       const centerY = h / 2;
@@ -96,7 +99,11 @@ export class CanvasRenderer {
       const height = this.bgCanvas.height;
 
       this.bgCtx.save();
-      this.bgCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; // Xám nhạt hơi sáng
+      if (theme === 'white' && !isPDF) {
+        this.bgCtx.strokeStyle = 'rgba(0, 0, 0, 0.1)'; // Dark grid for white background
+      } else {
+        this.bgCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; // Light grid for green background or PDF
+      }
       this.bgCtx.lineWidth = 1;
       this.bgCtx.beginPath();
 
