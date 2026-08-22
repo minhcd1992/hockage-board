@@ -14,7 +14,8 @@ export function TopMenu() {
   const activeTab = tabs.find(t => t.id === activeTabId);
   const [showShapeDropdown, setShowShapeDropdown] = useState(false);
   const [showLabModal, setShowLabModal] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const [dropdownPos, setDropdownPos] = React.useState({ top: 0, left: 0 });
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -59,7 +60,8 @@ export function TopMenu() {
       borderBottom: '1px solid var(--border-color)',
       gap: '12px',
       zIndex: 20,
-      flexWrap: 'wrap'
+      overflowX: 'auto',
+      WebkitOverflowScrolling: 'touch'
     }}>
 
 
@@ -106,7 +108,13 @@ export function TopMenu() {
           </button>
           <button 
             className="tool-btn" 
-            onClick={() => setShowShapeDropdown(!showShapeDropdown)}
+            onClick={() => {
+              if (!showShapeDropdown && dropdownRef.current) {
+                const rect = dropdownRef.current.getBoundingClientRect();
+                setDropdownPos({ top: rect.bottom, left: rect.left });
+              }
+              setShowShapeDropdown(!showShapeDropdown);
+            }}
             style={{ borderRadius: '0 4px 4px 0', padding: '0 4px', width: 'auto' }}
           >
             <ChevronDown size={14} />
@@ -115,9 +123,9 @@ export function TopMenu() {
 
         {showShapeDropdown && (
           <div style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
+            position: 'fixed',
+            top: dropdownPos.top,
+            left: dropdownPos.left,
             marginTop: '8px',
             background: 'rgba(255, 255, 255, 0.95)',
             backdropFilter: 'blur(12px)',
