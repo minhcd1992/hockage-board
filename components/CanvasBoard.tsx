@@ -203,6 +203,19 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       if (key === 'n') { newTool = 'sine'; storeState.setCurrentShapeTool('sine'); }
       if (key === 'b') { newTool = 'bezier'; storeState.setCurrentShapeTool('bezier'); }
       
+      if (key === '1' || key === '2' || key === '3') {
+        const newSize = key === '1' ? 0.5 : key === '2' ? 1.0 : 2.0;
+        storeState.setStrokeSize(newSize);
+        if (storeState.editingObjectId && engineRef.current) {
+          const obj = engineRef.current.scene.objects.find((o: any) => o.id === storeState.editingObjectId);
+          if (obj && typeof obj.size !== 'undefined') {
+            obj.size = newSize;
+            engineRef.current.renderer.renderMain();
+            window.dispatchEvent(new Event('requestBoardRender'));
+          }
+        }
+      }
+      
       if (key === 'm') {
         const newMode = storeState.viewMode === 'continuous' ? 'single-page' : 'continuous';
         storeState.setViewMode(newMode);
