@@ -1,4 +1,4 @@
-export type LabObjectType = 'stand' | 'mass' | 'pendulum' | 'car' | 'particle' | 'graph' | 'distance-measurement';
+export type LabObjectType = 'stand' | 'mass' | 'pendulum' | 'car' | 'particle' | 'graph' | 'distance-measurement' | 'vector-path';
 
 export interface Vector2 {
   x: number;
@@ -33,6 +33,13 @@ export interface DistanceMeasurement {
   offsetY: number; // Y offset from the objects to draw the line
 }
 
+export interface VectorPathState {
+  waypoints: Vector2[];
+  isDragging: boolean;
+  dragPos?: Vector2 | null;
+  accumulatedDistance: number;
+}
+
 export interface LabObject {
   id: string;
   type: LabObjectType;
@@ -56,6 +63,9 @@ export interface LabObject {
   
   // Distance Measurement
   distanceMeasurement?: DistanceMeasurement;
+
+  // Vector Path State
+  vectorPath?: VectorPathState;
 
   // Visuals
   showVelocityVector?: boolean;

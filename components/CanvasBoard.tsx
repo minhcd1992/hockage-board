@@ -26,8 +26,9 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
   const interactionLayerRef = useRef<HTMLDivElement>(null);
 
   const [textInput, setTextInput] = React.useState<{ x: number, y: number, text: string, width?: number } | null>(null);
-  const [isNavVisible, setIsNavVisible] = React.useState(true);
+  const [isNavVisible, setIsNavVisible] = React.useState(false);
   const textInputRef = useRef<{ x: number, y: number, text: string, width?: number } | null>(null);
+  const [zoomInputValue, setZoomInputValue] = React.useState('');
   
   useEffect(() => {
     textInputRef.current = textInput;
@@ -40,6 +41,10 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
   const zoom = useBoardStore(s => s.zoom);
   const fontFamily = useBoardStore(s => s.fontFamily);
   const fontSize = useBoardStore(s => s.fontSize);
+
+  useEffect(() => {
+    setZoomInputValue(Math.round(zoom * 100).toString());
+  }, [zoom]);
 
   // Engine refs
   const engineRef = useRef<{
@@ -416,15 +421,39 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
              if (laserPointsRef.current.length < 2) return;
              ctx.lineCap = 'round';
              ctx.lineJoin = 'round';
-             ctx.strokeStyle = 'rgba(239, 68, 68, 0.8)'; // Tailwind red-500
-             ctx.lineWidth = 6 / engineRef.current!.camera.zoom;
+             const zoom = engineRef.current!.camera.zoom;
              
-             ctx.beginPath();
-             ctx.moveTo(laserPointsRef.current[0].x, laserPointsRef.current[0].y);
-             for (let i = 1; i < laserPointsRef.current.length; i++) {
-               ctx.lineTo(laserPointsRef.current[i].x, laserPointsRef.current[i].y);
-             }
+             const drawPath = () => {
+               ctx.beginPath();
+               ctx.moveTo(laserPointsRef.current[0].x, laserPointsRef.current[0].y);
+               for (let i = 1; i < laserPointsRef.current.length - 1; i++) {
+                 const p0 = laserPointsRef.current[i];
+                 const p1 = laserPointsRef.current[i + 1];
+                 const midX = (p0.x + p1.x) / 2;
+                 const midY = (p0.y + p1.y) / 2;
+                 ctx.quadraticCurveTo(p0.x, p0.y, midX, midY);
+               }
+               const lastP = laserPointsRef.current[laserPointsRef.current.length - 1];
+               ctx.lineTo(lastP.x, lastP.y);
+             };
+
+             // Glow pass
+             ctx.lineWidth = 12 / zoom;
+             ctx.strokeStyle = 'rgba(239, 68, 68, 0.3)';
+             drawPath();
              ctx.stroke();
+
+             // Core pass
+             ctx.lineWidth = 4 / zoom;
+             ctx.strokeStyle = 'rgba(255, 100, 100, 0.9)';
+             ctx.shadowColor = 'rgba(239, 68, 68, 1)';
+             ctx.shadowBlur = 10 / zoom;
+             drawPath();
+             ctx.stroke();
+             
+             // Reset shadow
+             ctx.shadowColor = 'transparent';
+             ctx.shadowBlur = 0;
           });
         }
         
@@ -447,8 +476,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       
       if (e.ctrlKey) {
         // Zoom
-        const zoomDelta = e.deltaY * -0.005;
-        const newZoom = Math.min(Math.max(0.1, state.zoom + zoomDelta), 5);
+        const zoomDelta = e.deltaY * -0.0015;
+        const newZoom = Math.min(Math.max(0.01, state.zoom + zoomDelta), 5);
         
         const oldZoom = state.zoom;
         const oldPanX = state.panX;
@@ -779,6 +808,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     let isPanning = false;
     let panStartScreen: Point | null = null;
     let initialPan: {x: number, y: number} | null = null;
+    let activeInternalDragObj: BoardObject | null = null;
 
     pointer.onPointerDown = (p, e) => {
       const state = useBoardStore.getState();
@@ -908,6 +938,19 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         }
 
         if (clickedOnSelected) {
+          // See if it intercepts the pointer down internally
+          let consumed = false;
+          const topSelected = engine.scene.getSelectedObjects()[0];
+          if (topSelected && topSelected.onPointerDown) {
+            consumed = topSelected.onPointerDown(worldP);
+          }
+          
+          if (consumed) {
+            activeInternalDragObj = topSelected;
+            engine.renderer.renderMain();
+            return; // Don't drag the whole selection
+          }
+
           isDraggingSelection = true;
           selectionDragStartPoint = worldP;
           hasMovedSelection = false;
@@ -925,6 +968,19 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           if (hitId) {
             engine.scene.toggleSelection(hitId, false);
             engine.renderer.renderMain();
+            
+            let consumed = false;
+            const newlySelected = engine.scene.objects.find(o => o.id === hitId);
+            if (newlySelected && newlySelected.onPointerDown) {
+              consumed = newlySelected.onPointerDown(worldP);
+            }
+            
+            if (consumed) {
+              activeInternalDragObj = newlySelected!;
+              engine.renderer.renderMain();
+              return;
+            }
+
             isDraggingSelection = true;
             selectionDragStartPoint = worldP;
             hasMovedSelection = false;
@@ -960,6 +1016,14 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       const state = useBoardStore.getState();
       const engine = engineRef.current!;
 
+      const worldP = processPoint(p, engine, state);
+
+      if (activeInternalDragObj && activeInternalDragObj.onPointerMove) {
+        activeInternalDragObj.onPointerMove(worldP);
+        engine.renderer.renderMain();
+        return;
+      }
+
       // Middle mouse panning
       if (isPanning && panStartScreen && initialPan) {
         const dy = (e.clientY - panStartScreen.y);
@@ -972,8 +1036,6 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         return;
       }
 
-      const worldP = processPoint(p, engine, state);
-      
       if (state.tool === 'laser' && pointer.isPointerDown) {
         laserPointsRef.current.push({ x: worldP.x, y: worldP.y, time: Date.now() });
       } else if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke && pointer.isPointerDown) {
@@ -1200,6 +1262,15 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       const state = useBoardStore.getState();
       const engine = engineRef.current!;
       const worldP = processPoint(p, engine, state);
+
+      if (activeInternalDragObj) {
+        if (activeInternalDragObj.onPointerUp) {
+          activeInternalDragObj.onPointerUp(worldP);
+        }
+        activeInternalDragObj = null;
+        engine.renderer.renderMain();
+        return;
+      }
       
       if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke) {
         if (engine.pointer.pendingPoints.length > 0) {
@@ -1556,12 +1627,12 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
   };
 
   const handleZoomIn = () => {
-    const newZoom = Math.min(zoom * 1.2, 5); // Max zoom 5x
+    const newZoom = Math.min(zoom * 1.1, 5); // Max zoom 5x
     handleZoom(newZoom);
   };
 
   const handleZoomOut = () => {
-    const newZoom = Math.max(zoom / 1.2, 0.01); // Min zoom 0.01x
+    const newZoom = Math.max(zoom / 1.1, 0.01); // Min zoom 0.01x
     handleZoom(newZoom);
   };
 
@@ -1586,6 +1657,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, !!pdfFile);
         engineRef.current.renderer.renderMain();
       }
+    } else {
+      handleZoom(1);
     }
   };
 
@@ -1722,17 +1795,34 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
               <button className="tool-btn" onClick={handleZoomOut} style={{ padding: '4px', width: 'auto', height: 'auto' }} title="Thu nhỏ">
                 <ZoomOut size={18} />
               </button>
-              <span style={{ fontSize: '13px', fontWeight: '500', width: '40px', textAlign: 'center' }}>
-                {Math.round(zoom * 100)}%
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="text"
+                  value={zoomInputValue}
+                  onChange={(e) => setZoomInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.currentTarget.blur();
+                    }
+                  }}
+                  onBlur={() => {
+                    const val = parseInt(zoomInputValue.replace('%', ''));
+                    if (!isNaN(val) && val > 0) {
+                      handleZoom(val / 100);
+                    } else {
+                      setZoomInputValue(Math.round(zoom * 100).toString());
+                    }
+                  }}
+                  style={{ fontSize: '13px', fontWeight: '500', width: '30px', textAlign: 'center', background: 'transparent', border: 'none', outline: 'none', color: 'inherit' }}
+                />
+                <span style={{ fontSize: '13px', fontWeight: '500' }}>%</span>
+              </div>
               <button className="tool-btn" onClick={handleZoomIn} style={{ padding: '4px', width: 'auto', height: 'auto' }} title="Phóng to">
                 <ZoomIn size={18} />
               </button>
-              {!!pdfFile && (
-                <button className="tool-btn" onClick={handleFitWidth} style={{ padding: '4px', width: 'auto', height: 'auto', marginLeft: '4px' }} title="Vừa chiều rộng">
-                  <Maximize size={16} />
-                </button>
-              )}
+              <button className="tool-btn" onClick={handleFitWidth} style={{ padding: '4px', width: 'auto', height: 'auto', marginLeft: '4px' }} title="Vừa chiều rộng">
+                <Maximize size={16} />
+              </button>
 
               <div style={{ width: '1px', height: '16px', background: 'var(--border-color)', margin: '0 8px' }} />
 

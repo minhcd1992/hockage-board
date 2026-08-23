@@ -63,101 +63,113 @@ export class CanvasRenderer {
   ) {
     this.clearContext(this.bgCtx, this.bgCanvas);
     
-    // Draw Background
-    const w = this.bgCanvas.width;
-    const h = this.bgCanvas.height;
-    
+    const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
+    const cssWidth = this.bgCanvas.width / dpr;
+    const cssHeight = this.bgCanvas.height / dpr;
+
+    // Fill the screen with backdrop color (for out-of-bounds areas)
+    this.bgCtx.save();
+    this.bgCtx.setTransform(1, 0, 0, 1, 0, 0);
     if (isPDF) {
       this.bgCtx.fillStyle = '#323639'; // Standard Chrome PDF viewer background
-    } else if (theme === 'white') {
-      this.bgCtx.fillStyle = '#f8f9fa'; // Slightly off-white background
     } else {
-      const centerX = w / 2;
-      const centerY = h / 2;
-      const radius = Math.max(w, h); // Cover the whole screen
-      
-      const gradient = this.bgCtx.createRadialGradient(
-        centerX, centerY, 0,
-        centerX, centerY, radius
-      );
-      gradient.addColorStop(0, 'rgb(21,96,44)');
-      gradient.addColorStop(1, 'rgb(22,49,34)');
-      this.bgCtx.fillStyle = gradient;
+      this.bgCtx.fillStyle = theme === 'white' ? '#e5e7eb' : '#1e1e1e'; // Backdrop color
     }
+    this.bgCtx.fillRect(0, 0, this.bgCanvas.width, this.bgCanvas.height);
+    this.bgCtx.restore();
+
+    if (isPDF) {
+      // For PDF, the pages are drawn as ImageObjects in the scene.
+      // We don't draw whiteboard pages.
+      return;
+    }
+
+    // --- Whiteboard Pages Rendering (in World Space) ---
+    const pageWorldWidth = cssWidth;
+    const pageWorldHeight = cssHeight * 0.98;
+    const stepWorldHeight = cssHeight; // includes gap
     
-    // Fill in scaled coordinates
-    const scale = 1; // Since we already scaled by dpr
-    this.bgCtx.fillRect(0, 0, this.bgCanvas.width / scale, this.bgCanvas.height / scale);
+    this.bgCtx.save();
+    this.camera.applyTransform(this.bgCtx);
 
-    // Draw Grid
-    if (gridEnabled) {
-      const gridSize = 50 * this.camera.zoom;
-      const offsetX = this.camera.x % gridSize;
-      const offsetY = this.camera.y % gridSize;
-      
-      const width = this.bgCanvas.width;
-      const height = this.bgCanvas.height;
+    const worldViewTop = -this.camera.y / this.camera.zoom;
+    const worldViewBottom = (-this.camera.y + cssHeight) / this.camera.zoom;
 
+    const startPage = Math.floor(worldViewTop / stepWorldHeight);
+    const endPage = Math.floor(worldViewBottom / stepWorldHeight);
+
+    for (let i = startPage; i <= endPage; i++) {
+      const pageY = i * stepWorldHeight;
+
+      // 1. Draw Page Background
       this.bgCtx.save();
-      if (theme === 'white' && !isPDF) {
-        this.bgCtx.strokeStyle = 'rgba(0, 0, 0, 0.1)'; // Dark grid for white background
+      this.bgCtx.translate(0, pageY);
+
+      if (theme === 'white') {
+        this.bgCtx.fillStyle = '#f8f9fa';
       } else {
-        this.bgCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)'; // Light grid for green background or PDF
+        const centerX = pageWorldWidth / 2;
+        const centerY = pageWorldHeight / 2;
+        const radius = Math.max(pageWorldWidth, pageWorldHeight);
+        
+        const gradient = this.bgCtx.createRadialGradient(
+          centerX, centerY, 0,
+          centerX, centerY, radius
+        );
+        gradient.addColorStop(0, 'rgb(21,96,44)');
+        gradient.addColorStop(1, 'rgb(22,49,34)');
+        this.bgCtx.fillStyle = gradient;
       }
-      this.bgCtx.lineWidth = 1;
-      this.bgCtx.beginPath();
-
-      // Vertical lines
-      for (let x = offsetX; x < width; x += gridSize) {
-        this.bgCtx.moveTo(x, 0);
-        this.bgCtx.lineTo(x, height);
-      }
-
-      // Horizontal lines
-      for (let y = offsetY; y < height; y += gridSize) {
-        this.bgCtx.moveTo(0, y);
-        this.bgCtx.lineTo(width, y);
-      }
-
-      this.bgCtx.stroke();
-      this.bgCtx.restore();
-    }
-    
-    if (!isPDF) {
-      const dpr = window.devicePixelRatio || 1;
-      const cssHeight = this.bgCanvas.height / dpr;
-      const cssWidth = this.bgCanvas.width / dpr;
-
-      // Create a 2% gap between pages
-      const gapHeight = cssHeight * 0.02;
-      const pageHeight = cssHeight * 0.98;
-      const step = cssHeight; // pageHeight + gapHeight
-
-      const scaledStep = step * this.camera.zoom;
-      const scaledGap = gapHeight * this.camera.zoom;
       
-      const pageOffsetY = this.camera.y % scaledStep;
-
-      this.bgCtx.save();
-      for (let y = pageOffsetY; y < cssHeight; y += scaledStep) {
-        if (y > 0) {
-          // Draw the gap
-          this.bgCtx.fillStyle = 'rgba(0, 0, 0, 0.08)';
-          this.bgCtx.fillRect(0, y - scaledGap, cssWidth, scaledGap);
-          
-          // Draw border lines for the page ends
-          this.bgCtx.beginPath();
-          this.bgCtx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
-          this.bgCtx.lineWidth = 1;
-          this.bgCtx.moveTo(0, y - scaledGap);
-          this.bgCtx.lineTo(cssWidth, y - scaledGap);
-          this.bgCtx.moveTo(0, y);
-          this.bgCtx.lineTo(cssWidth, y);
-          this.bgCtx.stroke();
-        }
-      }
+      // Page Drop Shadow (optional, looks nice when zoomed out)
+      this.bgCtx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+      this.bgCtx.shadowBlur = 10;
+      this.bgCtx.shadowOffsetX = 0;
+      this.bgCtx.shadowOffsetY = 4;
+      
+      this.bgCtx.fillRect(0, 0, pageWorldWidth, pageWorldHeight);
       this.bgCtx.restore();
+
+      // 2. Draw Grid on Page
+      if (gridEnabled) {
+        this.bgCtx.save();
+        this.bgCtx.translate(0, pageY);
+        
+        // Clip grid to page boundaries
+        this.bgCtx.beginPath();
+        this.bgCtx.rect(0, 0, pageWorldWidth, pageWorldHeight);
+        this.bgCtx.clip();
+
+        if (theme === 'white') {
+          this.bgCtx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+        } else {
+          this.bgCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        }
+        
+        // Ensure consistent grid line width regardless of zoom
+        this.bgCtx.lineWidth = 1 / this.camera.zoom;
+        this.bgCtx.beginPath();
+
+        const gridSize = 50;
+
+        // Vertical lines
+        for (let x = 0; x < pageWorldWidth; x += gridSize) {
+          this.bgCtx.moveTo(x, 0);
+          this.bgCtx.lineTo(x, pageWorldHeight);
+        }
+
+        // Horizontal lines
+        for (let y = 0; y < pageWorldHeight; y += gridSize) {
+          this.bgCtx.moveTo(0, y);
+          this.bgCtx.lineTo(pageWorldWidth, y);
+        }
+
+        this.bgCtx.stroke();
+        this.bgCtx.restore();
+      }
     }
+
+    this.bgCtx.restore();
   }
 
   renderMain(hideSelectionBox = false) {
@@ -211,7 +223,6 @@ export class CanvasRenderer {
       }
     }
     
-    
     this.camera.resetTransform(this.mainCtx);
     this.drawWhiteboardOverlays(this.mainCtx);
   }
@@ -220,46 +231,26 @@ export class CanvasRenderer {
     const isPDF = this.scene.objects.some((o: any) => o.pageIndex !== undefined);
     if (isPDF) return;
     
-    const dpr = window.devicePixelRatio || 1;
-    const cssHeight = this.mainCanvas.height / dpr;
+    const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
     const cssWidth = this.mainCanvas.width / dpr;
+    const cssHeight = this.mainCanvas.height / dpr;
 
-    const gapHeight = cssHeight * 0.02;
-    const step = cssHeight;
-    
-    const scaledStep = step * this.camera.zoom;
-    const scaledGap = gapHeight * this.camera.zoom;
-    let pageOffsetY = this.camera.y % scaledStep;
-    if (pageOffsetY > 0) pageOffsetY -= scaledStep;
-    
-    const activePageIndex = Math.max(0, Math.round(-this.camera.y / scaledStep));
-    let pageIndexOffset = Math.floor(-this.camera.y / scaledStep);
+    const pageWorldWidth = cssWidth;
+    const pageWorldHeight = cssHeight * 0.98;
+    const stepWorldHeight = cssHeight; // includes gap
     
     ctx.save();
-    for (let y = pageOffsetY; y <= cssHeight + scaledStep; y += scaledStep) {
-      if (y > -scaledStep && y < cssHeight + scaledStep) {
-         if (y > 0) {
-           ctx.fillStyle = '#334155';
-           ctx.fillRect(0, y - scaledGap, cssWidth, scaledGap);
-           
-           ctx.beginPath();
-           ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
-           ctx.lineWidth = 1;
-           ctx.moveTo(0, y - scaledGap);
-           ctx.lineTo(cssWidth, y - scaledGap);
-           ctx.moveTo(0, y);
-           ctx.lineTo(cssWidth, y);
-           ctx.stroke();
-         }
-         
-         if (pageIndexOffset === activePageIndex) {
-           ctx.strokeStyle = '#ef4444';
-           ctx.lineWidth = 2;
-           ctx.strokeRect(1, y + 1, cssWidth - 2, scaledStep - scaledGap - 2);
-         }
-      }
-      pageIndexOffset++;
-    }
+    this.camera.applyTransform(ctx);
+    
+    // Find active page based on camera center
+    const centerY = (-this.camera.y + cssHeight / 2) / this.camera.zoom;
+    const activePageIndex = Math.max(0, Math.floor(centerY / stepWorldHeight));
+    
+    // Draw red border around active page
+    ctx.strokeStyle = '#ef4444';
+    ctx.lineWidth = 2 / this.camera.zoom;
+    ctx.strokeRect(0, activePageIndex * stepWorldHeight, pageWorldWidth, pageWorldHeight);
+
     ctx.restore();
   }
 
@@ -275,3 +266,4 @@ export class CanvasRenderer {
     this.clearContext(this.draftCtx, this.draftCanvas);
   }
 }
+

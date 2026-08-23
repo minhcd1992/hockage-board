@@ -86,4 +86,33 @@ export class LabWidget extends BoardObject {
     this.cx = this.x + this.w / 2;
     this.cy = this.y + this.h / 2;
   }
+
+  onPointerDown(p: import('../types').Point): boolean {
+    const labX = p.x - this.x;
+    const labY = p.y - this.y - 32; // Offset for title bar
+    
+    // Check if within bounds of the widget content
+    if (labX >= 0 && labX <= this.w && labY >= 0 && labY <= (this.h - 32)) {
+      if (this.engine.handlePointerDown) {
+         return this.engine.handlePointerDown(labX, labY, this.w, this.h - 32);
+      }
+    }
+    return false;
+  }
+
+  onPointerMove(p: import('../types').Point): void {
+    if (this.engine.handlePointerMove) {
+       const labX = p.x - this.x;
+       const labY = p.y - this.y - 32;
+       this.engine.handlePointerMove(labX, labY, this.w, this.h - 32);
+    }
+  }
+
+  onPointerUp(p: import('../types').Point): void {
+    if (this.engine.handlePointerUp) {
+       const labX = p.x - this.x;
+       const labY = p.y - this.y - 32;
+       this.engine.handlePointerUp(labX, labY, this.w, this.h - 32);
+    }
+  }
 }

@@ -149,4 +149,9 @@ export abstract class BoardObject {
   abstract _translate(dx: number, dy: number): void;
   abstract clone(): BoardObject;
   abstract updateCenter(): void;
+
+  // Optional interaction hooks
+  onPointerDown?(p: Point): boolean;
+  onPointerMove?(p: Point): void;
+  onPointerUp?(p: Point): void;
 }

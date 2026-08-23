@@ -32,27 +32,22 @@ export class Stroke extends BoardObject {
     ctx.save();
 
     if (this.isHighlighter) {
-      // Highlighter: vertical flat brush sweep, semi-transparent
+      // Highlighter: semi-transparent, blend without self-erasing
       ctx.globalAlpha = 0.4;
-      ctx.fillStyle = this.color;
+      ctx.strokeStyle = this.color;
+      ctx.lineWidth = this.size * 4;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
       
-      const h = this.size * 2;
       ctx.beginPath();
-      
-      // Top edge
-      for (let i = 0; i < this.points.length; i++) {
-        const p = this.points[i];
-        if (i === 0) ctx.moveTo(p.x, p.y - h);
-        else ctx.lineTo(p.x, p.y - h);
+      if (this.points.length > 0) {
+        ctx.moveTo(this.points[0].x, this.points[0].y);
+        for (let i = 1; i < this.points.length; i++) {
+          // A simple quadratic curve smoothing could be added here, but lineTo works well for strokes
+          ctx.lineTo(this.points[i].x, this.points[i].y);
+        }
+        ctx.stroke();
       }
-      // Bottom edge (reverse)
-      for (let i = this.points.length - 1; i >= 0; i--) {
-        const p = this.points[i];
-        ctx.lineTo(p.x, p.y + h);
-      }
-      
-      ctx.closePath();
-      ctx.fill();
       ctx.restore();
       return;
     }

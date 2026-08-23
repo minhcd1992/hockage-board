@@ -38,6 +38,15 @@ export class LabEngine {
       } else if (obj.type === 'stand') {
         const pivot = obj.position || { x: 400, y: 100 };
         // Just a static visual, maybe no physics body needed, or a static pin
+      } else if (obj.type === 'vector-path') {
+        if (!obj.vectorPath) {
+          obj.vectorPath = {
+            waypoints: [{ x: 0, y: 0 }],
+            isDragging: false,
+            dragPos: null,
+            accumulatedDistance: 0
+          };
+        }
       } else if (obj.type === 'pendulum') {
         const pivot = obj.pivot || { x: 400, y: 100 };
         const length = obj.length || 200;
@@ -133,6 +142,94 @@ export class LabEngine {
       // If paused, we can reset scene to apply new length/angle
       if (this.state === 'paused') {
         this.setupScene();
+      }
+    }
+  }
+
+  // Pointer Interaction
+  handlePointerDown(x: number, y: number, width: number = 800, height: number = 600): boolean {
+    let consumed = false;
+    for (const obj of this.config.objects) {
+      if (obj.type === 'vector-path' && obj.vectorPath) {
+        const scale = Math.min(width / 800, height / 600);
+        const offsetX = (width - 800 * scale) / 2;
+        const offsetY = (height - 600 * scale) / 2;
+        const logicalX = (x - offsetX) / scale;
+        const logicalY = (y - offsetY) / scale;
+
+        const cx = 400; const cy = 300; const pxPerUnit = 40;
+        const mathX = (logicalX - cx) / pxPerUnit;
+        const mathY = (cy - logicalY) / pxPerUnit;
+
+        // Reset button bounds in logical coordinates (20 to 100, 80 to 104)
+        if (logicalX >= 20 && logicalX <= 100 && logicalY >= 80 && logicalY <= 104) {
+           obj.vectorPath = {
+             waypoints: [{ x: 0, y: 0 }],
+             isDragging: false,
+             dragPos: null,
+             accumulatedDistance: 0
+           };
+           consumed = true;
+           continue;
+        }
+
+        // Check if clicked near the current position (the ninja)
+        const lastWP = obj.vectorPath.waypoints[obj.vectorPath.waypoints.length - 1];
+        const distToNinja = Math.hypot(mathX - lastWP.x, mathY - lastWP.y);
+        
+        // Let's just allow clicking anywhere in the grid to start drag for better UX
+        // or clicking near the last waypoint.
+        // Actually, just consuming if it's within bounds is fine.
+        // Limit dragPos within view bounds roughly (-10 to 10, -7.5 to 7.5)
+        if (logicalX >= 0 && logicalX <= 800 && logicalY >= 0 && logicalY <= 600) {
+           obj.vectorPath.isDragging = true;
+           obj.vectorPath.dragPos = { x: Math.max(-10, Math.min(10, Math.round(mathX * 10) / 10)), y: Math.max(-7.2, Math.min(7.2, Math.round(mathY * 10) / 10)) };
+           consumed = true;
+        }
+      }
+    }
+    return consumed;
+  }
+
+  handlePointerMove(x: number, y: number, width: number = 800, height: number = 600): void {
+    for (const obj of this.config.objects) {
+      if (obj.type === 'vector-path' && obj.vectorPath?.isDragging) {
+        const scale = Math.min(width / 800, height / 600);
+        const offsetX = (width - 800 * scale) / 2;
+        const offsetY = (height - 600 * scale) / 2;
+        const logicalX = (x - offsetX) / scale;
+        const logicalY = (y - offsetY) / scale;
+
+        const cx = 400; const cy = 300; const pxPerUnit = 40;
+        let mathX = (logicalX - cx) / pxPerUnit;
+        let mathY = (cy - logicalY) / pxPerUnit;
+        
+        mathX = Math.round(mathX * 10) / 10;
+        mathY = Math.round(mathY * 10) / 10;
+        
+        mathX = Math.max(-10, Math.min(10, mathX));
+        mathY = Math.max(-7.2, Math.min(7.2, mathY));
+        
+        obj.vectorPath.dragPos = { x: mathX, y: mathY };
+      }
+    }
+  }
+
+  handlePointerUp(x: number, y: number, width: number = 800, height: number = 600): void {
+    for (const obj of this.config.objects) {
+      if (obj.type === 'vector-path' && obj.vectorPath?.isDragging) {
+        obj.vectorPath.isDragging = false;
+        
+        if (obj.vectorPath.dragPos) {
+           const lastWP = obj.vectorPath.waypoints[obj.vectorPath.waypoints.length - 1];
+           const distToLast = Math.hypot(obj.vectorPath.dragPos.x - lastWP.x, obj.vectorPath.dragPos.y - lastWP.y);
+           
+           if (distToLast > 0.05) {
+             obj.vectorPath.waypoints.push({ ...obj.vectorPath.dragPos });
+             obj.vectorPath.accumulatedDistance += distToLast;
+           }
+           obj.vectorPath.dragPos = null;
+        }
       }
     }
   }

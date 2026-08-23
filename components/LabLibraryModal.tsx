@@ -5,7 +5,8 @@ import { pendulumExperiment } from '../lab/experiments/pendulum';
 import { freeFallExperiment } from '../lab/experiments/freeFall';
 import { uniformMotion2CarsExperiment } from '../lab/experiments/uniformMotion2Cars';
 import { acceleratedMotionExperiment } from '../lab/experiments/acceleratedMotion';
-import { X, FlaskConical, Car, ArrowDown, TrendingUp, Search } from 'lucide-react';
+import { displacementConfig } from '../lab/experiments/displacement';
+import { X, FlaskConical, Car, ArrowDown, TrendingUp, Search, Map } from 'lucide-react';
 
 interface LabLibraryModalProps {
   onClose: () => void;
@@ -16,7 +17,8 @@ const experiments = [
   { config: pendulumExperiment, icon: <FlaskConical size={24} />, desc: 'Mô phỏng dao động của con lắc đơn bằng Matter.js' },
   { config: freeFallExperiment, icon: <ArrowDown size={24} />, desc: 'Khảo sát rơi tự do với gia tốc trọng trường g' },
   { config: uniformMotion2CarsExperiment, icon: <Car size={24} />, desc: 'Bài toán 2 xe chuyển động ngược chiều, gặp nhau' },
-  { config: acceleratedMotionExperiment, icon: <TrendingUp size={24} />, desc: 'Chuyển động thẳng biến đổi đều (nhanh dần/chậm dần)' }
+  { config: acceleratedMotionExperiment, icon: <TrendingUp size={24} />, desc: 'Chuyển động thẳng biến đổi đều (nhanh dần/chậm dần)' },
+  { config: displacementConfig, icon: <Map size={24} />, desc: 'Mô phỏng phân biệt độ dịch chuyển và quãng đường đi được' }
 ];
 
 export function LabLibraryModal({ onClose, onSelect }: LabLibraryModalProps) {
