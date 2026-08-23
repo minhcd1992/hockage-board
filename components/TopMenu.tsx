@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { MousePointer2, Hand, Pen, Highlighter, Eraser, Type, Minus, ArrowRight, Square, Circle, ChevronDown, Download, Wand2, Play, Pause, RotateCcw } from 'lucide-react';
+import { MousePointer2, Hand, Pen, Highlighter, Eraser, Type, Minus, ArrowRight, Square, Circle, ChevronDown, Download, Wand2, Play, Pause, RotateCcw, Scissors } from 'lucide-react';
 import { ToolType } from '../types';
 import { useBoardStore } from '../store/useBoardStore';
 
@@ -96,6 +96,9 @@ export function TopMenu() {
         </button>
         <button className={`tool-btn ${tool === 'text' ? 'active' : ''}`} onClick={() => setTool('text')} title="Chữ (T)">
           <Type size={20} />
+        </button>
+        <button className={`tool-btn ${tool === 'snip' ? 'active' : ''}`} onClick={() => setTool('snip')} title="Chụp vùng (Snip)">
+          <Scissors size={20} />
         </button>
       </div>
 

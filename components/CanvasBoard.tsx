@@ -56,6 +56,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     currentStroke: Stroke | null;
     currentShape: Shape | null;
     selectionRect: { start: Point; end: Point } | null;
+    snipRect: { start: Point; end: Point } | null;
   } | null>(null);
   
   const isActiveRef = useRef(isActive);
@@ -565,7 +566,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       pointer,
       currentStroke: null,
       currentShape: null,
-      selectionRect: null
+      selectionRect: null,
+      snipRect: null
     };
 
     // Handle Resize
@@ -768,6 +770,22 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
               
               ctx.restore();
             }
+          }
+          if (engine.snipRect) {
+            const { start, end } = engine.snipRect;
+            const x = Math.min(start.x, end.x);
+            const y = Math.min(start.y, end.y);
+            const w = Math.abs(end.x - start.x);
+            const h = Math.abs(end.y - start.y);
+            
+            ctx.save();
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.strokeStyle = '#3b82f6';
+            ctx.setLineDash([5 / engine.camera.zoom, 5 / engine.camera.zoom]);
+            ctx.lineWidth = 2 / engine.camera.zoom;
+            ctx.fillRect(x, y, w, h);
+            ctx.strokeRect(x, y, w, h);
+            ctx.restore();
           }
           if (engine.selectionRect) {
             const { start, end } = engine.selectionRect;
@@ -995,6 +1013,9 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           engine.renderer.renderMain();
         }
         draftNeedsUpdate = true;
+      } else if (state.tool === 'snip') {
+        engine.snipRect = { start: worldP, end: worldP };
+        draftNeedsUpdate = true;
       } else if (state.tool === 'eraser-object') {
         // Find top-most element that hits
         let hitId: string | null = null;
@@ -1085,6 +1106,11 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           engine.currentShape.end = constrainedP;
           draftNeedsUpdate = true;
         }
+      }
+
+      if (state.tool === 'snip' && engine.snipRect && pointer.isPointerDown) {
+        engine.snipRect.end = worldP;
+        draftNeedsUpdate = true;
       }
 
       // Handle drag selection
@@ -1334,6 +1360,62 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         if (hasMovedSelection) {
           engine.scene.saveState();
         }
+      } else if (state.tool === 'snip' && engine.snipRect) {
+        engine.snipRect.end = worldP;
+        const { start, end } = engine.snipRect;
+        const x = Math.min(start.x, end.x);
+        const y = Math.min(start.y, end.y);
+        const w = Math.abs(end.x - start.x);
+        const h = Math.abs(end.y - start.y);
+        
+        if (w > 10 && h > 10) {
+            const screenStart = engine.camera.worldToScreen(x, y);
+            const screenEnd = engine.camera.worldToScreen(x + w, y + h);
+            const sW = screenEnd.x - screenStart.x;
+            const sH = screenEnd.y - screenStart.y;
+            
+            const offCanvas = document.createElement('canvas');
+            const dpr = window.devicePixelRatio || 1;
+            offCanvas.width = sW * dpr;
+            offCanvas.height = sH * dpr;
+            const offCtx = offCanvas.getContext('2d');
+            
+            if (offCtx && bgCanvasRef.current && mainCanvasRef.current) {
+                const sx = screenStart.x * dpr;
+                const sy = screenStart.y * dpr;
+                const sw = sW * dpr;
+                const sh = sH * dpr;
+                
+                offCtx.drawImage(bgCanvasRef.current, sx, sy, sw, sh, 0, 0, offCanvas.width, offCanvas.height);
+                offCtx.drawImage(mainCanvasRef.current, sx, sy, sw, sh, 0, 0, offCanvas.width, offCanvas.height);
+                
+                offCanvas.toBlob((blob) => {
+                    if (blob) {
+                        const item = new window.ClipboardItem({ 'image/png': blob });
+                        navigator.clipboard.write([item]).then(() => {
+                            const flash = document.createElement('div');
+                            flash.style.position = 'fixed';
+                            flash.style.inset = '0';
+                            flash.style.backgroundColor = 'white';
+                            flash.style.opacity = '0.5';
+                            flash.style.pointerEvents = 'none';
+                            flash.style.transition = 'opacity 0.3s ease-out';
+                            flash.style.zIndex = '9999';
+                            document.body.appendChild(flash);
+                            requestAnimationFrame(() => {
+                                flash.style.opacity = '0';
+                                setTimeout(() => flash.remove(), 300);
+                            });
+                        }).catch(console.error);
+                    }
+                }, 'image/png');
+            }
+        }
+        
+        engine.snipRect = null;
+        engine.renderer.renderMain();
+        engine.renderer.clearDraft();
+        draftNeedsUpdate = true;
       } else if (state.tool === 'select-object' && engine.selectionRect) {
         engine.selectionRect.end = worldP;
         
@@ -1515,6 +1597,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>`;
       return createSvgCursor(svg, 2, 20);
     }
+    if (tool === 'snip') return 'crosshair';
     if (tool === 'text') return 'text';
     if (tool === 'select-object') return 'default';
     if (tool === 'hand') return 'grab';

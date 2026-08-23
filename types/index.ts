@@ -13,7 +13,8 @@ export type ToolType =
   | 'sine'
   | 'bezier'
   | 'text'
-  | 'laser';
+  | 'laser'
+  | 'snip';
 
 export type ObjectType = 'stroke' | 'shape' | 'image' | 'text' | 'pdf' | 'lab-widget';
 
