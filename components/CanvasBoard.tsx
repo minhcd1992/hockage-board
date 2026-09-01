@@ -980,7 +980,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         const selected = engine.scene.getSelectedObjects();
         let clickedOnSelected = false;
         
-        if (selected.length > 1) {
+        if (selected.length > 0) {
           const bounds = engine.scene.getSelectionBounds();
           if (bounds && worldP.x >= bounds.x && worldP.x <= bounds.x + bounds.w &&
               worldP.y >= bounds.y && worldP.y <= bounds.y + bounds.h) {
