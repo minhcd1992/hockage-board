@@ -100,13 +100,30 @@ export class Scene {
     this.deleteSelected();
   }
 
-  paste() {
+  paste(mouseWorldX?: number, mouseWorldY?: number) {
     if (this.clipboard.length === 0) return;
     this.clearSelection();
     
+    let dx = 20;
+    let dy = 20;
+
+    if (mouseWorldX !== undefined && mouseWorldY !== undefined) {
+      let minX = Infinity, minY = Infinity;
+      for (const el of this.clipboard) {
+        const box = el.getBoundingBox();
+        if (box.x < minX) minX = box.x;
+        if (box.y < minY) minY = box.y;
+      }
+      
+      if (minX !== Infinity && minY !== Infinity) {
+        dx = mouseWorldX - minX;
+        dy = mouseWorldY - minY;
+      }
+    }
+    
     const pasted = this.clipboard.map(obj => {
       const clone = obj.clone();
-      clone.translate(20, 20);
+      clone.translate(dx, dy);
       clone.selected = true;
       return clone;
     });

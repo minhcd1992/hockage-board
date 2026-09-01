@@ -11,6 +11,8 @@ export class PointerManager {
   initialPinchDistance: number = 0;
   lastPinchCenter: Point | null = null;
   lastPinchDistance: number = 0;
+  
+  lastPointerPos: Point | null = null;
 
   onPointerDown?: (p: Point, e: PointerEvent) => void;
   onPointerMove?: (p: Point, e: PointerEvent) => void;
@@ -107,7 +109,8 @@ export class PointerManager {
     }
 
     if (!this.isPointerDown) {
-      if (this.onPointerMove) this.onPointerMove(this.getPoint(e), e);
+      this.lastPointerPos = this.getPoint(e);
+      if (this.onPointerMove) this.onPointerMove(this.lastPointerPos, e);
       return;
     }
     
@@ -128,7 +131,8 @@ export class PointerManager {
       this.pendingPoints.push(p);
     }
     
-    if (this.onPointerMove) this.onPointerMove(this.getPoint(e), e);
+    this.lastPointerPos = this.getPoint(e);
+    if (this.onPointerMove) this.onPointerMove(this.lastPointerPos, e);
   };
 
   private handlePointerUp = (e: PointerEvent) => {

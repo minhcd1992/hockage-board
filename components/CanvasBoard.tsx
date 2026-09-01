@@ -94,20 +94,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           return;
         }
         
-        if (key === 'c') {
-          engineRef.current?.scene.copy();
-          return;
-        }
-        if (key === 'x') {
-          engineRef.current?.scene.cut();
-          engineRef.current?.renderer.renderMain();
-          return;
-        }
-        if (key === 'v') {
-          engineRef.current?.scene.paste();
-          engineRef.current?.renderer.renderMain();
-          return;
-        }
+        // c, x, v are now handled by DOM copy, cut, paste events
         if (key === 'y') {
           if (engine?.scene.redo()) engine.renderer.renderMain();
           return;
@@ -242,8 +229,49 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       if (newTool !== storeState.tool) storeState.setTool(newTool);
     };
     
+    const handleCopy = (e: ClipboardEvent) => {
+      if (isActiveRef.current && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        const engine = engineRef.current;
+        if (engine && engine.scene.getSelectedObjects().length > 0) {
+          engine.scene.copy();
+          e.clipboardData?.setData('text/plain', 'hockage-board-objects');
+          e.preventDefault();
+        }
+      }
+    };
+
+    const handleCut = (e: ClipboardEvent) => {
+      if (isActiveRef.current && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+        const engine = engineRef.current;
+        if (engine && engine.scene.getSelectedObjects().length > 0) {
+          engine.scene.cut();
+          engine.renderer.renderMain();
+          e.clipboardData?.setData('text/plain', 'hockage-board-objects');
+          e.preventDefault();
+        }
+      }
+    };
+
     const handlePaste = (e: ClipboardEvent) => {
+      if (!isActiveRef.current || document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
       if (!e.clipboardData) return;
+      
+      const text = e.clipboardData.getData('text/plain');
+      if (text === 'hockage-board-objects') {
+        const engine = engineRef.current;
+        if (engine) {
+          let mx, my;
+          if (engine.pointer.lastPointerPos) {
+            const worldPos = engine.camera.screenToWorld(engine.pointer.lastPointerPos.x, engine.pointer.lastPointerPos.y);
+            mx = worldPos.x;
+            my = worldPos.y;
+          }
+          engine.scene.paste(mx, my);
+          engine.renderer.renderMain();
+        }
+        return;
+      }
+
       const items = e.clipboardData.items;
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
@@ -260,6 +288,14 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
                 const centerY = window.innerHeight / 2;
                 const worldCenter = engine.camera.screenToWorld(centerX, centerY);
                 
+                let placeX = worldCenter.x;
+                let placeY = worldCenter.y;
+                if (engine.pointer.lastPointerPos) {
+                  const worldPos = engine.camera.screenToWorld(engine.pointer.lastPointerPos.x, engine.pointer.lastPointerPos.y);
+                  placeX = worldPos.x;
+                  placeY = worldPos.y;
+                }
+
                 const img = new Image();
                 img.onload = () => {
                   let w = img.width;
@@ -272,8 +308,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
                   
                   const imageObj = new ImageObject(
                     event.target!.result as string, 
-                    worldCenter.x - w/2, 
-                    worldCenter.y - h/2, 
+                    placeX - w/2, 
+                    placeY - h/2, 
                     w, 
                     h
                   );
@@ -296,9 +332,13 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     };
     
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('copy', handleCopy);
+    window.addEventListener('cut', handleCut);
     window.addEventListener('paste', handlePaste);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('copy', handleCopy);
+      window.removeEventListener('cut', handleCut);
       window.removeEventListener('paste', handlePaste);
     };
   }, []); // Global shortcuts
