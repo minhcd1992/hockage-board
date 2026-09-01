@@ -181,6 +181,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       }
 
       
+      if (e.ctrlKey || e.metaKey) return;
+
       let newTool = storeState.tool;
       if (key === ' ') newTool = 'hand';
       if (key === 'p') newTool = 'pen';
