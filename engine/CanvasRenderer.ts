@@ -12,13 +12,15 @@ export class CanvasRenderer {
 
   scene: Scene;
   camera: Camera;
+  fileType: string;
 
   constructor(
     bgCanvas: HTMLCanvasElement,
     mainCanvas: HTMLCanvasElement,
     draftCanvas: HTMLCanvasElement,
     scene: Scene,
-    camera: Camera
+    camera: Camera,
+    fileType: string = 'whiteboard'
   ) {
     this.bgCanvas = bgCanvas;
     this.mainCanvas = mainCanvas;
@@ -31,6 +33,7 @@ export class CanvasRenderer {
     
     this.scene = scene;
     this.camera = camera;
+    this.fileType = fileType;
   }
 
   resize(width: number, height: number, dpr: number) {
@@ -247,9 +250,11 @@ export class CanvasRenderer {
     const activePageIndex = Math.max(0, Math.floor(centerY / stepWorldHeight));
     
     // Draw red border around active page
-    ctx.strokeStyle = '#ef4444';
-    ctx.lineWidth = 2 / this.camera.zoom;
-    ctx.strokeRect(0, activePageIndex * stepWorldHeight, pageWorldWidth, pageWorldHeight);
+    if (this.fileType !== 'html') {
+      ctx.strokeStyle = '#ef4444';
+      ctx.lineWidth = 2 / this.camera.zoom;
+      ctx.strokeRect(0, activePageIndex * stepWorldHeight, pageWorldWidth, pageWorldHeight);
+    }
 
     ctx.restore();
   }

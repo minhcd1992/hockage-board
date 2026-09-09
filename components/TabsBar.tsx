@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { useBoardStore } from '../store/useBoardStore';
-import { FileUp, X, PenTool, FlaskConical, FileText } from 'lucide-react';
+import { FileUp, X, PenTool, FlaskConical, FileText, Code } from 'lucide-react';
 
 export function TabsBar() {
   const { tabs, activeTabId, setActiveTab, removeTab, addTab } = useBoardStore();
@@ -12,9 +12,10 @@ export function TabsBar() {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const newId = crypto.randomUUID();
+      const isHtml = file.name.toLowerCase().endsWith('.html') || file.name.toLowerCase().endsWith('.htm');
       addTab({
         id: newId,
-        type: 'pdf',
+        type: isHtml ? 'html' : 'pdf',
         title: file.name,
         file
       });
@@ -66,6 +67,7 @@ export function TabsBar() {
           }}
         >
           {tab.type === 'whiteboard' ? <PenTool size={16} color={tab.id === activeTabId ? 'var(--primary)' : 'var(--text-secondary)'} /> : 
+           tab.type === 'html' ? <Code size={16} color={tab.id === activeTabId ? 'var(--primary)' : 'var(--text-secondary)'} /> :
            <FileText size={16} color={tab.id === activeTabId ? 'var(--primary)' : 'var(--text-secondary)'} />}
           <span style={{ 
             flex: 1, 
@@ -118,14 +120,14 @@ export function TabsBar() {
         marginBottom: '6px',
         transition: 'background 0.2s',
       }}
-      title="Mở tệp PDF mới"
+      title="Mở tệp PDF hoặc HTML mới"
       onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.1)'}
       onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
       >
         <FileUp size={18} color="var(--text-secondary)" />
         <input 
           type="file" 
-          accept="application/pdf" 
+          accept="application/pdf, text/html" 
           onChange={handleFileChange} 
           style={{ 
             opacity: 0, 

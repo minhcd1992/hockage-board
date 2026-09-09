@@ -8,7 +8,7 @@ import { Scene } from '../engine/Scene';
 import { PointerManager } from '../input/PointerManager';
 import { Stroke } from '../objects/Stroke';
 import { Shape } from '../objects/Shape';
-import { LabWidget } from '../objects/LabWidget';
+
 import { ImageObject } from '../objects/ImageObject';
 import { Text } from '../objects/Text';
 import { Point, BoardObject } from '../types';
@@ -18,17 +18,28 @@ import { ChevronUp, ChevronDown, ZoomIn, ZoomOut, Maximize, Eye, EyeOff } from '
 
 import { loadPDFToScene } from '../lib/pdfLoader';
 
-export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: boolean }) {
+export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileType?: string, isActive: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgCanvasRef = useRef<HTMLCanvasElement>(null);
   const mainCanvasRef = useRef<HTMLCanvasElement>(null);
   const draftCanvasRef = useRef<HTMLCanvasElement>(null);
   const interactionLayerRef = useRef<HTMLDivElement>(null);
+  const htmlLayerRef = useRef<HTMLDivElement>(null);
 
   const [textInput, setTextInput] = React.useState<{ x: number, y: number, text: string, width?: number } | null>(null);
   const [isNavVisible, setIsNavVisible] = React.useState(false);
   const textInputRef = useRef<{ x: number, y: number, text: string, width?: number } | null>(null);
   const [zoomInputValue, setZoomInputValue] = React.useState('');
+  const [htmlUrl, setHtmlUrl] = React.useState<string | null>(null);
+
+  useEffect(() => {
+    if (fileType === 'html' && file) {
+      const url = URL.createObjectURL(file);
+      setHtmlUrl(url);
+      return () => URL.revokeObjectURL(url);
+    }
+    setHtmlUrl(null);
+  }, [file, fileType]);
   
   useEffect(() => {
     textInputRef.current = textInput;
@@ -223,7 +234,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           storeState.setPan(storeState.panX, newPanY);
           engineRef.current.camera.y = newPanY;
           engineRef.current.renderer.renderMain();
-          engineRef.current.renderer.renderBackground(storeState.gridEnabled, storeState.theme, !!pdfFile);
+          engineRef.current.renderer.renderBackground(storeState.gridEnabled, storeState.theme, fileType === 'pdf');
         }
       }
       
@@ -345,18 +356,24 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     };
   }, []); // Global shortcuts
 
-  // Scrollbar handlers
   const updateScrollbar = () => {
-    const scrollbarThumb = document.getElementById(`v-scrollbar-thumb-${pdfFile ? 'pdf' : 'whiteboard'}`);
-    const scrollbar = document.getElementById(`v-scrollbar-${pdfFile ? 'pdf' : 'whiteboard'}`);
+    const scrollbarThumb = document.getElementById(`v-scrollbar-thumb-${file ? 'pdf' : 'whiteboard'}`);
+    const scrollbar = document.getElementById(`v-scrollbar-${file ? 'pdf' : 'whiteboard'}`);
     if (!scrollbarThumb || !scrollbar) return;
+    
+    if (fileType === 'html') {
+      scrollbar.style.display = 'none';
+      return;
+    }
     
     const state = useBoardStore.getState();
     const viewH = window.innerHeight;
     
     let totalH = 1000;
     const engine = engineRef.current;
-    if (engine && engine.scene.objects.length > 0) {
+    if (fileType === 'html') {
+      totalH = ((window as any)._htmlScrollHeight || 1000) * state.zoom;
+    } else if (engine && engine.scene.objects.length > 0) {
       let maxBottom = 0;
       for (const obj of engine.scene.objects) {
         if ('y' in obj && 'height' in obj) {
@@ -395,7 +412,9 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       let totalH = 1000;
       const engine = engineRef.current;
       const state = useBoardStore.getState();
-      if (engine && engine.scene.objects.length > 0) {
+      if (fileType === 'html') {
+        totalH = ((window as any)._htmlScrollHeight || 1000) * state.zoom;
+      } else if (engine && engine.scene.objects.length > 0) {
         let maxBottom = 0;
         for (const obj of engine.scene.objects) {
           if ('y' in obj && 'height' in obj) {
@@ -444,7 +463,8 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       mainCanvasRef.current,
       draftCanvasRef.current,
       scene,
-      camera
+      camera,
+      fileType || 'whiteboard'
     );
     const loop = new RenderLoop();
     const pointer = new PointerManager(interactionLayerRef.current);
@@ -512,12 +532,12 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
+      
       const state = useBoardStore.getState();
       const activeTab = state.tabs.find(t => t.id === state.activeTabId);
 
-      
-      
       if (e.ctrlKey) {
+        if (fileType === 'html') return; // Disable zoom for HTML
         // Zoom
         const zoomDelta = e.deltaY * -0.0015;
         const newZoom = Math.min(Math.max(0.01, state.zoom + zoomDelta), 5);
@@ -559,7 +579,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
             
             if (currentPage < 1) currentPage = 1;
             
-            if (engineRef.current && pdfFile) {
+            if (engineRef.current && fileType === 'pdf' && file) {
                const pdfPagesCount = engineRef.current.scene.objects.filter((o: any) => o.pageIndex !== undefined).length;
                if (pdfPagesCount > 0 && currentPage > pdfPagesCount) {
                   currentPage = pdfPagesCount;
@@ -590,6 +610,11 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           let newPanY = state.panY - dampen(dy);
           let newPanX = state.panX;
           
+          if (fileType === 'html' && htmlLayerRef.current) {
+            const maxScrollTop = Math.max(0, htmlLayerRef.current.scrollHeight - htmlLayerRef.current.clientHeight);
+            if (newPanY < -maxScrollTop) newPanY = -maxScrollTop;
+          }
+          
           // Prevent scrolling out of bounds on top
           if (newPanY > 0) newPanY = 0;
           
@@ -618,7 +643,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       const dpr = window.devicePixelRatio || 1;
       renderer.resize(containerRef.current.clientWidth, containerRef.current.clientHeight, dpr);
       const state = useBoardStore.getState();
-      renderer.renderBackground(state.gridEnabled, state.theme, !!pdfFile);
+      renderer.renderBackground(state.gridEnabled, state.theme, fileType === 'pdf');
       updateScrollbar();
     };
     window.addEventListener('resize', handleResize);
@@ -668,20 +693,6 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       engine.camera.y = state.panY;
       engine.camera.zoom = state.zoom;
 
-      let labNeedsRender = false;
-      engine.scene.objects.forEach(obj => {
-        if (obj.type === 'lab-widget') {
-          const lw = obj as LabWidget;
-          if (lw.engine.state === 'playing') {
-            lw.engine.update(dt);
-            labNeedsRender = true;
-          }
-        }
-      });
-      if (labNeedsRender) {
-        engine.renderer.renderMain();
-      }
-
       let bgNeedsUpdate = false;
       if (engine.camera.x !== lastCamX || engine.camera.y !== lastCamY || engine.camera.zoom !== lastZoom ||
           state.gridEnabled !== lastGridEnabled || state.theme !== lastTheme) {
@@ -691,7 +702,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       }
 
       if (bgNeedsUpdate) {
-        engine.renderer.renderBackground(state.gridEnabled, state.theme, !!pdfFile);
+        engine.renderer.renderBackground(state.gridEnabled, state.theme, fileType === 'pdf');
         engine.renderer.renderMain();
         
         lastCamX = engine.camera.x;
@@ -699,6 +710,15 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
         lastZoom = engine.camera.zoom;
         lastGridEnabled = state.gridEnabled;
         lastTheme = state.theme;
+      }
+
+      if (htmlLayerRef.current) {
+        if (fileType === 'html') {
+          htmlLayerRef.current.scrollTop = -engine.camera.y;
+          htmlLayerRef.current.scrollLeft = -engine.camera.x;
+        } else {
+          htmlLayerRef.current.style.transform = `translate(${engine.camera.x}px, ${engine.camera.y}px) scale(${engine.camera.zoom})`;
+        }
       }
 
       // Handle pending points for stroke/highlighter
@@ -1593,10 +1613,10 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
   }, []);
 
   useEffect(() => {
-    if (pdfFile && engineRef.current) {
-      loadPDFToScene(pdfFile, engineRef.current.scene, engineRef.current.renderer, engineRef.current.camera);
+    if (fileType === 'pdf' && file && engineRef.current) {
+      loadPDFToScene(file, engineRef.current.scene, engineRef.current.renderer, engineRef.current.camera);
     }
-  }, [pdfFile]);
+  }, [file, fileType]);
 
   useEffect(() => {
     if (tool !== 'select-object' && engineRef.current) {
@@ -1721,7 +1741,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     if (engineRef.current) {
         engineRef.current.camera.y = newPanY;
         engineRef.current.renderer.renderMain();
-        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, !!pdfFile);
+        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, fileType === 'pdf');
     }
   };
 
@@ -1746,7 +1766,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       engineRef.current.camera.x = newPanX;
       engineRef.current.camera.y = newPanY;
       engineRef.current.camera.zoom = newZoom;
-      engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, !!pdfFile);
+      engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, fileType === 'pdf');
       engineRef.current.renderer.renderMain();
     }
   };
@@ -1779,7 +1799,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       if (engineRef.current) {
         engineRef.current.camera.zoom = newZoom;
         engineRef.current.camera.x = newPanX;
-        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, !!pdfFile);
+        engineRef.current.renderer.renderBackground(useBoardStore.getState().gridEnabled, useBoardStore.getState().theme, fileType === 'pdf');
         engineRef.current.renderer.renderMain();
       }
     } else {
@@ -1822,7 +1842,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       
       for (let i = 0; i < totalPages; i++) {
         engine.camera.y = -i * canvasH * engine.camera.zoom;
-        engine.renderer.renderBackground(originalGrid, useBoardStore.getState().theme, !!pdfFile);
+        engine.renderer.renderBackground(originalGrid, useBoardStore.getState().theme, fileType === 'pdf');
         engine.renderer.renderMain(true);
         
         ctx.fillStyle = '#ffffff';
@@ -1837,7 +1857,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
       }
       
       engine.camera.y = originalY;
-      engine.renderer.renderBackground(originalGrid, useBoardStore.getState().theme, !!pdfFile);
+      engine.renderer.renderBackground(originalGrid, useBoardStore.getState().theme, fileType === 'pdf');
       engine.renderer.renderMain();
       
       pdf.save('board-export.pdf');
@@ -1851,7 +1871,72 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
     <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden', background: 'var(--bg-primary)' }}>
       <div ref={containerRef} style={{ position: 'relative', flex: 1, width: '100%', overflow: 'hidden' }}>
         <canvas ref={bgCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} />
-        <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }} />
+        {fileType === 'html' && htmlUrl && (
+          <div 
+            ref={htmlLayerRef}
+            onScroll={(e) => {
+              if (fileType === 'html') {
+                const target = e.target as HTMLDivElement;
+                const state = useBoardStore.getState();
+                state.setPan(-target.scrollLeft, -target.scrollTop);
+                if (engineRef.current) {
+                  engineRef.current.camera.x = -target.scrollLeft;
+                  engineRef.current.camera.y = -target.scrollTop;
+                  engineRef.current.renderer.renderMain();
+                }
+              }
+            }}
+            style={{ 
+              position: 'absolute', 
+              top: 0, 
+              left: 0, 
+              width: '100%', 
+              height: '100%', 
+              zIndex: 0.5, 
+              pointerEvents: 'auto',
+              overflow: 'auto',
+              background: 'white'
+            }}
+          >
+            <iframe 
+              src={htmlUrl}
+              style={{ width: '100%', border: 'none', background: 'white' }}
+              sandbox="allow-scripts allow-same-origin"
+              onLoad={(e) => {
+                const iframe = e.target as HTMLIFrameElement;
+                try {
+                  const doc = iframe.contentDocument;
+                  const win = iframe.contentWindow;
+                  if (!doc || !win) return;
+                  
+                  const style = doc.createElement('style');
+                  style.textContent = 'html, body { height: auto !important; min-height: 100% !important; overflow: hidden !important; margin: 0; padding: 0; }';
+                  doc.head.appendChild(style);
+
+                  const updateHeight = () => {
+                    const body = doc.body;
+                    const html = doc.documentElement;
+                    const height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+                    iframe.style.height = height + 'px';
+                    (window as any)._htmlScrollHeight = height;
+                  };
+                  
+                  updateHeight();
+                  
+                  const observer = new ResizeObserver(updateHeight);
+                  observer.observe(doc.body);
+
+                  const images = doc.querySelectorAll('img');
+                  images.forEach(img => img.addEventListener('load', updateHeight));
+                } catch (err) {
+                  console.error("Cannot resize iframe", err);
+                  iframe.style.height = '5000px';
+                }
+              }}
+            />
+          </div>
+        )}
+        <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: (fileType === 'html' && tool === 'hand') ? 'none' : 'auto' }} />
         <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none' }} />
         <div
           ref={interactionLayerRef}
@@ -1863,13 +1948,14 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
             height: '100%',
             zIndex: 3,
             touchAction: 'none',
-            cursor: cursorStyle
+            cursor: cursorStyle,
+            pointerEvents: (fileType === 'html' && tool === 'hand') ? 'none' : 'auto'
           }}
         />
 
         {/* Scrollbar */}
         <div
-          id={`v-scrollbar-${pdfFile ? 'pdf' : 'whiteboard'}`}
+          id={`v-scrollbar-${file ? 'pdf' : 'whiteboard'}`}
           style={{
             position: 'absolute',
             right: 0,
@@ -1882,7 +1968,7 @@ export function CanvasBoard({ pdfFile, isActive }: { pdfFile?: File, isActive: b
           }}
         >
           <div
-            id={`v-scrollbar-thumb-${pdfFile ? 'pdf' : 'whiteboard'}`}
+            id={`v-scrollbar-thumb-${file ? 'pdf' : 'whiteboard'}`}
             onPointerDown={handleScrollbarDragStart}
             style={{
               position: 'absolute',

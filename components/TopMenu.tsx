@@ -6,15 +6,11 @@ import { MousePointer2, Hand, Pen, Highlighter, Eraser, Type, Minus, ArrowRight,
 import { ToolType } from '../types';
 import { useBoardStore } from '../store/useBoardStore';
 
-import { pendulumExperiment } from '../lab/experiments/pendulum';
-import { LabWidget } from '../objects/LabWidget';
-import { LabLibraryModal } from './LabLibraryModal';
 
 export function TopMenu() {
   const { tool, setTool, currentShapeTool, setCurrentShapeTool, tabs, activeTabId, activeEngineRef } = useBoardStore();
   const activeTab = tabs.find(t => t.id === activeTabId);
   const [showShapeDropdown, setShowShapeDropdown] = useState(false);
-  const [showLabModal, setShowLabModal] = useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
   const [dropdownPos, setDropdownPos] = React.useState({ top: 0, left: 0 });
@@ -165,19 +161,6 @@ export function TopMenu() {
       </div>
 
       <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
-      <div style={{ display: 'flex', flexShrink: 0 }}>
-        <button 
-          className="tool-btn" 
-          onClick={() => {
-            setShowLabModal(true);
-          }} 
-          title="Thư viện Bài Thí nghiệm (Lab)"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>
-        </button>
-      </div>
-
-      <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
       
       <div style={{ display: 'flex', flexShrink: 0 }}>
         <button className="tool-btn" onClick={() => window.dispatchEvent(new CustomEvent('export-pdf'))} title="Lưu thành PDF">
@@ -185,23 +168,6 @@ export function TopMenu() {
         </button>
       </div>
 
-      {showLabModal && (
-        <LabLibraryModal 
-          onClose={() => setShowLabModal(false)}
-          onSelect={(config) => {
-            if (activeEngineRef?.current) {
-              const widget = new LabWidget(config, 100, 100, 1000, 650);
-              activeEngineRef.current.scene.addObject(widget);
-              setTool('select-object');
-              // Automatically select the newly created widget to show properties
-              useBoardStore.getState().setEditingObjectId(widget.id);
-              widget.selected = true;
-              activeEngineRef.current.renderer.renderMain();
-            }
-            setShowLabModal(false);
-          }}
-        />
-      )}
     </div>
   );
 }

@@ -16,7 +16,7 @@ export type ToolType =
   | 'laser'
   | 'snip';
 
-export type ObjectType = 'stroke' | 'shape' | 'image' | 'text' | 'pdf' | 'lab-widget';
+export type ObjectType = 'stroke' | 'shape' | 'image' | 'text' | 'pdf';
 
 export type ArrowHeadType = 'none' | 'arrow' | 'inverted';
 

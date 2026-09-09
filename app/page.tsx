@@ -5,7 +5,6 @@ import { CanvasBoard } from '../components/CanvasBoard';
 import { TopMenu } from '../components/TopMenu';
 import { TabsBar } from '../components/TabsBar';
 import { PropertiesBar } from '../components/PropertiesBar';
-import { FloatingProperties } from '../components/FloatingProperties';
 import { useBoardStore } from '../store/useBoardStore';
 
 export default function BoardPage() {
@@ -19,8 +18,6 @@ export default function BoardPage() {
         <TabsBar />
         <PropertiesBar />
       </div>
-
-      <FloatingProperties />
 
       {/* Canvas Layers */}
       <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
@@ -39,7 +36,8 @@ export default function BoardPage() {
              }}
            >
              <CanvasBoard 
-               pdfFile={tab.file} 
+               file={tab.file}
+               fileType={tab.type}
                isActive={tab.id === activeTabId} 
              />
            </div>

@@ -3,7 +3,7 @@ import { ToolType } from '../types';
 
 export interface BoardTab {
   id: string;
-  type: 'whiteboard' | 'pdf';
+  type: 'whiteboard' | 'pdf' | 'html';
   title: string;
   file?: File;
   zoom?: number;
