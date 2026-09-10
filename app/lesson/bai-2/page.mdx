@@ -1,0 +1,470 @@
+export const metadata = {
+  title: 'Bài 2: Tốc độ, vận tốc và thực hành đo tốc độ',
+}
+
+<span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded uppercase tracking-wide">Vật lý 10 - Động học</span>
+<h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mt-2 mb-2">Bài 2: Tốc độ, vận tốc và thực hành đo tốc độ</h1>
+<p className="text-gray-500 mb-8 border-b-2 border-gray-200 pb-4 text-base italic">Sách Giáo Khoa (Tài liệu Lý thuyết & Dẫn dắt tư duy)</p>
+
+<Section title="A. Mở Đầu & Đặt Vấn Đề" icon="rocket">
+
+<SpeedometerSim />
+<p className="text-sm text-center text-slate-500 italic mb-6">Hình 2.1: Tốc kế trên ô tô (trái) và súng bắn tốc độ của CSGT (phải).</p>
+
+Trong đời sống hằng ngày, chúng ta thường nghe những câu nói như: "Chiếc xe máy đang chạy với tốc độ <Math inline>{"40\\text{ km/h}"}</Math>", hay "Cơn bão đang di chuyển với vận tốc <Math inline>{"20\\text{ km/h}"}</Math> về hướng Tây Bắc". Trong ngôn ngữ thông thường, hai từ "tốc độ" và "vận tốc" thường bị coi là đồng nghĩa và sử dụng thay thế cho nhau. Tuy nhiên, trong Vật lý học, đây là hai đại lượng mang bản chất khoa học hoàn toàn khác biệt.
+
+**Hãy suy ngẫm về các tình huống thực tế sau:**
+
+- Khi nhìn vào tốc kế của một xe máy đang ôm cua trên đường tròn với số chỉ không đổi <Math inline>{"40\\text{ km/h}"}</Math>, liệu trạng thái chuyển động của xe có thực sự không đổi hay không?
+- Hai chiếc ô tô cùng xuất phát từ một nút giao thông và cùng chạy với chỉ số tốc kế là <Math inline>{"60\\text{ km/h}"}</Math>, nhưng sau <Math inline>{"1"}</Math> giờ chúng lại cách nhau đến <Math inline>{"120\\text{ km}"}</Math>. Điều gì đã bị bỏ qua nếu ta chỉ quan tâm đến con số <Math inline>{"60\\text{ km/h}"}</Math>?
+- Làm thế nào để các kỹ sư ô tô hay các nhà khoa học trong phòng thí nghiệm có thể đo chính xác tốc độ của một vật thể di chuyển cực nhanh trong khoảng thời gian chỉ vài phần nghìn giây (<Math inline>{"\\text{ms}"}</Math>)?
+
+<InfoBox type="goal">
+  **Mục tiêu bài học:**
+  - Phân biệt rạch ròi giữa tốc độ (đại lượng vô hướng) và vận tốc (đại lượng vector).
+  - Định nghĩa và tính toán được tốc độ trung bình, tốc độ tức thời, vận tốc trung bình và vận tốc tức thời.
+  - Hiểu và vận dụng thành thạo công thức cộng vận tốc trong các hệ quy chiếu khác nhau.
+  - Nắm vững nguyên lý và quy trình thực hành đo tốc độ bằng cổng quang điện kết hợp đồng hồ đo thời gian hiện số, biết cách xử lý và biểu diễn sai số phép đo.
+</InfoBox>
+
+</Section>
+
+<Section title="B. Hình Thành Khái Niệm & Lý Thuyết" icon="book">
+
+<h3 className="font-bold text-xl text-blue-800 mb-3 border-b-2 border-blue-200 pb-2">I. TỐC ĐỘ (SPEED) - ĐẠI LƯỢNG VÔ HƯỚNG</h3>
+
+Tốc độ là đại lượng vật lý đặc trưng cho tính nhanh hay chậm của chuyển động mà không tính đến hướng di chuyển.
+
+**1. Tốc độ trung bình (Average Speed)**
+
+<InfoBox type="info" title="Định nghĩa">
+Khi một vật di chuyển được tổng quãng đường <Math inline>{"s"}</Math> trong khoảng thời gian <Math inline>{"\\Delta t"}</Math>, tốc độ trung bình <Math inline>{"v_{tb}"}</Math> của vật được xác định bằng thương số giữa quãng đường đi được và khoảng thời gian để đi hết quãng đường đó:
+
+<div className="flex justify-center my-4">
+  <Math>{"v_{tb} = \\frac{s}{\\Delta t} = \\frac{s_1 + s_2 + \\dots + s_n}{\\Delta t_1 + \\Delta t_2 + \\dots + \\Delta t_n}"}</Math>
+</div>
+</InfoBox>
+
+**Đơn vị đo:**
+- Trong hệ SI, đơn vị của tốc độ là mét trên giây (<Math inline>{"\\text{m/s}"}</Math>).
+- Đơn vị thông dụng khác: kilômét trên giờ (<Math inline>{"\\text{km/h}"}</Math>).
+- Quy đổi đơn vị: 
+  <Math>{"1\\text{ m/s} = 3,6\\text{ km/h} \\quad \\Longleftrightarrow \\quad 1\\text{ km/h} = \\frac{1}{3,6}\\text{ m/s} \\approx 0,278\\text{ m/s}"}</Math>
+
+**Bản chất đại lượng:** Do quãng đường <Math inline>{"s \\ge 0"}</Math> và thời gian <Math inline>{"\\Delta t > 0"}</Math>, nên tốc độ trung bình luôn là một đại lượng vô hướng không âm (<Math inline>{"v_{tb} \\ge 0"}</Math>). Tốc độ trung bình không cung cấp thông tin chi tiết về từng thời điểm vật chạy nhanh hay chậm, mà chỉ cho biết bức tranh toàn cảnh trên cả đoạn đường.
+
+**2. Tốc độ tức thời (Instantaneous Speed)**
+
+Trong thực tế, ít khi một vật chuyển động với tốc độ không đổi trên toàn bộ hành trình. Để biết tại đúng một mốc thời điểm <Math inline>{"t"}</Math> vật đang chuyển động nhanh hay chậm ra sao, ta cần thu nhỏ khoảng thời gian quan sát <Math inline>{"\\Delta t"}</Math> đến mức vô cùng nhỏ (<Math inline>{"\\Delta t \\to 0"}</Math>).
+
+<InfoBox type="info" title="Định nghĩa">
+Tốc độ trung bình trong khoảng thời gian rất nhỏ <Math inline>{"\\Delta t"}</Math> quanh thời điểm <Math inline>{"t"}</Math> được gọi là **tốc độ tức thời** <Math inline>{"v"}</Math>:
+
+<div className="flex justify-center my-4">
+  <Math>{"v = \\lim_{\\Delta t \\to 0} \\frac{\\Delta s}{\\Delta t} = \\frac{ds}{dt}"}</Math>
+</div>
+</InfoBox>
+
+- **Ý nghĩa thực tiễn:** Số chỉ trên tốc kế (speedometer) của các phương tiện giao thông chính là giá trị tốc độ tức thời tại thời điểm người lái quan sát.
+- **Mối liên hệ với vi phân (Góc nhìn Halliday):** Tốc độ tức thời chính là đạo hàm bậc nhất của quãng đường <Math inline>{"s(t)"}</Math> theo thời gian <Math inline>{"t"}</Math>.
+
+<h3 className="font-bold text-xl text-blue-800 mb-3 border-b-2 border-blue-200 pb-2 mt-8">II. VẬN TỐC (VELOCITY) - ĐẠI LƯỢNG VECTOR</h3>
+
+Khác với tốc độ, vận tốc là một đại lượng vector, bao gồm cả độ lớn (tốc độ) và hướng chuyển động.
+
+<CurvedPathSim />
+
+**1. Vận tốc trung bình (Average Velocity)**
+
+<InfoBox type="info" title="Định nghĩa">
+Vận tốc trung bình <Math inline>{"\\vec{v}_{tb}"}</Math> là thương số giữa vectơ độ dịch chuyển <Math inline>{"\\vec{d}"}</Math> (hay <Math inline>{"\\Delta \\vec{r}"}</Math>) và khoảng thời gian thực hiện độ dịch chuyển đó <Math inline>{"\\Delta t"}</Math>:
+
+<div className="flex justify-center my-4">
+  <Math>{"\\vec{v}_{tb} = \\frac{\\vec{d}}{\\Delta t} = \\frac{\\Delta \\vec{r}}{\\Delta t}"}</Math>
+</div>
+</InfoBox>
+
+**Đặc điểm của vectơ vận tốc trung bình <Math inline>{"\\vec{v}_{tb}"}</Math>:**
+- **Gốc:** Đặt tại vị trí ban đầu của vật.
+- **Hướng:** Trùng hoàn toàn với hướng của vectơ độ dịch chuyển <Math inline>{"\\vec{d}"}</Math>.
+- **Độ lớn:** <Math inline>{"v_{tb} = \\frac{|\\vec{d}|}{\\Delta t} = \\frac{d}{\\Delta t}"}</Math>.
+
+**Biểu diễn trên trục tọa độ 1D (trục Ox):** Nếu vật chuyển động trên một đường thẳng trùng với trục Ox, độ dịch chuyển là <Math inline>{"d = \\Delta x = x_2 - x_1"}</Math>. Giá trị đại số của vận tốc trung bình là:
+<Math>{"v_{tb} = \\frac{x_2 - x_1}{t_2 - t_1} = \\frac{\\Delta x}{\\Delta t}"}</Math>
+
+- Nếu <Math inline>{"v_{tb} > 0"}</Math>: Vật di chuyển theo chiều dương của trục Ox.
+- Nếu <Math inline>{"v_{tb} < 0"}</Math>: Vật di chuyển theo chiều âm của trục Ox.
+
+**2. Vận tốc tức thời (Instantaneous Velocity)**
+
+Vận tốc tức thời <Math inline>{"\\vec{v}"}</Math> tại một thời điểm <Math inline>{"t"}</Math> là giới hạn của vận tốc trung bình khi khoảng thời gian <Math inline>{"\\Delta t"}</Math> tiến dần về 0:
+
+<InfoBox type="info" title="Định nghĩa & Ý nghĩa toán học">
+<div className="flex justify-center my-2">
+  <Math>{"\\vec{v} = \\lim_{\\Delta t \\to 0} \\frac{\\Delta \\vec{r}}{\\Delta t} = \\frac{d\\vec{r}}{dt}"}</Math>
+</div>
+Về mặt toán học, khi <Math inline>{"\\Delta t \\to 0"}</Math>, vectơ độ dịch chuyển (cát tuyến) sẽ biến thành vectơ tiếp tuyến của quỹ đạo.
+</InfoBox>
+
+<LimitVelocitySim />
+
+**Đặc điểm nền tảng của vectơ vận tốc tức thời <Math inline>{"\\vec{v}"}</Math>:**
+- **Gốc:** Đặt tại vị trí của vật tại thời điểm xét.
+- **Phương:** Tiếp tuyến với quỹ đạo chuyển động tại điểm đó.
+- **Chiều:** Trùng với chiều chuyển động của vật tại thời điểm đó.
+- **Độ lớn:** Bằng đúng tốc độ tức thời của vật tại thời điểm đó (<Math inline>{"v = |\\vec{v}|"}</Math>).
+
+<h3 className="font-bold text-xl text-blue-800 mb-3 border-b-2 border-blue-200 pb-2 mt-8">III. SO SÁNH PHÂN BIỆT RẠCH RÒI TỐC ĐỘ VÀ VẬN TỐC</h3>
+
+<CompareTable 
+  title="So sánh Tốc độ và Vận tốc"
+  columns={['Tiêu chí', 'Tốc độ (Speed)', 'Vận tốc (Velocity)']}
+  rows={[
+    ['Bản chất toán học', 'Đại lượng vô hướng (Scalar)', 'Đại lượng vector (Vector)'],
+    ['Cấu tạo', 'Chỉ có độ lớn', 'Gồm độ lớn, phương và chiều'],
+    ['Giá trị', 'Luôn không âm (v ≥ 0)', 'Độ lớn âm/dương tùy thuộc hệ tọa độ chọn'],
+    ['Yếu tố phụ thuộc', 'Phụ thuộc vào tổng quãng đường s', 'Phụ thuộc vào độ dịch chuyển d'],
+    ['Ý nghĩa', 'Cho biết mức độ nhanh/chậm', 'Cho biết mức độ nhanh/chậm VÀ hướng chuyển động']
+  ]}
+/>
+
+<InfoBox type="warning" title="CẢNH BÁO LỖI SAI KINH ĐIỂN">
+  **Tốc độ trung bình KHÔNG PHẢI là độ lớn của vận tốc trung bình!**
+  <Math>{"v_{tb,\\text{toc do}} = \\frac{s}{\\Delta t} \\quad \\neq \\quad |\\vec{v}_{tb,\\text{van toc}}| = \\frac{|\\vec{d}|}{\\Delta t}"}</Math>
+  
+  **ĐIỀU KIỆN ĐỂ TỐC ĐỘ TRUNG BÌNH BẰNG ĐỘ LỚN VẬN TỐC TRUNG BÌNH:** Vật phải chuyển động thẳng và không đổi chiều (khi đó <Math inline>{"s = |\\vec{d}|"}</Math>).
+  
+  **Đối với giá trị TỨC THỜI:** Tốc độ tức thời luôn luôn bằng độ lớn của vận tốc tức thời (<Math inline>{"v = |\\vec{v}|"}</Math>).
+</InfoBox>
+
+<h3 className="font-bold text-xl text-blue-800 mb-3 border-b-2 border-blue-200 pb-2 mt-8">IV. CÔNG THỨC CỘNG VẬN TỐC (RELATIVE VELOCITY)</h3>
+
+Vận tốc có tính tương đối vì nó phụ thuộc vào hệ quy chiếu được chọn để quan sát.
+
+<RelativeVelocitySim />
+
+**1. Quy ước các Hệ quy chiếu**
+
+Để tránh nhầm lẫn, ta đánh số các đối tượng theo quy ước chuẩn:
+- **Vật [1]:** Vật chuyển động đang xét (ví dụ: hành khách, con thuyền, máy bay).
+- **Hệ quy chiếu [2]:** Hệ quy chiếu chuyển động (ví dụ: toa tàu, dòng nước, luồng gió).
+- **Hệ quy chiếu [3]:** Hệ quy chiếu đứng yên gắn với Trái Đất (ví dụ: sân ga, bờ sông, mặt đất).
+
+**2. Định lý cộng vận tốc**
+
+<InfoBox type="goal" title="Công thức cộng vận tốc">
+Vận tốc tuyệt đối của vật đối với hệ quy chiếu đứng yên bằng tổng vector của vận tốc tương đối và vận tốc kéo theo:
+
+<div className="flex justify-center my-4">
+  <Math>{"\\vec{v}_{1,3} = \\vec{v}_{1,2} + \\vec{v}_{2,3}"}</Math>
+</div>
+</InfoBox>
+
+- <Math inline>{"\\vec{v}_{1,3}"}</Math>: Vận tốc tuyệt đối (vật [1] so với HKC đứng yên [3]).
+- <Math inline>{"\\vec{v}_{1,2}"}</Math>: Vận tốc tương đối (vật [1] so với HKC chuyển động [2]).
+- <Math inline>{"\\vec{v}_{2,3}"}</Math>: Vận tốc kéo theo (HKC chuyển động [2] so với HKC đứng yên [3]).
+
+<h3 className="font-bold text-xl text-blue-800 mb-3 border-b-2 border-blue-200 pb-2 mt-8">V. THỰC HÀNH ĐO TỐC ĐỘ TRONG PHÒNG THÍ NGHIỆM</h3>
+
+Để đo tốc độ của một vật trong phòng thí nghiệm một cách chính xác, ta không thể dùng đồng hồ bấm giây thủ công do phản xạ con người có độ trễ (sai số phản xạ <Math inline>{"\\approx 0,2\\text{ s}"}</Math>). Thay vào đó, ta sử dụng **Cổng quang điện** kết hợp **Đồng hồ đo thời gian hiện số**.
+
+<PhotogateSim />
+
+**1. Nguyên lý đo**
+
+Cổng quang điện hoạt động như một công tắc ánh sáng: Bình thường, chùm tia hồng ngoại chiếu liên tục từ nhánh phát sang nhánh thu. Khi tấm chắn sáng của xe chạy qua kẽ chữ U, nó ngắt chùm tia hồng ngoại. Đồng hồ đếm thời gian bắt đầu chạy ngay khi tia bị chắn và dừng đếm ngay khi tia được thông lại.
+
+- **Đo tốc độ trung bình giữa 2 vị trí E và F:**
+  Đặt cổng E tại vị trí <Math inline>{"x_1"}</Math>, cổng F tại vị trí <Math inline>{"x_2"}</Math>. Quãng đường <Math inline>{"s = x_2 - x_1"}</Math>. Cài đặt đồng hồ ở chế độ đo thời gian di chuyển từ cổng E đến cổng F.
+  <Math>{"v_{tb} = \\frac{s}{\\Delta t_{EF}}"}</Math>
+
+- **Đo tốc độ tức thời tại một vị trí E:**
+  Cài đặt đồng hồ đo thời gian tấm chắn sáng có bề rộng <Math inline>{"d"}</Math> đi qua cổng quang. Vì bề rộng tấm chắn sáng <Math inline>{"d"}</Math> rất nhỏ, thời gian chắn sáng <Math inline>{"\\Delta t"}</Math> rất ngắn, nên tốc độ trung bình trong khoảng thời gian này chính là tốc độ tức thời:
+  <Math>{"v \\approx \\frac{d}{\\Delta t}"}</Math>
+
+</Section>
+
+<Section title="C. Góc Phân Tích Sâu (Thí nghiệm tưởng tượng & Nghịch lý)" icon="idea">
+
+<h3 className="font-bold text-xl text-slate-700 mb-3">🧠 THÍ NGHIỆM 1: Nghịch lý chuyến đi khứ hồi "Tốc độ trung bình"</h3>
+
+**Đặt vấn đề:** Bạn lái một chiếc xe tải đi từ nhà máy A đến kho hàng B trên một đường thẳng dài <Math inline>{"60\\text{ km}"}</Math>. Chiều đi xe chở nặng nên di chuyển với tốc độ không đổi <Math inline>{"v_1 = 30\\text{ km/h}"}</Math>. Chiều về xe rỗng nên chạy nhanh hơn với tốc độ không đổi <Math inline>{"v_2 = 60\\text{ km/h}"}</Math>. 
+**Câu hỏi:** Tốc độ trung bình trên toàn bộ chuyến đi khứ hồi (A → B → A) là bao nhiêu? Có phải là trung bình cộng <Math inline>{"\\frac{30 + 60}{2} = 45\\text{ km/h}"}</Math> không?
+
+**Phân tích bản chất:**
+- Thời gian đi: <Math inline>{"t_1 = 60/30 = 2\\text{ h}"}</Math>.
+- Thời gian về: <Math inline>{"t_2 = 60/60 = 1\\text{ h}"}</Math>.
+- Tổng quãng đường: <Math inline>{"S = 60 + 60 = 120\\text{ km}"}</Math>.
+- Tổng thời gian: <Math inline>{"T = 2 + 1 = 3\\text{ h}"}</Math>.
+- Tốc độ trung bình: <Math inline>{"v_{tb} = 120 / 3 = 40\\text{ km/h}"}</Math> (Khác <Math inline>{"45\\text{ km/h}"}</Math>!).
+
+*Bài học rút ra:* Tốc độ trung bình phụ thuộc vào **trọng số thời gian**. Vì bạn đi chậm nhiều thời gian hơn (<Math inline>{"2\\text{ h}"}</Math>) nên nó kéo tốc độ trung bình về phía <Math inline>{"30\\text{ km/h}"}</Math> nhiều hơn. Còn **vận tốc trung bình** thì sao? Độ dịch chuyển <Math inline>{"d = 0"}</Math> nên vận tốc trung bình bằng đúng <Math inline>{"0"}</Math>!
+
+<h3 className="font-bold text-xl text-slate-700 mb-3 mt-8">🧠 THÍ NGHIỆM 2: Chuyển động tròn đều - Tốc độ hằng số nhưng Vận tốc biến thiên</h3>
+
+**Đặt vấn đề:** Xét một vệ tinh nhân tạo đang di chuyển trên quỹ đạo tròn quanh Trái Đất với chỉ số tốc độ hoàn toàn không đổi <Math inline>{"7,8\\text{ km/s}"}</Math>. 
+**Câu hỏi:** Vận tốc của vệ tinh có biến thiên không? Vệ tinh có gia tốc hay không?
+
+<SatelliteSim />
+
+**Phân tích bản chất:**
+- Độ lớn của vectơ vận tốc (tốc độ) luôn không đổi.
+- Tuy nhiên, phương và chiều của vectơ vận tốc liên tục thay đổi để luôn tiếp tuyến với đường tròn.
+- Vì vận tốc là đại lượng vector, chỉ cần phương chiều thay đổi thì vectơ vận tốc đã bị thay đổi (<Math inline>{"\\Delta \\vec{v} \\neq \\vec{0}"}</Math>). Do đó, vệ tinh vẫn đang có gia tốc (gia tốc hướng tâm).
+
+</Section>
+
+<Section title="D. Ví Dụ Minh Họa" icon="edit">
+
+<h3 className="font-bold text-xl text-emerald-800 mb-3">VÍ DỤ 1: Phân biệt Tốc độ và Vận tốc trung bình trong chuyển động có quay đầu</h3>
+
+**Đề bài:** Một rô-bốt chuyển động dọc theo trục Ox. Ban đầu ở <Math inline>{"x_A = +2\\text{ m}"}</Math>.
+- GĐ1: Đi đến <Math inline>{"x_B = +10\\text{ m}"}</Math> mất <Math inline>{"4\\text{ s}"}</Math>.
+- Dừng <Math inline>{"1\\text{ s}"}</Math>.
+- GĐ2: Quay đầu về <Math inline>{"x_C = -5\\text{ m}"}</Math> mất <Math inline>{"5\\text{ s}"}</Math>.
+Tính vận tốc và tốc độ trung bình của rô-bốt trong GĐ1 và trong toàn bộ hành trình.
+
+<details className="bg-slate-50 p-5 rounded-lg border border-slate-200 text-slate-700 mt-4">
+  <summary className="font-bold text-slate-800 border-b border-slate-300 pb-2 cursor-pointer hover:text-blue-600 transition-colors focus:outline-none">
+    Xem hướng dẫn và lời giải chi tiết
+  </summary>
+  <div className="pt-4 space-y-4">
+    <p><strong>GĐ1 (Từ A đến B):</strong></p>
+    <ul className="list-disc pl-5">
+      <li>Độ dịch chuyển: <Math inline>{"d_1 = 10 - 2 = +8\\text{ m}"}</Math>. Quãng đường: <Math inline>{"s_1 = 8\\text{ m}"}</Math>.</li>
+      <li>Tốc độ TB: <Math inline>{"v_{tb1} = 8/4 = 2\\text{ m/s}"}</Math>.</li>
+      <li>Vận tốc TB: <Math inline>{"v = +8/4 = +2\\text{ m/s}"}</Math>. (Do đi thẳng không quay đầu).</li>
+    </ul>
+
+    <p><strong>Toàn hành trình (A → B → C):</strong></p>
+    <ul className="list-disc pl-5">
+      <li>Tổng thời gian: <Math inline>{"t = 4 + 1 + 5 = 10\\text{ s}"}</Math>.</li>
+      <li>Độ dịch chuyển tổng: <Math inline>{"d = x_C - x_A = -5 - 2 = -7\\text{ m}"}</Math>.</li>
+      <li>Tổng quãng đường: <Math inline>{"s = 8 + 15 = 23\\text{ m}"}</Math>.</li>
+      <li>Tốc độ TB toàn phần: <Math inline>{"v_{tb} = 23/10 = 2,3\\text{ m/s}"}</Math>.</li>
+      <li>Vận tốc TB toàn phần: <Math inline>{"v = -7/10 = -0,7\\text{ m/s}"}</Math>.</li>
+    </ul>
+  </div>
+</details>
+
+<h3 className="font-bold text-xl text-emerald-800 mb-3 mt-8">VÍ DỤ 2: Bài toán Tổng hợp Vận tốc (Canô qua sông)</h3>
+
+**Đề bài:** Một chiếc canô sang sông rộng <Math inline>{"w = 240\\text{ m}"}</Math>. Mũi canô hướng vuông góc với bờ. Tốc độ canô so với nước là <Math inline>{"v_{1,2} = 4\\text{ m/s}"}</Math>. Nước chảy xuôi dòng với tốc độ <Math inline>{"v_{2,3} = 3\\text{ m/s}"}</Math>.
+
+<BoatRiverSim />
+
+<details className="bg-slate-50 p-5 rounded-lg border border-slate-200 text-slate-700 mt-4">
+  <summary className="font-bold text-slate-800 border-b border-slate-300 pb-2 cursor-pointer hover:text-blue-600 transition-colors focus:outline-none">
+    Xem hướng dẫn và lời giải chi tiết
+  </summary>
+  <div className="pt-4 space-y-4">
+    <p><strong>1. Vận tốc tuyệt đối:</strong></p>
+    <p><Math inline>{"\\vec{v}_{1,3} = \\vec{v}_{1,2} + \\vec{v}_{2,3}"}</Math>. Vì vuông góc nên <Math inline>{"v_{1,3} = \\sqrt{4^2 + 3^2} = 5\\text{ m/s}"}</Math>.</p>
+    
+    <p><strong>2. Thời gian sang sông:</strong></p>
+    <p>Phụ thuộc duy nhất vào thành phần vận tốc ngang: <Math inline>{"t = 240 / 4 = 60\\text{ s}"}</Math>.</p>
+
+    <p><strong>3. Độ dạt hạ lưu:</strong></p>
+    <p>Bị nước cuốn trong <Math inline>{"60\\text{ s}"}</Math>: <Math inline>{"BC = v_{2,3} \\times t = 3 \\times 60 = 180\\text{ m}"}</Math>.</p>
+  </div>
+</details>
+
+<h3 className="font-bold text-xl text-emerald-800 mb-3 mt-8">VÍ DỤ 3: Xử lý số liệu phép đo tốc độ</h3>
+
+<details className="bg-slate-50 p-5 rounded-lg border border-slate-200 text-slate-700 mt-4">
+  <summary className="font-bold text-slate-800 border-b border-slate-300 pb-2 cursor-pointer hover:text-blue-600 transition-colors focus:outline-none">
+    Xem cách xử lý sai số
+  </summary>
+  <div className="pt-4 space-y-4">
+    <p>Tính trung bình thời gian <Math inline>{"\\bar{t} = 0,0400\\text{ s}"}</Math>.</p>
+    <p>Tốc độ trung bình <Math inline>{"\\bar{v} = 20/0,0400 = 500\\text{ mm/s} = 0,500\\text{ m/s}"}</Math>.</p>
+    <p>Tính các sai số tuyệt đối trung bình, sau đó tính sai số tỉ đối: <Math inline>{"\\delta v = \\delta d + \\delta t"}</Math>.</p>
+    <p>Kết quả cuối cùng thu được: <Math inline>{"v = 0,500 \\pm 0,029\\text{ m/s}"}</Math>.</p>
+  </div>
+</details>
+
+</Section>
+
+<Section title="E. Luyện tập đánh giá năng lực (GDPT 2018)" icon="alert">
+
+Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi mới của Bộ GD&ĐT. Hãy áp dụng kiến thức vừa học để giải quyết:
+
+<div className="grid grid-cols-1 gap-6">
+
+<h4 className="font-bold text-lg text-slate-800 mt-4 border-b-2 border-slate-200 pb-2">PHẦN I. TRẮC NGHIỆM 4 PHƯƠNG ÁN</h4>
+
+<Quiz 
+  question="Câu 1 (Nhận biết): Đại lượng đặc trưng cho tính chất nhanh hay chậm của chuyển động tại một thời điểm xác định và cho biết chiều chuyển động của vật là" 
+  options={[
+    "Tốc độ trung bình.",
+    "Vận tốc tức thời.",
+    "Quãng đường đi được.",
+    "Tốc độ trung bình đại số."
+  ]}
+  correctIndex={1}
+  explanation={<>Vận tốc tức thời <Math inline>{"\\vec{v}"}</Math> có hướng trùng với chiều chuyển động và độ lớn cho biết độ nhanh chậm tại thời điểm đó.</>}
+/>
+
+<Quiz 
+  question="Câu 2 (Nhận biết): Trong hệ đo lường SI, đơn vị hợp pháp của tốc độ và vận tốc là" 
+  options={[
+    "km/h.",
+    "m/s.",
+    "cm/s.",
+    "km/s."
+  ]}
+  correctIndex={1}
+  explanation={<>Trong hệ SI, đơn vị tiêu chuẩn của tốc độ và vận tốc là <Math inline>{"\\text{m/s}"}</Math>.</>}
+/>
+
+<Quiz 
+  question="Câu 3 (Thông hiểu): Trên đồ thị độ dịch chuyển – thời gian (d - t) của một chuyển động thẳng, độ dốc (hệ số góc) của đường biểu diễn đại diện cho đại lượng nào sau đây?" 
+  options={[
+    "Quãng đường đi được.",
+    "Gia tốc của vật.",
+    "Vận tốc của vật.",
+    "Thời gian chuyển động."
+  ]}
+  correctIndex={2}
+  explanation={<>Độ dốc (slope) trên đồ thị d - t bằng <Math inline>{"v = \\frac{\\Delta d}{\\Delta t}"}</Math>, đại diện cho vận tốc.</>}
+/>
+
+<Quiz 
+  question="Câu 4 (Thông hiểu): Bảng số liệu ghi nhận độ dịch chuyển của người đi bộ. Tại t=2s, d=3m. Tại t=6s, d=6m. Vận tốc trung bình trong khoảng thời gian này là" 
+  options={[
+    "1,5 m/s.",
+    "0,75 m/s.",
+    "1,0 m/s.",
+    "0 m/s."
+  ]}
+  correctIndex={1}
+  explanation={<>Vận tốc trung bình <Math inline>{"v_{tb} = \\frac{d_2 - d_1}{t_2 - t_1} = \\frac{6 - 3}{6 - 2} = \\frac{3}{4} = 0,75\\text{ m/s}"}</Math>.</>}
+/>
+
+<Quiz 
+  question="Câu 5 (Thông hiểu): Tốc kế gắn trên bảng điều khiển của xe máy đang chạy hiển thị con số 45 km/h. Con số này cho biết" 
+  options={[
+    "vận tốc trung bình của xe trên cả chuyến đi.",
+    "tốc độ tức thời của xe tại thời điểm quan sát.",
+    "vận tốc tức thời của xe theo hướng Bắc.",
+    "tốc độ trung bình của xe trong 1 giờ."
+  ]}
+  correctIndex={1}
+  explanation="Đồng hồ tốc kế trên xe hiển thị độ lớn của vận tốc tức thời (tốc độ tức thời) tại thời điểm đang chạy."
+/>
+
+<Quiz 
+  question="Câu 6 (Thông hiểu): Một người cưỡi ngựa đi từ A đến B. Trong nửa đầu quãng đường, đi với tốc độ 12 km/h. Nửa sau đi với tốc độ 20 km/h. Tốc độ trung bình trên toàn bộ quãng đường là" 
+  options={[
+    "16,0 km/h.",
+    "15,0 km/h.",
+    "14,5 km/h.",
+    "16,5 km/h."
+  ]}
+  correctIndex={1}
+  explanation={<>Tốc độ trung bình <Math inline>{"v_{tb} = \\frac{2 v_1 v_2}{v_1 + v_2} = \\frac{2 \\cdot 12 \\cdot 20}{12 + 20} = 15\\text{ km/h}"}</Math>.</>}
+/>
+
+<Quiz 
+  question="Câu 7 (Thông hiểu): Thuyền ngược dòng nước. Gọi v1,2 là vận tốc thuyền so với nước, v2,3 là vận tốc nước so với bờ. Vận tốc v1,3 của thuyền so với bờ xác định bởi công thức vectơ là" 
+  options={[
+    "v1,3 = v1,2 + v2,3 (vectơ)",
+    "v1,3 = v1,2 - v2,3 (vectơ)",
+    "v1,3 = v1,2 + v2,3 (độ lớn)",
+    "v1,3 = v2,3 - v1,2 (vectơ)"
+  ]}
+  correctIndex={0}
+  explanation={<>Công thức cộng vận tốc luôn viết ở dạng vectơ: <Math inline>{"\\vec{v}_{1,3} = \\vec{v}_{1,2} + \\vec{v}_{2,3}"}</Math>.</>}
+/>
+
+<Quiz 
+  question="Câu 8 (Vận dụng): Hành khách trên ô tô chạy với tốc độ 54 km/h về hướng Đông. Hành khách thấy cột điện dường như di chuyển. Vận tốc cột điện đối với ô tô là" 
+  options={[
+    "54 km/h về hướng Đông.",
+    "54 km/h về hướng Tây.",
+    "0 km/h.",
+    "15 m/s về hướng Đông."
+  ]}
+  correctIndex={1}
+  explanation="Hệ quy chiếu gắn với ô tô, cột điện chuyển động ngược lại về hướng Tây với tốc độ 54 km/h."
+/>
+
+<Quiz 
+  question="Câu 9 (Thông hiểu): Trong bài thực hành đo tốc độ tức thời, chiều rộng tấm chắn là s, thời gian là Δt. Tốc độ tức thời v tính theo công thức" 
+  options={[
+    "v = s * Δt",
+    "v = s / Δt",
+    "v = Δt / s",
+    "v = 0.5 * s * (Δt)^2"
+  ]}
+  correctIndex={1}
+  explanation={<>Tốc độ tức thời xấp xỉ tốc độ trung bình trong thời gian rất ngắn: <Math inline>{"v = \\frac{s}{\\Delta t}"}</Math>.</>}
+/>
+
+<Quiz 
+  question="Câu 10 (Vận dụng): Kết quả đo tốc độ trung bình được ghi dưới dạng v = (1,24 ± 0,02) m/s. Sai số tương đối δv bằng" 
+  options={[
+    "1,61%",
+    "2,00%",
+    "0,02%",
+    "1,24%"
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\delta v = \\frac{\\Delta v}{\\bar{v}} \\times 100\\% = \\frac{0,02}{1,24} \\times 100\\% \\approx 1,61\\%"}</Math>.</>}
+/>
+
+<h4 className="font-bold text-lg text-slate-800 mt-8 border-b-2 border-slate-200 pb-2">PHẦN II. TRẮC NGHIỆM ĐÚNG/SAI</h4>
+
+<QuizTF
+  question="Câu 1: Đồ thị (d - t) mô tả: GĐ1 (0-4s) d tăng đều lên 8m. GĐ2 (4-7s) d giữ 8m. GĐ3 (7-9s) d giảm đều về 0m."
+  statements={[
+    { id: 'a', text: 'Trong 4 giây đầu tiên, vật chuyển động thẳng đều theo chiều dương với vận tốc 2 m/s.', isTrue: true, explanation: 'v = (8-0)/(4-0) = 2 m/s > 0' },
+    { id: 'b', text: 'Từ giây 4 đến giây 7, vật chuyển động thẳng đều với tốc độ không đổi 8 m/s.', isTrue: false, explanation: 'Độ dịch chuyển không đổi (d = 8m) nên vật đứng yên (v = 0).' },
+    { id: 'c', text: 'Trong giai đoạn từ 7s đến 9s, vật đổi chiều chuyển động và có vận tốc là -4 m/s.', isTrue: true, explanation: 'v = (0-8)/(9-7) = -4 m/s < 0' },
+    { id: 'd', text: 'Vận tốc trung bình của vật trong toàn bộ khoảng thời gian từ 0 đến 9s bằng 0 m/s.', isTrue: true, explanation: 'd tổng cộng = 0 - 0 = 0 m. Nên v_tb = 0.' }
+  ]}
+/>
+
+<QuizTF
+  question="Câu 2: Một chiếc ca nô đi xuôi dòng A đến B hết 2 giờ. Ngược B về A hết 3 giờ. Tốc độ ca nô đối với nước là 20 km/h."
+  statements={[
+    { id: 'a', text: 'Khi đi xuôi dòng, vận tốc ca nô đối với bờ có độ lớn lớn hơn 20 km/h.', isTrue: true, explanation: 'v_xuôi = 20 + v_nước > 20' },
+    { id: 'b', text: 'Tốc độ dòng nước so với bờ là 4 km/h.', isTrue: true, explanation: '(20+v_n)2 = (20-v_n)3 => 40 + 2v_n = 60 - 3v_n => v_n = 4 km/h' },
+    { id: 'c', text: 'Khoảng cách giữa hai bến A và B là 60 km.', isTrue: false, explanation: 'L = (20+4)*2 = 48 km' },
+    { id: 'd', text: 'Nếu tắt máy trôi tự do từ A đến B thì thời gian trôi là 10 giờ.', isTrue: false, explanation: 't = 48 / 4 = 12 giờ.' }
+  ]}
+/>
+
+<QuizTF
+  question="Câu 3: Thực hành đo tốc độ tức thời dùng cổng quang điện và đồng hồ thời gian hiện số:"
+  statements={[
+    { id: 'a', text: 'Cổng quang điện phát và thu tia hồng ngoại; khi tấm chắn cắt tia, đồng hồ tự động đo.', isTrue: true, explanation: 'Đúng với nguyên lý cổng quang điện.' },
+    { id: 'b', text: 'Để đo tốc độ tức thời chính xác, tấm chắn cần có chiều rộng càng lớn càng tốt.', isTrue: false, explanation: 'Chiều rộng phải nhỏ để delta t nhỏ.' },
+    { id: 'c', text: 'Nếu s = (20,0 ± 0,1) mm, t = (0,040 ± 0,001) s thì tốc độ trung bình đo được là 0,50 m/s.', isTrue: true, explanation: 'v = 0,02 / 0,04 = 0,5 m/s' },
+    { id: 'd', text: 'Sai số tương đối của phép đo bằng 3,0%.', isTrue: true, explanation: '0,1/20 + 0,001/0,04 = 0,5% + 2,5% = 3%' }
+  ]}
+/>
+
+<h4 className="font-bold text-lg text-slate-800 mt-8 border-b-2 border-slate-200 pb-2">PHẦN III. TRẮC NGHIỆM TRẢ LỜI NGẮN</h4>
+
+<QuizShort
+  question="Câu 1: Nửa thời gian đầu ô tô chạy với tốc độ 40 km/h, nửa thời gian sau chạy 60 km/h. Tính tốc độ trung bình (km/h)."
+  answer="50"
+  explanation={<>Gọi T là tổng thời gian. <Math inline>{"s_1 = 40(T/2) = 20T"}</Math>, <Math inline>{"s_2 = 60(T/2) = 30T"}</Math>. <Math inline>{"v_{tb} = \\frac{20T + 30T}{T} = 50\\text{ km/h}"}</Math></>}
+/>
+
+<QuizShort
+  question="Câu 2: Thuyền lái vuông góc với bờ tốc độ 12 km/h. Nước chảy xuôi bờ 5 km/h. Xác định tốc độ thuyền đối với bờ sông (km/h)."
+  answer="13"
+  explanation={<><Math inline>{"v = \\sqrt{12^2 + 5^2} = \\sqrt{169} = 13\\text{ km/h}"}</Math></>}
+/>
+
+<QuizShort
+  question="Câu 3: s = 20,0 mm ± 0,1 mm. t = 0,040 s ± 0,001 s. Tính sai số tương đối δv của phép đo tốc độ (kết quả tính theo %, điền số làm tròn đến 1 chữ số thập phân)."
+  answer="3.0"
+  explanation={<><Math inline>{"\\delta v = \\frac{0,1}{20} + \\frac{0,001}{0,040} = 0,005 + 0,025 = 0,03 = 3,0\\%"}</Math></>}
+/>
+
+</div>
+
+</Section>

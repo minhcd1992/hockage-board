@@ -3,9 +3,10 @@ import { ToolType } from '../types';
 
 export interface BoardTab {
   id: string;
-  type: 'whiteboard' | 'pdf' | 'html';
+  type: 'whiteboard' | 'pdf' | 'html' | 'lesson';
   title: string;
   file?: File;
+  url?: string;
   zoom?: number;
   panX?: number;
   panY?: number;

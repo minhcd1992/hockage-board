@@ -26,10 +26,9 @@ export class CanvasRenderer {
     this.mainCanvas = mainCanvas;
     this.draftCanvas = draftCanvas;
     
-    // desynchronized: true reduces latency for drawing apps
     this.bgCtx = this.bgCanvas.getContext('2d', { alpha: false })!;
-    this.mainCtx = this.mainCanvas.getContext('2d', { desynchronized: true })!;
-    this.draftCtx = this.draftCanvas.getContext('2d', { desynchronized: true })!;
+    this.mainCtx = this.mainCanvas.getContext('2d')!;
+    this.draftCtx = this.draftCanvas.getContext('2d')!;
     
     this.scene = scene;
     this.camera = camera;
@@ -250,7 +249,7 @@ export class CanvasRenderer {
     const activePageIndex = Math.max(0, Math.floor(centerY / stepWorldHeight));
     
     // Draw red border around active page
-    if (this.fileType !== 'html') {
+    if (this.fileType !== 'html' && this.fileType !== 'lesson') {
       ctx.strokeStyle = '#ef4444';
       ctx.lineWidth = 2 / this.camera.zoom;
       ctx.strokeRect(0, activePageIndex * stepWorldHeight, pageWorldWidth, pageWorldHeight);

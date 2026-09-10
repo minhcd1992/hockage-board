@@ -22,6 +22,27 @@ export class Stroke extends BoardObject {
   }
 
   addPoint(p: Point) {
+    if (this.points.length > 0) {
+      const last = this.points[this.points.length - 1];
+      const dx = p.x - last.x;
+      const dy = p.y - last.y;
+      const dist = Math.hypot(dx, dy);
+      
+      // Interpolate if points are too far apart (e.g. frame drops caused by iframe lag)
+      if (dist > 5) {
+        const steps = Math.floor(dist / 5);
+        for (let i = 1; i <= steps; i++) {
+          const ratio = i / (steps + 1);
+          this.points.push({
+            x: last.x + dx * ratio,
+            y: last.y + dy * ratio,
+            pressure: (last.pressure ?? 0.5) + ((p.pressure ?? 0.5) - (last.pressure ?? 0.5)) * ratio,
+            tiltX: last.tiltX,
+            tiltY: last.tiltY
+          });
+        }
+      }
+    }
     this.points.push(p);
   }
 

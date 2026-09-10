@@ -18,7 +18,7 @@ import { ChevronUp, ChevronDown, ZoomIn, ZoomOut, Maximize, Eye, EyeOff } from '
 
 import { loadPDFToScene } from '../lib/pdfLoader';
 
-export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileType?: string, isActive: boolean }) {
+export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fileType?: string, url?: string, isActive: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgCanvasRef = useRef<HTMLCanvasElement>(null);
   const mainCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -34,12 +34,15 @@ export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileTyp
 
   useEffect(() => {
     if (fileType === 'html' && file) {
-      const url = URL.createObjectURL(file);
+      const blobUrl = URL.createObjectURL(file);
+      setHtmlUrl(blobUrl);
+      return () => URL.revokeObjectURL(blobUrl);
+    } else if (fileType === 'lesson' && url) {
       setHtmlUrl(url);
-      return () => URL.revokeObjectURL(url);
+      return;
     }
     setHtmlUrl(null);
-  }, [file, fileType]);
+  }, [file, fileType, url]);
   
   useEffect(() => {
     textInputRef.current = textInput;
@@ -537,7 +540,7 @@ export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileTyp
       const activeTab = state.tabs.find(t => t.id === state.activeTabId);
 
       if (e.ctrlKey) {
-        if (fileType === 'html') return; // Disable zoom for HTML
+        if (fileType === 'html' || fileType === 'lesson') return; // Disable zoom for HTML/Lesson
         // Zoom
         const zoomDelta = e.deltaY * -0.0015;
         const newZoom = Math.min(Math.max(0.01, state.zoom + zoomDelta), 5);
@@ -610,7 +613,7 @@ export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileTyp
           let newPanY = state.panY - dampen(dy);
           let newPanX = state.panX;
           
-          if (fileType === 'html' && htmlLayerRef.current) {
+          if ((fileType === 'html' || fileType === 'lesson') && htmlLayerRef.current) {
             const maxScrollTop = Math.max(0, htmlLayerRef.current.scrollHeight - htmlLayerRef.current.clientHeight);
             if (newPanY < -maxScrollTop) newPanY = -maxScrollTop;
           }
@@ -713,9 +716,10 @@ export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileTyp
       }
 
       if (htmlLayerRef.current) {
-        if (fileType === 'html') {
+        if (fileType === 'html' || fileType === 'lesson') {
           htmlLayerRef.current.scrollTop = -engine.camera.y;
           htmlLayerRef.current.scrollLeft = -engine.camera.x;
+          htmlLayerRef.current.style.transform = 'none';
         } else {
           htmlLayerRef.current.style.transform = `translate(${engine.camera.x}px, ${engine.camera.y}px) scale(${engine.camera.zoom})`;
         }
@@ -1868,14 +1872,14 @@ export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileTyp
   }, [windowHeight]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden', background: 'var(--bg-primary)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden', background: fileType === 'lesson' ? 'white' : 'var(--bg-primary)' }}>
       <div ref={containerRef} style={{ position: 'relative', flex: 1, width: '100%', overflow: 'hidden' }}>
-        <canvas ref={bgCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} />
-        {fileType === 'html' && htmlUrl && (
+        <canvas ref={bgCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, display: fileType === 'lesson' ? 'none' : 'block' }} />
+        {(fileType === 'html' || fileType === 'lesson') && htmlUrl && (
           <div 
             ref={htmlLayerRef}
             onScroll={(e) => {
-              if (fileType === 'html') {
+              if (fileType === 'html' || fileType === 'lesson') {
                 const target = e.target as HTMLDivElement;
                 const state = useBoardStore.getState();
                 state.setPan(-target.scrollLeft, -target.scrollTop);
@@ -1936,7 +1940,7 @@ export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileTyp
             />
           </div>
         )}
-        <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: (fileType === 'html' && tool === 'hand') ? 'none' : 'auto' }} />
+        <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto' }} />
         <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none' }} />
         <div
           ref={interactionLayerRef}
@@ -1949,7 +1953,7 @@ export function CanvasBoard({ file, fileType, isActive }: { file?: File, fileTyp
             zIndex: 3,
             touchAction: 'none',
             cursor: cursorStyle,
-            pointerEvents: (fileType === 'html' && tool === 'hand') ? 'none' : 'auto'
+            pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto'
           }}
         />
 

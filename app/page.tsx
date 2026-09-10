@@ -38,6 +38,7 @@ export default function BoardPage() {
              <CanvasBoard 
                file={tab.file}
                fileType={tab.type}
+               url={tab.url}
                isActive={tab.id === activeTabId} 
              />
            </div>
