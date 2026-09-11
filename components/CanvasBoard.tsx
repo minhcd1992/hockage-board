@@ -1899,7 +1899,9 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
               zIndex: 0.5, 
               pointerEvents: 'auto',
               overflow: 'auto',
-              background: 'white'
+              background: 'white',
+              willChange: 'transform',
+              transform: 'translateZ(0)'
             }}
           >
             <iframe 
@@ -1940,8 +1942,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             />
           </div>
         )}
-        <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto' }} />
-        <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none' }} />
+        <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto', willChange: 'transform', transform: 'translateZ(0)' }} />
+        <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none', willChange: 'transform', transform: 'translateZ(0)' }} />
         <div
           ref={interactionLayerRef}
           style={{
@@ -1953,7 +1955,9 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             zIndex: 3,
             touchAction: 'none',
             cursor: cursorStyle,
-            pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto'
+            pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto',
+            willChange: 'transform',
+            transform: 'translateZ(0)'
           }}
         />
 
