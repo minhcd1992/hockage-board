@@ -1126,8 +1126,24 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       if (state.tool === 'laser' && pointer.isPointerDown) {
         laserPointsRef.current.push({ x: worldP.x, y: worldP.y, time: Date.now() });
       } else if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke && pointer.isPointerDown) {
-        engine.currentStroke.addPoint(worldP);
-        draftNeedsUpdate = true;
+        if (engine.pointer.pendingPoints.length > 0) {
+          for (const p of engine.pointer.pendingPoints) {
+            const wp = engine.camera.screenToWorld(p.x, p.y) as Point;
+            wp.pressure = p.pressure;
+            wp.tiltX = p.tiltX;
+            wp.tiltY = p.tiltY;
+            engine.currentStroke.addPoint(wp);
+          }
+          engine.pointer.pendingPoints = [];
+        } else {
+          engine.currentStroke.addPoint(worldP);
+        }
+        
+        // Render synchronously for zero latency
+        engine.renderer.renderDraft((ctx) => {
+          engine.currentStroke!.draw(ctx);
+        });
+        draftNeedsUpdate = false;
       }
       if (state.tool === 'arc' && arcState !== 'idle' && currentArcShape) {
         if (arcState === 'setting-start') {
