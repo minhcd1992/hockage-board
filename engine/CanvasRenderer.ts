@@ -26,9 +26,10 @@ export class CanvasRenderer {
     this.mainCanvas = mainCanvas;
     this.draftCanvas = draftCanvas;
     
+    // desynchronized: true reduces latency for drawing apps
     this.bgCtx = this.bgCanvas.getContext('2d', { alpha: false })!;
-    this.mainCtx = this.mainCanvas.getContext('2d')!;
-    this.draftCtx = this.draftCanvas.getContext('2d')!;
+    this.mainCtx = this.mainCanvas.getContext('2d', { desynchronized: true })!;
+    this.draftCtx = this.draftCanvas.getContext('2d', { desynchronized: true })!;
     
     this.scene = scene;
     this.camera = camera;

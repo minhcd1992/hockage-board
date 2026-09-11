@@ -802,7 +802,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             }
             
             if (hudLines.length > 0) {
-              const activePoint = (shape.shapeType === 'arc' && arcState === 'setting-end') || (shape.shapeType === 'bezier' && bezierState === 'setting-control') ? shape.controlPoint : shape.end;
+              const activePoint = (shape.shapeType === 'arc' && arcState === 'setting-end') || (shape.shapeType === 'bezier' && bezierState === 'setting-control') ? shape.controlPoint : shape.start;
               
               ctx.save();
               ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset to screen space
