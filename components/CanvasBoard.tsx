@@ -404,7 +404,50 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     scrollbarThumb.style.top = `${percent * (viewH - thumbH)}px`;
   };
 
+  const handleScrollbarTrackClick = (e: React.PointerEvent) => {
+    if (e.target !== e.currentTarget) return;
+    
+    const state = useBoardStore.getState();
+    const viewH = window.innerHeight;
+    const clickY = e.clientY;
+    
+    const scrollbarThumb = document.getElementById(`v-scrollbar-thumb-${file ? 'pdf' : 'whiteboard'}`);
+    if (!scrollbarThumb) return;
+    
+    const thumbRect = scrollbarThumb.getBoundingClientRect();
+    const isAbove = clickY < thumbRect.top;
+    
+    const scrollAmount = viewH * 0.8; 
+    let newPanY = state.panY + (isAbove ? scrollAmount : -scrollAmount);
+    
+    if (newPanY > 0) newPanY = 0;
+    
+    if ((fileType === 'html' || fileType === 'lesson') && htmlLayerRef.current) {
+      const maxScrollTop = Math.max(0, htmlLayerRef.current.scrollHeight - htmlLayerRef.current.clientHeight);
+      if (newPanY < -maxScrollTop) newPanY = -maxScrollTop;
+    } else {
+      let totalH = 1000;
+      const engine = engineRef.current;
+      if (engine && engine.scene.objects.length > 0) {
+        let maxBottom = 0;
+        for (const obj of engine.scene.objects) {
+          if ('y' in obj && 'height' in obj) {
+            const anyObj = obj as any;
+            const bottom = anyObj.y + anyObj.height;
+            if (bottom > maxBottom) maxBottom = bottom;
+          }
+        }
+        totalH = maxBottom * state.zoom;
+      }
+      const maxScroll = -(totalH - viewH);
+      if (newPanY < maxScroll) newPanY = maxScroll;
+    }
+    
+    useBoardStore.getState().setPan(state.panX, newPanY);
+  };
+
   const handleScrollbarDragStart = (e: React.PointerEvent) => {
+    e.stopPropagation();
     const scrollbarThumb = e.currentTarget as HTMLDivElement;
     scrollbarThumb.classList.add('active');
     const startY = e.clientY;
@@ -1980,15 +2023,18 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         {/* Scrollbar */}
         <div
           id={`v-scrollbar-${file ? 'pdf' : 'whiteboard'}`}
+          onPointerDown={handleScrollbarTrackClick}
           style={{
             position: 'absolute',
             right: 0,
             top: 0,
-            width: '14px',
+            width: '16px',
             height: '100%',
-            background: 'rgba(0,0,0,0.05)',
+            background: 'rgba(0,0,0,0.03)',
+            borderLeft: '1px solid rgba(0,0,0,0.08)',
             zIndex: 10,
-            display: 'none'
+            display: 'none',
+            cursor: 'pointer'
           }}
         >
           <div
@@ -1998,16 +2044,17 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
               position: 'absolute',
               right: '2px',
               top: 0,
-              width: '10px',
-              background: 'rgba(0,0,0,0.3)',
-              borderRadius: '5px',
+              width: '12px',
+              background: 'rgba(209, 213, 219, 0.8)',
+              borderRadius: '6px',
               cursor: 'pointer',
-              touchAction: 'none'
+              touchAction: 'none',
+              transition: 'background 0.2s'
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(0,0,0,0.5)')}
+            onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(156, 163, 175, 0.9)')}
             onMouseLeave={(e) => {
               if (!e.currentTarget.classList.contains('active')) {
-                e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
+                e.currentTarget.style.background = 'rgba(209, 213, 219, 0.8)';
               }
             }}
           />
@@ -2017,7 +2064,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         <div style={{
           position: 'absolute', 
           bottom: '48px', 
-          ...(isNavVisible ? { left: '50%', transform: 'translateX(-50%)' } : { right: '24px' }),
+          right: '24px',
           zIndex: 30,
           display: 'flex', alignItems: 'center', gap: '8px',
           background: 'rgba(255, 255, 255, 0.95)', color: 'var(--text-primary)', backdropFilter: 'blur(12px)',

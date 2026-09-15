@@ -16,6 +16,7 @@
     "@react-three/fiber": "^9.7.0",
     "@react-three/rapier": "^2.2.0",
     "@types/katex": "^0.16.8",
+    "@types/mdx": "^2.0.14",
     "@types/three": "^0.185.4",
     "jspdf": "^4.2.1",
     "katex": "^0.18.7",
@@ -32,7 +33,12 @@
     "zustand": "^5.0.15"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.13",
+    "@types/estree-jsx": "^1.0.5",
+    "@types/mdast": "^4.0.4",
+    "@types/ms": "^2.1.0",
     "@types/node": "^20",
+    "@types/offscreencanvas": "^2019.7.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.5.5",
