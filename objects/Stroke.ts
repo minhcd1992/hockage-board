@@ -52,16 +52,71 @@ export class Stroke extends BoardObject {
       return;
     }
 
-    // Calculate visual scale from context
+    // Set composite operation
+    if (this.isEraser) {
+      ctx.globalCompositeOperation = 'destination-out';
+    } else {
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    // ======================================================================
+    // LIVE DRAWING: Simple canvas stroke rendering — ZERO latency.
+    // No perfect-freehand = no streamline delay = stroke is exactly at cursor.
+    // Uses quadratic curves between midpoints for smooth appearance.
+    // ======================================================================
+    if (this.isDrawing) {
+      if (this.isEraser) {
+        ctx.strokeStyle = '#000';
+      } else {
+        ctx.strokeStyle = this.color;
+      }
+      ctx.lineWidth = this.size;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      ctx.beginPath();
+
+      if (this.points.length === 1) {
+        // Single point: draw a dot
+        ctx.fillStyle = this.isEraser ? '#000' : this.color;
+        ctx.arc(this.points[0].x, this.points[0].y, this.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (this.points.length === 2) {
+        ctx.moveTo(this.points[0].x, this.points[0].y);
+        ctx.lineTo(this.points[1].x, this.points[1].y);
+        ctx.stroke();
+      } else {
+        // Smooth quadratic curve through midpoints for a nice live preview
+        ctx.moveTo(this.points[0].x, this.points[0].y);
+        
+        for (let i = 1; i < this.points.length - 1; i++) {
+          const midX = (this.points[i].x + this.points[i + 1].x) / 2;
+          const midY = (this.points[i].y + this.points[i + 1].y) / 2;
+          ctx.quadraticCurveTo(this.points[i].x, this.points[i].y, midX, midY);
+        }
+
+        // Draw to the last point
+        const last = this.points[this.points.length - 1];
+        ctx.lineTo(last.x, last.y);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+      return;
+    }
+
+    // ======================================================================
+    // FINALIZED STROKE: Use perfect-freehand for beautiful pressure-
+    // sensitive rendering. Only computed once when stroke is finalized.
+    // ======================================================================
     const transform = ctx.getTransform();
     const scale = Math.sqrt(transform.a * transform.a + transform.b * transform.b) || 1;
 
-    // Normal Pen (perfect-freehand)
-    const inputPoints = this.points.map(p => ({
-      x: p.x * scale,
-      y: p.y * scale,
-      pressure: p.pressure ?? 0.5
-    }));
+    const inputPoints = [];
+    for (let i = 0; i < this.points.length; i++) {
+      const p = this.points[i];
+      inputPoints.push({ x: p.x * scale, y: p.y * scale, pressure: p.pressure ?? 0.5 });
+    }
 
     const outlinePoints = getStroke(inputPoints, {
       size: this.size * scale,
@@ -69,7 +124,7 @@ export class Stroke extends BoardObject {
       smoothing: 0.9,
       streamline: 0.75,
       simulatePressure: false,
-      last: !this.isDrawing, 
+      last: true, 
     });
 
     if (outlinePoints.length === 0) {
@@ -77,13 +132,7 @@ export class Stroke extends BoardObject {
       return;
     }
 
-    if (this.isEraser) {
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = '#000'; // Color doesn't matter for destination-out, but must be solid
-    } else {
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = this.color;
-    }
+    ctx.fillStyle = this.isEraser ? '#000' : this.color;
 
     ctx.beginPath();
     ctx.moveTo(outlinePoints[0][0] / scale, outlinePoints[0][1] / scale);
@@ -186,4 +235,3 @@ export class Stroke extends BoardObject {
     return s;
   }
 }
-

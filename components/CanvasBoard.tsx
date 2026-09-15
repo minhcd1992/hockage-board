@@ -725,20 +725,9 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         }
       }
 
-      // Handle pending points for stroke/highlighter
-      if (engine.pointer.pendingPoints.length > 0 && 
-          (state.tool === 'pen' || state.tool === 'highlighter') && 
-          engine.currentStroke) {
-        for (const p of engine.pointer.pendingPoints) {
-          const worldP = engine.camera.screenToWorld(p.x, p.y) as Point;
-          worldP.pressure = p.pressure;
-          worldP.tiltX = p.tiltX;
-          worldP.tiltY = p.tiltY;
-          engine.currentStroke.addPoint(worldP);
-        }
-        engine.pointer.pendingPoints = [];
-        draftNeedsUpdate = true;
-      }
+      // Note: pendingPoints for pen/highlighter are processed synchronously in
+      // pointer.onPointerMove for lowest latency. The render loop only handles
+      // the draft canvas redraw when draftNeedsUpdate is flagged.
 
       // Handle selection drag rendering on draft canvas
       if (state.tool === 'select-object' && engine.selectionRect && engine.pointer.pendingPoints.length > 0) {
@@ -1126,6 +1115,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       if (state.tool === 'laser' && pointer.isPointerDown) {
         laserPointsRef.current.push({ x: worldP.x, y: worldP.y, time: Date.now() });
       } else if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke && pointer.isPointerDown) {
+        // Process all coalesced points for high-fidelity strokes
         if (engine.pointer.pendingPoints.length > 0) {
           for (const p of engine.pointer.pendingPoints) {
             const wp = engine.camera.screenToWorld(p.x, p.y) as Point;
@@ -1139,10 +1129,14 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           engine.currentStroke.addPoint(worldP);
         }
         
-        // Render synchronously for zero latency
-        engine.renderer.renderDraft((ctx) => {
-          engine.currentStroke!.draw(ctx);
-        });
+        // Render draft synchronously for zero-latency stroke feedback.
+        // We draw only the current stroke on draft canvas (no scene redraw).
+        const draftCtx = engine.renderer.draftCtx;
+        const draftCanvas = engine.renderer.draftCanvas;
+        engine.renderer.clearContext(draftCtx, draftCanvas);
+        engine.renderer.camera.applyTransform(draftCtx);
+        engine.currentStroke.draw(draftCtx);
+        engine.renderer.camera.resetTransform(draftCtx);
         draftNeedsUpdate = false;
       }
       if (state.tool === 'arc' && arcState !== 'idle' && currentArcShape) {
@@ -1959,7 +1953,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           </div>
         )}
         <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto', willChange: 'transform', transform: 'translateZ(0)' }} />
-        <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none', willChange: 'transform', transform: 'translateZ(0)' }} />
+        <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none', ...(fileType !== 'lesson' && fileType !== 'html' ? { willChange: 'transform', transform: 'translateZ(0)' } : {}) }} />
         <div
           ref={interactionLayerRef}
           style={{
