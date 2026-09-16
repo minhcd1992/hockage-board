@@ -731,10 +731,89 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     let arcState: 'idle' | 'setting-start' | 'setting-end' = 'idle';
     let currentArcShape: Shape | null = null;
 
+    // Track last rendered point index for incremental draft drawing
+    let lastRenderedIdx = 0;
+
     loop.addCallback((dt) => {
       const engine = engineRef.current!;
       const state = useBoardStore.getState();
-      
+
+      // =============================================================
+      // DRAWING FAST PATH: During active pen/highlighter drawing,
+      // do ONLY point processing + incremental render, then RETURN.
+      // Skip ALL other work (camera sync, bg check, htmlLayer scroll,
+      // scrollbar update) to free the main thread for pointer events.
+      // This is the approach used by Figma/tldraw.
+      // =============================================================
+      if (engine.currentStroke && engine.pointer.isPointerDown &&
+          (state.tool === 'pen' || state.tool === 'highlighter')) {
+
+        // Process any pending coalesced points
+        if (engine.pointer.pendingPoints.length > 0) {
+          for (const pp of engine.pointer.pendingPoints) {
+            const wp = engine.camera.screenToWorld(pp.x, pp.y) as Point;
+            wp.pressure = pp.pressure;
+            wp.tiltX = pp.tiltX;
+            wp.tiltY = pp.tiltY;
+            engine.currentStroke.addPoint(wp);
+          }
+          engine.pointer.pendingPoints = [];
+        }
+
+        const stroke = engine.currentStroke;
+        const points = stroke.points;
+        const draftCtx = engine.renderer.draftCtx;
+
+        // Incremental render: draw only new segments since last frame
+        if (lastRenderedIdx < points.length) {
+          draftCtx.save();
+          engine.renderer.camera.applyTransform(draftCtx);
+
+          if (stroke.isHighlighter) {
+            draftCtx.globalAlpha = 0.4;
+          }
+          if (stroke.isEraser) {
+            draftCtx.globalCompositeOperation = 'destination-out';
+            draftCtx.strokeStyle = '#000';
+          } else {
+            draftCtx.globalCompositeOperation = 'source-over';
+            draftCtx.strokeStyle = stroke.color;
+          }
+          draftCtx.lineWidth = stroke.isHighlighter ? stroke.size * 4 : stroke.size;
+          draftCtx.lineCap = 'round';
+          draftCtx.lineJoin = 'round';
+
+          if (lastRenderedIdx === 0 && points.length >= 1) {
+            // First point: draw a dot
+            draftCtx.beginPath();
+            draftCtx.fillStyle = stroke.isEraser ? '#000' : stroke.color;
+            draftCtx.arc(points[0].x, points[0].y, draftCtx.lineWidth / 2, 0, Math.PI * 2);
+            draftCtx.fill();
+            lastRenderedIdx = 1;
+          }
+
+          // Draw new line segments
+          const drawFrom = Math.max(0, lastRenderedIdx - 1);
+          if (drawFrom < points.length - 1) {
+            draftCtx.beginPath();
+            draftCtx.moveTo(points[drawFrom].x, points[drawFrom].y);
+            for (let i = drawFrom + 1; i < points.length; i++) {
+              draftCtx.lineTo(points[i].x, points[i].y);
+            }
+            draftCtx.stroke();
+          }
+
+          lastRenderedIdx = points.length;
+          draftCtx.restore();
+        }
+
+        draftNeedsUpdate = false;
+        return; // FAST PATH: skip all other render loop work
+      }
+
+      // Reset incremental state when not drawing
+      lastRenderedIdx = 0;
+
       engine.camera.x = state.panX;
       engine.camera.y = state.panY;
       engine.camera.zoom = state.zoom;
@@ -759,18 +838,23 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       }
 
       if (htmlLayerRef.current) {
+        htmlLayerRef.current.style.pointerEvents = ((fileType === 'html' || fileType === 'lesson') && state.tool === 'hand') ? 'auto' : 'none';
         if (fileType === 'html' || fileType === 'lesson') {
-          htmlLayerRef.current.scrollTop = -engine.camera.y;
-          htmlLayerRef.current.scrollLeft = -engine.camera.x;
-          htmlLayerRef.current.style.transform = 'none';
+          // Only update scroll when values change to avoid layout thrashing
+          const targetScrollTop = -engine.camera.y;
+          const targetScrollLeft = -engine.camera.x;
+          if (htmlLayerRef.current.scrollTop !== targetScrollTop) {
+            htmlLayerRef.current.scrollTop = targetScrollTop;
+          }
+          if (htmlLayerRef.current.scrollLeft !== targetScrollLeft) {
+            htmlLayerRef.current.scrollLeft = targetScrollLeft;
+          }
         } else {
           htmlLayerRef.current.style.transform = `translate(${engine.camera.x}px, ${engine.camera.y}px) scale(${engine.camera.zoom})`;
         }
       }
 
-      // Note: pendingPoints for pen/highlighter are processed synchronously in
-      // pointer.onPointerMove for lowest latency. The render loop only handles
-      // the draft canvas redraw when draftNeedsUpdate is flagged.
+      // Note: pendingPoints for pen/highlighter are handled by the fast path above.
 
       // Handle selection drag rendering on draft canvas
       if (state.tool === 'select-object' && engine.selectionRect && engine.pointer.pendingPoints.length > 0) {
@@ -947,6 +1031,9 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       } else if (state.tool === 'pen' || state.tool === 'highlighter') {
         engine.currentStroke = new Stroke(state.strokeColor, state.strokeSize, false, state.tool === 'highlighter');
         engine.currentStroke.addPoint(worldP);
+        // Clear draft canvas for the new stroke and reset incremental rendering
+        engine.renderer.clearContext(engine.renderer.draftCtx, engine.renderer.draftCanvas);
+        lastRenderedIdx = 0;
         draftNeedsUpdate = true;
       } else if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'rect' || state.tool === 'ellipse' || state.tool === 'sine') {
         engine.currentShape = new Shape(state.tool as any, worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false, state.sineWavelength, state.sineAmplitude);
@@ -1158,7 +1245,10 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       if (state.tool === 'laser' && pointer.isPointerDown) {
         laserPointsRef.current.push({ x: worldP.x, y: worldP.y, time: Date.now() });
       } else if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke && pointer.isPointerDown) {
-        // Process all coalesced points for high-fidelity strokes
+        // ULTRA-LIGHTWEIGHT: Just add points to the stroke.
+        // Do NOT touch the canvas here — the render loop's fast path
+        // handles all rendering. Keeping this handler fast allows the
+        // browser to fire pointermove events at maximum frequency.
         if (engine.pointer.pendingPoints.length > 0) {
           for (const p of engine.pointer.pendingPoints) {
             const wp = engine.camera.screenToWorld(p.x, p.y) as Point;
@@ -1171,16 +1261,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         } else {
           engine.currentStroke.addPoint(worldP);
         }
-        
-        // Render draft synchronously for zero-latency stroke feedback.
-        // We draw only the current stroke on draft canvas (no scene redraw).
-        const draftCtx = engine.renderer.draftCtx;
-        const draftCanvas = engine.renderer.draftCanvas;
-        engine.renderer.clearContext(draftCtx, draftCanvas);
-        engine.renderer.camera.applyTransform(draftCtx);
-        engine.currentStroke.draw(draftCtx);
-        engine.renderer.camera.resetTransform(draftCtx);
-        draftNeedsUpdate = false;
+        draftNeedsUpdate = true;
       }
       if (state.tool === 'arc' && arcState !== 'idle' && currentArcShape) {
         if (arcState === 'setting-start') {
@@ -1950,7 +2031,9 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
               width: '100%', 
               height: '100%', 
               zIndex: 0.5, 
-              pointerEvents: 'auto',
+              // Event Isolation: when drawing, disable pointer events on the iframe.
+              // This forces the browser to skip hit-testing the complex lesson DOM.
+              pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'auto' : 'none',
               overflow: 'auto',
               background: 'white',
               willChange: 'transform',
@@ -1996,7 +2079,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           </div>
         )}
         <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto', willChange: 'transform', transform: 'translateZ(0)' }} />
-        <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none', ...(fileType !== 'lesson' && fileType !== 'html' ? { willChange: 'transform', transform: 'translateZ(0)' } : {}) }} />
+        <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none', willChange: 'transform', transform: 'translateZ(0)' }} />
         <div
           ref={interactionLayerRef}
           style={{

@@ -29,7 +29,10 @@ export class CanvasRenderer {
     // desynchronized: true reduces latency for drawing apps
     this.bgCtx = this.bgCanvas.getContext('2d', { alpha: false })!;
     this.mainCtx = this.mainCanvas.getContext('2d', { desynchronized: true })!;
-    this.draftCtx = this.draftCanvas.getContext('2d', { desynchronized: true })!;
+    // Draft canvas uses normal context (NOT desynchronized) because
+    // desynchronized creates a separate GPU compositor layer that
+    // adds overhead when composited with iframes (lesson mode).
+    this.draftCtx = this.draftCanvas.getContext('2d')!;
     
     this.scene = scene;
     this.camera = camera;
