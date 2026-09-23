@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hockage Ink Overlay</title><link rel="stylesheet" href="overlay.css"></head>
+<body>
+  <canvas id="ink" tabindex="0" aria-label="Vùng vẽ"></canvas>
+  <nav aria-label="Công cụ vẽ">
+    <strong>Ink riêng</strong>
+    <button id="pen" aria-pressed="true">Bút</button>
+    <button id="eraser" aria-pressed="false">Tẩy</button>
+    <input id="color" type="color" value="#ef4444" aria-label="Màu bút">
+    <input id="size" type="range" min="1" max="24" value="3" aria-label="Độ dày bút">
+    <button id="undo">Hoàn tác</button>
+    <button id="clear">Xóa hết</button>
+    <button id="hide">Ẩn (Esc)</button>
+  </nav>
+  <script src="overlay.js"></script>
+</body>
+</html>
