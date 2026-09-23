@@ -23,7 +23,19 @@ Pointer → các mẫu tọa độ/áp lực → đổi sang tọa độ thế g
 3. Đọc `getBoundingClientRect()` một lần cho mỗi batch input, thay vì từng mẫu bút. Bỏ qua pointer khác khi đang vẽ.
 4. Tab ẩn bỏ qua công việc trong callback render loop. Việc này chưa dừng animation của các mô phỏng bên trong iframe.
 
-Không thay đổi smoothing của nét hoàn thiện, cấu hình compositor hay độ phân giải canvas khi chưa có đo đạc. Bút highlight vẫn dùng cách tô tăng dần cũ: phần nối có thể đậm hơn trong lúc kéo do alpha chồng nhau.
+Không thay đổi smoothing của nét hoàn thiện hay độ phân giải canvas. Bút highlight vẫn dùng cách tô tăng dần cũ: phần nối có thể đậm hơn trong lúc kéo do alpha chồng nhau.
+
+## Lần sửa tiếp theo: vẫn trễ trên trình duyệt ngoài và khi chia sẻ Meet
+
+Phản hồi thực tế: bản trước chạy ổn trong trình duyệt VS Code nhưng còn khoảng cách nhỏ trên Vercel và khoảng cách lớn khi chia sẻ màn hình. Điều này chưa chứng minh Vercel gây trễ: đường vẽ trong project chạy ở trình duyệt, không gửi từng điểm lên server.
+
+- Chuyển `desynchronized: true` từ canvas main sang canvas draft đang viết. Bỏ lớp div tương tác toàn màn hình và nhận input trực tiếp trên draft; bỏ ép transform/compositor layer cho lớp tương tác đó. Trình duyệt không hỗ trợ hint vẫn dùng canvas bình thường.
+- Chỉ khi đang viết, nhận `pointerrawupdate` để tránh chờ pointermove được căn theo frame. Chỉ chuyển sang đường raw sau khi thực sự nhận raw event; không hỗ trợ thì tự dùng pointermove. Pointermove sau raw chỉ cung cấp prediction, không thêm lại cùng mẫu.
+- Dùng `getPredictedEvents()` của trình duyệt cho bút thường. Đoạn dự đoán bị giới hạn 16 ms/32 CSS pixel, cắt ngắn nếu vượt giới hạn; không tự ngoại suy khi không có API và không dự đoán từ event đã trễ từ 40 ms trở lên. Highlight chưa dùng prediction để tránh làm đậm vùng nối alpha.
+- Prediction chỉ là pixel tạm thời. Backup một vùng canvas nhỏ bằng drawImage, khôi phục trước khi vẽ mẫu thật; không dùng getImageData trong đường chạy ứng dụng, không thêm điểm dự đoán vào Stroke/history/export. Đầu nét dự đoán tự xóa sau 40 ms nếu không nhận thêm chuyển động.
+- Hủy pointer bỏ nét thay vì chốt nó; pointerup không liên quan không kết thúc nét. Resize làm mới chỉ số incremental để nét đang viết được dựng lại.
+
+Nguồn tham khảo công khai: [Chrome: canvas desynchronized](https://developer.chrome.com/blog/desynchronized), [W3C: raw/coalesced/predicted events](https://www.w3.org/TR/pointerevents/), [W3C: minh họa độ trễ khi viết](https://www.w3.org/2023/09/TPAC/demos/pointer-events.html). Đây là kỹ thuật nền tảng cho ứng dụng viết vẽ; không khẳng định dùng thuật toán nội bộ của Canva.
 
 ## Giới hạn kết luận về Google Meet
 
@@ -35,3 +47,12 @@ Các điểm trên được xác nhận từ mã nguồn. Chưa có đo đạc C
 - `node scratch/check-ink.cjs`: đạt; kiểm tra cache reuse/invalidation, áp lực, tọa độ coalesced, số lần đọc layout và pointer khác. Đây là kiểm tra logic với canvas giả lập, không phải kiểm tra hiển thị trong trình duyệt.
 - ESLint ba file sửa: không thêm lỗi; CanvasBoard vẫn có 43 lỗi tồn tại trước bản sửa.
 - Cần thử bằng bút thật: bảng trống và bảng nhiều chữ; nét dài nhanh và nét ngắn liên tiếp; tap, highlight, zoom, dịch chuyển nét, undo/redo; viết trên PDF và bài giảng. So sánh khi Meet tắt/bật chia sẻ và phân biệt màn hình người viết/người xem. Dùng cùng trình duyệt, kích thước cửa sổ và mức zoom giữa hai bản.
+
+Kiểm tra bổ sung của lần sửa tiếp theo:
+
+- `npm.cmd run build`: đạt production build (có cảnh báo KaTeX từ nội dung bài giảng).
+- `node scratch/check-ink.cjs`: đạt cả raw/move không trùng mẫu, fallback qua gesture mới, giới hạn prediction, cancellation.
+- `node scratch/check-ink-browser.cjs`: đạt trên Chrome headless, production localhost:3100, DPR 2 và CPU throttle 4x. 50 raw + 50 move tạo 50 stroke submissions; live ink hiện trước pointerup; chốt nét, undo/redo đạt. Trình duyệt báo draft context `desynchronized: true`.
+- Kiểm tra pixel bằng canvas thật: prediction khôi phục đúng pixel nền bán trong suốt, vùng sát mép, DPR 1/2, và tự hết hạn. Script dùng CDP port 9333, không cần thêm dependency; Chrome kiểm thử dùng profile riêng.
+- ESLint không tăng lỗi/cảnh báo ở các file sửa; `InkPrediction.ts` không có lỗi/cảnh báo.
+- CPU throttle chỉ là kiểm tra chức năng dưới tải giả lập, không đo được độ trễ đầu bút–màn hình, GPU compositor hay phiên Meet thực tế.

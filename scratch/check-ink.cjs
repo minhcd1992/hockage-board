@@ -67,4 +67,43 @@ assert.equal(pointer.pendingPoints[1].pressure, 0.7);
 pointer.handlePointerMove({ ...event, pointerId: 2 });
 assert.equal(pointer.pendingPoints.length, 2, 'another pointer cannot append ink');
 pointer.destroy();
-console.log('PASS: stroke cache invalidation and coalesced pointer input');
+
+const raw = new PointerManager(element);
+raw.useRawInput = () => true;
+let predictions = [];
+raw.onPrediction = points => { predictions = points; };
+let commits = 0, cancels = 0;
+raw.onPointerUp = () => commits++;
+raw.onPointerCancel = () => cancels++;
+listeners.pointerdown(event);
+raw.pendingPoints = [];
+const now = performance.now();
+const move = { ...event, clientX: 40, type: 'pointermove', timeStamp: now,
+  getPredictedEvents: () => [
+    { ...event, clientX: 45, timeStamp: now + 8 },
+    { ...event, clientX: 80, timeStamp: now + 12 },
+  ],
+};
+raw.handlePointerRawUpdate({ ...move, type: 'pointerrawupdate' });
+raw.handlePointerMove(move);
+assert.equal(raw.pendingPoints.length, 1, 'raw/move must not duplicate samples');
+assert.equal(predictions.length, 2, 'overlong predictions are clipped');
+assert.equal(predictions[0].x, 35);
+assert.equal(predictions[1].x, 62, 'prediction is bounded to 32 CSS pixels');
+assert.equal(raw.pendingPoints[0].x, 30, 'predictions never enter real ink');
+raw.handlePointerMove({ ...move, getPredictedEvents: () => [{ ...event, timeStamp: now + 17 }] });
+assert.ok(Math.abs(predictions[0].x - (30 - 20 * 16 / 17)) < 0.001, 'prediction is bounded to 16 ms');
+raw.handlePointerMove({ ...move, timeStamp: now - 100 });
+assert.equal(predictions.length, 0, 'do not predict stale input');
+raw.handlePointerUp({ ...event, pointerId: 2 });
+assert.equal(raw.isPointerDown, true, 'unrelated pointerup cannot commit');
+raw.handlePointerCancel(event);
+assert.equal(commits, 0, 'cancel discards rather than committing');
+assert.equal(cancels, 1);
+assert.equal(raw.pendingPoints.length, 0);
+listeners.pointerdown(event);
+raw.pendingPoints = [];
+raw.handlePointerMove(move);
+assert.equal(raw.pendingPoints.length, 1, 'next gesture falls back without raw events');
+raw.destroy();
+console.log('PASS: stroke cache, coalesced/raw input, prediction limits, cancellation and fallback');

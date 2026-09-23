@@ -1,5 +1,6 @@
 import { Scene } from './Scene';
 import { Camera } from './Camera';
+import { InkPrediction } from './InkPrediction';
 
 export class CanvasRenderer {
   bgCanvas: HTMLCanvasElement;
@@ -9,6 +10,7 @@ export class CanvasRenderer {
   bgCtx: CanvasRenderingContext2D;
   mainCtx: CanvasRenderingContext2D;
   draftCtx: CanvasRenderingContext2D;
+  inkPrediction: InkPrediction;
 
   scene: Scene;
   camera: Camera;
@@ -28,11 +30,11 @@ export class CanvasRenderer {
     
     // desynchronized: true reduces latency for drawing apps
     this.bgCtx = this.bgCanvas.getContext('2d', { alpha: false })!;
-    this.mainCtx = this.mainCanvas.getContext('2d', { desynchronized: true })!;
-    // Draft canvas uses normal context (NOT desynchronized) because
-    // desynchronized creates a separate GPU compositor layer that
-    // adds overhead when composited with iframes (lesson mode).
-    this.draftCtx = this.draftCanvas.getContext('2d')!;
+    this.mainCtx = this.mainCanvas.getContext('2d')!;
+    // The live ink surface is the latency-sensitive layer. Browsers may ignore
+    // this hint; the normal canvas path remains a functional fallback.
+    this.draftCtx = this.draftCanvas.getContext('2d', { desynchronized: true })!;
+    this.inkPrediction = new InkPrediction(this.draftCanvas, this.draftCtx);
     
     this.scene = scene;
     this.camera = camera;
@@ -40,6 +42,7 @@ export class CanvasRenderer {
   }
 
   resize(width: number, height: number, dpr: number) {
+    this.inkPrediction.clear();
     const canvases = [this.bgCanvas, this.mainCanvas, this.draftCanvas];
     const contexts = [this.bgCtx, this.mainCtx, this.draftCtx];
 
@@ -55,6 +58,7 @@ export class CanvasRenderer {
   }
 
   clearContext(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+    if (canvas === this.draftCanvas) this.inkPrediction.clear();
     // We clear by using the transform matrix to cover the scaled canvas
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);

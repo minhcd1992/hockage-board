@@ -23,7 +23,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   const bgCanvasRef = useRef<HTMLCanvasElement>(null);
   const mainCanvasRef = useRef<HTMLCanvasElement>(null);
   const draftCanvasRef = useRef<HTMLCanvasElement>(null);
-  const interactionLayerRef = useRef<HTMLDivElement>(null);
+  const interactionLayerRef = useRef<HTMLCanvasElement>(null);
   const htmlLayerRef = useRef<HTMLDivElement>(null);
 
   const [textInput, setTextInput] = React.useState<{ x: number, y: number, text: string, width?: number } | null>(null);
@@ -683,11 +683,15 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       snipRect: null
     };
 
+    // Reset on resize as well as each new stroke; resizing clears canvas pixels.
+    let lastRenderedIdx = 0;
+
     // Handle Resize
     const handleResize = () => {
       if (!containerRef.current) return;
       const dpr = window.devicePixelRatio || 1;
       renderer.resize(containerRef.current.clientWidth, containerRef.current.clientHeight, dpr);
+      lastRenderedIdx = 0;
       const state = useBoardStore.getState();
       renderer.renderBackground(state.gridEnabled, state.theme, fileType === 'pdf');
       updateScrollbar();
@@ -731,9 +735,6 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     let arcState: 'idle' | 'setting-start' | 'setting-end' = 'idle';
     let currentArcShape: Shape | null = null;
 
-    // Track last rendered point index for incremental draft drawing
-    let lastRenderedIdx = 0;
-
     // Share the incremental renderer between input events and the frame fallback.
     // Input should not wait for the next animation frame to submit fresh ink.
     const renderPendingInk = () => {
@@ -757,6 +758,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
       // Incremental render: draw only new segments since last frame
       if (lastRenderedIdx < points.length) {
+        engine.renderer.inkPrediction.clear();
         draftCtx.save();
         engine.renderer.camera.applyTransform(draftCtx);
 
@@ -799,6 +801,22 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       }
 
       draftNeedsUpdate = false;
+    };
+
+    pointer.useRawInput = () => isActiveRef.current && !!engineRef.current?.currentStroke;
+    pointer.onPrediction = (predicted) => {
+      const engine = engineRef.current!;
+      const stroke = engine.currentStroke;
+      if (!stroke || stroke.isHighlighter || predicted.length === 0) {
+        engine.renderer.inkPrediction.clear();
+        return;
+      }
+      const last = stroke.points[stroke.points.length - 1];
+      const start = engine.camera.worldToScreen(last.x, last.y);
+      engine.renderer.inkPrediction.draw(
+        [start, ...predicted], stroke.color, stroke.size * engine.camera.zoom,
+        window.devicePixelRatio || 1,
+      );
     };
 
     loop.addCallback(() => {
@@ -1673,6 +1691,11 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
     pointer.onPointerCancel = () => {
       const engine = engineRef.current!;
+      engine.renderer.inkPrediction.clear();
+      isPanning = false;
+      panStartScreen = null;
+      initialPan = null;
+      activeInternalDragObj = null;
       if (engine.currentStroke) {
         engine.currentStroke = null;
         engine.renderer.clearDraft();
@@ -1729,6 +1752,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
     return () => {
       loop.stop();
+      renderer.inkPrediction.clear();
       pointer.destroy();
       interLayer.removeEventListener('wheel', handleWheel);
       window.removeEventListener('resize', handleResize);
@@ -2065,21 +2089,15 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           </div>
         )}
         <canvas ref={mainCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1, pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto', willChange: 'transform', transform: 'translateZ(0)' }} />
-        <canvas ref={draftCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none', willChange: 'transform', transform: 'translateZ(0)' }} />
-        <div
-          ref={interactionLayerRef}
+        <canvas
+          ref={(canvas) => {
+            draftCanvasRef.current = canvas;
+            interactionLayerRef.current = canvas;
+          }}
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 3,
-            touchAction: 'none',
-            cursor: cursorStyle,
+            position: 'absolute', top: 0, left: 0, width: '100%', height: '100%',
+            zIndex: 2, touchAction: 'none', cursor: cursorStyle,
             pointerEvents: ((fileType === 'html' || fileType === 'lesson') && tool === 'hand') ? 'none' : 'auto',
-            willChange: 'transform',
-            transform: 'translateZ(0)'
           }}
         />
 
