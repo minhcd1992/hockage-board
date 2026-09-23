@@ -77,6 +77,37 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   const laserPointsRef = useRef<{x: number, y: number, time: number}[]>([]);
   const laserFrameRef = useRef<number | null>(null);
 
+  const syncLessonActivity = React.useCallback(() => {
+    if (fileType !== 'lesson') return;
+    const frame = htmlLayerRef.current?.querySelector('iframe');
+    frame?.contentWindow?.postMessage({
+      type: 'board-lesson-activity',
+      paused: !isActiveRef.current || !!engineRef.current?.currentStroke,
+    }, window.location.origin);
+  }, [fileType]);
+
+  useEffect(() => {
+    const ready = (event: MessageEvent) => {
+      const frame = htmlLayerRef.current?.querySelector('iframe');
+      if (event.origin === window.location.origin && event.source === frame?.contentWindow && event.data?.type === 'board-lesson-ready') syncLessonActivity();
+    };
+    window.addEventListener('message', ready);
+    return () => window.removeEventListener('message', ready);
+  }, [syncLessonActivity]);
+
+  useEffect(() => {
+    if (!new URLSearchParams(window.location.search).has('inkDebug')) return;
+    const panel = document.createElement('pre');
+    panel.style.cssText = 'position:absolute;left:8px;bottom:8px;z-index:40;padding:8px;background:#111e;color:#fff;font:12px monospace;pointer-events:none';
+    containerRef.current?.appendChild(panel);
+    const refresh = () => {
+      panel.textContent = JSON.stringify(engineRef.current?.renderer.liveInk.diagnostics(), null, 2);
+    };
+    refresh();
+    const timer = setInterval(refresh, 1000);
+    return () => { clearInterval(timer); panel.remove(); };
+  }, []);
+
   // Global Hotkeys
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -683,15 +714,11 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       snipRect: null
     };
 
-    // Reset on resize as well as each new stroke; resizing clears canvas pixels.
-    let lastRenderedIdx = 0;
-
     // Handle Resize
     const handleResize = () => {
       if (!containerRef.current) return;
       const dpr = window.devicePixelRatio || 1;
       renderer.resize(containerRef.current.clientWidth, containerRef.current.clientHeight, dpr);
-      lastRenderedIdx = 0;
       const state = useBoardStore.getState();
       renderer.renderBackground(state.gridEnabled, state.theme, fileType === 'pdf');
       updateScrollbar();
@@ -735,102 +762,28 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     let arcState: 'idle' | 'setting-start' | 'setting-end' = 'idle';
     let currentArcShape: Shape | null = null;
 
-    // Share the incremental renderer between input events and the frame fallback.
-    // Input should not wait for the next animation frame to submit fresh ink.
-    const renderPendingInk = () => {
+    const renderPendingInk = (event?: PointerEvent) => {
       const engine = engineRef.current!;
-      if (!engine.currentStroke) return;
-      // Process any pending coalesced points
-      if (engine.pointer.pendingPoints.length > 0) {
-        for (const pp of engine.pointer.pendingPoints) {
-          const wp = engine.camera.screenToWorld(pp.x, pp.y) as Point;
-          wp.pressure = pp.pressure;
-          wp.tiltX = pp.tiltX;
-          wp.tiltY = pp.tiltY;
-          engine.currentStroke.addPoint(wp);
-        }
-        engine.pointer.pendingPoints = [];
-      }
-
       const stroke = engine.currentStroke;
-      const points = stroke.points;
-      const draftCtx = engine.renderer.draftCtx;
-
-      // Incremental render: draw only new segments since last frame
-      if (lastRenderedIdx < points.length) {
-        engine.renderer.inkPrediction.clear();
-        draftCtx.save();
-        engine.renderer.camera.applyTransform(draftCtx);
-
-        if (stroke.isHighlighter) {
-          draftCtx.globalAlpha = 0.4;
-        }
-        if (stroke.isEraser) {
-          draftCtx.globalCompositeOperation = 'destination-out';
-          draftCtx.strokeStyle = '#000';
-        } else {
-          draftCtx.globalCompositeOperation = 'source-over';
-          draftCtx.strokeStyle = stroke.color;
-        }
-        draftCtx.lineWidth = stroke.isHighlighter ? stroke.size * 4 : stroke.size;
-        draftCtx.lineCap = 'round';
-        draftCtx.lineJoin = 'round';
-
-        if (lastRenderedIdx === 0 && points.length >= 1) {
-          // First point: draw a dot
-          draftCtx.beginPath();
-          draftCtx.fillStyle = stroke.isEraser ? '#000' : stroke.color;
-          draftCtx.arc(points[0].x, points[0].y, draftCtx.lineWidth / 2, 0, Math.PI * 2);
-          draftCtx.fill();
-          lastRenderedIdx = 1;
-        }
-
-        // Draw new line segments
-        const drawFrom = Math.max(0, lastRenderedIdx - 1);
-        if (drawFrom < points.length - 1) {
-          draftCtx.beginPath();
-          draftCtx.moveTo(points[drawFrom].x, points[drawFrom].y);
-          for (let i = drawFrom + 1; i < points.length; i++) {
-            draftCtx.lineTo(points[i].x, points[i].y);
-          }
-          draftCtx.stroke();
-        }
-
-        lastRenderedIdx = points.length;
-        draftCtx.restore();
+      if (!stroke) return;
+      for (const p of pointer.pendingPoints) {
+        const world = engine.camera.screenToWorld(p.x, p.y);
+        stroke.addPoint({ ...p, ...world });
       }
-
+      pointer.pendingPoints = [];
+      engine.renderer.liveInk.render(event);
       draftNeedsUpdate = false;
     };
-
     pointer.useRawInput = () => isActiveRef.current && !!engineRef.current?.currentStroke;
-    pointer.onPrediction = (predicted) => {
-      const engine = engineRef.current!;
-      const stroke = engine.currentStroke;
-      if (!stroke || stroke.isHighlighter || predicted.length === 0) {
-        engine.renderer.inkPrediction.clear();
-        return;
-      }
-      const last = stroke.points[stroke.points.length - 1];
-      const start = engine.camera.worldToScreen(last.x, last.y);
-      engine.renderer.inkPrediction.draw(
-        [start, ...predicted], stroke.color, stroke.size * engine.camera.zoom,
-        window.devicePixelRatio || 1,
-      );
-    };
 
     loop.addCallback(() => {
       if (!isActiveRef.current) return;
       const engine = engineRef.current!;
       const state = useBoardStore.getState();
-      if (engine.currentStroke && engine.pointer.isPointerDown &&
-          (state.tool === 'pen' || state.tool === 'highlighter')) {
-        renderPendingInk();
-        return;
+      if (engine.currentStroke && engine.pointer.isPointerDown) {
+        return; // LiveInk is driven exclusively by input, not animation frames.
       }
 
-      // Reset incremental state when not drawing
-      lastRenderedIdx = 0;
 
       engine.camera.x = state.panX;
       engine.camera.y = state.panY;
@@ -1048,12 +1001,14 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         if (!laserFrameRef.current) startLaserLoop();
       } else if (state.tool === 'pen' || state.tool === 'highlighter') {
         engine.currentStroke = new Stroke(state.strokeColor, state.strokeSize, false, state.tool === 'highlighter');
-        engine.currentStroke.addPoint(worldP);
-        // Clear draft canvas for the new stroke and reset incremental rendering
-        engine.renderer.clearContext(engine.renderer.draftCtx, engine.renderer.draftCanvas);
-        lastRenderedIdx = 0;
-        pointer.pendingPoints = []; // The down point was already added above.
-        renderPendingInk();
+        engine.currentStroke.addPoint({ ...p, ...engine.camera.screenToWorld(p.x, p.y) });
+        pointer.pendingPoints = [];
+        if (engine.scene.getSelectedObjects().length) {
+          engine.scene.clearSelection();
+          engine.renderer.renderMain();
+        }
+        engine.renderer.liveInk.begin(engine.currentStroke, e);
+        syncLessonActivity();
       } else if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'rect' || state.tool === 'ellipse' || state.tool === 'sine') {
         engine.currentShape = new Shape(state.tool as any, worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false, state.sineWavelength, state.sineAmplitude);
         draftNeedsUpdate = true;
@@ -1241,6 +1196,11 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       const state = useBoardStore.getState();
       const engine = engineRef.current!;
 
+      if (engine.currentStroke && pointer.isPointerDown) {
+        renderPendingInk(e);
+        return;
+      }
+
       const worldP = processPoint(p, engine, state);
 
       if (activeInternalDragObj && activeInternalDragObj.onPointerMove) {
@@ -1263,9 +1223,6 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
       if (state.tool === 'laser' && pointer.isPointerDown) {
         laserPointsRef.current.push({ x: worldP.x, y: worldP.y, time: Date.now() });
-      } else if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke && pointer.isPointerDown) {
-        renderPendingInk();
-        return;
       }
       if (state.tool === 'arc' && arcState !== 'idle' && currentArcShape) {
         if (arcState === 'setting-start') {
@@ -1502,24 +1459,18 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         return;
       }
       
-      if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke) {
-        if (engine.pointer.pendingPoints.length > 0) {
-          for (const pt of engine.pointer.pendingPoints) {
-            const worldPt = processPoint(pt, engine, state);
-            engine.currentStroke.addPoint(worldPt);
-          }
-          engine.pointer.pendingPoints = [];
-        }
-
-        engine.currentStroke.addPoint(worldP);
-        engine.currentStroke.isDrawing = false;
-        engine.currentStroke.updateCenter();
-        
-        engine.scene.addObject(engine.currentStroke);
+      if (engine.currentStroke) {
+        renderPendingInk();
+        const stroke = engine.currentStroke;
+        const last = stroke.points[stroke.points.length - 1];
+        // Pen-up pressure is usually zero; preserve the last real pressure.
+        stroke.addPoint({ ...p, ...engine.camera.screenToWorld(p.x, p.y), pressure: last?.pressure ?? p.pressure });
+        stroke.isDrawing = false;
+        stroke.updateCenter();
+        engine.scene.addObject(stroke);
+        engine.renderer.commitStroke(stroke);
         engine.currentStroke = null;
-        
-        engine.renderer.renderMain();
-        engine.renderer.clearDraft();
+        syncLessonActivity();
         draftNeedsUpdate = false;
       } else if (state.tool === 'bezier' && currentBezierShape) {
          if (bezierState === 'drawing-line') {
@@ -1691,7 +1642,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
     pointer.onPointerCancel = () => {
       const engine = engineRef.current!;
-      engine.renderer.inkPrediction.clear();
+      engine.renderer.liveInk.clear();
       isPanning = false;
       panStartScreen = null;
       initialPan = null;
@@ -1706,6 +1657,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         engine.renderer.clearDraft();
         draftNeedsUpdate = false;
       }
+      syncLessonActivity();
       arcState = 'idle';
       bezierState = 'idle';
       isDraggingSelection = false;
@@ -1752,7 +1704,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
     return () => {
       loop.stop();
-      renderer.inkPrediction.clear();
+      renderer.liveInk.destroy();
       pointer.destroy();
       interLayer.removeEventListener('wheel', handleWheel);
       window.removeEventListener('resize', handleResize);
@@ -1821,10 +1773,15 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
   useEffect(() => {
     isActiveRef.current = isActive;
+    syncLessonActivity();
+    if (engineRef.current) {
+      if (isActive) engineRef.current.loop.start();
+      else engineRef.current.loop.stop();
+    }
     if (isActive && engineRef.current) {
       useBoardStore.getState().setActiveEngineRef(engineRef);
     }
-  }, [isActive]);
+  }, [isActive, syncLessonActivity]);
 
   useEffect(() => {
     if (containerRef.current) {

@@ -1,6 +1,7 @@
 import { Scene } from './Scene';
 import { Camera } from './Camera';
-import { InkPrediction } from './InkPrediction';
+import { LiveInk } from './LiveInk';
+import { Stroke } from '../objects/Stroke';
 
 export class CanvasRenderer {
   bgCanvas: HTMLCanvasElement;
@@ -10,7 +11,7 @@ export class CanvasRenderer {
   bgCtx: CanvasRenderingContext2D;
   mainCtx: CanvasRenderingContext2D;
   draftCtx: CanvasRenderingContext2D;
-  inkPrediction: InkPrediction;
+  liveInk: LiveInk;
 
   scene: Scene;
   camera: Camera;
@@ -34,7 +35,7 @@ export class CanvasRenderer {
     // The live ink surface is the latency-sensitive layer. Browsers may ignore
     // this hint; the normal canvas path remains a functional fallback.
     this.draftCtx = this.draftCanvas.getContext('2d', { desynchronized: true })!;
-    this.inkPrediction = new InkPrediction(this.draftCanvas, this.draftCtx);
+    this.liveInk = new LiveInk(this.draftCanvas, this.draftCtx, camera);
     
     this.scene = scene;
     this.camera = camera;
@@ -42,7 +43,6 @@ export class CanvasRenderer {
   }
 
   resize(width: number, height: number, dpr: number) {
-    this.inkPrediction.clear();
     const canvases = [this.bgCanvas, this.mainCanvas, this.draftCanvas];
     const contexts = [this.bgCtx, this.mainCtx, this.draftCtx];
 
@@ -55,10 +55,25 @@ export class CanvasRenderer {
     });
 
     this.renderMain();
+    this.liveInk.redraw();
+  }
+
+  // A new stroke is on top of the existing scene; do not repaint every old
+  // object on every pen lift. Full render remains for undo/zoom/selection.
+  commitStroke(stroke: Stroke) {
+    this.mainCtx.save();
+    this.camera.applyTransform(this.mainCtx);
+    stroke.draw(this.mainCtx);
+    this.mainCtx.restore();
+    this.drawWhiteboardOverlays(this.mainCtx);
+    this.liveInk.clear();
   }
 
   clearContext(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    if (canvas === this.draftCanvas) this.inkPrediction.clear();
+    if (canvas === this.draftCanvas) {
+      this.liveInk.clear();
+      return;
+    }
     // We clear by using the transform matrix to cover the scaled canvas
     ctx.save();
     ctx.setTransform(1, 0, 0, 1, 0, 0);

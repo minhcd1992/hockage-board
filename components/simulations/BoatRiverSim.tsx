@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame } from '../../lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 
 export const BoatRiverSim = () => {
@@ -48,7 +49,7 @@ export const BoatRiverSim = () => {
       setTrace(prev => [...prev, {x: currentX, y: currentY}]);
     }
 
-    requestRef.current = requestAnimationFrame(animate);
+    requestRef.current = requestLessonFrame(animate);
   };
 
   const handleStart = () => {
@@ -57,11 +58,11 @@ export const BoatRiverSim = () => {
     setPos({ x: START_X, y: RIVER_BOTTOM });
     setTrace([{x: START_X, y: RIVER_BOTTOM}]);
     startAnimTime.current = null;
-    requestRef.current = requestAnimationFrame(animate);
+    requestRef.current = requestLessonFrame(animate);
   };
 
   const handleReset = () => {
-    if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    if (requestRef.current) cancelLessonFrame(requestRef.current);
     setIsPlaying(false);
     setPos({ x: START_X, y: RIVER_BOTTOM });
     setTrace([{x: START_X, y: RIVER_BOTTOM}]);
@@ -70,7 +71,7 @@ export const BoatRiverSim = () => {
 
   useEffect(() => {
     return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      if (requestRef.current) cancelLessonFrame(requestRef.current);
     };
   }, []);
 

@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame } from '../../lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 import { Math as MathComponent } from '@/components/lesson/Math';
 
@@ -63,7 +64,7 @@ export const PhotogateSim = () => {
       return;
     }
 
-    requestRef.current = requestAnimationFrame(animate);
+    requestRef.current = requestLessonFrame(animate);
   };
 
   const handleStart = () => {
@@ -72,11 +73,11 @@ export const PhotogateSim = () => {
     setCarX(20);
     setTimerValue(null);
     startAnimTime.current = null;
-    requestRef.current = requestAnimationFrame(animate);
+    requestRef.current = requestLessonFrame(animate);
   };
 
   const handleReset = () => {
-    if (requestRef.current) cancelAnimationFrame(requestRef.current);
+    if (requestRef.current) cancelLessonFrame(requestRef.current);
     setIsPlaying(false);
     setCarX(20);
     setTimerValue(null);
@@ -89,7 +90,7 @@ export const PhotogateSim = () => {
 
   useEffect(() => {
     return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      if (requestRef.current) cancelLessonFrame(requestRef.current);
     };
   }, []);
 

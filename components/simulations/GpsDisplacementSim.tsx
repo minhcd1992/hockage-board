@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame } from '../../lib/lessonAnimation';
 import React, { useState, useEffect } from 'react';
 
 export const GpsDisplacementSim = () => {
@@ -16,11 +17,11 @@ export const GpsDisplacementSim = () => {
           }
           return prev + 0.01; // roughly 1.5 seconds
         });
-        animationFrame = requestAnimationFrame(animate);
+        animationFrame = requestLessonFrame(animate);
       };
-      animationFrame = requestAnimationFrame(animate);
+      animationFrame = requestLessonFrame(animate);
     }
-    return () => cancelAnimationFrame(animationFrame);
+    return () => cancelLessonFrame(animationFrame);
   }, [isPlaying]);
 
   const handleStart = () => {

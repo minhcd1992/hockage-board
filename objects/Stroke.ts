@@ -1,12 +1,12 @@
 import { BoardObject, Point, Rect } from '../types';
-import { getStroke } from 'perfect-freehand';
+import { inkPath } from '../engine/InkGeometry';
 
 export class Stroke extends BoardObject {
   points: Point[];
   color: string;
   size: number;
   isDrawing: boolean;
-  private outlineCache: { path: Path2D; scale: number; size: number; points: Point[]; count: number } | null = null;
+  private outlineCache: { path: Path2D; size: number; highlighter: boolean; points: Point[]; count: number } | null = null;
   
   isEraser: boolean = false;
   isHighlighter: boolean = false;
@@ -27,118 +27,19 @@ export class Stroke extends BoardObject {
     this.outlineCache = null;
   }
 
-  // Draw the stroke
+  // Identical measured geometry during input, after pointerup, and in exports.
   _draw(ctx: CanvasRenderingContext2D): void {
-    if (this.points.length === 0) return;
-
-    ctx.save();
-
-    if (this.isHighlighter) {
-      // Highlighter: semi-transparent, blend without self-erasing
-      ctx.globalAlpha = 0.4;
-      ctx.strokeStyle = this.color;
-      ctx.lineWidth = this.size * 4;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      
-      ctx.beginPath();
-      if (this.points.length > 0) {
-        ctx.moveTo(this.points[0].x, this.points[0].y);
-        for (let i = 1; i < this.points.length; i++) {
-          // A simple quadratic curve smoothing could be added here, but lineTo works well for strokes
-          ctx.lineTo(this.points[i].x, this.points[i].y);
-        }
-        ctx.stroke();
-      }
-      ctx.restore();
-      return;
-    }
-
-    // Set composite operation
-    if (this.isEraser) {
-      ctx.globalCompositeOperation = 'destination-out';
-    } else {
-      ctx.globalCompositeOperation = 'source-over';
-    }
-
-    // ======================================================================
-    // LIVE DRAWING: Simple canvas stroke rendering — ZERO latency.
-    // No perfect-freehand = no streamline delay = stroke is exactly at cursor.
-    // Uses quadratic curves between midpoints for smooth appearance.
-    // ======================================================================
-    if (this.isDrawing) {
-      if (this.isEraser) {
-        ctx.strokeStyle = '#000';
-      } else {
-        ctx.strokeStyle = this.color;
-      }
-      ctx.lineWidth = this.size;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-
-      ctx.beginPath();
-
-      if (this.points.length === 1) {
-        // Single point: draw a dot
-        ctx.fillStyle = this.isEraser ? '#000' : this.color;
-        ctx.arc(this.points[0].x, this.points[0].y, this.size / 2, 0, Math.PI * 2);
-        ctx.fill();
-      } else if (this.points.length === 2) {
-        ctx.moveTo(this.points[0].x, this.points[0].y);
-        ctx.lineTo(this.points[1].x, this.points[1].y);
-        ctx.stroke();
-      } else {
-        // Smooth quadratic curve through midpoints for a nice live preview
-        ctx.moveTo(this.points[0].x, this.points[0].y);
-        
-        for (let i = 1; i < this.points.length - 1; i++) {
-          const midX = (this.points[i].x + this.points[i + 1].x) / 2;
-          const midY = (this.points[i].y + this.points[i + 1].y) / 2;
-          ctx.quadraticCurveTo(this.points[i].x, this.points[i].y, midX, midY);
-        }
-
-        // Draw to the last point
-        const last = this.points[this.points.length - 1];
-        ctx.lineTo(last.x, last.y);
-        ctx.stroke();
-      }
-
-      ctx.restore();
-      return;
-    }
-
-    // ======================================================================
-    // FINALIZED STROKE: Use perfect-freehand for beautiful pressure-
-    // sensitive rendering. Only computed once when stroke is finalized.
-    // ======================================================================
-    const transform = ctx.getTransform();
-    const scale = Math.sqrt(transform.a * transform.a + transform.b * transform.b) || 1;
-
+    if (!this.points.length) return;
     let cache = this.outlineCache;
-    if (!cache || cache.scale !== scale || cache.size !== this.size ||
+    if (!cache || cache.size !== this.size || cache.highlighter !== this.isHighlighter ||
         cache.points !== this.points || cache.count !== this.points.length) {
-      const inputPoints = this.points.map(p => ({
-        x: p.x * scale, y: p.y * scale, pressure: p.pressure ?? 0.5,
-      }));
-      const outlinePoints = getStroke(inputPoints, {
-        size: this.size * scale,
-        thinning: 0.2,
-        smoothing: 0.9,
-        streamline: 0.75,
-        simulatePressure: false,
-        last: true,
-      });
-      const path = new Path2D();
-      if (outlinePoints.length > 0) {
-        path.moveTo(outlinePoints[0][0] / scale, outlinePoints[0][1] / scale);
-        for (let i = 1; i < outlinePoints.length; i++) {
-          path.lineTo(outlinePoints[i][0] / scale, outlinePoints[i][1] / scale);
-        }
-        path.closePath();
-      }
-      cache = { path, scale, size: this.size, points: this.points, count: this.points.length };
+      cache = { path: inkPath(this.points, this.size, this.isHighlighter), size: this.size,
+        highlighter: this.isHighlighter, points: this.points, count: this.points.length };
       this.outlineCache = cache;
     }
+    ctx.save();
+    ctx.globalCompositeOperation = this.isEraser ? 'destination-out' : 'source-over';
+    ctx.globalAlpha = this.isHighlighter ? 0.4 : 1;
     ctx.fillStyle = this.isEraser ? '#000' : this.color;
     ctx.fill(cache.path);
     ctx.restore();
@@ -154,7 +55,7 @@ export class Stroke extends BoardObject {
     let maxX = -Infinity;
     let maxY = -Infinity;
     
-    const pad = this.size / 2 + 2;
+    const pad = (this.isHighlighter ? this.size * 2 : this.size * 0.6) + 2;
 
     for (const p of this.points) {
       if (p.x < minX) minX = p.x;
@@ -177,7 +78,7 @@ export class Stroke extends BoardObject {
       return false;
     }
     
-    const thresholdSq = Math.pow(this.size / 2 + 5, 2); // 5px tolerance
+    const thresholdSq = Math.pow((this.isHighlighter ? this.size * 2 : this.size * 0.6) + 5, 2); // 5px tolerance
 
     if (this.points.length === 1) {
       const dx = this.points[0].x - p.x;
@@ -226,7 +127,7 @@ export class Stroke extends BoardObject {
   }
 
   clone(): BoardObject {
-    const s = new Stroke(this.color, this.size, this.isEraser);
+    const s = new Stroke(this.color, this.size, this.isEraser, this.isHighlighter);
     s.points = this.points.map(p => ({ ...p }));
     s.isDrawing = this.isDrawing;
     s.copyTransforms(this);

@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame } from '../../lib/lessonAnimation';
 import React, { useState, useEffect } from 'react';
 
 export const WestLakeSim = () => {
@@ -16,11 +17,11 @@ export const WestLakeSim = () => {
           }
           return prev + 0.005; // loop time
         });
-        animationFrame = requestAnimationFrame(animate);
+        animationFrame = requestLessonFrame(animate);
       };
-      animationFrame = requestAnimationFrame(animate);
+      animationFrame = requestLessonFrame(animate);
     }
-    return () => cancelAnimationFrame(animationFrame);
+    return () => cancelLessonFrame(animationFrame);
   }, [isPlaying]);
 
   const handleStart = () => {

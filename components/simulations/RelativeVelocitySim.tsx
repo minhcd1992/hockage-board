@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame, lessonNow } from '../../lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause } from 'lucide-react';
 
@@ -12,7 +13,7 @@ export const RelativeVelocitySim = () => {
   const isRunningRef = useRef(isRunning);
 
   const globalTimeRef = useRef(0);
-  const lastTimeRef = useRef<number>(performance.now());
+  const lastTimeRef = useRef<number>(lessonNow());
   const personLocalXRef = useRef(0);
   const reqRef = useRef<number>(0);
 
@@ -205,14 +206,14 @@ export const RelativeVelocitySim = () => {
         }
       }
 
-      reqRef.current = requestAnimationFrame(loop);
+      reqRef.current = requestLessonFrame(loop);
     };
 
-    lastTimeRef.current = performance.now();
-    reqRef.current = requestAnimationFrame(loop);
+    lastTimeRef.current = lessonNow();
+    reqRef.current = requestLessonFrame(loop);
 
     return () => {
-      cancelAnimationFrame(reqRef.current);
+      cancelLessonFrame(reqRef.current);
     };
   }, []);
 

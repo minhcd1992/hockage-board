@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame } from '../../lib/lessonAnimation';
 import React, { useState, useEffect } from 'react';
 
 export const AntExperimentSim = () => {
@@ -26,13 +27,13 @@ export const AntExperimentSim = () => {
         setIsAnimating(false);
         return targetAngle;
       });
-      animationFrameId = requestAnimationFrame(animate);
+      animationFrameId = requestLessonFrame(animate);
     };
 
     if (isAnimating) {
       animate();
     }
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => cancelLessonFrame(animationFrameId);
   }, [isAnimating, targetAngle]);
 
   const handleHalf = () => {

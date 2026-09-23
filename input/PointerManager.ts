@@ -4,7 +4,6 @@ export class PointerManager {
   private element: HTMLElement;
   private receivedRawInput = false;
   useRawInput?: () => boolean;
-  onPrediction?: (points: Point[]) => void;
   
   isPointerDown: boolean = false;
   pendingPoints: Point[] = [];
@@ -33,6 +32,8 @@ export class PointerManager {
     // We attach to the document or window for mouseup/move to not lose tracking if moved fast outside
     this.element.addEventListener('pointerdown', this.handlePointerDown);
     this.element.addEventListener('dblclick', this.handleDoubleClick);
+    this.element.addEventListener('lostpointercapture', this.handlePointerCancel);
+    window.addEventListener('blur', this.handleBlur);
     window.addEventListener('pointermove', this.handlePointerMove);
     window.addEventListener('pointerrawupdate', this.handlePointerRawUpdate);
     window.addEventListener('pointerup', this.handlePointerUp);
@@ -42,6 +43,8 @@ export class PointerManager {
   destroy() {
     this.element.removeEventListener('pointerdown', this.handlePointerDown);
     this.element.removeEventListener('dblclick', this.handleDoubleClick);
+    this.element.removeEventListener('lostpointercapture', this.handlePointerCancel);
+    window.removeEventListener('blur', this.handleBlur);
     window.removeEventListener('pointermove', this.handlePointerMove);
     window.removeEventListener('pointerrawupdate', this.handlePointerRawUpdate);
     window.removeEventListener('pointerup', this.handlePointerUp);
@@ -131,9 +134,7 @@ export class PointerManager {
     }
 
     // Raw updates already contain the samples repeated by pointermove.
-    // Keep pointermove for browser predictions, without committing ink twice.
     if (e.type === 'pointermove' && this.receivedRawInput && this.useRawInput?.()) {
-      this.updatePrediction(e);
       return;
     }
     
@@ -158,28 +159,7 @@ export class PointerManager {
     
     this.lastPointerPos = this.getPoint(e, rect);
     if (this.onPointerMove) this.onPointerMove(this.lastPointerPos, e);
-    if (e.type !== 'pointerrawupdate') this.updatePrediction(e, rect);
   };
-
-  private updatePrediction(e: PointerEvent, rect = this.element.getBoundingClientRect()) {
-    if (!this.onPrediction || !this.useRawInput?.()) return;
-    const points: Point[] = [];
-    // Predictions are display-only. Bound time and distance to avoid long hooks
-    // when changing direction, and never extrapolate a stalled event backlog.
-    if (performance.now() - e.timeStamp < 40 && typeof e.getPredictedEvents === 'function') {
-      for (const predicted of e.getPredictedEvents()) {
-        const dt = predicted.timeStamp - e.timeStamp;
-        if (dt <= 0) continue;
-        const dx = predicted.clientX - e.clientX, dy = predicted.clientY - e.clientY;
-        const fraction = Math.min(1, 16 / dt, 32 / (Math.hypot(dx, dy) || 1));
-        // Clip an overlong first prediction instead of disabling prediction
-        // precisely when the pen is moving fastest.
-        points.push({ x: e.clientX + dx * fraction - rect.left, y: e.clientY + dy * fraction - rect.top });
-        if (fraction < 1) break;
-      }
-    }
-    this.onPrediction(points);
-  }
 
   private handlePointerUp = (e: PointerEvent) => {
     if (!this.activePointers.has(e.pointerId)) return;
@@ -209,6 +189,16 @@ export class PointerManager {
     this.isPointerDown = false;
     this.pendingPoints = [];
     this.receivedRawInput = false;
+    if (this.isPinching) this.onPinchEnd?.();
+    this.isPinching = false;
+    this.onPointerCancel?.();
+  };
+
+  private handleBlur = () => {
+    if (!this.activePointers.size) return;
+    this.activePointers.clear();
+    this.isPointerDown = false;
+    this.pendingPoints = [];
     if (this.isPinching) this.onPinchEnd?.();
     this.isPinching = false;
     this.onPointerCancel?.();

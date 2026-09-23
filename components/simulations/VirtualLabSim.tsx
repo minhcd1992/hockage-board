@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame, lessonNow } from '../../lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 
 type Point = { x: number; y: number };
@@ -289,7 +290,7 @@ export const VirtualLabSim = () => {
     }
 
     if (animRef.current.isPlaying) {
-      animRef.current.reqId = requestAnimationFrame(animateLoop);
+      animRef.current.reqId = requestLessonFrame(animateLoop);
     }
   };
 
@@ -298,8 +299,8 @@ export const VirtualLabSim = () => {
     animRef.current.isPlaying = true;
     setIsPlayingState(true);
     animRef.current.progress = 0;
-    animRef.current.lastTime = performance.now();
-    animRef.current.reqId = requestAnimationFrame(animateLoop);
+    animRef.current.lastTime = lessonNow();
+    animRef.current.reqId = requestLessonFrame(animateLoop);
   };
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -324,14 +325,14 @@ export const VirtualLabSim = () => {
 
   const handleClear = () => {
     if (animRef.current.isPlaying) {
-      cancelAnimationFrame(animRef.current.reqId);
+      cancelLessonFrame(animRef.current.reqId);
       animRef.current.isPlaying = false;
       setIsPlayingState(false);
     }
     setWaypoints([]);
     setMetrics({ s: 0, d: 0 });
     // Trigger immediate clear frame
-    requestAnimationFrame(() => drawScene());
+    requestLessonFrame(() => drawScene());
   };
 
   // Convert pixels to display units (e.g. 10px = 1m)

@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame } from '../../lib/lessonAnimation';
 import React, { useState, useEffect } from 'react';
 
 export const FerrisWheelSim = () => {
@@ -8,10 +9,10 @@ export const FerrisWheelSim = () => {
     let animationFrameId: number;
     const animate = () => {
       setAngle((prev) => (prev + 0.01) % (2 * Math.PI));
-      animationFrameId = requestAnimationFrame(animate);
+      animationFrameId = requestLessonFrame(animate);
     };
     animate();
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => cancelLessonFrame(animationFrameId);
   }, []);
 
   const cx = 150;

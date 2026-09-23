@@ -13,6 +13,7 @@ global.Path2D = class {
   moveTo() {}
   lineTo() {}
   closePath() {}
+  arc() {}
 };
 const { Stroke } = require('../objects/Stroke.ts');
 let scale = 1;
@@ -30,12 +31,14 @@ stroke._draw(ctx);
 let previous = renderedPath;
 stroke._draw(ctx);
 assert.equal(renderedPath, previous, 'unchanged ink reuses its path');
+scale = 2;
+stroke._draw(ctx);
+assert.equal(renderedPath, previous, 'zoom reuses world-space geometry');
 stroke.color = '#f00';
 stroke._draw(ctx);
 assert.equal(renderedPath, previous, 'color does not rebuild geometry');
 for (const change of [
   () => { stroke.size = 4; },
-  () => { scale = 2; },
   () => stroke.translate(5, 3),
   () => stroke.addPoint({ x: 30, y: 15 }),
   () => { stroke.points = stroke.points.map(p => ({ ...p })); },
@@ -70,8 +73,6 @@ pointer.destroy();
 
 const raw = new PointerManager(element);
 raw.useRawInput = () => true;
-let predictions = [];
-raw.onPrediction = points => { predictions = points; };
 let commits = 0, cancels = 0;
 raw.onPointerUp = () => commits++;
 raw.onPointerCancel = () => cancels++;
@@ -87,14 +88,6 @@ const move = { ...event, clientX: 40, type: 'pointermove', timeStamp: now,
 raw.handlePointerRawUpdate({ ...move, type: 'pointerrawupdate' });
 raw.handlePointerMove(move);
 assert.equal(raw.pendingPoints.length, 1, 'raw/move must not duplicate samples');
-assert.equal(predictions.length, 2, 'overlong predictions are clipped');
-assert.equal(predictions[0].x, 35);
-assert.equal(predictions[1].x, 62, 'prediction is bounded to 32 CSS pixels');
-assert.equal(raw.pendingPoints[0].x, 30, 'predictions never enter real ink');
-raw.handlePointerMove({ ...move, getPredictedEvents: () => [{ ...event, timeStamp: now + 17 }] });
-assert.ok(Math.abs(predictions[0].x - (30 - 20 * 16 / 17)) < 0.001, 'prediction is bounded to 16 ms');
-raw.handlePointerMove({ ...move, timeStamp: now - 100 });
-assert.equal(predictions.length, 0, 'do not predict stale input');
 raw.handlePointerUp({ ...event, pointerId: 2 });
 assert.equal(raw.isPointerDown, true, 'unrelated pointerup cannot commit');
 raw.handlePointerCancel(event);
@@ -105,5 +98,36 @@ listeners.pointerdown(event);
 raw.pendingPoints = [];
 raw.handlePointerMove(move);
 assert.equal(raw.pendingPoints.length, 1, 'next gesture falls back without raw events');
+raw.handleBlur();
+assert.equal(raw.isPointerDown, false, 'blur releases drawing state');
+assert.equal(raw.activePointers.size, 0, 'blur forgets captured pointers');
+assert.equal(raw.pendingPoints.length, 0);
 raw.destroy();
-console.log('PASS: stroke cache, coalesced/raw input, prediction limits, cancellation and fallback');
+const highlight = new Stroke('#ff0', 5, false, true);
+highlight.addPoint({x:10,y:10});
+assert.equal(highlight.clone().isHighlighter, true, 'copy keeps highlighting');
+assert.ok(highlight.getBoundingBox().w >= 20, 'bounds include highlighter width');
+
+let clock = 100;
+const realPerformance = global.performance;
+global.performance = {now: () => clock};
+const scheduled = new Map();
+let frameId = 0;
+global.requestAnimationFrame = callback => { scheduled.set(++frameId, callback); return frameId; };
+global.cancelAnimationFrame = id => scheduled.delete(id);
+const scheduler = require('../lib/lessonAnimation.ts');
+let times = [];
+scheduler.requestLessonFrame(time => times.push(time));
+clock = 110;
+scheduler.setLessonPaused(true);
+assert.equal(scheduled.size, 0, 'pause cancels scheduled browser frame');
+const canceled = scheduler.requestLessonFrame(() => { throw new Error('canceled callback ran'); });
+scheduler.cancelLessonFrame(canceled);
+clock = 1110;
+assert.equal(scheduler.lessonNow(), 110, 'simulation clock freezes');
+scheduler.setLessonPaused(false);
+clock = 1120;
+const batch = [...scheduled.values()]; scheduled.clear(); batch.forEach(callback => callback(clock));
+assert.deepEqual(times, [120], 'resume excludes pause duration and keeps pending callback');
+global.performance = realPerformance;
+console.log('PASS: world-space cache, raw input, cancellation, fallback, highlighter clone/bounds, lesson pause/resume');

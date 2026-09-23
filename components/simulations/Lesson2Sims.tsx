@@ -1,4 +1,5 @@
 'use client';
+import { requestLessonFrame, cancelLessonFrame, lessonNow, isLessonPaused } from '../../lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 
 export const SpeedometerSim = () => {
@@ -7,6 +8,7 @@ export const SpeedometerSim = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (isLessonPaused()) return;
       // Fluctuating speed for speedometer
       setSpeed(80 + Math.random() * 4 - 2);
       // Fluctuating speed for radar
@@ -118,15 +120,15 @@ export const SatelliteSim = () => {
 
   useEffect(() => {
     let animationFrame: number;
-    let lastTime = performance.now();
+    let lastTime = lessonNow();
     const animate = (time: number) => {
       const dt = time - lastTime;
       lastTime = time;
       setAngle(prev => (prev + (dt / 1000) * 45) % 360); // 45 degrees per second
-      animationFrame = requestAnimationFrame(animate);
+      animationFrame = requestLessonFrame(animate);
     };
-    animationFrame = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrame);
+    animationFrame = requestLessonFrame(animate);
+    return () => cancelLessonFrame(animationFrame);
   }, []);
 
   const R = 80;
