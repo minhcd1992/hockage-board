@@ -734,81 +734,81 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     // Track last rendered point index for incremental draft drawing
     let lastRenderedIdx = 0;
 
-    loop.addCallback((dt) => {
+    // Share the incremental renderer between input events and the frame fallback.
+    // Input should not wait for the next animation frame to submit fresh ink.
+    const renderPendingInk = () => {
+      const engine = engineRef.current!;
+      if (!engine.currentStroke) return;
+      // Process any pending coalesced points
+      if (engine.pointer.pendingPoints.length > 0) {
+        for (const pp of engine.pointer.pendingPoints) {
+          const wp = engine.camera.screenToWorld(pp.x, pp.y) as Point;
+          wp.pressure = pp.pressure;
+          wp.tiltX = pp.tiltX;
+          wp.tiltY = pp.tiltY;
+          engine.currentStroke.addPoint(wp);
+        }
+        engine.pointer.pendingPoints = [];
+      }
+
+      const stroke = engine.currentStroke;
+      const points = stroke.points;
+      const draftCtx = engine.renderer.draftCtx;
+
+      // Incremental render: draw only new segments since last frame
+      if (lastRenderedIdx < points.length) {
+        draftCtx.save();
+        engine.renderer.camera.applyTransform(draftCtx);
+
+        if (stroke.isHighlighter) {
+          draftCtx.globalAlpha = 0.4;
+        }
+        if (stroke.isEraser) {
+          draftCtx.globalCompositeOperation = 'destination-out';
+          draftCtx.strokeStyle = '#000';
+        } else {
+          draftCtx.globalCompositeOperation = 'source-over';
+          draftCtx.strokeStyle = stroke.color;
+        }
+        draftCtx.lineWidth = stroke.isHighlighter ? stroke.size * 4 : stroke.size;
+        draftCtx.lineCap = 'round';
+        draftCtx.lineJoin = 'round';
+
+        if (lastRenderedIdx === 0 && points.length >= 1) {
+          // First point: draw a dot
+          draftCtx.beginPath();
+          draftCtx.fillStyle = stroke.isEraser ? '#000' : stroke.color;
+          draftCtx.arc(points[0].x, points[0].y, draftCtx.lineWidth / 2, 0, Math.PI * 2);
+          draftCtx.fill();
+          lastRenderedIdx = 1;
+        }
+
+        // Draw new line segments
+        const drawFrom = Math.max(0, lastRenderedIdx - 1);
+        if (drawFrom < points.length - 1) {
+          draftCtx.beginPath();
+          draftCtx.moveTo(points[drawFrom].x, points[drawFrom].y);
+          for (let i = drawFrom + 1; i < points.length; i++) {
+            draftCtx.lineTo(points[i].x, points[i].y);
+          }
+          draftCtx.stroke();
+        }
+
+        lastRenderedIdx = points.length;
+        draftCtx.restore();
+      }
+
+      draftNeedsUpdate = false;
+    };
+
+    loop.addCallback(() => {
+      if (!isActiveRef.current) return;
       const engine = engineRef.current!;
       const state = useBoardStore.getState();
-
-      // =============================================================
-      // DRAWING FAST PATH: During active pen/highlighter drawing,
-      // do ONLY point processing + incremental render, then RETURN.
-      // Skip ALL other work (camera sync, bg check, htmlLayer scroll,
-      // scrollbar update) to free the main thread for pointer events.
-      // This is the approach used by Figma/tldraw.
-      // =============================================================
       if (engine.currentStroke && engine.pointer.isPointerDown &&
           (state.tool === 'pen' || state.tool === 'highlighter')) {
-
-        // Process any pending coalesced points
-        if (engine.pointer.pendingPoints.length > 0) {
-          for (const pp of engine.pointer.pendingPoints) {
-            const wp = engine.camera.screenToWorld(pp.x, pp.y) as Point;
-            wp.pressure = pp.pressure;
-            wp.tiltX = pp.tiltX;
-            wp.tiltY = pp.tiltY;
-            engine.currentStroke.addPoint(wp);
-          }
-          engine.pointer.pendingPoints = [];
-        }
-
-        const stroke = engine.currentStroke;
-        const points = stroke.points;
-        const draftCtx = engine.renderer.draftCtx;
-
-        // Incremental render: draw only new segments since last frame
-        if (lastRenderedIdx < points.length) {
-          draftCtx.save();
-          engine.renderer.camera.applyTransform(draftCtx);
-
-          if (stroke.isHighlighter) {
-            draftCtx.globalAlpha = 0.4;
-          }
-          if (stroke.isEraser) {
-            draftCtx.globalCompositeOperation = 'destination-out';
-            draftCtx.strokeStyle = '#000';
-          } else {
-            draftCtx.globalCompositeOperation = 'source-over';
-            draftCtx.strokeStyle = stroke.color;
-          }
-          draftCtx.lineWidth = stroke.isHighlighter ? stroke.size * 4 : stroke.size;
-          draftCtx.lineCap = 'round';
-          draftCtx.lineJoin = 'round';
-
-          if (lastRenderedIdx === 0 && points.length >= 1) {
-            // First point: draw a dot
-            draftCtx.beginPath();
-            draftCtx.fillStyle = stroke.isEraser ? '#000' : stroke.color;
-            draftCtx.arc(points[0].x, points[0].y, draftCtx.lineWidth / 2, 0, Math.PI * 2);
-            draftCtx.fill();
-            lastRenderedIdx = 1;
-          }
-
-          // Draw new line segments
-          const drawFrom = Math.max(0, lastRenderedIdx - 1);
-          if (drawFrom < points.length - 1) {
-            draftCtx.beginPath();
-            draftCtx.moveTo(points[drawFrom].x, points[drawFrom].y);
-            for (let i = drawFrom + 1; i < points.length; i++) {
-              draftCtx.lineTo(points[i].x, points[i].y);
-            }
-            draftCtx.stroke();
-          }
-
-          lastRenderedIdx = points.length;
-          draftCtx.restore();
-        }
-
-        draftNeedsUpdate = false;
-        return; // FAST PATH: skip all other render loop work
+        renderPendingInk();
+        return;
       }
 
       // Reset incremental state when not drawing
@@ -1034,7 +1034,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         // Clear draft canvas for the new stroke and reset incremental rendering
         engine.renderer.clearContext(engine.renderer.draftCtx, engine.renderer.draftCanvas);
         lastRenderedIdx = 0;
-        draftNeedsUpdate = true;
+        pointer.pendingPoints = []; // The down point was already added above.
+        renderPendingInk();
       } else if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'rect' || state.tool === 'ellipse' || state.tool === 'sine') {
         engine.currentShape = new Shape(state.tool as any, worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false, state.sineWavelength, state.sineAmplitude);
         draftNeedsUpdate = true;
@@ -1245,23 +1246,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       if (state.tool === 'laser' && pointer.isPointerDown) {
         laserPointsRef.current.push({ x: worldP.x, y: worldP.y, time: Date.now() });
       } else if ((state.tool === 'pen' || state.tool === 'highlighter') && engine.currentStroke && pointer.isPointerDown) {
-        // ULTRA-LIGHTWEIGHT: Just add points to the stroke.
-        // Do NOT touch the canvas here — the render loop's fast path
-        // handles all rendering. Keeping this handler fast allows the
-        // browser to fire pointermove events at maximum frequency.
-        if (engine.pointer.pendingPoints.length > 0) {
-          for (const p of engine.pointer.pendingPoints) {
-            const wp = engine.camera.screenToWorld(p.x, p.y) as Point;
-            wp.pressure = p.pressure;
-            wp.tiltX = p.tiltX;
-            wp.tiltY = p.tiltY;
-            engine.currentStroke.addPoint(wp);
-          }
-          engine.pointer.pendingPoints = [];
-        } else {
-          engine.currentStroke.addPoint(worldP);
-        }
-        draftNeedsUpdate = true;
+        renderPendingInk();
+        return;
       }
       if (state.tool === 'arc' && arcState !== 'idle' && currentArcShape) {
         if (arcState === 'setting-start') {

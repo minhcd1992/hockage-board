@@ -1,20 +1,43 @@
 const fs = require('fs');
-let text = fs.readFileSync('app/lesson/bai-2/page.mdx', 'utf-8');
+let filePath = 'd:\\\\Board\\\\hockage-board\\\\app\\\\lesson\\\\bai-1\\\\bai-tap\\\\page.mdx';
+let content = fs.readFileSync(filePath, 'utf8');
 
-// Fix 1 giờ
-text = text.replace(/<Math inline>\{"1\\\\text\{ giờ\}"\}<\/Math>/g, '<Math inline>{"1"}</Math> giờ');
+// We want to replace non-ASCII characters inside math mode that are NOT wrapped in \text{}
+// We want to replace non-ASCII characters inside math mode that are NOT wrapped in \text{}
 
-// Fix 2 giờ, 3 giờ, 10 giờ in the quizzes
-text = text.replace(/<Math inline>\{"2\\\\text\{ giờ\}"\}<\/Math>/g, '<Math inline>{"2"}</Math> giờ');
-text = text.replace(/<Math inline>\{"3\\\\text\{ giờ\}"\}<\/Math>/g, '<Math inline>{"3"}</Math> giờ');
-text = text.replace(/<Math inline>\{"10\\\\text\{ giờ\}"\}<\/Math>/g, '<Math inline>{"10"}</Math> giờ');
+function fixContent(mathContent) {
+    mathContent = mathContent.replace(/_([a-zA-ZÀ-ỹ]+)/g, (m, p1) => {
+        if (p1.length > 1 || /[^\x00-\x7F]/.test(p1)) {
+            return '_{\\\\text{' + p1 + '}}';
+        }
+        return m;
+    });
 
-// Fallback for any other " giờ"
-text = text.replace(/\\\\text\{ giờ\}/g, '\\\\text{ h}');
+    mathContent = mathContent.replace(/_\{([a-zA-ZÀ-ỹ]+)\}/g, (m, p1) => {
+        if (p1.length > 1 || /[^\x00-\x7F]/.test(p1)) {
+            return '_{\\\\text{' + p1 + '}}';
+        }
+        return m;
+    });
+    
+    mathContent = mathContent.replace(/(?<!\\\\text\{)đpcm(?!\})/g, '\\\\text{đpcm}');
+    return mathContent;
+}
 
-// Fix tốc độ, vận tốc in \text
-text = text.replace(/\\\\text\{tốc độ\}/g, '\\\\text{toc do}');
-text = text.replace(/\\\\text\{vận tốc\}/g, '\\\\text{van toc}');
+// Math mode is between <Math inline>{" and "}</Math>
+content = content.replace(/<Math inline>\{"([^"]+)"\}<\/Math>/g, (match, mathContent) => {
+    return '<Math inline>{"' + fixContent(mathContent) + '"}</Math>';
+});
 
-fs.writeFileSync('app/lesson/bai-2/page.mdx', text, 'utf-8');
-console.log('Fixed page.mdx');
+// Math mode is between $$ and $$ (needs to be checked before single $)
+content = content.replace(/\$\$([^$]+)\$\$/g, (match, mathContent) => {
+    return '$$' + fixContent(mathContent) + '$$';
+});
+
+// Math mode is between $ and $
+content = content.replace(/(?<!\$)\$([^$]+)\$(?!\$)/g, (match, mathContent) => {
+    return '$' + fixContent(mathContent) + '$';
+});
+
+fs.writeFileSync(filePath, content);
+console.log('Math subscripts fixed');

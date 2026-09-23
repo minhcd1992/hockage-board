@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 interface QuizShortProps {
-  question: string;
+  question: React.ReactNode;
   context?: React.ReactNode;
   answer: string;
   explanation: React.ReactNode;

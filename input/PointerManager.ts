@@ -78,6 +78,7 @@ export class PointerManager {
   };
 
   private handlePointerMove = (e: PointerEvent) => {
+    if (this.isPointerDown && !this.activePointers.has(e.pointerId)) return;
     if (this.activePointers.has(e.pointerId)) {
       this.activePointers.set(e.pointerId, e);
     }
@@ -126,12 +127,14 @@ export class PointerManager {
       // Ignore
     }
     
+    // One layout read per event batch, not one per hardware sample.
+    const rect = this.element.getBoundingClientRect();
     for (const ev of events) {
-      const p = this.getPoint(ev as PointerEvent);
+      const p = this.getPoint(ev as PointerEvent, rect);
       this.pendingPoints.push(p);
     }
     
-    this.lastPointerPos = this.getPoint(e);
+    this.lastPointerPos = this.getPoint(e, rect);
     if (this.onPointerMove) this.onPointerMove(this.lastPointerPos, e);
   };
 
@@ -168,8 +171,7 @@ export class PointerManager {
     if (this.onDoubleClick) this.onDoubleClick(p, e);
   };
 
-  private getPoint(e: PointerEvent): Point {
-    const rect = this.element.getBoundingClientRect();
+  private getPoint(e: PointerEvent, rect = this.element.getBoundingClientRect()): Point {
     
     let pressure = e.pressure;
     if (e.pointerType === 'mouse' || typeof pressure !== 'number' || pressure === 0) {

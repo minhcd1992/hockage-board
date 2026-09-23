@@ -6,6 +6,7 @@ export class Stroke extends BoardObject {
   color: string;
   size: number;
   isDrawing: boolean;
+  private outlineCache: { path: Path2D; scale: number; size: number; points: Point[]; count: number } | null = null;
   
   isEraser: boolean = false;
   isHighlighter: boolean = false;
@@ -23,6 +24,7 @@ export class Stroke extends BoardObject {
 
   addPoint(p: Point) {
     this.points.push(p);
+    this.outlineCache = null;
   }
 
   // Draw the stroke
@@ -112,38 +114,33 @@ export class Stroke extends BoardObject {
     const transform = ctx.getTransform();
     const scale = Math.sqrt(transform.a * transform.a + transform.b * transform.b) || 1;
 
-    const inputPoints = [];
-    for (let i = 0; i < this.points.length; i++) {
-      const p = this.points[i];
-      inputPoints.push({ x: p.x * scale, y: p.y * scale, pressure: p.pressure ?? 0.5 });
+    let cache = this.outlineCache;
+    if (!cache || cache.scale !== scale || cache.size !== this.size ||
+        cache.points !== this.points || cache.count !== this.points.length) {
+      const inputPoints = this.points.map(p => ({
+        x: p.x * scale, y: p.y * scale, pressure: p.pressure ?? 0.5,
+      }));
+      const outlinePoints = getStroke(inputPoints, {
+        size: this.size * scale,
+        thinning: 0.2,
+        smoothing: 0.9,
+        streamline: 0.75,
+        simulatePressure: false,
+        last: true,
+      });
+      const path = new Path2D();
+      if (outlinePoints.length > 0) {
+        path.moveTo(outlinePoints[0][0] / scale, outlinePoints[0][1] / scale);
+        for (let i = 1; i < outlinePoints.length; i++) {
+          path.lineTo(outlinePoints[i][0] / scale, outlinePoints[i][1] / scale);
+        }
+        path.closePath();
+      }
+      cache = { path, scale, size: this.size, points: this.points, count: this.points.length };
+      this.outlineCache = cache;
     }
-
-    const outlinePoints = getStroke(inputPoints, {
-      size: this.size * scale,
-      thinning: 0.2,
-      smoothing: 0.9,
-      streamline: 0.75,
-      simulatePressure: false,
-      last: true, 
-    });
-
-    if (outlinePoints.length === 0) {
-      ctx.restore();
-      return;
-    }
-
     ctx.fillStyle = this.isEraser ? '#000' : this.color;
-
-    ctx.beginPath();
-    ctx.moveTo(outlinePoints[0][0] / scale, outlinePoints[0][1] / scale);
-    
-    // Draw the outline polygon
-    for (let i = 1; i < outlinePoints.length; i++) {
-      ctx.lineTo(outlinePoints[i][0] / scale, outlinePoints[i][1] / scale);
-    }
-    
-    ctx.closePath();
-    ctx.fill();
+    ctx.fill(cache.path);
     ctx.restore();
   }
 
@@ -215,6 +212,7 @@ export class Stroke extends BoardObject {
   }
 
   _translate(dx: number, dy: number): void {
+    this.outlineCache = null;
     for (const p of this.points) {
       p.x += dx;
       p.y += dy;

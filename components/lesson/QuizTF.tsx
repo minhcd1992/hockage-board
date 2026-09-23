@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 
 interface QuizTFProps {
-  question: string;
+  question: React.ReactNode;
   context?: React.ReactNode;
   statements: {
     id: string;
-    text: string;
+    text: React.ReactNode;
     isTrue: boolean;
     explanation: React.ReactNode;
   }[];

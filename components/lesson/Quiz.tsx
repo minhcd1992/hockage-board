@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 interface QuizProps {
-  question: string;
-  options: string[];
+  question: React.ReactNode;
+  options: React.ReactNode[];
   correctIndex: number;
   explanation: React.ReactNode;
 }

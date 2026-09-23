@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CanvasBoard } from '../components/CanvasBoard';
 import { TopMenu } from '../components/TopMenu';
 import { TabsBar } from '../components/TabsBar';
@@ -8,7 +8,26 @@ import { PropertiesBar } from '../components/PropertiesBar';
 import { useBoardStore } from '../store/useBoardStore';
 
 export default function BoardPage() {
-  const { tabs, activeTabId } = useBoardStore();
+  const { tabs, activeTabId, addTab, setActiveTab } = useBoardStore();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const openLesson = urlParams.get('openLesson');
+      if (openLesson) {
+        const existingTab = tabs.find(t => t.url === openLesson);
+        if (existingTab) {
+          setActiveTab(existingTab.id);
+        } else {
+          const id = 'lesson-' + Date.now();
+          const title = openLesson.includes('bai-tap') ? 'Bài tập' : 'Bài giảng';
+          addTab({ id, type: 'lesson', title, url: openLesson });
+          setActiveTab(id);
+        }
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  }, [tabs, addTab, setActiveTab]);
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>

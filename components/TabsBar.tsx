@@ -51,7 +51,7 @@ export function TabsBar() {
             borderRight: tab.id === activeTabId ? '1px solid var(--border-color)' : '1px solid transparent',
             borderBottom: 'none', // Safe to use now since we don't use 'border' shorthand
             borderRadius: '10px 10px 0 0',
-            cursor: 'pointer',
+            cursor: 'default',
             transition: 'all 0.2s',
             minWidth: '120px',
             maxWidth: '220px',
@@ -92,7 +92,7 @@ export function TabsBar() {
               style={{
                 background: 'transparent',
                 border: 'none',
-                cursor: 'pointer',
+                cursor: 'default',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -118,7 +118,7 @@ export function TabsBar() {
         height: '36px',
         background: 'transparent',
         borderRadius: '50%',
-        cursor: 'pointer',
+        cursor: 'default',
         marginLeft: '4px',
         marginBottom: '6px',
         transition: 'background 0.2s',
@@ -157,7 +157,7 @@ export function TabsBar() {
           height: '36px',
           background: showLessonModal ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
           borderRadius: '50%',
-          cursor: 'pointer',
+          cursor: 'default',
           marginBottom: '6px',
           transition: 'background 0.2s',
         }}
@@ -210,7 +210,7 @@ export function TabsBar() {
               </h2>
               <button 
                 onClick={() => setShowLessonModal(false)}
-                style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '8px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                style={{ background: 'transparent', border: 'none', cursor: 'default', padding: '8px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 onMouseEnter={(e) => e.currentTarget.style.background = '#f3f4f6'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
               >
@@ -250,7 +250,7 @@ export function TabsBar() {
                     border: '1px solid #e5e7eb',
                     borderRadius: '12px',
                     padding: '20px',
-                    cursor: 'pointer',
+                    cursor: 'default',
                     transition: 'all 0.2s ease',
                     background: '#f9fafb',
                     display: 'flex',
@@ -270,9 +270,7 @@ export function TabsBar() {
                     e.currentTarget.style.background = '#f9fafb';
                   }}
                 >
-                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#1f2937' }}>{lesson.title}</h3>
-                  <p style={{ margin: 0, fontSize: '14px', color: '#6b7280', lineHeight: 1.5 }}>{lesson.desc}</p>
-                </div>
+                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#1f2937' }}>{lesson.title}</h3><p style={{ margin: 0, fontSize: '14px', color: '#6b7280', lineHeight: 1.5, flex: 1 }}>{lesson.desc}</p><div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lesson.title.split(':')[0], url: lesson.url }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><BookOpen size={16} /> Lý thuyết</button><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lesson.title.split(':')[0] + ' BT', url: lesson.url + '/bai-tap' }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(79, 70, 229, 0.1)', color: '#4f46e5', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><PenTool size={16} /> Bài tập</button></div></div>
               ))}
             </div>
           </div>
@@ -283,3 +281,5 @@ export function TabsBar() {
     </div>
   );
 }
+
+
