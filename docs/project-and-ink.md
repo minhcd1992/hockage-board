@@ -1,4 +1,4 @@
-# Project và engine bút capsule-v1
+# Project và engine bút spline-v2
 
 ## Cấu trúc
 
@@ -14,8 +14,8 @@ Hai lần sửa trước vẫn không giải quyết trải nghiệm trên bản
 ## Luồng mới
 
 1. `PointerManager` nhận mẫu thực từ raw/coalesced events, dùng pointermove nếu không có raw. Không ghi trùng hai luồng. Mất capture, blur hoặc pointercancel hủy thao tác.
-2. `InkGeometry` nối mẫu bằng các đoạn đầu tròn, độ rộng theo áp lực. Mỗi đoạn kết thúc đúng tọa độ đã đo; không chờ mẫu tương lai để làm mượt, không lọc tọa độ khiến đầu nét chạy sau.
-3. `LiveInk` trực tiếp vẽ phần mới trên draft. Bút không đi qua React state hay vòng requestAnimationFrame chung. Highlight vẽ opaque rồi áp opacity một lần lên lớp để tránh nối nét đậm.
+2. `InkGeometry` nội suy Bézier qua các mẫu, độ rộng theo áp lực. Hướng tiếp tuyến kết hợp hai đoạn lân cận; độ dài tay nắm bị giới hạn để tránh vòng xoắn khi mẫu phân bố không đều. Đường cong được chia nhỏ theo sai số hình học, không làm mất các điểm đầu vào.
+3. `LiveInk` giữ các đoạn đã có đủ điểm lân cận trong canvas đệm. Đoạn cuối được vẽ tạm tới đúng điểm bút mới nhất, rồi cập nhật khi nhận thêm mẫu; chỉ vùng đuôi cũ/mới được thay, không dựng lại cả nét trong mỗi event. Không đọc pixel về CPU. Bút không đi qua React state hay vòng requestAnimationFrame chung. Highlight vẽ opaque rồi áp opacity một lần lên lớp để tránh nối nét đậm.
 4. Khi nhấc bút, `Stroke` dùng cùng hình học lúc viết, không đổi nét qua perfect-freehand. `commitStroke` chỉ thêm nét mới lên main, không xóa/vẽ lại scene. Undo/redo, camera và sửa đối tượng vẫn dùng full render.
 5. Cache hình học ở tọa độ thế giới nên zoom không cần dựng lại đường viền. Copy giữ đúng highlight; bounding box/hit test tính độ rộng highlight.
 6. Nếu có Ink API, đăng ký `navigator.ink.requestPresenter` và cập nhật điểm cuối đã vẽ bằng sự kiện thật. Trình duyệt/hệ thống có thể vẽ tiếp đầu nét giữa những lần ứng dụng nhận event. Không có API hoặc API lỗi thì dùng canvas. Không yêu cầu bật experimental flags.
@@ -34,7 +34,7 @@ Tham khảo: [Ink API](https://wicg.github.io/ink-enhancement/), [Chrome: desync
 
 Thêm `?inkDebug=1` vào URL trang bảng rồi viết vài nét:
 
-- `engine: capsule-v1`: xác nhận đang chạy engine mới.
+- `engine: spline-v2`: xác nhận đang chạy bản nét cong.
 - `inputType`: driver gửi `pen` hay giả lập `mouse`.
 - `inputEvent`: raw hay pointermove fallback.
 - `nativeInk`, `nativeUpdates`: API khởi tạo được và số lần gọi thành công; không phải phép đo native trail đã xuất hiện trên màn hình.
@@ -49,7 +49,9 @@ Các số max tính từ lúc mount bảng. Chế độ mặc định không có
 - ESLint không tăng lỗi/cảnh báo ở các file sửa; ba module mới không có lỗi/cảnh báo.
 - `node scratch/check-ink.cjs`: cache world-space, raw/move không trùng, fallback, cancellation, clone/bounds highlight, scheduler dừng/tiếp tục và loại trừ thời gian pause.
 - `node scratch/check-ink-browser.cjs mouse` và `node scratch/check-ink-browser.cjs pen lesson`: Chrome headless, production localhost:3100, CDP:9333, DPR 2, CPU throttle 4x. Kiểm tra nét trước pointerup, commit không clear main, undo/redo, pause/resume iframe, fallback không có Ink API, hủy nét và alpha highlight không chồng đậm.
-- Lượt pen trên lesson: 50 raw + 50 move, 51 batch gồm điểm đặt bút, 51 native updates thành công, 0 lần clear main trong thao tác. Max JS draw khoảng 0.8 ms trong lượt đó; đây không phải độ trễ end-to-end hay phiên Meet.
+- Lượt spline-v2 với pen trên lesson: 50 raw + 50 move, 51 batch gồm điểm đặt bút, 51 native updates thành công, 0 lần clear main trong thao tác. Đây là kiểm tra chức năng, không phải độ trễ end-to-end hay phiên Meet.
+- Kiểm tra thêm spline qua từng điểm, giữ đúng đầu nét, đoạn đã ổn định không đổi khi có mẫu mới, tọa độ trùng/quay đầu/khoảng cách mẫu chênh lệch. So sánh pixel nét đang viết và nét chốt: khoảng 1% khác biệt ở ngưỡng alpha trong đường thử, chủ yếu do antialias khi tô từng đoạn. Bounding box và hit test dùng đường cong đã nội suy.
+- Ảnh so sánh cùng dữ liệu điểm: [đoạn thẳng và spline](../scratch/ink-curve-comparison.png).
 - Script có benchmark submission với 120 nét × 80 điểm: bản trước submit lại 120 nét mỗi lần chốt, bản mới submit 1 nét. Kết quả chỉ đo thời gian JS, có thể thấp hơn độ phân giải timer; không dùng làm tuyên bố FPS.
 
 Cần đối chiếu trên đúng bảng vẽ rời/trình duyệt của người dùng sau deploy, cả bảng trống và bài giảng trong Meet. Nếu còn trễ, dữ liệu chẩn đoán giúp phân biệt dispatch input, xử lý JS và đường hiển thị/capture; chưa thể kết luận từ headless.

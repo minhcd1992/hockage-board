@@ -1,5 +1,5 @@
 'use client';
-import { requestLessonFrame, cancelLessonFrame, lessonNow, isLessonPaused } from '../../lib/lessonAnimation';
+import { requestLessonFrame, cancelLessonFrame, lessonNow, isLessonPaused } from '@/lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 
 export const SpeedometerSim = () => {

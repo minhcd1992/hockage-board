@@ -5,11 +5,13 @@ import { createPortal } from 'react-dom';
 import { MousePointer2, Hand, Pen, Highlighter, Eraser, Type, Minus, ArrowRight, Square, Circle, ChevronDown, Download, Wand2, Play, Pause, RotateCcw, Scissors, BookOpen, ClipboardList } from 'lucide-react';
 import { ToolType } from '../types';
 import { useBoardStore } from '../store/useBoardStore';
+import { resolveLessonUrl, lessonUrl, lessonTabTitle } from '@/lib/lessons';
 
 
 export function TopMenu() {
   const { tool, setTool, currentShapeTool, setCurrentShapeTool, tabs, activeTabId, activeEngineRef, addTab, setActiveTab } = useBoardStore();
   const activeTab = tabs.find(t => t.id === activeTabId);
+  const activeLesson = activeTab?.type === 'lesson' && activeTab.url ? resolveLessonUrl(activeTab.url) : undefined;
   const [showShapeDropdown, setShowShapeDropdown] = useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const menuRef = React.useRef<HTMLDivElement>(null);
@@ -29,16 +31,16 @@ export function TopMenu() {
   }, []);
 
   const handleToggleExercise = () => {
-    if (!activeTab || activeTab.type !== 'lesson' || !activeTab.url) return;
-    const isExercise = activeTab.url.includes('/bai-tap');
-    const targetUrl = isExercise ? activeTab.url.replace('/bai-tap', '') : activeTab.url + '/bai-tap';
+    if (!activeLesson) return;
+    const targetPart = activeLesson.part === 'exercises' ? 'theory' : 'exercises';
+    const targetUrl = lessonUrl(activeLesson.lesson, targetPart);
     
     const existingTab = tabs.find(t => t.url === targetUrl);
     if (existingTab) {
       setActiveTab(existingTab.id);
     } else {
       const id = 'lesson-' + Date.now();
-      const title = targetUrl.includes('/bai-tap') ? 'Bài tập' : 'Bài giảng';
+      const title = lessonTabTitle(activeLesson.lesson, targetPart);
       addTab({ id, type: 'lesson', title, url: targetUrl });
       setActiveTab(id);
     }
@@ -179,16 +181,16 @@ export function TopMenu() {
       <div style={{ width: '1px', height: '24px', background: 'var(--border-color)' }} />
       
       <div style={{ display: 'flex', flexShrink: 0, alignItems: 'center' }}>
-        {activeTab?.type === 'lesson' && activeTab?.url && (
+        {activeLesson && (
           <>
             <button 
               className="tool-btn" 
               onClick={handleToggleExercise} 
-              title={activeTab.url.includes('/bai-tap') ? 'Quay lại bài giảng' : 'Làm bài tập'}
+              title={activeLesson.part === 'exercises' ? 'Quay lại bài giảng' : 'Làm bài tập'}
               style={{ display: 'flex', alignItems: 'center', gap: '6px', width: 'auto', padding: '0 12px', fontSize: '14px', fontWeight: 500, color: 'var(--text-primary)', background: 'rgba(79, 70, 229, 0.05)', border: '1px solid rgba(79, 70, 229, 0.2)' }}
             >
-              {activeTab.url.includes('/bai-tap') ? <BookOpen size={16} className="text-indigo-600" /> : <ClipboardList size={16} className="text-indigo-600" />}
-              <span>{activeTab.url.includes('/bai-tap') ? 'Bài giảng' : 'Bài tập'}</span>
+              {activeLesson.part === 'exercises' ? <BookOpen size={16} className="text-indigo-600" /> : <ClipboardList size={16} className="text-indigo-600" />}
+              <span>{activeLesson.part === 'exercises' ? 'Bài giảng' : 'Bài tập'}</span>
             </button>
             <div style={{ width: '1px', height: '24px', background: 'var(--border-color)', margin: '0 8px' }} />
           </>

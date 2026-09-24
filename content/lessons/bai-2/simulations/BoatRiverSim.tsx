@@ -1,5 +1,5 @@
 'use client';
-import { requestLessonFrame, cancelLessonFrame } from '../../lib/lessonAnimation';
+import { requestLessonFrame, cancelLessonFrame } from '@/lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 
 export const BoatRiverSim = () => {

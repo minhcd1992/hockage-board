@@ -2,23 +2,24 @@
 import React, { useState } from 'react';
 
 interface QuizShortProps {
+  id: string;
   question: React.ReactNode;
   context?: React.ReactNode;
   answer: string;
   explanation: React.ReactNode;
 }
 
-export const QuizShort: React.FC<QuizShortProps> = ({ question, context, answer, explanation }) => {
+export const QuizShort: React.FC<QuizShortProps> = ({ id, question, context, answer, explanation }) => {
   const [showAnswer, setShowAnswer] = useState(false);
 
   return (
-    <div className="glass-panel p-5 rounded-lg border border-slate-200 shadow-sm mb-4 bg-white">
+    <div data-question-id={id} className="glass-panel p-5 rounded-lg border border-slate-200 shadow-sm mb-4 bg-white">
       <p className="font-bold text-slate-800 mb-2">{question}</p>
       {context && <div className="text-slate-700 mb-4">{context}</div>}
       
       <div className="flex items-center gap-3 mb-4">
         <span className="font-bold text-slate-700">Đáp số:</span>
-        <input type="text" placeholder="Nhập số..." className="border border-slate-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-400 bg-slate-50 w-32" />
+        <input aria-label="Đáp số" type="text" placeholder="Nhập số..." className="border border-slate-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-400 bg-slate-50 w-32" />
       </div>
 
       <button

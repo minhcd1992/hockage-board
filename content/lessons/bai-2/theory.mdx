@@ -1,10 +1,7 @@
-export const metadata = {
-  title: 'Bài 2: Tốc độ, vận tốc và thực hành đo tốc độ',
-}
-
-<span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded uppercase tracking-wide">Vật lý 10 - Động học</span>
-<h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mt-2 mb-2">Bài 2: Tốc độ, vận tốc và thực hành đo tốc độ</h1>
-<p className="text-gray-500 mb-8 border-b-2 border-gray-200 pb-4 text-base italic">Sách Giáo Khoa (Tài liệu Lý thuyết & Dẫn dắt tư duy)</p>
+import { SpeedometerSim, CurvedPathSim, SatelliteSim, LimitVelocitySim } from './simulations/Lesson2Sims'
+import { RelativeVelocitySim } from './simulations/RelativeVelocitySim'
+import { PhotogateSim } from './simulations/PhotogateSim'
+import { BoatRiverSim } from './simulations/BoatRiverSim'
 
 <Section title="A. Mở Đầu & Đặt Vấn Đề" icon="rocket">
 
@@ -19,8 +16,7 @@ Trong đời sống hằng ngày, chúng ta thường nghe những câu nói nh�
 - Hai chiếc ô tô cùng xuất phát từ một nút giao thông và cùng chạy với chỉ số tốc kế là <Math inline>{"60\\text{ km/h}"}</Math>, nhưng sau <Math inline>{"1"}</Math> giờ chúng lại cách nhau đến <Math inline>{"120\\text{ km}"}</Math>. Điều gì đã bị bỏ qua nếu ta chỉ quan tâm đến con số <Math inline>{"60\\text{ km/h}"}</Math>?
 - Làm thế nào để các kỹ sư ô tô hay các nhà khoa học trong phòng thí nghiệm có thể đo chính xác tốc độ của một vật thể di chuyển cực nhanh trong khoảng thời gian chỉ vài phần nghìn giây (<Math inline>{"\\text{ms}"}</Math>)?
 
-<InfoBox type="goal">
-  **Mục tiêu bài học:**
+<InfoBox type="info" title="Mục tiêu bài học">
   - Phân biệt rạch ròi giữa tốc độ (đại lượng vô hướng) và vận tốc (đại lượng vector).
   - Định nghĩa và tính toán được tốc độ trung bình, tốc độ tức thời, vận tốc trung bình và vận tốc tức thời.
   - Hiểu và vận dụng thành thạo công thức cộng vận tốc trong các hệ quy chiếu khác nhau.
@@ -122,7 +118,7 @@ Về mặt toán học, khi <Math inline>{"\\Delta t \\to 0"}</Math>, vectơ đ�
   rows={[
     ['Bản chất toán học', 'Đại lượng vô hướng (Scalar)', 'Đại lượng vector (Vector)'],
     ['Cấu tạo', 'Chỉ có độ lớn', 'Gồm độ lớn, phương và chiều'],
-    ['Giá trị', 'Luôn không âm (v ≥ 0)', 'Độ lớn âm/dương tùy thuộc hệ tọa độ chọn'],
+    ['Giá trị', 'Luôn không âm (v ≥ 0)', 'Trong chuyển động thẳng, giá trị đại số có thể âm, dương hoặc bằng 0; độ lớn luôn không âm'],
     ['Yếu tố phụ thuộc', 'Phụ thuộc vào tổng quãng đường s', 'Phụ thuộc vào độ dịch chuyển d'],
     ['Ý nghĩa', 'Cho biết mức độ nhanh/chậm', 'Cho biết mức độ nhanh/chậm VÀ hướng chuyển động']
   ]}
@@ -152,7 +148,7 @@ Vận tốc có tính tương đối vì nó phụ thuộc vào hệ quy chiếu
 
 **2. Định lý cộng vận tốc**
 
-<InfoBox type="goal" title="Công thức cộng vận tốc">
+<InfoBox type="info" title="Công thức cộng vận tốc">
 Vận tốc tuyệt đối của vật đối với hệ quy chiếu đứng yên bằng tổng vector của vận tốc tương đối và vận tốc kéo theo:
 
 <div className="flex justify-center my-4">
@@ -293,7 +289,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 
 <h4 className="font-bold text-lg text-slate-800 mt-4 border-b-2 border-slate-200 pb-2">PHẦN I. TRẮC NGHIỆM 4 PHƯƠNG ÁN</h4>
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-001"
   question="Câu 1 (Nhận biết): Đại lượng đặc trưng cho tính chất nhanh hay chậm của chuyển động tại một thời điểm xác định và cho biết chiều chuyển động của vật là" 
   options={[
     "Tốc độ trung bình.",
@@ -305,7 +302,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Vận tốc tức thời <Math inline>{"\\vec{v}"}</Math> có hướng trùng với chiều chuyển động và độ lớn cho biết độ nhanh chậm tại thời điểm đó.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-002"
   question="Câu 2 (Nhận biết): Trong hệ đo lường SI, đơn vị hợp pháp của tốc độ và vận tốc là" 
   options={[
     "km/h.",
@@ -317,7 +315,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Trong hệ SI, đơn vị tiêu chuẩn của tốc độ và vận tốc là <Math inline>{"\\text{m/s}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-003"
   question="Câu 3 (Thông hiểu): Trên đồ thị độ dịch chuyển – thời gian (d - t) của một chuyển động thẳng, độ dốc (hệ số góc) của đường biểu diễn đại diện cho đại lượng nào sau đây?" 
   options={[
     "Quãng đường đi được.",
@@ -329,7 +328,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Độ dốc (slope) trên đồ thị d - t bằng <Math inline>{"v = \\frac{\\Delta d}{\\Delta t}"}</Math>, đại diện cho vận tốc.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-004"
   question="Câu 4 (Thông hiểu): Bảng số liệu ghi nhận độ dịch chuyển của người đi bộ. Tại t=2s, d=3m. Tại t=6s, d=6m. Vận tốc trung bình trong khoảng thời gian này là" 
   options={[
     "1,5 m/s.",
@@ -341,7 +341,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Vận tốc trung bình <Math inline>{"v_{tb} = \\frac{d_2 - d_1}{t_2 - t_1} = \\frac{6 - 3}{6 - 2} = \\frac{3}{4} = 0,75\\text{ m/s}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-005"
   question="Câu 5 (Thông hiểu): Tốc kế gắn trên bảng điều khiển của xe máy đang chạy hiển thị con số 45 km/h. Con số này cho biết" 
   options={[
     "vận tốc trung bình của xe trên cả chuyến đi.",
@@ -353,7 +354,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation="Đồng hồ tốc kế trên xe hiển thị độ lớn của vận tốc tức thời (tốc độ tức thời) tại thời điểm đang chạy."
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-006"
   question="Câu 6 (Thông hiểu): Một người cưỡi ngựa đi từ A đến B. Trong nửa đầu quãng đường, đi với tốc độ 12 km/h. Nửa sau đi với tốc độ 20 km/h. Tốc độ trung bình trên toàn bộ quãng đường là" 
   options={[
     "16,0 km/h.",
@@ -365,7 +367,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Tốc độ trung bình <Math inline>{"v_{tb} = \\frac{2 v_1 v_2}{v_1 + v_2} = \\frac{2 \\cdot 12 \\cdot 20}{12 + 20} = 15\\text{ km/h}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-007"
   question="Câu 7 (Thông hiểu): Thuyền ngược dòng nước. Gọi v1,2 là vận tốc thuyền so với nước, v2,3 là vận tốc nước so với bờ. Vận tốc v1,3 của thuyền so với bờ xác định bởi công thức vectơ là" 
   options={[
     "v1,3 = v1,2 + v2,3 (vectơ)",
@@ -377,7 +380,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Công thức cộng vận tốc luôn viết ở dạng vectơ: <Math inline>{"\\vec{v}_{1,3} = \\vec{v}_{1,2} + \\vec{v}_{2,3}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-008"
   question="Câu 8 (Vận dụng): Hành khách trên ô tô chạy với tốc độ 54 km/h về hướng Đông. Hành khách thấy cột điện dường như di chuyển. Vận tốc cột điện đối với ô tô là" 
   options={[
     "54 km/h về hướng Đông.",
@@ -389,7 +393,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation="Hệ quy chiếu gắn với ô tô, cột điện chuyển động ngược lại về hướng Tây với tốc độ 54 km/h."
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-009"
   question="Câu 9 (Thông hiểu): Trong bài thực hành đo tốc độ tức thời, chiều rộng tấm chắn là s, thời gian là Δt. Tốc độ tức thời v tính theo công thức" 
   options={[
     "v = s * Δt",
@@ -401,7 +406,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Tốc độ tức thời xấp xỉ tốc độ trung bình trong thời gian rất ngắn: <Math inline>{"v = \\frac{s}{\\Delta t}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-theory-010"
   question="Câu 10 (Vận dụng): Kết quả đo tốc độ trung bình được ghi dưới dạng v = (1,24 ± 0,02) m/s. Sai số tương đối δv bằng" 
   options={[
     "1,61%",
@@ -416,6 +422,7 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 <h4 className="font-bold text-lg text-slate-800 mt-8 border-b-2 border-slate-200 pb-2">PHẦN II. TRẮC NGHIỆM ĐÚNG/SAI</h4>
 
 <QuizTF
+  id="bai-2-theory-011"
   question="Câu 1: Đồ thị (d - t) mô tả: GĐ1 (0-4s) d tăng đều lên 8m. GĐ2 (4-7s) d giữ 8m. GĐ3 (7-9s) d giảm đều về 0m."
   statements={[
     { id: 'a', text: 'Trong 4 giây đầu tiên, vật chuyển động thẳng đều theo chiều dương với vận tốc 2 m/s.', isTrue: true, explanation: 'v = (8-0)/(4-0) = 2 m/s > 0' },
@@ -426,6 +433,7 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 />
 
 <QuizTF
+  id="bai-2-theory-012"
   question="Câu 2: Một chiếc ca nô đi xuôi dòng A đến B hết 2 giờ. Ngược B về A hết 3 giờ. Tốc độ ca nô đối với nước là 20 km/h."
   statements={[
     { id: 'a', text: 'Khi đi xuôi dòng, vận tốc ca nô đối với bờ có độ lớn lớn hơn 20 km/h.', isTrue: true, explanation: 'v_xuôi = 20 + v_nước > 20' },
@@ -436,6 +444,7 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 />
 
 <QuizTF
+  id="bai-2-theory-013"
   question="Câu 3: Thực hành đo tốc độ tức thời dùng cổng quang điện và đồng hồ thời gian hiện số:"
   statements={[
     { id: 'a', text: 'Cổng quang điện phát và thu tia hồng ngoại; khi tấm chắn cắt tia, đồng hồ tự động đo.', isTrue: true, explanation: 'Đúng với nguyên lý cổng quang điện.' },
@@ -448,18 +457,21 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 <h4 className="font-bold text-lg text-slate-800 mt-8 border-b-2 border-slate-200 pb-2">PHẦN III. TRẮC NGHIỆM TRẢ LỜI NGẮN</h4>
 
 <QuizShort
+  id="bai-2-theory-014"
   question="Câu 1: Nửa thời gian đầu ô tô chạy với tốc độ 40 km/h, nửa thời gian sau chạy 60 km/h. Tính tốc độ trung bình (km/h)."
   answer="50"
   explanation={<>Gọi T là tổng thời gian. <Math inline>{"s_1 = 40(T/2) = 20T"}</Math>, <Math inline>{"s_2 = 60(T/2) = 30T"}</Math>. <Math inline>{"v_{tb} = \\frac{20T + 30T}{T} = 50\\text{ km/h}"}</Math></>}
 />
 
 <QuizShort
+  id="bai-2-theory-015"
   question="Câu 2: Thuyền lái vuông góc với bờ tốc độ 12 km/h. Nước chảy xuôi bờ 5 km/h. Xác định tốc độ thuyền đối với bờ sông (km/h)."
   answer="13"
   explanation={<><Math inline>{"v = \\sqrt{12^2 + 5^2} = \\sqrt{169} = 13\\text{ km/h}"}</Math></>}
 />
 
 <QuizShort
+  id="bai-2-theory-016"
   question="Câu 3: s = 20,0 mm ± 0,1 mm. t = 0,040 s ± 0,001 s. Tính sai số tương đối δv của phép đo tốc độ (kết quả tính theo %, điền số làm tròn đến 1 chữ số thập phân)."
   answer="3.0"
   explanation={<><Math inline>{"\\delta v = \\frac{0,1}{20} + \\frac{0,001}{0,040} = 0,005 + 0,025 = 0,03 = 3,0\\%"}</Math></>}

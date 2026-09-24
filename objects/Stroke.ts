@@ -1,11 +1,19 @@
 import { BoardObject, Point, Rect } from '../types';
-import { inkPath } from '../engine/InkGeometry';
+import { inkPath, inkSamples } from '../engine/InkGeometry';
 
 export class Stroke extends BoardObject {
   points: Point[];
   color: string;
   size: number;
   isDrawing: boolean;
+  private samplesCache: { points: Point[]; count: number; samples: Point[] } | null = null;
+
+  private centerline() {
+    if (!this.samplesCache || this.samplesCache.points !== this.points || this.samplesCache.count !== this.points.length) {
+      this.samplesCache = { points: this.points, count: this.points.length, samples: inkSamples(this.points) };
+    }
+    return this.samplesCache.samples;
+  }
   private outlineCache: { path: Path2D; size: number; highlighter: boolean; points: Point[]; count: number } | null = null;
   
   isEraser: boolean = false;
@@ -25,6 +33,7 @@ export class Stroke extends BoardObject {
   addPoint(p: Point) {
     this.points.push(p);
     this.outlineCache = null;
+    this.samplesCache = null;
   }
 
   // Identical measured geometry during input, after pointerup, and in exports.
@@ -57,7 +66,7 @@ export class Stroke extends BoardObject {
     
     const pad = (this.isHighlighter ? this.size * 2 : this.size * 0.6) + 2;
 
-    for (const p of this.points) {
+    for (const p of this.centerline()) {
       if (p.x < minX) minX = p.x;
       if (p.y < minY) minY = p.y;
       if (p.x > maxX) maxX = p.x;
@@ -73,7 +82,7 @@ export class Stroke extends BoardObject {
   }
 
   _hitTest(p: Point): boolean {
-    const box = this.getBoundingBox();
+    const box = this._getBoundingBox();
     if (p.x < box.x || p.x > box.x + box.w || p.y < box.y || p.y > box.y + box.h) {
       return false;
     }
@@ -86,10 +95,11 @@ export class Stroke extends BoardObject {
       return dx*dx + dy*dy <= thresholdSq;
     }
     
-    // Check distance to all segments
-    for (let i = 0; i < this.points.length - 1; i++) {
-      const v = this.points[i];
-      const w = this.points[i+1];
+    // Hit-test the displayed curve rather than its raw input chords.
+    const samples = this.centerline();
+    for (let i = 0; i < samples.length - 1; i++) {
+      const v = samples[i];
+      const w = samples[i+1];
       
       const l2 = Math.pow(w.x - v.x, 2) + Math.pow(w.y - v.y, 2);
       let t = 0;
@@ -114,6 +124,7 @@ export class Stroke extends BoardObject {
 
   _translate(dx: number, dy: number): void {
     this.outlineCache = null;
+    this.samplesCache = null;
     for (const p of this.points) {
       p.x += dx;
       p.y += dy;

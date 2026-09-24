@@ -2,6 +2,7 @@ import { Scene } from './Scene';
 import { Camera } from './Camera';
 import { LiveInk } from './LiveInk';
 import { Stroke } from '../objects/Stroke';
+import { editAnchors } from './ObjectTransform';
 
 export class CanvasRenderer {
   bgCanvas: HTMLCanvasElement;
@@ -204,7 +205,31 @@ export class CanvasRenderer {
     
     if (!hideSelectionBox) {
       const bounds = this.scene.getSelectionBounds();
-      if (bounds) {
+      const anchors = editAnchors(this.scene.getSelectedObjects());
+      if (anchors.length) {
+        const ctx = this.mainCtx;
+        const zoom = this.camera.zoom;
+        ctx.save();
+        ctx.strokeStyle = '#3b82f6';
+        ctx.fillStyle = '#ffffff';
+        ctx.lineWidth = 1.5 / zoom;
+        if (anchors.length === 3) {
+          ctx.setLineDash([4 / zoom, 4 / zoom]);
+          ctx.beginPath();
+          ctx.moveTo(anchors[0].point.x, anchors[0].point.y);
+          ctx.lineTo(anchors[2].point.x, anchors[2].point.y);
+          ctx.lineTo(anchors[1].point.x, anchors[1].point.y);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+        for (const { point } of anchors) {
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, 5 / zoom, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+        ctx.restore();
+      } else if (bounds) {
         const zoom = this.camera.zoom;
         this.mainCtx.save();
         this.mainCtx.strokeStyle = '#3b82f6';

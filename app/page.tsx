@@ -6,6 +6,7 @@ import { TopMenu } from '../components/TopMenu';
 import { TabsBar } from '../components/TabsBar';
 import { PropertiesBar } from '../components/PropertiesBar';
 import { useBoardStore } from '../store/useBoardStore';
+import { resolveLessonUrl, lessonTabTitle } from '@/lib/lessons';
 
 export default function BoardPage() {
   const { tabs, activeTabId, addTab, setActiveTab } = useBoardStore();
@@ -14,13 +15,14 @@ export default function BoardPage() {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const openLesson = urlParams.get('openLesson');
-      if (openLesson) {
+      const resolved = openLesson ? resolveLessonUrl(openLesson) : undefined;
+      if (openLesson && resolved) {
         const existingTab = tabs.find(t => t.url === openLesson);
         if (existingTab) {
           setActiveTab(existingTab.id);
         } else {
           const id = 'lesson-' + Date.now();
-          const title = openLesson.includes('bai-tap') ? 'Bài tập' : 'Bài giảng';
+          const title = lessonTabTitle(resolved.lesson, resolved.part);
           addTab({ id, type: 'lesson', title, url: openLesson });
           setActiveTab(id);
         }

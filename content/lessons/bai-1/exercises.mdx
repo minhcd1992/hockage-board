@@ -1,12 +1,8 @@
-import { Quiz } from '@/components/lesson/Quiz'
-import { QuizTF } from '@/components/lesson/QuizTF'
-import { QuizShort } from '@/components/lesson/QuizShort'
-
-
 ## PHẦN 1: TRẮC NGHIỆM 4 PHƯƠNG ÁN (20 CÂU)
 *Thí sinh chọn 1 phương án đúng nhất trong mỗi câu.*
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-001"
   question={<><strong>Câu 1:</strong> Vectơ độ dịch chuyển là một đại lượng động học mô tả sự thay đổi vị trí của vật trong không gian. Vectơ này có gốc đặt tại</>}
   options={[
     <>gốc tọa độ <Math inline>{"O"}</Math> của hệ quy chiếu.</>,
@@ -18,7 +14,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Vectơ độ dịch chuyển <Math inline>{"\\vec{d}"}</Math> có gốc tại vị trí đầu <Math inline>{"A"}</Math> và ngọn tại vị trí cuối <Math inline>{"B"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-002"
   question={<><strong>Câu 2:</strong> Trong hệ đo lường quốc tế (SI), đơn vị tiêu chuẩn của quãng đường và độ dịch chuyển là</>}
   options={[
     <>kilômét (<Math inline>{"\\text{km}"}</Math>).</>,
@@ -30,7 +27,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Đơn vị chuẩn của chiều dài, độ dịch chuyển trong hệ SI là mét (<Math inline>{"\\text{m}"}</Math>).</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-003"
   question={<><strong>Câu 3:</strong> Độ lớn của độ dịch chuyển bằng quãng đường đi được (<Math inline>{"|d| = s"}</Math>) khi và chỉ khi vật chuyển động</>}
   options={[
     <>theo một đường cong bất kỳ và không đổi chiều.</>,
@@ -42,7 +40,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"|d| = s"}</Math> chỉ xảy ra khi vật chuyển động thẳng và KHÔNG đổi chiều.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-004"
   question={<><strong>Câu 4:</strong> So sánh giữa quãng đường <Math inline>{"s"}</Math> và độ dịch chuyển <Math inline>{"d"}</Math> của một chất điểm, phát biểu nào sau đây <strong>đúng</strong>?</>}
   options={[
     <>Quãng đường <Math inline>{"s"}</Math> là đại lượng vô hướng không âm (<Math inline>{"s \\ge 0"}</Math>), còn độ dịch chuyển <Math inline>{"d"}</Math> là đại lượng vectơ có thể mang giá trị đại số dương, âm hoặc bằng 0.</>,
@@ -54,7 +53,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"s \\ge 0"}</Math> là đại lượng vô hướng; <Math inline>{"d"}</Math> là đại lượng vectơ có thể dương, âm hoặc <Math inline>{"0"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-005"
   question={<><strong>Câu 5:</strong> Một người đi bộ quanh một hồ nước hình tròn bán kính <Math inline>{"R = 100\\text{ m}"}</Math>. Người đó xuất phát từ điểm A, đi đúng một vòng quanh hồ rồi quay về dừng lại đúng tại A. Quãng đường <Math inline>{"s"}</Math> và độ dịch chuyển <Math inline>{"d"}</Math> của người đó là</>}
   options={[
     <><Math inline>{"s = 0\\text{ m}; d = 200\\text{ m}"}</Math>.</>,
@@ -66,7 +66,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Chuyển động tròn 1 vòng khép kín: <Math inline>{"s = 2\\pi R = 2\\pi(100) = 200\\pi\\text{ m}"}</Math>; điểm đầu trùng điểm cuối nên <Math inline>{"d = 0\\text{ m}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-006"
   question={<><strong>Câu 6:</strong> Trên trục tọa độ <Math inline>{"Ox"}</Math>, chọn chiều dương từ trái sang phải. Một vật ban đầu ở tọa độ <Math inline>{"x_1 = -5\\text{ m}"}</Math>, sau đó di chuyển đến tọa độ <Math inline>{"x_2 = +3\\text{ m}"}</Math>. Độ dịch chuyển <Math inline>{"d"}</Math> của vật có giá trị đại số là</>}
   options={[
     <><Math inline>{"d = -8\\text{ m}"}</Math>.</>,
@@ -78,7 +79,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"d = x_2 - x_1 = (+3) - (-5) = +8\\text{ m}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-007"
   question={<><strong>Câu 7:</strong> Một con rô-bốt di chuyển trên đường thẳng <Math inline>{"Ox"}</Math>. Tọa độ ban đầu là <Math inline>{"x_1 = +8\\text{ m}"}</Math>. Rô-bốt lùi về vị trí <Math inline>{"x_2 = +2\\text{ m}"}</Math>. Độ dịch chuyển <Math inline>{"d"}</Math> và quãng đường <Math inline>{"s"}</Math> của rô-bốt lần lượt là</>}
   options={[
     <><Math inline>{"d = -6\\text{ m}; s = 6\\text{ m}"}</Math>.</>,
@@ -90,7 +92,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"d = x_2 - x_1 = 2 - 8 = -6\\text{ m}"}</Math>. Quãng đường <Math inline>{"s = |d| = 6\\text{ m}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-008"
   question={<><strong>Câu 8:</strong> Một người giao hàng đi xe máy <Math inline>{"3\\text{ km}"}</Math> về hướng Đông, sau đó rẽ vuông góc đi <Math inline>{"4\\text{ km}"}</Math> về hướng Bắc. Độ lớn độ dịch chuyển tổng hợp <Math inline>{"d"}</Math> của người giao hàng là</>}
   options={[
     <><Math inline>{"7\\text{ km}"}</Math>.</>,
@@ -102,7 +105,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"d = \\sqrt{3^2 + 4^2} = 5\\text{ km}"}</Math> (tam giác vuông <Math inline>{"3-4-5"}</Math>).</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-009"
   question={<><strong>Câu 9:</strong> Đồ thị Độ dịch chuyển – Thời gian (<Math inline>{"d - t"}</Math>) của một vật là một đường thẳng nằm ngang song song với trục thời gian <Math inline>{"t"}</Math>. Đồ thị này cho biết vật</>}
   options={[
     <>đang chuyển động thẳng đều theo chiều dương.</>,
@@ -114,7 +118,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"d"}</Math> không đổi theo <Math inline>{"t \\Rightarrow"}</Math> tọa độ không đổi <Math inline>{"\\Rightarrow"}</Math> vật đứng yên.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-010"
   question={<><strong>Câu 10:</strong> Đồ thị Độ dịch chuyển – Thời gian (<Math inline>{"d - t"}</Math>) của một chất điểm là đường thẳng đi qua gốc tọa độ và dốc lên phía trên. Phát biểu nào sau đây <strong>đúng</strong>?</>}
   options={[
     <>Chất điểm đứng yên tại gốc tọa độ.</>,
@@ -126,7 +131,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"d"}</Math> tăng đều theo thời gian <Math inline>{"\\Rightarrow"}</Math> chuyển động thẳng đều theo chiều dương.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-011"
   question={<><strong>Câu 11:</strong> Đồ thị Độ dịch chuyển – Thời gian (<Math inline>{"d - t"}</Math>) của một ô tô là đường thẳng dốc xuống từ trái sang phải. Hệ số góc (độ dốc) âm của đường này thể hiện</>}
   options={[
     <>ô tô đang chuyển động ngược chiều dương đã chọn.</>,
@@ -138,7 +144,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Hệ số góc âm <Math inline>{"\\Rightarrow v = \\frac{\\Delta d}{\\Delta t} < 0 \\Rightarrow"}</Math> vật chuyển động ngược chiều dương.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-012"
   question={<><strong>Câu 12:</strong> Một vận động viên bơi lội nhảy xuống bể bơi dài <Math inline>{"50\\text{ m}"}</Math>. VĐV bơi từ đầu bể đến cuối bể hết <Math inline>{"30\\text{ s}"}</Math>, rồi lập tức quay đầu bơi về lại vị trí xuất phát hết <Math inline>{"35\\text{ s}"}</Math>. Quãng đường <Math inline>{"s"}</Math> và độ dịch chuyển <Math inline>{"d"}</Math> trong cả chuyến bơi là</>}
   options={[
     <><Math inline>{"s = 100\\text{ m}; d = 0\\text{ m}"}</Math>.</>,
@@ -150,7 +157,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Bơi đi <Math inline>{"50\\text{ m}"}</Math>, về <Math inline>{"50\\text{ m} \\Rightarrow s = 100\\text{ m}"}</Math>; về lại điểm xuất phát <Math inline>{"\\Rightarrow d = 0\\text{ m}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-013"
   question={<><strong>Câu 13:</strong> Một quả bóng cao su rơi từ độ cao <Math inline>{"3\\text{ m}"}</Math> xuống mặt sàn cứng, nảy lên được <Math inline>{"1\\text{ m}"}</Math> thì được một học sinh giơ tay hứng lấy. Chọn chiều dương hướng thẳng đứng từ trên xuống dưới, gốc tọa độ tại vị trí thả bóng. Độ dịch chuyển <Math inline>{"d"}</Math> và quãng đường <Math inline>{"s"}</Math> của quả bóng kể từ lúc thả đến khi được hứng là</>}
   options={[
     <><Math inline>{"d = +2\\text{ m}; s = 4\\text{ m}"}</Math>.</>,
@@ -162,7 +170,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Chiều dương hướng xuống, mốc tại vị trí thả (<Math inline>{"x_1 = 0"}</Math>). Bóng rơi xuống <Math inline>{"3\\text{ m}"}</Math> rồi nảy lên <Math inline>{"1\\text{ m} \\rightarrow"}</Math> vị trí hứng <Math inline>{"x_2 = +2\\text{ m}"}</Math>. <Math inline>{"d = x_2 - x_1 = +2\\text{ m}"}</Math>; <Math inline>{"s = 3 + 1 = 4\\text{ m}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-014"
   question={<><strong>Câu 14:</strong> Để xác định vị trí của một vật chuyển động theo thời gian, người ta cần thiết lập một <strong>hệ quy chiếu</strong>. Hệ quy chiếu đầy đủ bao gồm</>}
   options={[
     <>vật làm mốc và mốc thời gian.</>,
@@ -174,7 +183,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Hệ quy chiếu đầy đủ = Vật mốc + Hệ tọa độ + Mốc thời gian + Đồng hồ.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-015"
   question={<><strong>Câu 15:</strong> Phát biểu nào sau đây giải thích chính xác sự khác biệt giữa <strong>tọa độ <Math inline>{"x"}</Math></strong> và <strong>độ dịch chuyển <Math inline>{"d"}</Math></strong> của một chất điểm?</>}
   options={[
     <>Tọa độ <Math inline>{"x"}</Math> phụ thuộc vào việc chọn gốc tọa độ <Math inline>{"O"}</Math>, còn độ dịch chuyển <Math inline>{"d = x_2 - x_1"}</Math> không thay đổi khi gốc <Math inline>{"O"}</Math> tịnh tiến.</>,
@@ -186,7 +196,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Tọa độ <Math inline>{"x"}</Math> thay đổi khi đổi gốc <Math inline>{"O"}</Math>; độ dịch chuyển <Math inline>{"d = x_2 - x_1"}</Math> không đổi vì độc lập với gốc <Math inline>{"O"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-016"
   question={<><strong>Câu 16:</strong> Một thiết bị thám hiểm di chuyển trên mặt đất: đầu tiên dịch chuyển một đoạn <Math inline>{"d_1 = 6\\text{ m}"}</Math> về hướng Tây, sau đó dịch chuyển <Math inline>{"d_2 = 8\\text{ m}"}</Math> về hướng Nam. Góc <Math inline>{"\\theta"}</Math> giữa vectơ độ dịch chuyển tổng hợp <Math inline>{"\\vec{d}"}</Math> và hướng Tây thỏa mãn</>}
   options={[
     <><Math inline>{"\\tan \\theta = \\frac{4}{3} \\Rightarrow \\theta \\approx 53,1^\\circ"}</Math>.</>,
@@ -198,7 +209,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"\\tan \\theta = \\frac{d_{Nam}}{d_{Tây}} = \\frac{8}{6} = \\frac{4}{3} \\Rightarrow \\theta \\approx 53,1^\\circ"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-017"
   question={<><strong>Câu 17:</strong> Cho hai vectơ độ dịch chuyển thành phần <Math inline>{"\\vec{d}_1"}</Math> và <Math inline>{"\\vec{d}_2"}</Math> cùng phương nhưng ngược chiều, có độ lớn lần lượt là <Math inline>{"d_1 = 10\\text{ m}"}</Math> và <Math inline>{"d_2 = 4\\text{ m}"}</Math>. Độ lớn của vectơ độ dịch chuyển tổng hợp <Math inline>{"\\vec{d} = \\vec{d}_1 + \\vec{d}_2"}</Math> là</>}
   options={[
     <><Math inline>{"14\\text{ m}"}</Math>.</>,
@@ -210,7 +222,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Cùng phương ngược chiều: <Math inline>{"d = |d_1 - d_2| = |10 - 4| = 6\\text{ m}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-018"
   question={<><strong>Câu 18:</strong> Một con rùa bò trên mặt bàn nằm ngang: bò <Math inline>{"12\\text{ cm}"}</Math> sang phải, sau đó rẽ vuông góc bò <Math inline>{"5\\text{ cm}"}</Math> xuống phía dưới, rồi lại rẽ sang trái bò <Math inline>{"12\\text{ cm}"}</Math>. Quãng đường <Math inline>{"s"}</Math> và độ lớn độ dịch chuyển tổng hợp <Math inline>{"d"}</Math> của con rùa là</>}
   options={[
     <><Math inline>{"s = 29\\text{ cm}; d = 5\\text{ cm}"}</Math>.</>,
@@ -222,7 +235,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<><Math inline>{"s = 12 + 5 + 12 = 29\\text{ cm}"}</Math>. Rùa đi sang phải <Math inline>{"12\\text{ cm}"}</Math> rồi sang trái <Math inline>{"12\\text{ cm} \\Rightarrow"}</Math> thành phần ngang triệt tiêu. Độ dịch chuyển chỉ còn <Math inline>{"5\\text{ cm}"}</Math> xuống dưới <Math inline>{"\\Rightarrow d = 5\\text{ cm}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-019"
   question={<><strong>Câu 19:</strong> Chất điểm chuyển động trên đường tròn bán kính <Math inline>{"R"}</Math>. Khi chất điểm đi được nửa vòng tròn, tỉ số giữa quãng đường <Math inline>{"s"}</Math> và độ lớn độ dịch chuyển <Math inline>{"d"}</Math> (<Math inline>{"\\frac{s}{|d|}"}</Math>) bằng</>}
   options={[
     <><Math inline>{"\\pi"}</Math>.</>,
@@ -234,7 +248,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   explanation={<>Nửa vòng tròn: <Math inline>{"s = \\pi R"}</Math>; <Math inline>{"d = 2R"}</Math>. Tỉ số <Math inline>{"\\frac{s}{d} = \\frac{\\pi R}{2R} = \\frac{\\pi}{2}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-exercises-020"
   question={<><strong>Câu 20:</strong> Chất điểm chuyển động trên đường tròn bán kính <Math inline>{"R = 2\\text{ m}"}</Math>. Khi chất điểm đi được <Math inline>{"\\frac{1}{4}"}</Math> vòng tròn, độ lớn độ dịch chuyển của nó là</>}
   options={[
     <><Math inline>{"2\\text{ m}"}</Math>.</>,
@@ -249,7 +264,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
 ## PHẦN 2: TRẮC NGHIỆM ĐÚNG/SAI (10 CÂU)
 *Thí sinh xét tính Đúng/Sai của từng ý a, b, c, d trong mỗi câu.*
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-021"
   question="Câu 1:"
   context={<>Dưới góc độ lý thuyết động học chất điểm (Halliday Physics), xét các phát biểu về sự biệt lập giữa <strong>Quãng đường (<Math inline>{"s"}</Math>)</strong>, <strong>Tọa độ (<Math inline>{"x"}</Math>)</strong> và <strong>Độ dịch chuyển (<Math inline>{"d"}</Math>)</strong>:<br/><br/>```<br/>[Mô tả hình vẽ minh họa]: Sơ đồ biểu diễn vị trí ban đầu A, vị trí cuối B của chất điểm trên quỹ đạo cong bất kỳ. Vectơ d nối thẳng từ A đến B (đoạn thẳng có hướng), còn đường cong nối A và B có độ dài s.<br/>```</>}
   statements={[
@@ -280,7 +296,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-022"
   question="Câu 2:"
   context={<>Một chất điểm di chuyển trên trục <Math inline>{"Ox"}</Math>. Ban đầu chất điểm ở tọa độ <Math inline>{"x_1 = -4\\text{ m}"}</Math>, di chuyển sang phải đến <Math inline>{"x_2 = +6\\text{ m}"}</Math>, sau đó đổi chiều di chuyển sang trái về vị trí <Math inline>{"x_3 = +1\\text{ m}"}</Math>.</>}
   statements={[
@@ -311,7 +328,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-023"
   question="Câu 3:"
   context={<>Một ô tô giao hàng di chuyển trong thành phố theo mạng lưới đường bàn cờ: đầu tiên đi <Math inline>{"4\\text{ km}"}</Math> về hướng Đông, sau đó rẽ sang hướng Nam đi <Math inline>{"3\\text{ km}"}</Math>, rồi lại rẽ sang hướng Tây đi <Math inline>{"4\\text{ km}"}</Math>.</>}
   statements={[
@@ -342,7 +360,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-024"
   question="Câu 4:"
   context={<>Cho đồ thị Độ dịch chuyển – Thời gian (<Math inline>{"d - t"}</Math>) của một vật chuyển động thẳng dọc theo trục <Math inline>{"Ox"}</Math> gồm 3 đoạn thẳng nối tiếp nhau:<br/>- Đoạn 1 (<Math inline>{"0 \\rightarrow 2\\text{ s}"}</Math>): <Math inline>{"d"}</Math> tăng đều từ <Math inline>{"0\\text{ m}"}</Math> đến <Math inline>{"+10\\text{ m}"}</Math>.<br/>- Đoạn 2 (<Math inline>{"2 \\rightarrow 5\\text{ s}"}</Math>): <Math inline>{"d"}</Math> giữ nguyên ở mức <Math inline>{"+10\\text{ m}"}</Math>.<br/>- Đoạn 3 (<Math inline>{"5 \\rightarrow 8\\text{ s}"}</Math>): <Math inline>{"d"}</Math> giảm đều từ <Math inline>{"+10\\text{ m}"}</Math> về <Math inline>{"-2\\text{ m}"}</Math>.<br/><br/>```<br/>[Mô tả hình vẽ đồ thị d - t]: Trục tung d (m) từ -4 đến 12, trục hoành t (s) từ 0 đến 10. Đồ thị là đường gấp khúc qua các điểm O(0,0), A(2,10), B(5,10), C(8,-2).<br/>```</>}
   statements={[
@@ -373,7 +392,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-025"
   question="Câu 5:"
   context={<>Xét chuyển động của đầu kim phút trên mặt đồng hồ treo tường có bán kính kim <Math inline>{"R = 10\\text{ cm}"}</Math> trong khoảng thời gian từ 12h00 đến 12h30.</>}
   statements={[
@@ -404,7 +424,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-026"
   question="Câu 6:"
   context={<>Một chất điểm chuyển động theo quỹ đạo đường cong parabol từ điểm A đến điểm B trên mặt phẳng tọa độ <Math inline>{"Oxy"}</Math>.</>}
   statements={[
@@ -435,7 +456,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-027"
   question="Câu 7:"
   context={<>Một canô chạy trên sông từ bến A đến bến B cách nhau <Math inline>{"12\\text{ km}"}</Math> xuôi theo dòng nước, rồi lập tức quay ngược dòng từ B về A.</>}
   statements={[
@@ -466,7 +488,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-028"
   question="Câu 8:"
   context={<>Một vệ tinh nhân tạo chuyển động tròn đều quanh Trái Đất ở độ cao cố định, bán kính quỹ đạo tròn là <Math inline>{"R = 7000\\text{ km}"}</Math>.</>}
   statements={[
@@ -497,7 +520,8 @@ import { QuizShort } from '@/components/lesson/QuizShort'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-exercises-029"
   question="Câu 9:"
   context={<>Xét tính chất vectơ của độ dịch chuyển trong mặt phẳng <Math inline>{"Oxy"}</Math>. Một chất điểm dịch chuyển từ vị trí ban đầu <Math inline>{"\\vec{r}_1 = (2\\text{ m}; 3\\text{ m})"}</Math> đến vị trí cuối <Math inline>{"\\vec{r}_2 = (7\\text{ m}; 15\\text{ m})"}</Math>.</>}
   statements={[
@@ -531,70 +555,80 @@ import { QuizShort } from '@/components/lesson/QuizShort'
 ## PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN (10 CÂU)
 *Thí sinh tính toán và điền kết quả dạng số.*
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-030"
   question="Câu 1:"
   context={<>Một con rô-bốt hút bụi di chuyển trong phòng khách. Ban đầu xuất phát từ gốc <Math inline>{"O"}</Math>, rô-bốt đi thẳng <Math inline>{"3\\text{ m}"}</Math> về hướng Bắc, sau đó rẽ sang hướng Đông đi <Math inline>{"4\\text{ m}"}</Math>, rồi lại rẽ sang hướng Nam đi <Math inline>{"6\\text{ m}"}</Math>. Tính độ lớn độ dịch chuyển tổng hợp của rô-bốt (đơn vị: mét).</>}
   answer="5"
   explanation={<>Chọn trục Ox hướng Đông, Oy hướng Bắc.<br/><em> <Math inline>{"\\vec{d}_1 = (0; 3)"}</Math>; <Math inline>{"\\vec{d}_2 = (4; 0)"}</Math>; <Math inline>{"\\vec{d}_3 = (0; -6)"}</Math>.<br/></em> Tổng dịch chuyển: <Math inline>{"d_x = 0 + 4 + 0 = 4\\text{ m}"}</Math>; <Math inline>{"d_y = 3 + 0 - 6 = -3\\text{ m}"}</Math>.<br/>* Độ lớn <Math inline>{"d = \\sqrt{4^2 + (-3)^2} = 5\\text{ m}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-031"
   question="Câu 2:"
   context={<>Một vận động viên điền kinh tập luyện trên đường chạy tiêu chuẩn <Math inline>{"400\\text{ m}"}</Math> gồm hai đoạn thẳng dài <Math inline>{"100\\text{ m}"}</Math> và hai đoạn bán nguyệt tròn có bán kính <Math inline>{"R = 31,8\\text{ m}"}</Math> (<Math inline>{"\\pi \times 31,8\\text{ m} \\approx 100\\text{ m}"}</Math>). VĐV xuất phát từ đầu một đoạn thẳng, chạy đúng <Math inline>{"1,5"}</Math> vòng đường chạy thì dừng lại nghỉ. Tính độ lớn độ dịch chuyển của VĐV từ điểm xuất phát đến điểm dừng nghỉ (đơn vị: mét, làm tròn đến 1 chữ số thập phân).</>}
   answer="63.6"
   explanation={<><br/><em> Chạy <Math inline>{"1,5"}</Math> vòng: VĐV thực hiện <Math inline>{"1"}</Math> vòng khép kín (độ dịch chuyển bằng 0) cộng thêm <Math inline>{"0,5"}</Math> vòng nữa.<br/></em> <Math inline>{"0,5"}</Math> vòng đưa VĐV đến vị trí đối diện trực tiếp qua tâm của đường chạy.<br/>* Khoảng cách thẳng giữa hai điểm đối diện trên đường chạy bằng khoảng cách giữa 2 đoạn thẳng parallel, đúng bằng <Math inline>{"2R = 2 \times 31,8 = 63,6\\text{ m}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-032"
   question="Câu 3:"
   context={<>Một người đi du lịch bằng thuyền máy trên biển. Thuyền chạy <Math inline>{"15\\text{ km}"}</Math> theo hướng <Math inline>{"\\text{N}30^\\circ\\text{E}"}</Math> (hướng Bắc lệch Đông góc <Math inline>{"30^\\circ"}</Math>). Tính thành phần độ dịch chuyển của thuyền theo hướng Đông (đơn vị: kilômét, làm tròn đến 1 chữ số thập phân).</>}
   answer="7.5"
   explanation={<><br/><em> Hướng <Math inline>{"\\text{N}30^\\circ\\text{E}"}</Math> hợp với hướng Bắc góc <Math inline>{"30^\\circ \\Rightarrow"}</Math> hợp với hướng Đông góc <Math inline>{"60^\\circ"}</Math>.<br/></em> Thành phần hướng Đông: <Math inline>{"d_E = d \\cdot \\sin 30^\\circ = 15 \\cdot 0,5 = 7,5\\text{ km}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-033"
   question="Câu 4:"
   context={<>Một chiếc xe taxi di chuyển trên trục đường thẳng <Math inline>{"Ox"}</Math>. Ban đầu xe ở vị trí <Math inline>{"x_1 = +12\\text{ km}"}</Math>. Xe chạy sang trái đến vị trí <Math inline>{"x_2 = -8\\text{ km}"}</Math> để đón khách, sau đó chở khách chạy sang phải đến vị trí <Math inline>{"x_3 = +5\\text{ km}"}</Math>. Tính tỉ số giữa tổng quãng đường <Math inline>{"s"}</Math> và độ lớn độ dịch chuyển tổng cộng <Math inline>{"|d|"}</Math> của xe taxi (<Math inline>{"s/|d|"}</Math>). (Kết quả làm tròn đến 2 chữ số thập phân).</>}
   answer="4.71"
   explanation={<><br/><em> <Math inline>{"d = x_3 - x_1 = 5 - 12 = -7\\text{ km} \\Rightarrow |d| = 7\\text{ km}"}</Math>.<br/></em> <Math inline>{"s_1 = |-8 - 12| = 20\\text{ km}"}</Math>; <Math inline>{"s_2 = |5 - (-8)| = 13\\text{ km} \\Rightarrow s = 20 + 13 = 33\\text{ km}"}</Math>.<br/>* Tỉ số <Math inline>{"s / |d| = 33 / 7 \\approx 4,714 \\approx 4,71"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-034"
   question="Câu 5:"
   context={<>Trên mặt phẳng tọa độ <Math inline>{"Oxy"}</Math> (đơn vị: mét), một thiết bị lặn thám hiểm dưới nước di chuyển từ điểm <Math inline>{"A(-3; 4)"}</Math> đến điểm <Math inline>{"B(5; -2)"}</Math>, sau đó di chuyển tiếp đến điểm <Math inline>{"C(9; 1)"}</Math>. Tính độ lớn độ dịch chuyển tổng hợp của thiết bị từ A đến C (đơn vị: mét, làm tròn đến 1 chữ số thập phân).</>}
   answer="12.4"
   explanation={<><br/><em> Độ dịch chuyển không phụ thuộc điểm trung gian B: <Math inline>{"d_x = x_C - x_A = 9 - (-3) = 12\\text{ m}"}</Math>.<br/></em> <Math inline>{"d_y = y_C - y_A = 1 - 4 = -3\\text{ m}"}</Math>.<br/>* Độ lớn <Math inline>{"d = \\sqrt{12^2 + (-3)^2} = \\sqrt{153} \\approx 12,369\\text{ m} \\rightarrow 12,4\\text{ m}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-035"
   question="Câu 6:"
   context={<>Một chú kiến bò trên các mặt của một chiếc hộp chữ nhật có kích thước dài <Math inline>{"\times"}</Math> rộng <Math inline>{"\times"}</Math> cao lần lượt là <Math inline>{"40\\text{ cm} \times 30\\text{ cm} \times 120\\text{ cm}"}</Math>. Kiến bò từ một góc đáy dưới đến góc đối diện thuộc mặt đỉnh trên. Tính độ lớn độ dịch chuyển của chú kiến (đơn vị: xentimét).</>}
   answer="130"
   explanation={<><br/><em> Độ dịch chuyển nối trực tiếp hai điểm trong không gian 3D (đường chéo hình hộp chữ nhật):<br/></em> <Math inline>{"d = \\sqrt{a^2 + b^2 + c^2} = \\sqrt{40^2 + 30^2 + 120^2} = \\sqrt{1600 + 900 + 14400} = \\sqrt{16900} = 130\\text{ cm}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-036"
   question="Câu 7:"
   context={<>Một người đi bộ quanh một hồ nước hình tròn có đường kính <Math inline>{"D = 400\\text{ m}"}</Math>. Người đó đi từ điểm A theo bờ hồ đến điểm B sao cho góc ở tâm <Math inline>{"\\widehat{AOB} = 120^\\circ"}</Math> (O là tâm hồ). Tính độ lớn độ dịch chuyển của người đó từ A đến B (đơn vị: mét, làm tròn đến hàng đơn vị).</>}
   answer="346"
   explanation={<><br/><em> Bán kính hồ <Math inline>{"R = D/2 = 200\\text{ m}"}</Math>. Tam giác <Math inline>{"OAB"}</Math> cân tại <Math inline>{"O"}</Math> có <Math inline>{"OA = OB = 200\\text{ m}"}</Math> và <Math inline>{"\\widehat{AOB} = 120^\\circ"}</Math>.<br/></em> Độ lớn độ dịch chuyển <Math inline>{"d = AB = 2 R \\sin\\left(\\frac{120^\\circ}{2}\right) = 2 \\cdot 200 \\cdot \\sin 60^\\circ = 400 \\cdot \\frac{\\sqrt{3}}{2} = 200\\sqrt{3} \\approx 346,41\\text{ m} \\rightarrow 346\\text{ m}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-037"
   question="Câu 8:"
   context={<>Một máy bay cất cánh từ sân bay A, bay <Math inline>{"300\\text{ km}"}</Math> về hướng Đông, sau đó do thời tiết xấu phải đổi hướng bay <Math inline>{"400\\text{ km}"}</Math> về hướng Đông - Bắc (lệch <Math inline>{"60^\\circ"}</Math> so với hướng Đông) để hạ cánh xuống sân bay B. Tính khoảng cách đường chim bay từ sân bay A đến sân bay B (đơn vị: kilômét, làm tròn đến hàng đơn vị).</>}
   answer="608"
   explanation={<><br/><em> Vẽ hai vectơ độ dịch chuyển nối tiếp: <Math inline>{"\\vec{d}_1"}</Math> dài <Math inline>{"300\\text{ km}"}</Math> hướng Đông; <Math inline>{"\\vec{d}_2"}</Math> dài <Math inline>{"400\\text{ km}"}</Math> hợp với hướng Đông góc <Math inline>{"60^\\circ"}</Math>.<br/></em> Góc giữa hai vectơ trong tam giác là <Math inline>{"180^\\circ - 60^\\circ = 120^\\circ"}</Math>.<br/><em> Áp dụng định lý cosin: <Math inline>{"d^2 = d_1^2 + d_2^2 - 2 d_1 d_2 \\cos 120^\\circ = 300^2 + 400^2 - 2(300)(400)(-0,5) = 90000 + 160000 + 120000 = 370000"}</Math>.<br/></em> <Math inline>{"d = \\sqrt{370000} \\approx 608,27\\text{ km} \\rightarrow 608\\text{ km}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-038"
   question="Câu 9:"
   context={<>Cho đồ thị Độ dịch chuyển – Thời gian <Math inline>{"d - t"}</Math> của một vật chuyển động thẳng gồm 2 giai đoạn:<br/>- Giai đoạn 1 (<Math inline>{"0 \\rightarrow 4\\text{ s}"}</Math>): <Math inline>{"d"}</Math> tăng đều từ <Math inline>{"0\\text{ m}"}</Math> đến <Math inline>{"+16\\text{ m}"}</Math>.<br/>- Giai đoạn 2 (<Math inline>{"4 \\rightarrow 10\\text{ s}"}</Math>): <Math inline>{"d"}</Math> giảm đều từ <Math inline>{"+16\\text{ m}"}</Math> về <Math inline>{"+4\\text{ m}"}</Math>.<br/>Tính hiệu số giữa tổng quãng đường <Math inline>{"s"}</Math> và độ lớn độ dịch chuyển tổng cộng <Math inline>{"|d|"}</Math> của vật trong khoảng thời gian <Math inline>{"10"}</Math> giây đó (đơn vị: mét).</>}
   answer="24"
   explanation={<><br/><em> Độ dịch chuyển tổng cộng <Math inline>{"d = x_{cuối} - x_{đầu} = 4 - 0 = 4\\text{ m} \\Rightarrow |d| = 4\\text{ m}"}</Math>.<br/></em> Quãng đường <Math inline>{"s_1 = |16 - 0| = 16\\text{ m}"}</Math>; <Math inline>{"s_2 = |4 - 16| = 12\\text{ m} \\Rightarrow s = 16 + 12 = 28\\text{ m}"}</Math>.<br/>* Hiệu số <Math inline>{"s - |d| = 28 - 4 = 24\\text{ m}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-exercises-039"
   question="Câu 10:"
   context={<>Một rô-bốt thám hiểm Sao Hỏa di chuyển từ vị trí trung tâm, thực hiện liên tiếp 4 độ dịch chuyển trên mặt phẳng <Math inline>{"Oxy"}</Math>: <Math inline>{"\\vec{d}_1 = (10\\text{ m}; 20\\text{ m})"}</Math>, <Math inline>{"\\vec{d}_2 = (-15\\text{ m}; 10\\text{ m})"}</Math>, <Math inline>{"\\vec{d}_3 = (5\\text{ m}; -30\\text{ m})"}</Math>, <Math inline>{"\\vec{d}_4 = (20\\text{ m}; 5\\text{ m})"}</Math>. Tính độ lớn độ dịch chuyển tổng hợp của rô-bốt sau 4 bước di chuyển (đơn vị: mét, làm tròn đến 1 chữ số thập phân).</>}
   answer="20.6"

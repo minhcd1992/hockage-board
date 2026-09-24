@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useBoardStore } from '../store/useBoardStore';
-import { FileUp, X, PenTool, FlaskConical, FileText, Code, BookOpen } from 'lucide-react';
+import { FileUp, X, PenTool, FileText, Code, BookOpen } from 'lucide-react';
+
+import { lessons, lessonUrl, lessonTabTitle } from '@/lib/lessons';
 
 export function TabsBar() {
   const { tabs, activeTabId, setActiveTab, removeTab, addTab } = useBoardStore();
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [showLessonModal, setShowLessonModal] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -219,29 +220,16 @@ export function TabsBar() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px' }}>
-              {[
-                { 
-                  id: 'bai-1', 
-                  title: 'Bài 1: Khái quát về Vật lí', 
-                  url: '/lesson/bai-1',
-                  desc: 'Mở đầu về Vật Lí, tìm hiểu các khái niệm cơ bản và làm quen với phương pháp nghiên cứu khoa học.' 
-                },
-                { 
-                  id: 'bai-2', 
-                  title: 'Bài 2: Tốc độ và Vận tốc', 
-                  url: '/lesson/bai-2',
-                  desc: 'Tìm hiểu về vận tốc, tốc độ, phân biệt quãng đường và độ dịch chuyển thông qua các mô phỏng trực quan.' 
-                }
-              ].map(lesson => (
+              {lessons.map(lesson => (
                 <div
-                  key={lesson.id}
+                  key={lesson.slug}
                   onClick={() => {
                     const newId = crypto.randomUUID();
                     addTab({
                       id: newId,
                       type: 'lesson',
-                      title: lesson.title.split(':')[0],
-                      url: lesson.url
+                      title: lessonTabTitle(lesson),
+                      url: lessonUrl(lesson)
                     });
                     setActiveTab(newId);
                     setShowLessonModal(false);
@@ -270,7 +258,8 @@ export function TabsBar() {
                     e.currentTarget.style.background = '#f9fafb';
                   }}
                 >
-                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#1f2937' }}>{lesson.title}</h3><p style={{ margin: 0, fontSize: '14px', color: '#6b7280', lineHeight: 1.5, flex: 1 }}>{lesson.desc}</p><div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lesson.title.split(':')[0], url: lesson.url }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><BookOpen size={16} /> Lý thuyết</button><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lesson.title.split(':')[0] + ' BT', url: lesson.url + '/bai-tap' }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(79, 70, 229, 0.1)', color: '#4f46e5', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><PenTool size={16} /> Bài tập</button></div></div>
+                  <span className="text-xs font-semibold text-blue-700">{lesson.subject} · Lớp {lesson.grade} · {lesson.chapter}</span>
+                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#1f2937' }}>{lesson.title}</h3><p style={{ margin: 0, fontSize: '14px', color: '#6b7280', lineHeight: 1.5, flex: 1 }}>{lesson.description}</p><div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lessonTabTitle(lesson), url: lessonUrl(lesson) }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><BookOpen size={16} /> Lý thuyết</button><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lessonTabTitle(lesson, 'exercises'), url: lessonUrl(lesson, 'exercises') }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(79, 70, 229, 0.1)', color: '#4f46e5', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><PenTool size={16} /> Bài tập</button></div></div>
               ))}
             </div>
           </div>

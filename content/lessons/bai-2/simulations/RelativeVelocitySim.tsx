@@ -1,5 +1,5 @@
 'use client';
-import { requestLessonFrame, cancelLessonFrame, lessonNow } from '../../lib/lessonAnimation';
+import { requestLessonFrame, cancelLessonFrame, lessonNow } from '@/lib/lessonAnimation';
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause } from 'lucide-react';
 

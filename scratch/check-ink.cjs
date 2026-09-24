@@ -16,6 +16,18 @@ global.Path2D = class {
   arc() {}
 };
 const { Stroke } = require('../objects/Stroke.ts');
+const { inkSamples } = require('../engine/InkGeometry.ts');
+const curve = [{x:0,y:40,pressure:0.2},{x:12,y:12,pressure:0.5},{x:40,y:0,pressure:0.8},{x:70,y:12,pressure:0.6}];
+const smooth = inkSamples(curve);
+assert.ok(smooth.length > curve.length, 'sparse curved input gets curved interpolation');
+for (const p of curve) assert.ok(smooth.some(s => s.x === p.x && s.y === p.y), 'spline preserves measured positions');
+assert.deepEqual(smooth.at(-1), curve.at(-1), 'tail ends at measured cursor position');
+assert.deepEqual(inkSamples(curve.slice(0,3),1,1), inkSamples(curve,1,1), 'segments with lookahead never change again');
+for (const points of [
+  [{x:0,y:0},{x:0,y:0},{x:0,y:0}],
+  [{x:0,y:0},{x:20,y:0},{x:0,y:0}],
+  [{x:0,y:0},{x:0.00001,y:0},{x:100,y:1}],
+]) assert.ok(inkSamples(points).every(p => Number.isFinite(p.x) && Number.isFinite(p.y)), 'duplicates, reversals and uneven spacing stay finite');
 let scale = 1;
 let renderedPath;
 const ctx = {

@@ -1,0 +1,996 @@
+import { ExerciseMotionGraph } from './components/Lesson3Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3">
+
+<InfoBox type="info" title="Bộ bài tập bài 3 — Vật lý lớp 10">
+
+45 câu gồm 20 câu trắc nghiệm, 10 câu đúng/sai, 10 câu trả lời ngắn và 5 câu tự luận. Mỗi câu có đáp án hoặc lời giải để đối chiếu sau khi làm.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất, sau đó bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-3-exercises-001"
+  question={<>{"Câu 1 (Nhận biết): Đại lượng đặc trưng cho tốc độ biến thiên của vận tốc theo thời gian về cả độ lớn và hướng được gọi là"}</>}
+  options={[
+    <>{"Quãng đường."}</>,
+    <>{"Độ dịch chuyển."}</>,
+    <>{"Gia tốc."}</>,
+    <>{"Tốc độ trung bình."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Gia tốc "}<Math inline>{"\\vec{a} = \\frac{\\Delta \\vec{v}}{\\Delta t}"}</Math>{" đặc trưng cho tốc độ biến thiên của vận tốc theo thời gian."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-002"
+  question={<>{"Câu 2 (Nhận biết): Trong hệ đo lường quốc tế (SI), đơn vị hợp pháp của gia tốc là"}</>}
+  options={[
+    <><Math inline>{"\\text{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"\\text{m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"\\text{km/h}^2"}</Math>{"."}</>,
+    <><Math inline>{"\\text{cm/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Trong hệ SI, vận tốc đo bằng "}<Math inline>{"\\text{m/s}"}</Math>{", thời gian đo bằng "}<Math inline>{"\\text{s} \\Rightarrow"}</Math>{" gia tốc có đơn vị "}<Math inline>{"\\text{m/s}^2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-003"
+  question={<>{"Câu 3 (Nhận biết): Phát biểu nào sau đây định nghĩa đúng về chuyển động thẳng biến đổi đều?"}</>}
+  options={[
+    <>{"Là chuyển động thẳng có vận tốc biến thiên những lượng bằng nhau trong những khoảng thời gian bằng nhau bất kỳ."}</>,
+    <>{"Là chuyển động thẳng có quãng đường đi được tăng dần đều theo thời gian."}</>,
+    <>{"Là chuyển động có gia tốc tăng đều theo thời gian."}</>,
+    <>{"Là chuyển động có độ dịch chuyển tỉ lệ thuận với thời gian chuyển động."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Định nghĩa CĐTBĐĐ: gia tốc "}<Math inline>{"a = \\text{const} \\Rightarrow"}</Math>{" vận tốc biến thiên những lượng bằng nhau trong khoảng thời gian bằng nhau."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-004"
+  question={<>{"Câu 4 (Thông hiểu): Chuyển động thẳng nhanh dần đều là chuyển động thẳng có vectơ gia tốc "}<Math inline>{"\\vec{a}"}</Math>{" và vectơ vận tốc "}<Math inline>{"\\vec{v}"}</Math>{" thỏa mãn điều kiện"}</>}
+  options={[
+    <><Math inline>{"\\vec{a}"}</Math>{" ngược hướng với "}<Math inline>{"\\vec{v}"}</Math>{" ("}<Math inline>{"a \\cdot v < 0"}</Math>{")."}</>,
+    <><Math inline>{"\\vec{a}"}</Math>{" cùng hướng với "}<Math inline>{"\\vec{v}"}</Math>{" ("}<Math inline>{"a \\cdot v > 0"}</Math>{")."}</>,
+    <><Math inline>{"\\vec{a}"}</Math>{" vuông góc với "}<Math inline>{"\\vec{v}"}</Math>{"."}</>,
+    <><Math inline>{"a = 0"}</Math>{" và "}<Math inline>{"v"}</Math>{" tăng dần."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Nhanh dần đều: gia tốc "}<Math inline>{"\\vec{a}"}</Math>{" cùng hướng với vận tốc "}<Math inline>{"\\vec{v} \\Rightarrow a \\cdot v > 0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-005"
+  question={<>{"Câu 5 (Thông hiểu): Chuyển động thẳng chậm dần đều là chuyển động thẳng trong đó"}</>}
+  options={[
+    <>{"Tích của gia tốc "}<Math inline>{"a"}</Math>{" và vận tốc "}<Math inline>{"v"}</Math>{" luôn dương ("}<Math inline>{"a \\cdot v > 0"}</Math>{")."}</>,
+    <>{"Gia tốc "}<Math inline>{"a"}</Math>{" luôn mang giá trị âm ("}<Math inline>{"a < 0"}</Math>{")."}</>,
+    <>{"Vectơ gia tốc "}<Math inline>{"\\vec{a}"}</Math>{" ngược hướng với vectơ vận tốc "}<Math inline>{"\\vec{v}"}</Math>{" ("}<Math inline>{"a \\cdot v < 0"}</Math>{")."}</>,
+    <>{"Vận tốc biến thiên theo hệ số lũy thừa bậc hai của thời gian."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Chậm dần đều: gia tốc "}<Math inline>{"\\vec{a}"}</Math>{" ngược hướng với vận tốc "}<Math inline>{"\\vec{v} \\Rightarrow a \\cdot v < 0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-006"
+  question={<>{"Câu 6 (Thông hiểu): Phương trình độ dịch chuyển "}<Math inline>{"d"}</Math>{" theo thời gian "}<Math inline>{"t"}</Math>{" của một chuyển động thẳng biến đổi đều có dạng"}</>}
+  options={[
+    <><Math inline>{"d = v_0 t"}</Math>{"."}</>,
+    <><Math inline>{"d = v_0 + at"}</Math>{"."}</>,
+    <><Math inline>{"d = v_0 t + \\frac{1}{2}a t^2"}</Math>{"."}</>,
+    <><Math inline>{"d = x_0 + v_0 t + \\frac{1}{2}a t^2"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Công thức độ dịch chuyển CĐTBĐĐ: "}<Math inline>{"d = v_0 t + \\frac{1}{2}at^2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-007"
+  question={<>{"Câu 7 (Thông hiểu): Công thức liên hệ giữa vận tốc "}<Math inline>{"v"}</Math>{", gia tốc "}<Math inline>{"a"}</Math>{" và độ dịch chuyển "}<Math inline>{"d"}</Math>{" (không phụ thuộc trực tiếp vào thời gian "}<Math inline>{"t"}</Math>{") của chuyển động thẳng biến đổi đều là"}</>}
+  options={[
+    <><Math inline>{"v - v_0 = 2ad"}</Math>{"."}</>,
+    <><Math inline>{"v^2 - v_0^2 = ad"}</Math>{"."}</>,
+    <><Math inline>{"v^2 - v_0^2 = 2ad"}</Math>{"."}</>,
+    <><Math inline>{"v_0^2 - v^2 = 2ad"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Công thức độc lập thời gian: "}<Math inline>{"v^2 - v_0^2 = 2ad"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-008"
+  question={<>{"Câu 8 (Thông hiểu): Trên đồ thị vận tốc – thời gian ("}<Math inline>{"v - t"}</Math>{") của chuyển động thẳng, độ dốc (hệ số góc) của đường biểu diễn cho biết đại lượng nào?"}</>}
+  options={[
+    <>{"Quãng đường đi được."}</>,
+    <>{"Độ dịch chuyển."}</>,
+    <>{"Gia tốc của vật."}</>,
+    <>{"Tốc độ trung bình."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Độ dốc đồ thị "}<Math inline>{"v - t"}</Math>{" là "}<Math inline>{"a = \\frac{\\Delta v}{\\Delta t}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-009"
+  question={<>{"Câu 9 (Thông hiểu): Trên đồ thị vận tốc – thời gian ("}<Math inline>{"v - t"}</Math>{"), diện tích có dấu của hình phẳng giới hạn bởi đường biểu diễn "}<Math inline>{"v(t)"}</Math>{", trục hoành "}<Math inline>{"Ot"}</Math>{" và hai đường thẳng đứng "}<Math inline>{"t_1, t_2"}</Math>{" đại diện cho"}</>}
+  options={[
+    <>{"Gia tốc trung bình của vật."}</>,
+    <>{"Độ dịch chuyển "}<Math inline>{"d"}</Math>{" của vật trong khoảng thời gian từ "}<Math inline>{"t_1"}</Math>{" đến "}<Math inline>{"t_2"}</Math>{"."}</>,
+    <>{"Vận tốc trung bình của vật."}</>,
+    <>{"Độ biến thiên gia tốc."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Độ dịch chuyển bằng diện tích có dấu dưới đồ thị "}<Math inline>{"v-t"}</Math>{": "}<Math inline>{"d=\\int_{t_1}^{t_2}v\\,dt"}</Math>{". Phần dưới trục thời gian tính âm; tổng diện tích lấy trị tuyệt đối cho quãng đường."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-010"
+  question={<>{"Câu 10 (Thông hiểu): Đồ thị độ dịch chuyển – thời gian ("}<Math inline>{"d - t"}</Math>{") của một chuyển động thẳng biến đổi đều có dạng là"}</>}
+  options={[
+    <>{"Một đường thẳng xiên góc đi qua gốc tọa độ."}</>,
+    <>{"Một đường thẳng song song với trục thời gian "}<Math inline>{"Ot"}</Math>{"."}</>,
+    <>{"Một nhánh của đường parabol."}</>,
+    <>{"Một đường tròn khép kín."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Vì "}<Math inline>{"d"}</Math>{" là hàm bậc hai theo "}<Math inline>{"t"}</Math>{" ("}<Math inline>{"d = v_0 t + \\frac{1}{2}at^2"}</Math>{") nên đồ thị "}<Math inline>{"d - t"}</Math>{" có dạng một nhánh parabol."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-011"
+  question={<>{"Câu 11 (Thông hiểu): Một ô tô bắt đầu khởi hành từ trạng thái nghỉ ("}<Math inline>{"v_0 = 0"}</Math>{"), chuyển động thẳng nhanh dần đều với gia tốc "}<Math inline>{"a = 2\\text{ m/s}^2"}</Math>{". Vận tốc của ô tô sau "}<Math inline>{"5\\text{ s}"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"10\\text{ m/s}"}</Math>{"."}</>,
+    <><Math inline>{"20\\text{ m/s}"}</Math>{"."}</>,
+    <><Math inline>{"5\\text{ m/s}"}</Math>{"."}</>,
+    <><Math inline>{"25\\text{ m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"v = v_0 + at = 0 + 2 \\times 5 = 10\\text{ m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-012"
+  question={<>{"Câu 12 (Thông hiểu): Một đoàn tàu đang chạy với tốc độ "}<Math inline>{"20\\text{ m/s}"}</Math>{" thì hãm phanh, chuyển động thẳng chậm dần đều và dừng lại hẳn sau "}<Math inline>{"10\\text{ s}"}</Math>{". Chọn chiều dương theo chiều chuyển động ban đầu. Gia tốc hãm phanh của đoàn tàu là"}</>}
+  options={[
+    <><Math inline>{"2\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"-2\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"-0,5\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"0,5\\text{ m/s}^2"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"a = \\frac{v - v_0}{t} = \\frac{0 - 20}{10} = -2\\text{ m/s}^2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-013"
+  question={<>{"Câu 13 (Vận dụng): Xe máy đang chuyển động với tốc độ "}<Math inline>{"10\\text{ m/s}"}</Math>{" thì tăng tốc chuyển động thẳng nhanh dần đều với gia tốc "}<Math inline>{"1\\text{ m/s}^2"}</Math>{". Quãng đường xe đi được trong thời gian "}<Math inline>{"4\\text{ s}"}</Math>{" tăng tốc là"}</>}
+  options={[
+    <><Math inline>{"40\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"48\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"56\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"16\\text{ m}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"d = v_0 t + \\frac{1}{2}at^2 = 10 \\times 4 + \\frac{1}{2} \\times 1 \\times 4^2 = 40 + 8 = 48\\text{ m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-014"
+  question={<>{"Câu 14 (Vận dụng): Ô tô đang chạy với tốc độ "}<Math inline>{"72\\text{ km/h}"}</Math>{" thì tài xế đạp phanh khẩn cấp. Xe chuyển động chậm dần đều và dừng lại sau khi đi được quãng đường "}<Math inline>{"50\\text{ m}"}</Math>{". Độ lớn gia tốc hãm phanh là"}</>}
+  options={[
+    <><Math inline>{"4\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"51,84\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"2\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"8\\text{ m/s}^2"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Đổi "}<Math inline>{"72\\,\\mathrm{km/h}=20\\,\\mathrm{m/s}"}</Math>{". Chọn chiều dương theo chuyển động: "}<Math inline>{"a=(0^2-20^2)/(2\\times50)=-4\\,\\mathrm{m/s^2}"}</Math>{". Độ lớn gia tốc là "}<Math inline>{"|a|=4\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-015"
+  question={<>{"Câu 15 (Thông hiểu): Phương trình vận tốc của một vật chuyển động thẳng dọc theo trục "}<Math inline>{"Ox"}</Math>{" là "}<Math inline>{"v = 10 - 2t\\text{ (m/s, s)}"}</Math>{". Xét khoảng thời gian "}<Math inline>{"0\\le t<5\\,\\mathrm{s}"}</Math>{". Kết luận nào sau đây đúng?"}</>}
+  options={[
+    <>{"Vật chuyển động nhanh dần đều với gia tốc "}<Math inline>{"a = 2\\text{ m/s}^2"}</Math>{"."}</>,
+    <>{"Vật chuyển động chậm dần đều với gia tốc "}<Math inline>{"a = -2\\text{ m/s}^2"}</Math>{"."}</>,
+    <>{"Vận tốc ban đầu của vật là "}<Math inline>{"v_0 = -2\\text{ m/s}"}</Math>{"."}</>,
+    <>{"Vật dừng lại tại thời điểm "}<Math inline>{"t = 10\\text{ s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Từ "}<Math inline>{"v=10-2t"}</Math>{" suy ra "}<Math inline>{"v_0=10\\,\\mathrm{m/s}"}</Math>{" và "}<Math inline>{"a=-2\\,\\mathrm{m/s^2}"}</Math>{". Trong "}<Math inline>{"0\\le t<5\\,\\mathrm{s}"}</Math>{", "}<Math inline>{"v>0"}</Math>{" nên "}<Math inline>{"av<0"}</Math>{": vật chậm dần đều. Tại "}<Math inline>{"t=5\\,\\mathrm{s}"}</Math>{", "}<Math inline>{"v=0"}</Math>{"; nếu phương trình tiếp tục áp dụng sau đó, vật nhanh dần theo chiều âm."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-016"
+  question={<>{"Câu 16 (Vận dụng): Một quả bóng lăn xuống một dốc nghiêng dài "}<Math inline>{"10\\text{ m}"}</Math>{" từ trạng thái nghỉ với gia tốc không đổi "}<Math inline>{"0,2\\text{ m/s}^2"}</Math>{". Thời gian để quả bóng lăn hết chiều dài dốc là"}</>}
+  options={[
+    <><Math inline>{"10\\text{ s}"}</Math>{"."}</>,
+    <><Math inline>{"50\\text{ s}"}</Math>{"."}</>,
+    <><Math inline>{"100\\text{ s}"}</Math>{"."}</>,
+    <><Math inline>{"5\\sqrt{2}\\text{ s} \\approx 7,07\\text{ s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"d = \\frac{1}{2}at^2 \\Rightarrow 10 = \\frac{1}{2}(0,2)t^2 = 0,1 t^2 \\Rightarrow t^2 = 100 \\Rightarrow t = 10\\text{ s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-017"
+  question={<>{"Câu 17 (Vận dụng): Một vật bắt đầu chuyển động thẳng nhanh dần đều từ trạng thái nghỉ. Tỉ số giữa quãng đường vật đi được trong giây thứ nhất ("}<Math inline>{"s_1"}</Math>{") và quãng đường vật đi được trong giây thứ hai ("}<Math inline>{"s_2"}</Math>{") là"}</>}
+  options={[
+    <><Math inline>{"1 : 2"}</Math>{"."}</>,
+    <><Math inline>{"1 : 3"}</Math>{"."}</>,
+    <><Math inline>{"1 : 4"}</Math>{"."}</>,
+    <><Math inline>{"1 : 1"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"s_1 = \\frac{1}{2}a(1^2) = 0,5a"}</Math>{". Quãng đường sau "}<Math inline>{"2\\text{ s}"}</Math>{" là "}<Math inline>{"S_2 = \\frac{1}{2}a(2^2) = 2a \\Rightarrow s_2 = S_2 - s_1 = 1,5a \\Rightarrow s_1 / s_2 = 0,5 / 1,5 = 1 / 3"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-018"
+  question={<>{"Câu 18 (Thông hiểu): Một vật chuyển động thẳng dọc theo chiều âm của trục "}<Math inline>{"Ox"}</Math>{" và đang chậm dần đều. Dấu của vận tốc "}<Math inline>{"v"}</Math>{" và gia tốc "}<Math inline>{"a"}</Math>{" của vật là"}</>}
+  options={[
+    <><Math inline>{"v > 0"}</Math>{" và "}<Math inline>{"a > 0"}</Math>{"."}</>,
+    <><Math inline>{"v < 0"}</Math>{" và "}<Math inline>{"a < 0"}</Math>{"."}</>,
+    <><Math inline>{"v < 0"}</Math>{" và "}<Math inline>{"a > 0"}</Math>{"."}</>,
+    <><Math inline>{"v > 0"}</Math>{" và "}<Math inline>{"a < 0"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Chuyển động theo chiều âm "}<Math inline>{"\\Rightarrow v < 0"}</Math>{". Chậm dần đều "}<Math inline>{"\\Rightarrow a \\cdot v < 0 \\Rightarrow a > 0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-019"
+  question={<>{"Câu 19 (Thông hiểu): Đồ thị gia tốc – thời gian ("}<Math inline>{"a - t"}</Math>{") của một vật chuyển động thẳng biến đổi đều có dạng là"}</>}
+  options={[
+    <>{"Đường thẳng đi qua gốc tọa độ nghiêng góc với trục "}<Math inline>{"Ot"}</Math>{"."}</>,
+    <>{"Đường thẳng song song với trục thời gian "}<Math inline>{"Ot"}</Math>{"."}</>,
+    <>{"Đường cong parabol."}</>,
+    <>{"Đường hyperbol."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Vì "}<Math inline>{"a = \\text{const} \\ne 0"}</Math>{" nên đồ thị "}<Math inline>{"a - t"}</Math>{" là đường thẳng song song với trục "}<Math inline>{"Ot"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-3-exercises-020"
+  question={<>{"Câu 20 (Thông hiểu): Trong bài thực hành đo gia tốc của xe lăn trên máng nghiêng bằng hệ thống hai cổng quang điện A và B cách nhau khoảng "}<Math inline>{"s"}</Math>{", nếu tốc độ tức thời tại A là "}<Math inline>{"v_A"}</Math>{", tại B là "}<Math inline>{"v_B"}</Math>{" và thời gian xe di chuyển từ A đến B là "}<Math inline>{"t_{AB}"}</Math>{", xe chuyển động thẳng với gia tốc không đổi và chọn chiều dương từ A đến B; công thức tính gia tốc "}<Math inline>{"a"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"a = \\frac{v_B + v_A}{t_{AB}}"}</Math>{"."}</>,
+    <><Math inline>{"a = \\frac{v_B - v_A}{t_{AB}}"}</Math>{"."}</>,
+    <><Math inline>{"a = \\frac{v_B^2 - v_A^2}{t_{AB}}"}</Math>{"."}</>,
+    <><Math inline>{"a = \\frac{v_B - v_A}{2 s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Gia tốc trung bình "}<Math inline>{"a = \\frac{v_B - v_A}{t_{AB}}"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="idea">
+
+Xét từng ý a, b, c, d rồi mở phần giải thích để đối chiếu. Hai ô chọn trong mỗi hàng lần lượt là **Đúng** và **Sai**.
+
+<QuizTF
+  id="bai-3-exercises-021"
+  question="Câu 21"
+  context={<>{"Một vật chuyển động thẳng dọc theo trục tọa độ "}<Math inline>{"Ox"}</Math>{" có phương trình vận tốc phụ thuộc thời gian là "}<Math inline>{"v(t) = -10 + 2t\\text{ (m/s, s)}"}</Math>{"."}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Vận tốc ban đầu của vật là "}<Math inline>{"v_0 = -10\\text{ m/s}"}</Math>{", cho biết vật ban đầu chuyển động theo chiều âm của trục "}<Math inline>{"Ox"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Đối chiếu "}<Math inline>{"v(t) = v_0 + at \\Rightarrow v_0 = -10\\text{ m/s} < 0"}</Math>{", vật di chuyển theo chiều âm."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Gia tốc của vật có giá trị đại số "}<Math inline>{"a = +2\\text{ m/s}^2"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Hệ số của "}<Math inline>{"t"}</Math>{" là "}<Math inline>{"a = +2\\text{ m/s}^2"}</Math>{"."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Trong khoảng "}<Math inline>{"0\\le t<5\\,\\mathrm{s}"}</Math>{", tích "}<Math inline>{"av<0"}</Math>{" nên vật chuyển động chậm dần đều."}</>,
+      isTrue: true,
+      explanation: <>{"Trong "}<Math inline>{"0\\le t<5\\,\\mathrm{s}"}</Math>{", "}<Math inline>{"v=-10+2t<0"}</Math>{" và "}<Math inline>{"a=2>0"}</Math>{" nên "}<Math inline>{"av<0"}</Math>{". Tại đúng "}<Math inline>{"t=5\\,\\mathrm{s}"}</Math>{", "}<Math inline>{"v=0"}</Math>{" và tích "}<Math inline>{"av=0"}</Math>{"."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Tại thời điểm "}<Math inline>{"t = 5\\text{ s}"}</Math>{", vật dừng lại tức thời rồi ngay lập tức quay đầu chuyển động nhanh dần đều theo chiều dương của trục "}<Math inline>{"Ox"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Tại "}<Math inline>{"t = 5\\text{ s} \\Rightarrow v = -10 + 2(5) = 0\\text{ m/s}"}</Math>{". Sau "}<Math inline>{"t > 5\\text{ s} \\Rightarrow v = -10 + 2t > 0"}</Math>{", "}<Math inline>{"a = +2 > 0 \\Rightarrow a \\cdot v > 0 \\Rightarrow"}</Math>{" quay đầu nhanh dần đều theo chiều dương."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-022"
+  question="Câu 22"
+  context={<><>{"Đồ thị vận tốc – thời gian ("}<Math inline>{"v - t"}</Math>{") của một ô tô thử nghiệm chuyển động thẳng được mô tả như hình vẽ:"}<br /><br />{"Giai đoạn 1 ("}<Math inline>{"0 \\rightarrow 4\\text{ s}"}</Math>{"): Đường thẳng tăng từ "}<Math inline>{"v = 0"}</Math>{" lên "}<Math inline>{"v = 12\\text{ m/s}"}</Math>{"."}<br />{"Giai đoạn 2 ("}<Math inline>{"4 \\rightarrow 10\\text{ s}"}</Math>{"): Đường thẳng nằm ngang ở mức "}<Math inline>{"v = 12\\text{ m/s}"}</Math>{"."}<br />{"Giai đoạn 3 ("}<Math inline>{"10 \\rightarrow 14\\text{ s}"}</Math>{"): Đường thẳng giảm từ "}<Math inline>{"v = 12\\text{ m/s}"}</Math>{" về "}<Math inline>{"v = 0"}</Math>{"."}</><ExerciseMotionGraph title="Đồ thị v–t của câu 22" points={[[0,0],[4,12],[10,12],[14,0]]} /></>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Trong "}<Math inline>{"4\\text{ s}"}</Math>{" đầu tiên, ô tô chuyển động thẳng nhanh dần đều với gia tốc "}<Math inline>{"a_1 = 3\\text{ m/s}^2"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"a_1 = \\frac{12 - 0}{4 - 0} = 3\\text{ m/s}^2"}</Math>{"."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Từ "}<Math inline>{"t = 4\\text{ s}"}</Math>{" đến "}<Math inline>{"t = 10\\text{ s}"}</Math>{", ô tô đứng yên vì vận tốc không đổi."}</>,
+      isTrue: false,
+      explanation: <>{"Vận tốc "}<Math inline>{"v = 12\\text{ m/s} \\ne 0"}</Math>{" không đổi, xe chuyển động thẳng đều chứ không đứng yên."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Trong giai đoạn cuối ("}<Math inline>{"10 \\rightarrow 14\\text{ s}"}</Math>{"), gia tốc của ô tô là "}<Math inline>{"a_3 = -3\\text{ m/s}^2"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"a_3 = \\frac{0 - 12}{14 - 10} = \\frac{-12}{4} = -3\\text{ m/s}^2"}</Math>{"."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Tổng độ dịch chuyển của ô tô trong toàn bộ "}<Math inline>{"14\\text{ s}"}</Math>{" chuyển động là "}<Math inline>{"120\\text{ m}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Diện tích dưới đồ thị: "}<Math inline>{"d=\\frac12\\times4\\times12+6\\times12+\\frac12\\times4\\times12=24+72+24=120\\,\\mathrm{m}"}</Math>{"."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-023"
+  question="Câu 23"
+  context={<>{"Xét chuyển động thẳng và quy tắc dấu. Trong các phát biểu về nhanh dần đều/chậm dần đều, giả sử gia tốc không đổi."}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Nếu gia tốc có giá trị âm ("}<Math inline>{"a < 0"}</Math>{") thì vật chắc chắn đang chuyển động chậm dần đều."}</>,
+      isTrue: false,
+      explanation: <>{"Dấu của "}<Math inline>{"a"}</Math>{" phụ thuộc chiều chọn. Nếu "}<Math inline>{"v < 0"}</Math>{" và "}<Math inline>{"a < 0 \\Rightarrow a \\cdot v > 0 \\Rightarrow"}</Math>{" nhanh dần đều."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Một vật có vận tốc âm ("}<Math inline>{"v < 0"}</Math>{") và gia tốc âm ("}<Math inline>{"a < 0"}</Math>{") sẽ chuyển động nhanh dần đều theo chiều âm."}</>,
+      isTrue: true,
+      explanation: <>{"Tích "}<Math inline>{"a \\cdot v = (-a)(-v) > 0 \\Rightarrow"}</Math>{" nhanh dần đều theo chiều âm."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Tại thời điểm vật dừng lại tức thời ("}<Math inline>{"v = 0"}</Math>{") khi quay đầu, gia tốc của vật bắt buộc phải bằng "}<Math inline>{"0"}</Math>{"."}</>,
+      isTrue: false,
+      explanation: <>{"Khi vật ném thẳng đứng lên cao đạt đỉnh, "}<Math inline>{"v=0"}</Math>{" nhưng "}<Math inline>{"a=-g\\ne0"}</Math>{". Vận tốc bằng 0 tại một thời điểm không bắt buộc gia tốc bằng 0; gia tốc bằng 0 tại một thời điểm cũng không có nghĩa vật đứng yên mãi."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Trong chuyển động thẳng, gia tốc trung bình trên mọi khoảng thời gian bằng gia tốc tức thời tại mọi thời điểm khi gia tốc không đổi, kể cả trường hợp "}<Math inline>{"a=0"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Khi "}<Math inline>{"a"}</Math>{" không đổi, "}<Math inline>{"\\Delta v=a\\Delta t"}</Math>{" nên "}<Math inline>{"a_{\\mathrm{tb}}=\\Delta v/\\Delta t=a"}</Math>{". Điều này đúng cả với chuyển động thẳng đều ("}<Math inline>{"a=0"}</Math>{")."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-024"
+  question="Câu 24"
+  context={<>{"Một ô tô đang chạy với tốc độ "}<Math inline>{"90\\text{ km/h}"}</Math>{" ("}<Math inline>{"25\\text{ m/s}"}</Math>{") thì tài xế nhìn thấy chướng ngại vật phía trước. Thời gian phản ứng của tài xế (từ lúc thấy chướng ngại vật đến khi chân bắt đầu đạp phanh) là "}<Math inline>{"t_{rx} = 0,8\\text{ s}"}</Math>{". Khi đạp phanh, xe chuyển động chậm dần đều với gia tốc tối đa "}<Math inline>{"a = -5\\text{ m/s}^2"}</Math>{"."}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Trong thời gian phản ứng "}<Math inline>{"0,8\\text{ s}"}</Math>{", ô tô tiếp tục chuyển động thẳng đều và đi được quãng đường "}<Math inline>{"20\\text{ m}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"d_{rx} = v_0 \\cdot t_{rx} = 25 \\times 0,8 = 20\\text{ m}"}</Math>{"."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Quãng đường hãm phanh (tính từ lúc bắt đầu đạp phanh đến khi dừng lại) là "}<Math inline>{"62,5\\text{ m}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"d_{brk} = \\frac{v^2 - v_0^2}{2a} = \\frac{0 - 25^2}{2(-5)} = \\frac{-625}{-10} = 62,5\\text{ m}"}</Math>{"."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Tổng khoảng cách dừng an toàn của ô tô kể từ khi phát hiện chướng ngại vật là "}<Math inline>{"82,5\\text{ m}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Total "}<Math inline>{"D_{stop} = d_{rx} + d_{brk} = 20 + 62,5 = 82,5\\text{ m}"}</Math>{"."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Nếu tốc độ ban đầu của ô tô tăng gấp đôi lên "}<Math inline>{"180\\text{ km/h}"}</Math>{", tổng khoảng cách dừng an toàn cũng sẽ tăng gấp đôi."}</>,
+      isTrue: false,
+      explanation: <>{"Khi "}<Math inline>{"v_0"}</Math>{" tăng gấp đôi ("}<Math inline>{"50\\text{ m/s}"}</Math>{"), "}<Math inline>{"d_{rx}"}</Math>{" tăng 2 lần ("}<Math inline>{"40\\text{ m}"}</Math>{"), nhưng "}<Math inline>{"d_{brk} \\propto v_0^2"}</Math>{" tăng 4 lần ("}<Math inline>{"250\\text{ m}"}</Math>{"). Tổng khoảng cách dừng là "}<Math inline>{"290\\text{ m}"}</Math>{", tăng hơn 3,5 lần chứ không phải 2 lần."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-025"
+  question="Câu 25"
+  context={<>{"Hai xe A và B cùng xuất phát từ gốc tọa độ "}<Math inline>{"O"}</Math>{" trên một đường thẳng. Xe A chuyển động thẳng đều với vận tốc không đổi "}<Math inline>{"v_A = 15\\text{ m/s}"}</Math>{". Xe B xuất phát từ trạng thái nghỉ với gia tốc không đổi "}<Math inline>{"a_B = 2\\text{ m/s}^2"}</Math>{"."}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Phương trình độ dịch chuyển của hai xe lần lượt là "}<Math inline>{"d_A = 15t"}</Math>{" và "}<Math inline>{"d_B = t^2\\text{ (m, s)}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"d_A = 15t"}</Math>{"; "}<Math inline>{"d_B = 0 \\cdot t + \\frac{1}{2}(2)t^2 = t^2"}</Math>{"."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Xe B sẽ đuổi kịp xe A tại thời điểm "}<Math inline>{"t = 15\\text{ s}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Đuổi kịp khi "}<Math inline>{"d_A = d_B \\Leftrightarrow 15t = t^2 \\Rightarrow t = 15\\text{ s}"}</Math>{" (loại "}<Math inline>{"t = 0"}</Math>{")."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Tại vị trí hai xe gặp nhau, vận tốc của xe B có độ lớn bằng "}<Math inline>{"30\\text{ m/s}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"v_B = a_B \\cdot t = 2 \\times 15 = 30\\text{ m/s}"}</Math>{"."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Trước lần gặp lại, khoảng cách giữa hai xe đạt cực đại khi "}<Math inline>{"v_B=v_A"}</Math>{", tại "}<Math inline>{"t=7{,}5\\,\\mathrm{s}"}</Math>{"; khoảng cách cực đại là "}<Math inline>{"56{,}25\\,\\mathrm{m}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Khoảng cách "}<Math inline>{"D(t) = d_A - d_B = 15t - t^2"}</Math>{". "}<Math inline>{"D(t)"}</Math>{" đạt max khi đạo hàm "}<Math inline>{"\\frac{dD}{dt} = 15 - 2t = 0 \\Leftrightarrow v_A - v_B = 0 \\Rightarrow t = 7,5\\text{ s}"}</Math>{". "}<Math inline>{"D_{max} = 15(7,5) - (7,5)^2 = 56,25\\text{ m}"}</Math>{"."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-026"
+  question="Câu 26"
+  context={<>{"Đồ thị độ dịch chuyển – thời gian ("}<Math inline>{"d - t"}</Math>{") của một vật chuyển động thẳng là một nhánh parabol có phương trình "}<Math inline>{"d(t) = 4t + t^2\\text{ (m, s)}"}</Math>{"."}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Vận tốc ban đầu của vật là "}<Math inline>{"v_0 = 4\\text{ m/s}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"So sánh "}<Math inline>{"d = v_0 t + \\frac{1}{2}a t^2 \\Rightarrow v_0 = 4\\text{ m/s}"}</Math>{"."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Gia tốc của chuyển động là "}<Math inline>{"a = 1\\text{ m/s}^2"}</Math>{"."}</>,
+      isTrue: false,
+      explanation: <>{"Hệ số của "}<Math inline>{"t^2"}</Math>{" là "}<Math inline>{"\\frac{1}{2}a = 1 \\Rightarrow a = 2\\text{ m/s}^2"}</Math>{" (không phải "}<Math inline>{"1\\text{ m/s}^2"}</Math>{")."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Biểu thức vận tốc tức thời của vật theo thời gian là "}<Math inline>{"v(t) = 4 + 2t\\text{ (m/s)}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"v(t) = v_0 + at = 4 + 2t\\text{ (m/s)}"}</Math>{"."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Độ dịch chuyển của vật sau "}<Math inline>{"5\\text{ s}"}</Math>{" là "}<Math inline>{"45\\text{ m}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"d(5) = 4(5) + 5^2 = 20 + 25 = 45\\text{ m}"}</Math>{"."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-027"
+  question="Câu 27"
+  context={<>{"Trong bài thực hành đo gia tốc của xe lăn trên máng nghiêng dùng hệ thống cổng quang điện kép:"}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Tốc độ tức thời tại cổng A được xấp xỉ bởi "}<Math inline>{"v_A = \\frac{s}{\\Delta t_A}"}</Math>{", trong đó "}<Math inline>{"s"}</Math>{" là chiều rộng tấm chắn sáng và "}<Math inline>{"\\Delta t_A"}</Math>{" là thời gian chắn sáng tại A."}</>,
+      isTrue: true,
+      explanation: <>{"Tốc độ tức thời xấp xỉ bằng tốc độ trung bình trong khoảng thời gian rất ngắn "}<Math inline>{"\\Delta t_A"}</Math>{"."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Gia tốc được tính theo công thức "}<Math inline>{"a = \\frac{v_B - v_A}{t_{AB}}"}</Math>{", với "}<Math inline>{"t_{AB}"}</Math>{" là thời gian xe chạy từ cổng A đến cổng B."}</>,
+      isTrue: true,
+      explanation: <>{"Công thức tính gia tốc từ hai cổng quang điện."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Nếu tấm chắn sáng càng dày (bề rộng "}<Math inline>{"s"}</Math>{" càng lớn) thì phép đo tốc độ tức thời "}<Math inline>{"v_A, v_B"}</Math>{" càng chính xác."}</>,
+      isTrue: false,
+      explanation: <>{"Không thể kết luận tấm chắn càng rộng thì càng chính xác. Tấm chắn hẹp giúp tốc độ trung bình trong thời gian chắn sáng gần tốc độ tức thời hơn, nhưng thời gian quá ngắn làm sai số tương đối của đồng hồ tăng. Cần chọn kích thước phù hợp với độ phân giải thiết bị."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Sai số tương đối của phép đo gia tốc phụ thuộc vào sai số của phép đo chiều rộng "}<Math inline>{"s"}</Math>{", thời gian chắn sáng "}<Math inline>{"\\Delta t_A, \\Delta t_B"}</Math>{" và thời gian di chuyển "}<Math inline>{"t_{AB}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Công thức truyền sai số của phép đo gia tốc gián tiếp."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-028"
+  question="Câu 28"
+  context={<>{"Xét một đoàn tàu cao tốc bắt đầu hãm phanh khi vào ga, chuyển động thẳng chậm dần đều cho đến khi dừng lại hẳn. Chọn chiều dương theo chiều chuyển động ban đầu, xét trước thời điểm dừng hẳn."}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Đồ thị vận tốc – thời gian ("}<Math inline>{"v - t"}</Math>{") của đoàn tàu là một đường thẳng đi xuống."}</>,
+      isTrue: true,
+      explanation: <>{"Vận tốc giảm đều từ "}<Math inline>{"v_0"}</Math>{" về "}<Math inline>{"0 \\Rightarrow"}</Math>{" đồ thị là đường thẳng dốc xuống."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Vectơ gia tốc "}<Math inline>{"\\vec{a}"}</Math>{" của đoàn tàu ngược chiều với vectơ vận tốc "}<Math inline>{"\\vec{v}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Chậm dần đều nên "}<Math inline>{"\\vec{a}"}</Math>{" ngược chiều "}<Math inline>{"\\vec{v}"}</Math>{"."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Đồ thị độ dịch chuyển – thời gian ("}<Math inline>{"d - t"}</Math>{") là một nhánh parabol có bề lõm quay xuống dưới."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"d(t) = v_0 t - \\frac{1}{2}|a|t^2"}</Math>{", hệ số "}<Math inline>{"t^2"}</Math>{" âm nên parabol quay bề lõm xuống."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Vận tốc trung bình của đoàn tàu trong toàn bộ thời gian hãm phanh bằng một nửa vận tốc ban đầu ("}<Math inline>{"v_{tb} = \\frac{v_0}{2}"}</Math>{")."}</>,
+      isTrue: true,
+      explanation: <>{"Trong CĐTBĐĐ, "}<Math inline>{"v_{tb} = \\frac{v_0 + v}{2} = \\frac{v_0 + 0}{2} = \\frac{v_0}{2}"}</Math>{"."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-029"
+  question="Câu 29"
+  context={<>{"Một vật được ném thẳng đứng lên trên từ mặt đất với vận tốc ban đầu "}<Math inline>{"v_0 = 20\\text{ m/s}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{", bỏ qua lực cản không khí. Chọn chiều dương hướng lên trên."}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Gia tốc của vật trong suốt quá trình chuyển động (khi đi lên và khi rơi xuống) luôn không đổi và có giá trị "}<Math inline>{"a = -10\\text{ m/s}^2"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Gia tốc trọng trường "}<Math inline>{"\\vec{g}"}</Math>{" luôn hướng xuống, có độ lớn không đổi "}<Math inline>{"g = 10\\text{ m/s}^2 \\Rightarrow a = -10\\text{ m/s}^2"}</Math>{"."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Khi vật lên đến độ cao cực đại, vận tốc của vật bằng "}<Math inline>{"0"}</Math>{" và gia tốc của vật cũng bằng "}<Math inline>{"0"}</Math>{"."}</>,
+      isTrue: false,
+      explanation: <>{"Tại đỉnh cao nhất, "}<Math inline>{"v = 0"}</Math>{" nhưng gia tốc vẫn là "}<Math inline>{"a = -g = -10\\text{ m/s}^2"}</Math>{"."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Thời gian vật đi từ mặt đất lên độ cao cực đại bằng thời gian vật rơi từ độ cao cực đại trở về mặt đất ("}<Math inline>{"t_{\\mathrm{len}} = t_{\\mathrm{xuong}} = 2\\text{ s}"}</Math>{")."}</>,
+      isTrue: true,
+      explanation: <>{"Tính chất đối xứng của chuyển động trong trọng trường: "}<Math inline>{"t_{\\mathrm{len}} = \\frac{v_0}{g} = \\frac{20}{10} = 2\\text{ s} = t_{\\mathrm{xuong}}"}</Math>{"."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Khi trở về chạm mặt đất, vận tốc của vật có giá trị đại số là "}<Math inline>{"v = -20\\text{ m/s}"}</Math>{"."}</>,
+      isTrue: true,
+      explanation: <>{"Vận tốc chạm đất "}<Math inline>{"v = v_0 + at = 20 + (-10)(4) = -20\\text{ m/s}"}</Math>{" (cùng độ lớn, ngược chiều)."}</>
+    }
+  ]}
+/>
+
+<QuizTF
+  id="bai-3-exercises-030"
+  question="Câu 30"
+  context={<>{"So sánh ba loại đồ thị mô tả chuyển động thẳng đều và chuyển động thẳng biến đổi đều:"}</>}
+  statements={[
+    {
+      id: "a",
+      text: <>{"Đồ thị "}<Math inline>{"x - t"}</Math>{" của chuyển động thẳng đều là đường thẳng xiên góc, còn của chuyển động thẳng biến đổi đều là đường parabol."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"x - t"}</Math>{" CĐTĐ là bậc nhất (đường thẳng), CĐTBĐĐ là bậc hai (parabol)."}</>
+    },
+    {
+      id: "b",
+      text: <>{"Đồ thị "}<Math inline>{"v - t"}</Math>{" của chuyển động thẳng đều là đường thẳng song song với trục "}<Math inline>{"Ot"}</Math>{", còn của chuyển động thẳng biến đổi đều là đường thẳng xiên góc."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"v - t"}</Math>{" CĐTĐ nằm ngang ("}<Math inline>{"v = \\text{const}"}</Math>{"), CĐTBĐĐ nghiêng ("}<Math inline>{"v = v_0 + at"}</Math>{")."}</>
+    },
+    {
+      id: "c",
+      text: <>{"Đồ thị "}<Math inline>{"a - t"}</Math>{" của chuyển động thẳng đều nằm trùng với trục hoành "}<Math inline>{"Ot"}</Math>{" ("}<Math inline>{"a = 0"}</Math>{"), còn của chuyển động thẳng biến đổi đều là đường thẳng song song với "}<Math inline>{"Ot"}</Math>{" ("}<Math inline>{"a = \\text{const} \\ne 0"}</Math>{")."}</>,
+      isTrue: true,
+      explanation: <><Math inline>{"a - t"}</Math>{" CĐTĐ nằm trên trục hoành ("}<Math inline>{"a = 0"}</Math>{"), CĐTBĐĐ nằm ngang ("}<Math inline>{"a = \\text{const}"}</Math>{")."}</>
+    },
+    {
+      id: "d",
+      text: <>{"Tại bất kỳ thời điểm nào, độ dốc tiếp tuyến của đồ thị "}<Math inline>{"x - t"}</Math>{" luôn bằng vận tốc tức thời "}<Math inline>{"v"}</Math>{" tại thời điểm đó."}</>,
+      isTrue: true,
+      explanation: <>{"Ý nghĩa hình học của độ dốc tiếp tuyến đồ thị "}<Math inline>{"x - t"}</Math>{" là vận tốc tức thời "}<Math inline>{"v = \\frac{dx}{dt}"}</Math>{"."}</>
+    }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả dạng số theo đơn vị trong đề. Bấm **Xem lời giải** để tự đối chiếu.
+
+<QuizShort
+  id="bai-3-exercises-031"
+  question={<>{"Câu 31: Một ô tô tăng tốc đều từ "}<Math inline>{"10\\text{ m/s}"}</Math>{" lên "}<Math inline>{"20\\text{ m/s}"}</Math>{" trên một đoạn đường thẳng dài "}<Math inline>{"150\\text{ m}"}</Math>{". Gia tốc của ô tô bằng bao nhiêu "}<Math inline>{"\\text{m/s}^2"}</Math>{"?"}</>}
+  answer="1"
+  explanation={<><Math inline>{"v^2 - v_0^2 = 2ad \\Rightarrow 20^2 - 10^2 = 2 \\cdot a \\cdot 150 \\Rightarrow 300 = 300a \\Rightarrow a = 1\\text{ m/s}^2"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-032"
+  question={<>{"Câu 32: Đoàn tàu bắt đầu rời ga từ trạng thái nghỉ chuyển động thẳng nhanh dần đều với gia tốc "}<Math inline>{"a = 0,5\\text{ m/s}^2"}</Math>{". Hỏi sau thời gian bao nhiêu giây đoàn tàu đi được quãng đường "}<Math inline>{"100\\text{ m}"}</Math>{" đầu tiên?"}</>}
+  answer="20"
+  explanation={<><Math inline>{"d = \\frac{1}{2}at^2 \\Rightarrow 100 = \\frac{1}{2}(0,5)t^2 = 0,25 t^2 \\Rightarrow t^2 = 400 \\Rightarrow t = 20\\text{ s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-033"
+  question={<>{"Câu 33: Một xe máy đang chạy với tốc độ "}<Math inline>{"18\\text{ m/s}"}</Math>{" thì hãm phanh chuyển động thẳng chậm dần đều với gia tốc "}<Math inline>{"a = -2\\text{ m/s}^2"}</Math>{" cho đến khi dừng hẳn. Tính quãng đường xe máy đi được trong giây cuối cùng ngay trước khi dừng lại (đơn vị: "}<Math inline>{"\\text{m}"}</Math>{")."}</>}
+  answer="1"
+  explanation={<>{"Thời gian hãm phanh đến khi dừng lại: "}<Math inline>{"t_{\\mathrm{dung}} = \\frac{0 - 18}{-2} = 9\\text{ s}"}</Math>{". Quãng đường đi trong "}<Math inline>{"9\\text{ s}"}</Math>{": "}<Math inline>{"S_9 = 18(9) + \\frac{1}{2}(-2)(9^2) = 162 - 81 = 81\\text{ m}"}</Math>{". Quãng đường đi trong "}<Math inline>{"8\\text{ s}"}</Math>{" đầu: "}<Math inline>{"S_8 = 18(8) + \\frac{1}{2}(-2)(8^2) = 144 - 64 = 80\\text{ m}"}</Math>{". Quãng đường trong giây cuối cùng: "}<Math inline>{"\\Delta s = S_9 - S_8 = 81 - 80 = 1\\text{ m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-034"
+  question={<>{"Câu 34: Phương trình tọa độ của một chất điểm chuyển động thẳng dọc theo trục "}<Math inline>{"Ox"}</Math>{" là "}<Math inline>{"x = 5 + 2t + t^2\\text{ (m, s)}"}</Math>{". Xác định tốc độ của chất điểm tại thời điểm "}<Math inline>{"t = 3\\text{ s}"}</Math>{" (đơn vị: "}<Math inline>{"\\text{m/s}"}</Math>{")."}</>}
+  answer="8"
+  explanation={<>{"Vận tốc tức thời "}<Math inline>{"v(t) = x'(t) = 2 + 2t"}</Math>{". Tại "}<Math inline>{"t = 3\\text{ s} \\Rightarrow v(3) = 2 + 2(3) = 8\\text{ m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-035"
+  question={<>{"Câu 35: Ô tô đang chạy với tốc độ "}<Math inline>{"72\\text{ km/h}"}</Math>{" thì giảm tốc đều xuống còn "}<Math inline>{"36\\text{ km/h}"}</Math>{" trong khoảng thời gian "}<Math inline>{"5\\text{ s}"}</Math>{". Độ lớn gia tốc của ô tô trong quá trình này bằng bao nhiêu "}<Math inline>{"\\text{m/s}^2"}</Math>{"?"}</>}
+  answer="2"
+  explanation={<><Math inline>{"v_0 = 72\\text{ km/h} = 20\\text{ m/s}"}</Math>{"; "}<Math inline>{"v = 36\\text{ km/h} = 10\\text{ m/s}"}</Math>{". "}<Math inline>{"a = \\frac{10 - 20}{5} = -2\\text{ m/s}^2 \\Rightarrow |a| = 2\\text{ m/s}^2"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-036"
+  question={<>{"Câu 36: Đồ thị vận tốc – thời gian ("}<Math inline>{"v - t"}</Math>{") của một ô tô chuyển động gồm 3 giai đoạn: tăng tốc đều từ "}<Math inline>{"0"}</Math>{" lên "}<Math inline>{"12\\text{ m/s}"}</Math>{" trong "}<Math inline>{"4\\text{ s}"}</Math>{"; chuyển động đều với "}<Math inline>{"12\\text{ m/s}"}</Math>{" trong "}<Math inline>{"6\\text{ s}"}</Math>{" tiếp theo; và hãm phanh chậm dần đều về "}<Math inline>{"0"}</Math>{" trong "}<Math inline>{"2\\text{ s}"}</Math>{" cuối. Tổng độ dịch chuyển của ô tô trong "}<Math inline>{"12\\text{ s}"}</Math>{" này bằng bao nhiêu mét?"}</>}
+  answer="108"
+  explanation={<>{"Tổng độ dịch chuyển bằng diện tích hình thang của đồ thị "}<Math inline>{"v - t"}</Math>{": Đáy lớn "}<Math inline>{"T = 12\\text{ s}"}</Math>{", đáy nhỏ (giai đoạn chạy đều) "}<Math inline>{"t_2 = 6\\text{ s}"}</Math>{", chiều cao "}<Math inline>{"V_{max} = 12\\text{ m/s}"}</Math>{". "}<Math inline>{"d = \\frac{(12 + 6) \\times 12}{2} = \\frac{18 \\times 12}{2} = 108\\text{ m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-037"
+  question={<>{"Câu 37: Một vật chuyển động thẳng nhanh dần đều không vận tốc ban đầu từ trạng thái nghỉ. Gọi "}<Math inline>{"s_1"}</Math>{" là quãng đường vật đi được trong giây thứ nhất và "}<Math inline>{"s_2"}</Math>{" là quãng đường vật đi được trong giây thứ hai. Tính tỉ số "}<Math inline>{"k = \\frac{s_2}{s_1}"}</Math>{"."}</>}
+  answer="3"
+  explanation={<><Math inline>{"s_1 = \\frac{1}{2}a(1^2) = 0,5a"}</Math>{". "}<Math inline>{"S_2 = \\frac{1}{2}a(2^2) = 2a \\Rightarrow s_2 = S_2 - s_1 = 2a - 0,5a = 1,5a"}</Math>{". Tỉ số "}<Math inline>{"k = \\frac{s_2}{s_1} = \\frac{1,5a}{0,5a} = 3"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-038"
+  question={<>{"Câu 38: Hai xe A và B chuyển động ngược chiều nhau trên cùng một đường thẳng, ban đầu cách nhau "}<Math inline>{"100\\text{ m}"}</Math>{". Xe A chuyển động thẳng đều với tốc độ "}<Math inline>{"10\\text{ m/s}"}</Math>{". Xe B xuất phát từ trạng thái nghỉ chuyển động thẳng nhanh dần đều về phía xe A với gia tốc "}<Math inline>{"2\\text{ m/s}^2"}</Math>{". Tính khoảng thời gian cho đến khi hai xe gặp nhau (kết quả làm tròn đến "}<Math inline>{"1"}</Math>{" chữ số thập phân, đơn vị: "}<Math inline>{"\\text{s}"}</Math>{")."}</>}
+  answer="6,2"
+  explanation={<>{"Chọn gốc tọa độ tại vị trí xe A, chiều dương từ A sang B. "}<Math inline>{"x_A = 10t"}</Math>{"; "}<Math inline>{"x_B = 100 - \\frac{1}{2}(2)t^2 = 100 - t^2"}</Math>{". Hai xe gặp nhau khi "}<Math inline>{"x_A = x_B \\Leftrightarrow 10t = 100 - t^2 \\Leftrightarrow t^2 + 10t - 100 = 0"}</Math>{". Giải phương trình bậc hai: "}<Math inline>{"t = \\frac{-10 + \\sqrt{10^2 - 4(1)(-100)}}{2} = \\frac{-10 + \\sqrt{500}}{2} = -5 + 5\\sqrt{5} \\approx 6,18\\text{ s} \\approx 6,2\\text{ s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-039"
+  question={<>{"Câu 39: Trong bài thực hành đo gia tốc bằng hệ thống cổng quang điện, chiều rộng tấm chắn sáng là "}<Math inline>{"s = 20\\text{ mm} = 0,02\\text{ m}"}</Math>{". Thời gian chắn sáng tại cổng A là "}<Math inline>{"\\Delta t_A = 0,05\\text{ s}"}</Math>{", tại cổng B là "}<Math inline>{"\\Delta t_B = 0,02\\text{ s}"}</Math>{". Thời gian xe chạy từ A đến B là "}<Math inline>{"t_{AB} = 1,5\\text{ s}"}</Math>{". Gia tốc đo được của xe lăn bằng bao nhiêu "}<Math inline>{"\\text{m/s}^2"}</Math>{"?"}</>}
+  answer="0,4"
+  explanation={<><Math inline>{"v_A = \\frac{s}{\\Delta t_A} = \\frac{0,02}{0,05} = 0,4\\text{ m/s}"}</Math>{". "}<Math inline>{"v_B = \\frac{s}{\\Delta t_B} = \\frac{0,02}{0,02} = 1,0\\text{ m/s}"}</Math>{". Gia tốc "}<Math inline>{"a = \\frac{v_B - v_A}{t_{AB}} = \\frac{1,0 - 0,4}{1,5} = \\frac{0,6}{1,5} = 0,4\\text{ m/s}^2"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-3-exercises-040"
+  question={<>{"Câu 40: Một ô tô đang di chuyển với tốc độ "}<Math inline>{"90\\text{ km/h}"}</Math>{" ("}<Math inline>{"25\\text{ m/s}"}</Math>{"). Tài xế có thời gian phản ứng là "}<Math inline>{"0,6\\text{ s}"}</Math>{" trước khi bắt đầu tác dụng lực lên bàn đạp phanh. Gia tốc hãm phanh cực đại của xe là "}<Math inline>{"a = -5\\text{ m/s}^2"}</Math>{". Tính tổng khoảng cách dừng an toàn của xe kể từ thời điểm tài xế trông thấy chướng ngại vật (đơn vị: "}<Math inline>{"\\text{m}"}</Math>{")."}</>}
+  answer="77,5"
+  explanation={<>{"Quãng đường phản ứng: "}<Math inline>{"d_{rx} = 25 \\times 0,6 = 15\\text{ m}"}</Math>{". Quãng đường phanh: "}<Math inline>{"d_{brk} = \\frac{0 - 25^2}{2(-5)} = 62,5\\text{ m}"}</Math>{". Tổng khoảng cách dừng "}<Math inline>{"D_{stop} = 15 + 62,5 = 77,5\\text{ m}"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu vận dụng cao & tổng hợp" icon="book">
+
+Trình bày cách chọn trục, công thức và các bước tính trước khi mở lời giải.
+
+<div data-question-id="bai-3-exercises-041" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 41. Phân tích khoảng cách dừng</h3>
+
+Ô tô chở khách chạy với $v_0=108\,\mathrm{km/h}=30\,\mathrm{m/s}$. Người lái phát hiện vật cản cố định ở khoảng cách $L=100\,\mathrm{m}$.
+
+- **a)** Viết công thức quãng đường cần để dừng $D_{\mathrm{stop}}$ theo $v_0$, thời gian phản ứng $t_{\mathrm{rx}}$ và gia tốc hãm $a<0$.
+- **b)** Với $t_{\mathrm{rx}}=0{,}75\,\mathrm{s}$ và $a=-6\,\mathrm{m/s^2}$, xe có va chạm không? Nếu có, tính vận tốc lúc va chạm.
+- **c)** Theo Điều 11 Thông tư 38/2024/TT-BGTVT, khoảng cách tối thiểu với xe chạy liền trước ở tốc độ $108\,\mathrm{km/h}$ trong điều kiện đường khô, thẳng, bằng phẳng, không trơn trượt, không sương mù và đủ tầm nhìn là bao nhiêu? So sánh với mô hình ở câu b.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 41</summary>
+
+**a)** Trong thời gian phản ứng, xe giữ nguyên vận tốc. Chọn chiều dương theo chuyển động:
+
+
+$$
+D_{\mathrm{stop}}=v_0t_{\mathrm{rx}}-\frac{v_0^2}{2a}
+=v_0t_{\mathrm{rx}}+\frac{v_0^2}{2|a|}.
+$$
+
+
+**b)** Quãng đường phản ứng và quãng đường phanh:
+
+
+$$
+s_{\mathrm{rx}}=30\times0{,}75=22{,}5\,\mathrm{m},\qquad
+s_{\mathrm{brk}}=\frac{30^2}{2\times6}=75\,\mathrm{m}.
+$$
+
+
+
+$$
+D_{\mathrm{stop}}=22{,}5+75=97{,}5\,\mathrm{m}<100\,\mathrm{m}.
+$$
+
+
+Xe dừng cách vật cản $2{,}5\,\mathrm{m}$ theo giả thiết bài toán. **Không xảy ra va chạm**, nên không có “vận tốc tại thời điểm va chạm”; vận tốc khi dừng là 0.
+
+**c)** Tốc độ $108\,\mathrm{km/h}$ thuộc khoảng trên 100 đến 120 km/h: khoảng cách tối thiểu là **100 m** trong các điều kiện đã nêu. Nguồn: [Điều 11, Bảng 3 — Thông tư 38/2024/TT-BGTVT](https://vbpl.vn/bogiaoducdaotao/Pages/vbpq-print.aspx?ItemID=173068).
+
+Kết quả $97{,}5\,\mathrm{m}$ minh họa vai trò của thời gian phản ứng và phanh. Đây là bài toán dừng trước **vật cản cố định**; khoảng cách giữa hai xe đang chuyển động là tình huống khác. Không thể dùng một bộ giả thiết lý tưởng để kết luận 100 m luôn đủ an toàn hoặc luôn còn dư 2,5 m.
+
+</details>
+</div>
+
+<div data-question-id="bai-3-exercises-042" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 42. Hai xe đuổi nhau và khoảng cách cực đại</h3>
+
+Một xe máy đi qua ngã tư khi đèn xanh với vận tốc không đổi $v_A=15\,\mathrm{m/s}$. Đúng lúc xe máy đi ngang qua, ô tô cảnh sát đang dừng tại đó khởi hành đuổi theo với gia tốc không đổi $a_B=2\,\mathrm{m/s^2}$.
+
+- **a)** Chọn gốc tại ngã tư, gốc thời gian khi ô tô xuất phát. Viết $d_A(t)$ và $d_B(t)$.
+- **b)** Xác định thời điểm, vị trí gặp lại và vận tốc của ô tô lúc đó.
+- **c)** Trước khi đuổi kịp, khoảng cách giữa hai xe lớn nhất lúc nào và bằng bao nhiêu?
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 42</summary>
+
+**a)** Chọn chiều dương theo chuyển động, $t$ tính bằng giây và $d$ bằng mét:
+
+
+$$
+d_A=15t,\qquad d_B=\frac12(2)t^2=t^2.
+$$
+
+
+**b)** $d_A=d_B\Rightarrow t(t-15)=0$. Loại thời điểm xuất phát $t=0$:
+
+
+$$
+t_{\mathrm{gap}}=15\,\mathrm{s},\quad d_{\mathrm{gap}}=225\,\mathrm{m},\quad
+v_B=2\times15=30\,\mathrm{m/s}=108\,\mathrm{km/h}.
+$$
+
+
+**c)** Trên $0\le t\le15$:
+
+
+$$
+D(t)=15t-t^2=56{,}25-(t-7{,}5)^2.
+$$
+
+
+Vậy $D_{\max}=56{,}25\,\mathrm{m}$ tại $t=7{,}5\,\mathrm{s}$. Lúc đó $v_B=2t=15\,\mathrm{m/s}=v_A$. Cùng vận tốc là lúc khoảng cách ngừng tăng và bắt đầu giảm, chưa phải lúc hai xe gặp lại.
+
+</details>
+</div>
+
+<div data-question-id="bai-3-exercises-043" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 43. Đồ thị vận tốc – thời gian nhiều giai đoạn</h3>
+
+Tàu điện ngầm đi từ ga A đến ga B theo bốn giai đoạn:
+
+- $0\to10\,\mathrm{s}$: tăng tốc đều từ 0 đến $15\,\mathrm{m/s}$.
+- $10\to40\,\mathrm{s}$: giữ vận tốc $15\,\mathrm{m/s}$.
+- $40\to50\,\mathrm{s}$: giảm tốc đều từ 15 xuống $5\,\mathrm{m/s}$.
+- $50\to60\,\mathrm{s}$: giảm tốc đều từ 5 về $0\,\mathrm{m/s}$.
+
+<ExerciseMotionGraph title="Đồ thị v–t của câu 43" points={[[0,0],[10,15],[40,15],[50,5],[60,0]]} />
+
+**a)** Tính gia tốc từng giai đoạn. **b)** Tính khoảng cách hai ga bằng diện tích dưới đồ thị và vận tốc trung bình cả hành trình. **c)** Vẽ đồ thị $a-t$.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 43</summary>
+
+**a)** Với mỗi đoạn, $a=\Delta v/\Delta t$:
+
+
+$$
+a_1=1{,}5\,\mathrm{m/s^2},\quad a_2=0,\quad
+a_3=-1\,\mathrm{m/s^2},\quad a_4=-0{,}5\,\mathrm{m/s^2}.
+$$
+
+
+**b)** Vận tốc không âm nên quãng đường bằng độ dịch chuyển. Các diện tích lần lượt là:
+
+
+$$
+S_1=\frac12(10)(15)=75\,\mathrm{m},\qquad S_2=(30)(15)=450\,\mathrm{m}.
+$$
+
+
+$$
+S_3=\frac{15+5}{2}(10)=100\,\mathrm{m},\qquad S_4=\frac12(10)(5)=25\,\mathrm{m}.
+$$
+
+
+$$
+S=75+450+100+25=650\,\mathrm{m}.
+$$
+
+
+$$
+v_{\mathrm{tb}}=\frac{650}{60}\approx10{,}83\,\mathrm{m/s}=39\,\mathrm{km/h}.
+$$
+
+
+**c)** Gia tốc là hằng số trên từng khoảng, đổi giá trị tại các mốc chuyển đoạn:
+
+<ExerciseMotionGraph title="Lời giải câu 43: đồ thị a–t" acceleration points={[[0,1.5],[10,0],[40,-1],[50,-0.5],[60,-0.5]]} />
+
+Trong mô hình lý tưởng, gia tốc có bước nhảy tại $t=10,\ 40,\ 50\,\mathrm{s}$; không gán một giá trị đạo hàm duy nhất tại các góc gãy của đồ thị $v-t$.
+
+</details>
+</div>
+
+<div data-question-id="bai-3-exercises-044" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 44. Cổng quang điện và xử lý sai số</h3>
+
+Xe lăn trên máng nghiêng qua hai cổng quang điện A, B nối với đồng hồ MC964. Khoảng cách hai cổng $L=(0{,}500\pm0{,}002)\,\mathrm{m}$; bề rộng tấm chắn $s=(20{,}0\pm0{,}1)\,\mathrm{mm}$.
+
+<CompareTable title="Năm lần đo thời gian" columns={['Lần đo', 'ΔtA (s)', 'ΔtB (s)', 'tAB (s)']}
+  rows={[
+    ['1','0,051','0,025','1,21'],
+    ['2','0,049','0,024','1,19'],
+    ['3','0,050','0,025','1,20'],
+    ['4','0,052','0,026','1,22'],
+    ['5','0,048','0,025','1,18']
+  ]}
+/>
+
+- **a)** Tính trung bình của thời gian chắn sáng tại A, B và thời gian đi từ A đến B.
+- **b)** Từ các thời gian trung bình, ước lượng $v_A$, $v_B$ và gia tốc.
+- **c)** Lập công thức truyền sai số từ $s$, $\Delta t_A$, $\Delta t_B$, $t_{AB}$ sang gia tốc. Viết kết quả kèm sai số và nêu rõ giả thiết dùng khi đề chưa cho sai số dụng cụ đo thời gian.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 44</summary>
+
+**a)** Đặt $A=\overline{\Delta t_A}$, $B=\overline{\Delta t_B}$ và $T=\overline{t_{AB}}$:
+
+
+$$
+A=0{,}050\,\mathrm{s},\qquad B=0{,}025\,\mathrm{s},\qquad T=1{,}20\,\mathrm{s}.
+$$
+
+
+**b)** Với $s=0{,}0200\,\mathrm{m}$, ước lượng từ giá trị thời gian trung bình:
+
+
+$$
+v_A\approx\frac{s}{A}=0{,}400\,\mathrm{m/s},\qquad
+v_B\approx\frac{s}{B}=0{,}800\,\mathrm{m/s}.
+$$
+
+
+$$
+\bar a=\frac{s}{T}\left(\frac1B-\frac1A\right)
+=\frac{0{,}800-0{,}400}{1{,}20}\approx0{,}333\,\mathrm{m/s^2}.
+$$
+
+
+**Kiểm tra tính nhất quán của số liệu:** Nếu chuyển động có gia tốc không đổi, khoảng cách suy ra là
+
+
+$$
+L_{\mathrm{tinh}}=\frac{v_A+v_B}{2}T=0{,}72\,\mathrm{m},
+$$
+
+
+khác đáng kể với $L=0{,}500\,\mathrm{m}$ trong đề. Vì vậy, $0{,}333\,\mathrm{m/s^2}$ chỉ là kết quả tính theo nhóm số liệu thời gian đã cho; cần kiểm tra lại cách đo thời gian, khoảng cách và giả thiết gia tốc không đổi trước khi chấp nhận kết quả thực nghiệm.
+
+**c) Truyền sai số — Mở rộng**
+
+Do công thức có **hiệu** hai nghịch đảo, không thể cộng đơn giản bốn sai số tương đối. Theo cách ước lượng giới hạn sai số tuyến tính, với các sai số nhỏ:
+
+
+$$
+\delta a\equiv\frac{\Delta a}{|\bar a|}
+\lesssim \frac{\Delta s}{s}+\frac{\Delta T}{T}
++\frac{\Delta A/A^2+\Delta B/B^2}{|1/B-1/A|}.
+$$
+
+
+Ở đây $\Delta A,\Delta B,\Delta T$ là sai số của các thời gian trung bình; cần bao gồm đóng góp của thiết bị khi có thông tin. $L$ không xuất hiện vì công thức tính gia tốc đang dùng không sử dụng $L$.
+
+**Ước lượng minh họa:** Đề chưa cho độ phân giải/sai số dụng cụ của đồng hồ. Nếu tạm bỏ qua đóng góp đó, lấy độ lệch tuyệt đối trung bình của năm lần đo làm ước lượng phần ngẫu nhiên:
+
+
+$$
+\Delta A=\frac{\sum|t_{A,i}-A|}{5}=0{,}0012\,\mathrm{s},
+$$
+
+
+$$
+\Delta B=0{,}0004\,\mathrm{s},\qquad \Delta T=0{,}012\,\mathrm{s}.
+$$
+
+
+Thay $\Delta s/s=0{,}1/20{,}0=0{,}005$:
+
+
+$$
+\delta a\approx0{,}005+0{,}010+
+\frac{0{,}0012/0{,}050^2+0{,}0004/0{,}025^2}{40-20}
+=0{,}071=7{,}1\%.
+$$
+
+
+$$
+\Delta a\approx0{,}333\times0{,}071\approx0{,}024\,\mathrm{m/s^2}.
+$$
+
+
+Kết quả **ước lượng có điều kiện**: $a\approx(0{,}333\pm0{,}024)\,\mathrm{m/s^2}$. Đây chưa phải sai số đầy đủ của phép đo, chưa khắc phục mâu thuẫn với $L$, và không suy ra được kết quả $\pm0{,}018\,\mathrm{m/s^2}$ bằng cách cộng bốn phần trăm sai số như lời giải ban đầu.
+
+</details>
+</div>
+
+<div data-question-id="bai-3-exercises-045" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 45. Hãm phanh qua hai khoảng vận tốc</h3>
+
+Tàu hỏa đang chạy với $v_0=72\,\mathrm{km/h}=20\,\mathrm{m/s}$ thì bắt đầu phanh với gia tốc không đổi.
+
+- **a)** Trong $100\,\mathrm{m}$ đầu, tốc độ giảm còn $36\,\mathrm{km/h}=10\,\mathrm{m/s}$. Tính gia tốc và thời gian đi hết đoạn này.
+- **b)** Tính quãng đường đi thêm đến khi dừng và tổng thời gian hãm phanh.
+- **c)** So sánh quãng đường đi trong nửa đầu và nửa sau tổng thời gian phanh. Rút ra nhận xét.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 45</summary>
+
+**a)** Chọn chiều dương theo chuyển động ban đầu:
+
+
+$$
+a=\frac{10^2-20^2}{2\times100}=-1{,}5\,\mathrm{m/s^2}.
+$$
+
+
+$$
+t_1=\frac{10-20}{-1{,}5}=\frac{20}{3}\approx6{,}67\,\mathrm{s}.
+$$
+
+
+**b)** Đoạn từ $10\,\mathrm{m/s}$ đến khi dừng:
+
+
+$$
+s_{\mathrm{tiep}}=\frac{0^2-10^2}{2(-1{,}5)}
+=\frac{100}{3}\approx33{,}33\,\mathrm{m}.
+$$
+
+
+$$
+S_{\mathrm{tong}}=\frac{400}{3}\approx133{,}33\,\mathrm{m},\qquad
+t_{\mathrm{tong}}=\frac{0-20}{-1{,}5}=\frac{40}{3}\approx13{,}33\,\mathrm{s}.
+$$
+
+
+**c)** Vì vận tốc giảm tuyến tính, ở nửa tổng thời gian vận tốc còn $10\,\mathrm{m/s}$. Hai nửa thời gian đều dài $20/3\,\mathrm{s}$:
+
+
+$$
+s_{\mathrm{nua1}}=\frac{20+10}{2}\cdot\frac{20}{3}=100\,\mathrm{m},
+$$
+
+
+$$
+s_{\mathrm{nua2}}=\frac{10+0}{2}\cdot\frac{20}{3}
+=\frac{100}{3}\,\mathrm{m}.
+$$
+
+
+Tỉ số là **3 : 1**: nửa thời gian đầu chiếm 75% quãng đường phanh, nửa sau chiếm 25%. Vận tốc còn lớn ở đầu quá trình nên tàu vẫn đi rất xa dù đã phanh; việc phát hiện sớm và dự trù khoảng cách dừng có ý nghĩa quan trọng.
+
+</details>
+</div>
+
+</Section>
+
+</div>

@@ -5,6 +5,7 @@ import { Camera } from '../engine/Camera';
 import { CanvasRenderer } from '../engine/CanvasRenderer';
 import { RenderLoop } from '../engine/RenderLoop';
 import { Scene } from '../engine/Scene';
+import { AnchorKey, editAnchors, moveAnchor, transformCopy, keepAspect, resizeObject } from '../engine/ObjectTransform';
 import { PointerManager } from '../input/PointerManager';
 import { Stroke } from '../objects/Stroke';
 import { Shape } from '../objects/Shape';
@@ -749,7 +750,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     let hasMovedSelection = false;
     
     // Transform state
-    let transformAction: 'rotate' | 'scale_tl' | 'scale_tr' | 'scale_bl' | 'scale_br' | 'scale_tc' | 'scale_bc' | 'scale_lc' | 'scale_rc' | null = null;
+    let transformAction: AnchorKey | 'rotate' | 'scale_tl' | 'scale_tr' | 'scale_bl' | 'scale_br' | 'scale_tc' | 'scale_bc' | 'scale_lc' | 'scale_rc' | null = null;
     let transformStartPoint: Point | null = null;
     let transformStartBounds: import('../types').Rect | null = null;
     let transformInitialObjects: BoardObject[] = [];
@@ -1052,9 +1053,18 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           draftNeedsUpdate = true;
         }
       } else if (state.tool === 'select-object') {
+        const anchors = editAnchors(engine.scene.getSelectedObjects());
+        const anchor = anchors.find(a => Math.hypot(worldP.x - a.point.x, worldP.y - a.point.y) <= 12 / engine.camera.zoom);
+        if (anchor) {
+          transformAction = anchor.key;
+          transformStartPoint = worldP;
+          transformStartBounds = engine.scene.getSelectionBounds();
+          transformInitialObjects = engine.scene.getSelectedObjects().map(transformCopy);
+          return;
+        }
         // Hit test handles first
         const bounds = engine.scene.getSelectionBounds();
-        if (bounds) {
+        if (bounds && !anchors.length) {
           const hs = 12 / engine.camera.zoom;
           const { x, y, w, h } = bounds;
           const hitTestHandle = (px: number, py: number, hx: number, hy: number) => {
@@ -1084,11 +1094,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           if (transformAction) {
             transformStartPoint = worldP;
             transformStartBounds = bounds;
-            transformInitialObjects = engine.scene.getSelectedObjects().map(obj => {
-              const clone = obj.clone();
-              clone.id = obj.id;
-              return clone;
-            });
+            transformInitialObjects = engine.scene.getSelectedObjects().map(transformCopy);
             return;
           }
         }
@@ -1192,6 +1198,93 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       }
     };
 
+    const applySelectionTransform = (worldP: Point, shiftKey: boolean) => {
+      const engine = engineRef.current!;
+      if (transformAction && transformStartPoint && transformStartBounds) {
+        const selected = transformInitialObjects.map(transformCopy);
+
+        if (transformAction === 'start' || transformAction === 'end' || transformAction === 'controlPoint') {
+          const anchor = editAnchors(transformInitialObjects).find(a => a.key === transformAction)!;
+          moveAnchor(selected[0] as Shape, transformAction, {
+            x: anchor.point.x + worldP.x - transformStartPoint.x,
+            y: anchor.point.y + worldP.y - transformStartPoint.y,
+          }, shiftKey);
+        } else if (transformAction === 'rotate') {
+           const center = {
+              x: transformStartBounds.x + transformStartBounds.w / 2,
+              y: transformStartBounds.y + transformStartBounds.h / 2
+           };
+           const startAngle = Math.atan2(transformStartPoint.y - center.y, transformStartPoint.x - center.x);
+           const currentAngle = Math.atan2(worldP.y - center.y, worldP.x - center.x);
+           let deltaAngle = currentAngle - startAngle;
+
+           if (shiftKey) {
+              const deg15 = Math.PI / 12;
+              deltaAngle = Math.round(deltaAngle / deg15) * deg15;
+           }
+
+           for (const obj of selected) {
+              if (obj.locked) continue;
+              const dx = obj.cx - center.x;
+              const dy = obj.cy - center.y;
+              const cos = Math.cos(deltaAngle);
+              const sin = Math.sin(deltaAngle);
+              const newCx = center.x + dx * cos - dy * sin;
+              const newCy = center.y + dx * sin + dy * cos;
+
+              obj.translate(newCx - obj.cx, newCy - obj.cy);
+              obj.rotation += deltaAngle;
+           }
+        } else if (transformAction.startsWith('scale_')) {
+           let fixedPoint = { x: 0, y: 0 };
+           if (transformAction === 'scale_tl') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w, y: transformStartBounds.y + transformStartBounds.h };
+           if (transformAction === 'scale_tr') fixedPoint = { x: transformStartBounds.x, y: transformStartBounds.y + transformStartBounds.h };
+           if (transformAction === 'scale_bl') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w, y: transformStartBounds.y };
+           if (transformAction === 'scale_br') fixedPoint = { x: transformStartBounds.x, y: transformStartBounds.y };
+
+           if (transformAction === 'scale_tc') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w/2, y: transformStartBounds.y + transformStartBounds.h };
+           if (transformAction === 'scale_bc') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w/2, y: transformStartBounds.y };
+           if (transformAction === 'scale_lc') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w, y: transformStartBounds.y + transformStartBounds.h/2 };
+           if (transformAction === 'scale_rc') fixedPoint = { x: transformStartBounds.x, y: transformStartBounds.y + transformStartBounds.h/2 };
+
+           const startDistX = transformStartPoint.x - fixedPoint.x;
+           const startDistY = transformStartPoint.y - fixedPoint.y;
+           const currentDistX = worldP.x - fixedPoint.x;
+           const currentDistY = worldP.y - fixedPoint.y;
+
+           let scaleX = Math.abs(startDistX) > 0.01 ? currentDistX / startDistX : 1;
+           let scaleY = Math.abs(startDistY) > 0.01 ? currentDistY / startDistY : 1;
+
+           if (transformAction === 'scale_tc' || transformAction === 'scale_bc') scaleX = 1;
+           if (transformAction === 'scale_lc' || transformAction === 'scale_rc') scaleY = 1;
+
+           // Do not collapse or accidentally mirror objects when crossing the fixed edge.
+           scaleX = Math.max(0.01, scaleX);
+           scaleY = Math.max(0.01, scaleY);
+           if (shiftKey || keepAspect(selected)) {
+              const horizontal = transformAction === 'scale_lc' || transformAction === 'scale_rc';
+              const vertical = transformAction === 'scale_tc' || transformAction === 'scale_bc';
+              const diagonalSquared = startDistX * startDistX + startDistY * startDistY;
+              const scale = horizontal ? scaleX : vertical ? scaleY :
+                diagonalSquared > 0.0001 ? (currentDistX * startDistX + currentDistY * startDistY) / diagonalSquared : 1;
+              scaleX = scaleY = Math.max(0.01, scale);
+           }
+           for (const obj of selected) resizeObject(obj, fixedPoint, scaleX, scaleY);
+        }
+
+        const selectedIds = selected.map(o => o.id);
+        engine.scene.objects = engine.scene.objects.map(o => {
+            if (selectedIds.includes(o.id)) {
+                return selected.find(s => s.id === o.id)!;
+            }
+            return o;
+        });
+
+        engine.renderer.renderMain();
+
+      }
+    };
+
     pointer.onPointerMove = (p, e) => {
       const state = useBoardStore.getState();
       const engine = engineRef.current!;
@@ -1274,100 +1367,18 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         draftNeedsUpdate = true;
       }
 
-      // Handle drag selection
-      if (transformAction && transformStartPoint && transformStartBounds && engine.pointer.isPointerDown) {
-        // Clone initial objects WITH THE SAME ID
-        const selected = transformInitialObjects.map(initialObj => {
-           const clone = initialObj.clone();
-           clone.id = initialObj.id; // Preserve ID
-           clone.selected = true;
-           return clone;
-        });
-        
-        if (transformAction === 'rotate') {
-           const center = {
-              x: transformStartBounds.x + transformStartBounds.w / 2,
-              y: transformStartBounds.y + transformStartBounds.h / 2
-           };
-           const startAngle = Math.atan2(transformStartPoint.y - center.y, transformStartPoint.x - center.x);
-           const currentAngle = Math.atan2(worldP.y - center.y, worldP.x - center.x);
-           let deltaAngle = currentAngle - startAngle;
-           
-           if (e.shiftKey) {
-              const deg15 = Math.PI / 12;
-              deltaAngle = Math.round(deltaAngle / deg15) * deg15;
-           }
-           
-           for (const obj of selected) {
-              const dx = obj.cx - center.x;
-              const dy = obj.cy - center.y;
-              const cos = Math.cos(deltaAngle);
-              const sin = Math.sin(deltaAngle);
-              const newCx = center.x + dx * cos - dy * sin;
-              const newCy = center.y + dx * sin + dy * cos;
-              
-              obj.translate(newCx - obj.cx, newCy - obj.cy);
-              obj.rotation += deltaAngle;
-           }
-        } else if (transformAction.startsWith('scale_')) {
-           let fixedPoint = { x: 0, y: 0 };
-           if (transformAction === 'scale_tl') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w, y: transformStartBounds.y + transformStartBounds.h };
-           if (transformAction === 'scale_tr') fixedPoint = { x: transformStartBounds.x, y: transformStartBounds.y + transformStartBounds.h };
-           if (transformAction === 'scale_bl') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w, y: transformStartBounds.y };
-           if (transformAction === 'scale_br') fixedPoint = { x: transformStartBounds.x, y: transformStartBounds.y };
-           
-           if (transformAction === 'scale_tc') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w/2, y: transformStartBounds.y + transformStartBounds.h };
-           if (transformAction === 'scale_bc') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w/2, y: transformStartBounds.y };
-           if (transformAction === 'scale_lc') fixedPoint = { x: transformStartBounds.x + transformStartBounds.w, y: transformStartBounds.y + transformStartBounds.h/2 };
-           if (transformAction === 'scale_rc') fixedPoint = { x: transformStartBounds.x, y: transformStartBounds.y + transformStartBounds.h/2 };
-           
-           const startDistX = transformStartPoint.x - fixedPoint.x;
-           const startDistY = transformStartPoint.y - fixedPoint.y;
-           const currentDistX = worldP.x - fixedPoint.x;
-           const currentDistY = worldP.y - fixedPoint.y;
-           
-           let scaleX = Math.abs(startDistX) > 0.01 ? currentDistX / startDistX : 1;
-           let scaleY = Math.abs(startDistY) > 0.01 ? currentDistY / startDistY : 1;
-           
-           if (transformAction === 'scale_tc' || transformAction === 'scale_bc') scaleX = 1;
-           if (transformAction === 'scale_lc' || transformAction === 'scale_rc') scaleY = 1;
-           
-           if (e.shiftKey) {
-              const scale = Math.max(Math.abs(scaleX), Math.abs(scaleY));
-              scaleX = scale * Math.sign(scaleX);
-              scaleY = scale * Math.sign(scaleY);
-           }
-           
-           for (const obj of selected) {
-              const dx = obj.cx - fixedPoint.x;
-              const dy = obj.cy - fixedPoint.y;
-              const newCx = fixedPoint.x + dx * scaleX;
-              const newCy = fixedPoint.y + dy * scaleY;
-              
-              obj.translate(newCx - obj.cx, newCy - obj.cy);
-              obj.scaleX *= scaleX;
-              obj.scaleY *= scaleY;
-           }
-        }
-        
-        const selectedIds = selected.map(o => o.id);
-        engine.scene.objects = engine.scene.objects.map(o => {
-            if (selectedIds.includes(o.id)) {
-                return selected.find(s => s.id === o.id)!;
-            }
-            return o;
-        });
-        
-        engine.renderer.renderMain(true); // hide selection UI during drag
-        
+      if (transformAction && pointer.isPointerDown) {
+        applySelectionTransform(worldP, e.shiftKey);
       } else if (isDraggingSelection && selectionDragStartPoint && engine.pointer.isPointerDown) {
         const dx = worldP.x - selectionDragStartPoint.x;
         const dy = worldP.y - selectionDragStartPoint.y;
         
-        const selected = engine.scene.getSelectedObjects();
-        for (const obj of selected) {
-          obj.translate(dx, dy);
-        }
+        engine.scene.objects = engine.scene.objects.map(obj => {
+          if (!obj.selected || obj.locked) return obj;
+          const copy = transformCopy(obj);
+          copy.translate(dx, dy);
+          return copy;
+        });
         
         selectionDragStartPoint = worldP;
         hasMovedSelection = true;
@@ -1394,7 +1405,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         if (state.tool === 'select-object') {
           let cursor = 'default';
           if (engine.pointer.isPointerDown && transformAction) {
-             if (transformAction === 'rotate') cursor = 'grabbing';
+             if (transformAction === 'start' || transformAction === 'end' || transformAction === 'controlPoint') cursor = 'crosshair';
+             else if (transformAction === 'rotate') cursor = 'grabbing';
              else if (transformAction === 'scale_tl' || transformAction === 'scale_br') cursor = 'nwse-resize';
              else if (transformAction === 'scale_tr' || transformAction === 'scale_bl') cursor = 'nesw-resize';
              else if (transformAction === 'scale_tc' || transformAction === 'scale_bc') cursor = 'ns-resize';
@@ -1403,7 +1415,11 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
              cursor = 'move';
           } else {
              const bounds = engine.scene.getSelectionBounds();
-             if (bounds) {
+             const anchors = editAnchors(engine.scene.getSelectedObjects());
+             if (anchors.length) {
+               cursor = anchors.some(a => Math.hypot(worldP.x - a.point.x, worldP.y - a.point.y) <= 12 / engine.camera.zoom)
+                 ? 'crosshair' : engine.scene.getSelectedObjects().some(o => o.hitTest(worldP)) ? 'move' : 'default';
+             } else if (bounds) {
                const hs = 12 / engine.camera.zoom;
                const { x, y, w, h } = bounds;
                const hitTestHandle = (px: number, py: number, hx: number, hy: number) => {
@@ -1504,6 +1520,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         engine.renderer.clearDraft();
         draftNeedsUpdate = false;
       } else if (transformAction) {
+        applySelectionTransform(worldP, e.shiftKey);
         transformAction = null;
         transformStartPoint = null;
         transformStartBounds = null;
@@ -1661,7 +1678,14 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       arcState = 'idle';
       bezierState = 'idle';
       isDraggingSelection = false;
+      if (transformAction) {
+        engine.scene.objects = engine.scene.objects.map(obj => transformInitialObjects.find(initial => initial.id === obj.id) ?? obj);
+        engine.renderer.renderMain();
+      }
       transformAction = null;
+      transformStartPoint = null;
+      transformStartBounds = null;
+      transformInitialObjects = [];
     };
 
     pointer.onPinchStart = (center) => {

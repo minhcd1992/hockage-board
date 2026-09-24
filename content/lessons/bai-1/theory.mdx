@@ -1,8 +1,10 @@
-import { GpsDisplacementSim } from '@/components/simulations/GpsDisplacementSim'
-
-<span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded uppercase tracking-wide">Vật lý 10 - Động học</span>
-<h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mt-2 mb-2">Bài 1: Quãng đường & Độ dịch chuyển</h1>
-<p className="text-gray-500 mb-8 border-b-2 border-gray-200 pb-4 text-base italic">Sách Giáo Khoa (Tài liệu Lý thuyết & Dẫn dắt tư duy)</p>
+import { GpsDisplacementSim } from './simulations/GpsDisplacementSim'
+import { WestLakeSim } from './simulations/WestLakeSim'
+import { CrossroadsSim } from './simulations/CrossroadsSim'
+import { FerrisWheelSim, CarPointSim, CarGarageSim, Coordinate1D, Coordinate2D } from './simulations/TheorySims'
+import { VectorAdditionSim } from './simulations/VectorAdditionSim'
+import { VirtualLabSim } from './simulations/VirtualLabSim'
+import { DisplacementComparison } from './components/DisplacementComparison'
 
 <Section title="A. Đặt vấn đề" icon="map">
 
@@ -180,7 +182,7 @@ Một ô tô đi tới điểm **O** của một ngã tư đường có 4 hướ
 
 Để nắm chắc bản chất vật lý, ta cần phân biệt rõ ràng hai đại lượng dễ gây nhầm lẫn này qua bảng so sánh sau:
 
-<CompareTable />
+<DisplacementComparison />
 
 ---
 
@@ -290,7 +292,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 
 <div className="grid grid-cols-1 gap-6">
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-001"
   question="Câu 1 (Nhận biết): Vectơ độ dịch chuyển là đại lượng động học mô tả sự thay đổi vị trí của vật, có gốc tại" 
   options={[
     "mốc thời gian xuất phát.",
@@ -302,7 +305,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation="Vectơ độ dịch chuyển luôn nối thẳng từ vị trí xuất phát (điểm đầu) đến vị trí kết thúc (điểm cuối) của quá trình chuyển động."
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-002"
   question="Câu 2 (Nhận biết): Độ lớn của độ dịch chuyển bằng quãng đường đi được (|d| = s) khi và chỉ khi vật" 
   options={[
     "chuyển động trên một đường cong bất kỳ.",
@@ -314,7 +318,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Độ lớn độ dịch chuyển <Math inline>{"|\\vec{d}|"}</Math> chỉ đạt giá trị cực đại bằng chính quãng đường <Math inline>{"s"}</Math> nếu quỹ đạo là một đường thẳng và vật đi luôn tiến về một hướng (không quay đầu).</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-003"
   question="Câu 3 (Thông hiểu): Một người đi bộ từ nhà ra chợ theo một đường thẳng dài 400 m, sau đó quay trở lại nhà theo đường cũ. Quãng đường s và độ dịch chuyển d của người đó trong cả chuyến đi lần lượt là" 
   options={[
     "s = 800 m; d = 0 m.",
@@ -326,7 +331,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Quãng đường: <Math inline>{"s = 400 + 400 = 800\\text{ m}"}</Math>. Độ dịch chuyển: Do vị trí cuối cùng trùng với vị trí xuất phát nên khoảng cách giữa điểm đầu và điểm cuối bằng 0, suy ra <Math inline>{"d = 0"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-004"
   question="Câu 4 (Thông hiểu): So sánh giữa quãng đường đi được s và độ dịch chuyển d của một chất điểm, phát biểu nào sau đây đúng?" 
   options={[
     "Quãng đường s là đại lượng vô hướng không âm (s ≥ 0), còn độ dịch chuyển d là đại lượng vectơ có thể mang giá trị đại số dương, âm hoặc bằng 0.",
@@ -338,7 +344,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation="Quãng đường là chiều dài thực tế đã đi (vô hướng, tăng dần). Độ dịch chuyển có hướng và giá trị đại số của nó có thể dương, âm (phụ thuộc vào chiều dương của trục tọa độ) hoặc bằng không (quay lại chỗ cũ)."
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-005"
   question="Câu 5 (Thông hiểu): Chọn chiều dương từ trái sang phải. Một con rô-bốt ban đầu ở gốc tọa độ O. Rô-bốt di chuyển sang trái 5 m, sau đó đổi chiều di chuyển sang phải 8 m. Tọa độ cuối x và độ dịch chuyển d của rô-bốt là" 
   options={[
     "x = -3 m; d = -3 m.",
@@ -350,7 +357,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<>Tọa độ ban đầu <Math inline>{"x_0 = 0"}</Math>. Sang trái 5m nên tọa độ là <Math inline>{"-5\\text{ m}"}</Math>. Sang phải 8m nên tọa độ cuối <Math inline>{"x = -5 + 8 = +3\\text{ m}"}</Math>. Độ dịch chuyển <Math inline>{"d = x - x_0 = 3 - 0 = +3\\text{ m}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-006"
   question="Câu 6 (Thông hiểu): Một ô tô đi từ A đến B theo hướng Bắc một đoạn 6 km, rồi rẽ vuông góc sang hướng Đông đi tiếp 8 km đến C. Độ lớn độ dịch chuyển tổng hợp d_AC của ô tô là" 
   options={[
     "14 km.",
@@ -362,7 +370,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<><Math inline>{"d = \\sqrt{d_1^2 + d_2^2} = \\sqrt{6^2 + 8^2} = 10\\text{ km}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-007"
   question="Câu 7 (Vận dụng): VĐV bơi trong bể bơi dài 50 m. VĐV xuất phát từ đầu bể bơi, bơi đến cuối bể rồi quay ngược lại về giữa bể dừng nghỉ. Tỉ số giữa độ lớn độ dịch chuyển và quãng đường đi được (|d|/s) của VĐV bằng" 
   options={[
     "1/3.",
@@ -374,7 +383,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<><Math inline>{"s = 50 + 25 = 75\\text{ m}"}</Math>. Tọa độ dừng cách điểm xuất phát 25 m nên <Math inline>{"|d| = 25\\text{ m}"}</Math>. Tỉ số <Math inline>{"|d|/s = 25/75 = 1/3"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-008"
   question="Câu 8 (Thông hiểu): Phát biểu nào sau đây không đúng?" 
   options={[
     "Vectơ độ dịch chuyển cho biết cả độ lớn và hướng thay đổi vị trí của vật.",
@@ -386,7 +396,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation="Độ lớn độ dịch chuyển chỉ bằng quãng đường khi chuyển động thẳng không đổi chiều."
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-009"
   question="Câu 9 (Vận dụng): Trên mặt phẳng tọa độ Oxy, một chú kiến bò từ điểm A(2 cm; 1 cm) đến điểm B(6 cm; 5 cm). Độ lớn độ dịch chuyển của chú kiến là" 
   options={[
     "4√2 cm ≈ 5,66 cm.",
@@ -398,7 +409,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   explanation={<><Math inline>{"\\Delta x = 6 - 2 = 4\\text{ cm}; \\Delta y = 5 - 1 = 4\\text{ cm} \\Rightarrow d = \\sqrt{4^2 + 4^2} = 4\\sqrt{2}\\text{ cm} \\approx 5,66\\text{ cm}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-1-theory-010"
   question="Câu 10 (Thông hiểu): Khi chọn gốc tọa độ O trùng với vị trí ban đầu A của một vật và chiều dương trùng với chiều chuyển động thẳng, mối quan hệ giữa tọa độ x và độ dịch chuyển d là" 
   options={[
     "x = -d.",
@@ -417,7 +429,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 </h3>
 <p className="text-sm text-slate-500 mb-4 pl-2">Thí sinh xét tính Đúng/Sai của từng ý a, b, c, d trong mỗi câu.</p>
 
-<QuizTF 
+<QuizTF
+  id="bai-1-theory-011"
   question="Câu 1:" 
   context="Một học sinh đi xe đạp từ nhà (điểm A) đến trường (điểm C) qua trạm xe buýt (điểm B). Đoạn đường AB dài 300 m theo hướng Đông. Đoạn đường BC dài 400 m theo hướng Bắc."
   statements={[
@@ -448,7 +461,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-1-theory-012"
   question="Câu 2:" 
   context="Lấy một trục tọa độ Ox trùng với đường thẳng chuyển động của một con bọ dừa, gốc O đặt tại tâm một bông hoa. Chiều dương hướng từ trái sang phải."
   statements={[
@@ -484,7 +498,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 </h3>
 <p className="text-sm text-slate-500 mb-4 pl-2">Thí sinh tính toán và điền kết quả dạng số.</p>
 
-<QuizShort 
+<QuizShort
+  id="bai-1-theory-013"
   question="Câu 1:"
   context={
     <>
@@ -504,7 +519,8 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
   }
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-1-theory-014"
   question="Câu 2:"
   context={
     <>
@@ -523,12 +539,3 @@ Bộ câu hỏi được thiết kế theo cấu trúc định dạng đề thi 
 />
 
 </Section>
-
-<div className="mt-12 mb-8 flex justify-center">
-  <a href="/lesson/bai-1/bai-tap" className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white transition-all duration-200 bg-slate-900 border border-transparent rounded-xl hover:bg-slate-700 shadow-lg hover:shadow-xl hover:-translate-y-1">
-    Chuyển sang Kho Bài Tập Luyện Tập Chuyên Sâu
-    <svg className="w-5 h-5 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-    </svg>
-  </a>
-</div>

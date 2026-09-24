@@ -117,11 +117,40 @@ const lesson = process.argv[3] === 'lesson';
       };
       const {Stroke} = load('../objects/Stroke'), {Stroke:OldStroke} = load('./OldStroke');
       const {LiveInk} = load('./LiveInk'), {Camera} = load('./Camera');
+      const {inkPath} = load('./InkGeometry');
       const c = document.createElement('canvas'); c.width=1600; c.height=900;
       const ctx = c.getContext('2d'); const camera = new Camera();
       // Force the unsupported-API path to exercise the portable engine too.
       Object.defineProperty(navigator,'ink',{value:undefined,configurable:true});
       const live = new LiveInk(c,ctx,camera); delete navigator.ink;
+      const curved = new Stroke('#2563eb',4);
+      const input = [{x:30,y:80},{x:45,y:40},{x:80,y:25},{x:115,y:40},{x:130,y:80},{x:115,y:120},{x:80,y:135},{x:45,y:120},{x:30,y:80}];
+      const event = {isTrusted:false,pointerType:'pen',type:'pointermove',timeStamp:performance.now()};
+      curved.addPoint(input[0]); live.begin(curved,event);
+      for(const p of input.slice(1)) {curved.addPoint(p);live.render(event);}
+      const wet = ctx.getImageData(0,0,1600,900).data;
+      live.clear();
+      ctx.save(); camera.applyTransform(ctx); curved._draw(ctx); ctx.restore();
+      const dry = ctx.getImageData(0,0,1600,900).data;
+      // Rasterized overlap can change antialiasing on edges, but the interiors
+      // must occupy the same curve and leave no obsolete straight tail behind.
+      let mismatch=0, occupied=0;
+      for(let i=3;i<wet.length;i+=4) {
+        if(wet[i]>128 || dry[i]>128) occupied++;
+        if((wet[i]>128)!==(dry[i]>128)) mismatch++;
+      }
+      if(mismatch/occupied > 0.04) throw new Error('wet/dry curve diverged: '+mismatch+'/'+occupied);
+      const picture=document.createElement('canvas');picture.width=720;picture.height=370;
+      const pic=picture.getContext('2d');pic.fillStyle='white';pic.fillRect(0,0,720,370);
+      pic.fillStyle='#17212b';pic.font='18px sans-serif';pic.fillText('Before: straight segments',24,30);pic.fillText('After: interpolating spline',375,30);
+      for(let side=0;side<2;side++) {
+        pic.save();pic.translate(side*350+20,45);pic.scale(1.8,1.8);
+        if(side===0) {pic.strokeStyle='#ef4444';pic.lineWidth=4;pic.lineCap=pic.lineJoin='round';pic.beginPath();pic.moveTo(input[0].x,input[0].y);for(const p of input.slice(1))pic.lineTo(p.x,p.y);pic.stroke();}
+        else {pic.fillStyle='#2563eb';pic.fill(inkPath(input,4));}
+        pic.fillStyle='#17212b';for(const p of input){pic.beginPath();pic.arc(p.x,p.y,1.5,0,Math.PI*2);pic.fill();}
+        pic.restore();
+      }
+      live.clear();
       const s = new Stroke('#ff0',8,false,true);
       const e = {isTrusted:false,pointerType:'pen',type:'pointermove',timeStamp:performance.now()};
       s.addPoint({x:20,y:20,pressure:0.5}); live.begin(s,e);
@@ -154,8 +183,10 @@ const lesson = process.argv[3] === 'lesson';
         results[name+'30CommitsSubmissionMedianMs']=samples[7];
       }
       live.destroy();
-      return {strokes,pointsPerStroke:points,...results};
+      return {strokes,pointsPerStroke:points,curveMismatchFraction:mismatch/occupied,preview:picture.toDataURL(),...results};
     })()`);
+    fs.writeFileSync('scratch/ink-curve-comparison.png',Buffer.from(benchmark.preview.split(',')[1],'base64'));
+    delete benchmark.preview;
     assert.deepEqual(errors, [], 'no runtime exceptions');
     console.log(JSON.stringify({ result: 'PASS', pointerType, lesson, surface, during, diagnostics, benchmark }, null, 2));
   } finally {

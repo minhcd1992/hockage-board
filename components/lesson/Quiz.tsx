@@ -1,15 +1,17 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { CheckCircle, XCircle } from 'lucide-react';
 
 interface QuizProps {
+  id: string;
   question: React.ReactNode;
   options: React.ReactNode[];
   correctIndex: number;
   explanation: React.ReactNode;
 }
 
-export const Quiz: React.FC<QuizProps> = ({ question, options, correctIndex, explanation }) => {
+export const Quiz: React.FC<QuizProps> = ({ id, question, options, correctIndex, explanation }) => {
+  const instanceId = useId();
   const [selected, setSelected] = useState<number | null>(null);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -22,7 +24,7 @@ export const Quiz: React.FC<QuizProps> = ({ question, options, correctIndex, exp
   const isCorrect = selected === correctIndex;
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-5 mb-6 shadow-sm">
+    <div data-question-id={id} className="bg-white border border-slate-200 rounded-xl p-5 mb-6 shadow-sm">
       <div className="flex items-start mb-4">
         <span className="bg-indigo-100 text-indigo-800 text-xs font-bold px-2 py-1 rounded uppercase tracking-wide mr-3 mt-0.5 whitespace-nowrap">
           Câu hỏi
@@ -49,7 +51,7 @@ export const Quiz: React.FC<QuizProps> = ({ question, options, correctIndex, exp
             <label key={idx} className={optionClass}>
               <input 
                 type="radio" 
-                name={`quiz-${question}`} 
+                name={`quiz-${id}-${instanceId}`}
                 className="hidden" 
                 checked={selected === idx}
                 onChange={() => !isChecked && setSelected(idx)}

@@ -1,13 +1,8 @@
-import { Quiz } from '@/components/lesson/Quiz'
-import { QuizTF } from '@/components/lesson/QuizTF'
-import { QuizShort } from '@/components/lesson/QuizShort'
-import { Math } from '@/components/lesson/Math'
-
-  BÀI 2: TỐC ĐỘ, VẬN TỐC VÀ THỰC HÀNH ĐO TỐC ĐỘ CỦA VẬT CHUYỂN ĐỘNG
 ## PHẦN 1: TRẮC NGHIỆM 4 PHƯƠNG ÁN (20 CÂU)
 *Thí sinh chọn 1 phương án đúng nhất trong mỗi câu.*
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-001"
   question={<><strong>Câu 1: </strong>Đại lượng vật lý đặc trưng cho mức độ nhanh hay chậm của chuyển động, được đo bằng thương số giữa quãng đường đi được và khoảng thời gian đi hết quãng đường đó là</>}
   options={[
     <>Vận tốc trung bình.</>,
@@ -19,7 +14,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Thương số <Math inline>{"s/t"}</Math> định nghĩa tốc độ trung bình.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-002"
   question={<><strong>Câu 2: </strong>Trong hệ đơn vị đo lường quốc tế (SI), đơn vị hợp pháp của tốc độ và vận tốc là</>}
   options={[
     <>km/h.</>,
@@ -31,7 +27,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Đơn vị hợp pháp chuẩn SI của tốc độ/vận tốc là m/s.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-003"
   question={<><strong>Câu 3: </strong>Sự khác nhau căn bản giữa vận tốc và tốc độ là</>}
   options={[
     <>Vận tốc là đại lượng vô hướng, tốc độ là đại lượng vectơ.</>,
@@ -43,7 +40,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Vận tốc là đại lượng vectơ (có hướng), tốc độ là đại lượng vô hướng (chỉ có độ lớn).</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-004"
   question={<><strong>Câu 4: </strong>Tốc kế (công tơ mét) gắn trên bảng điều khiển xe máy hay ô tô đang hoạt động chỉ số <Math inline>{"60\\text{ km/h}"}</Math>. Số chỉ này cho biết</>}
   options={[
     <>Tốc độ trung bình của xe trong cả chuyến đi.</>,
@@ -55,7 +53,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Tốc kế hiển thị tốc độ tức thời tại thời điểm đọc.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-005"
   question={<><strong>Câu 5: </strong>Đồ thị độ dịch chuyển – thời gian (<Math inline>{"d - t"}</Math>) của một vật chuyển động thẳng có độ dốc (hệ số góc) âm. Điều này có nghĩa là</>}
   options={[
     <>Vật đang chuyển động chậm dần.</>,
@@ -67,7 +66,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Độ dốc đồ thị <Math inline>{"d - t"}</Math> bằng <Math inline>{"v"}</Math>. Độ dốc âm <Math inline>{"\\Rightarrow v < 0"}</Math>, vật chuyển động theo chiều âm.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-006"
   question={<><strong>Câu 6: </strong>Đổi đơn vị tốc độ: <Math inline>{"18\\text{ m/s}"}</Math> bằng bao nhiêu <Math inline>{"\\text{km/h}"}</Math>?</>}
   options={[
     <><Math inline>{"5\\text{ km/h}"}</Math>.</>,
@@ -79,7 +79,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<><Math inline>{"18\\text{ m/s} = 18 \\times 3,6 = 64,8\\text{ km/h}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-007"
   question={<><strong>Câu 7: </strong>Một vận động viên bơi lội bơi hết chiều dài bể bơi <Math inline>{"50\\text{ m}"}</Math> trong thời gian <Math inline>{"25\\text{ s}"}</Math>, sau đó quay trở lại điểm xuất phát trong <Math inline>{"30\\text{ s}"}</Math>. Tốc độ trung bình và vận tốc trung bình của vận động viên trong toàn bộ chuyến bơi lần lượt là</>}
   options={[
     <><Math inline>{"1,82\\text{ m/s}"}</Math> và <Math inline>{"0\\text{ m/s}"}</Math>.</>,
@@ -91,7 +92,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<><Math inline>{"s_{tc} = 50 + 50 = 100\\text{ m}, t_{tc} = 25 + 30 = 55\\text{ s} \\Rightarrow v_{tb} = 100/55 = 1,82\\text{ m/s}"}</Math>. Về vị trí cũ <Math inline>{"\\Rightarrow d = 0 \\Rightarrow \\vec{v}_{tb} = 0"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-008"
   question={<><strong>Câu 8: </strong>Một xe ô tô chạy nửa quãng đường đầu với tốc độ <Math inline>{"v_1 = 40\\text{ km/h}"}</Math> và nửa quãng đường sau với tốc độ <Math inline>{"v_2 = 60\\text{ km/h}"}</Math>. Tốc độ trung bình của ô tô trên cả quãng đường là</>}
   options={[
     <><Math inline>{"50\\text{ km/h}"}</Math>.</>,
@@ -103,7 +105,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<><Math inline>{"v_{tb} = \\frac{S}{\\frac{S/2}{v_1} + \\frac{S/2}{v_2}} = \\frac{2 v_1 v_2}{v_1 + v_2} = \\frac{2 \\cdot 40 \\cdot 60}{40 + 60} = 48\\text{ km/h}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-009"
   question={<><strong>Câu 9: </strong>Một xe đạp di chuyển trên đường thẳng, trong nửa thời gian đầu chạy với tốc độ <Math inline>{"v_1 = 12\\text{ km/h}"}</Math>, nửa thời gian sau chạy với tốc độ <Math inline>{"v_2 = 18\\text{ km/h}"}</Math>. Tốc độ trung bình của xe trên cả khoảng thời gian là</>}
   options={[
     <><Math inline>{"15\\text{ km/h}"}</Math>.</>,
@@ -115,7 +118,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<><Math inline>{"v_{tb} = \\frac{v_1 (T/2) + v_2 (T/2)}{T} = \\frac{v_1 + v_2}{2} = \\frac{12 + 18}{2} = 15\\text{ km/h}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-010"
   question={<><strong>Câu 10: </strong>Công thức tính vận tốc trung bình của một vật chuyển động thẳng trong khoảng thời gian <Math inline>{"\\Delta t = t_2 - t_1"}</Math> là</>}
   options={[
     <><Math inline>{"v_{tb} = \\frac{s}{\\Delta t}"}</Math>.</>,
@@ -127,7 +131,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Vận tốc trung bình bằng độ dịch chuyển chia cho thời gian <Math inline>{"\\Delta d / \\Delta t"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-011"
   question={<><strong>Câu 11: </strong>Trong công thức cộng vận tốc vectơ <Math inline>{"\\vec{v}{1,3} = \\vec{v}{1,2} + \\vec{v}_{2,3}"}</Math>, phát biểu nào sau đây đúng về tên gọi các hệ quy chiếu?</>}
   options={[
     <>Ký hiệu (1) là hệ quy chiếu đứng yên, (3) là vật chuyển động.</>,
@@ -139,7 +144,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Quy ước chuẩn Halliday/GDPT: (1) vật chuyển động, (2) HQC chuyển động, (3) HQC đứng yên.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-012"
   question={<><strong>Câu 12: </strong>Một chiếc thuyền máy chuyển động ngược dòng nước sông. Tốc độ của thuyền đối với nước là <Math inline>{"15\\text{ km/h}"}</Math>, tốc độ của dòng nước đối với bờ sông là <Math inline>{"3\\text{ km/h}"}</Math>. Tốc độ của thuyền đối với bờ sông là</>}
   options={[
     <><Math inline>{"18\\text{ km/h}"}</Math>.</>,
@@ -151,7 +157,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Chạy ngược dòng: <Math inline>{"v_{t/b} = v_{t/n} - v_{n/b} = 15 - 3 = 12\\text{ km/h}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-013"
   question={<><strong>Câu 13: </strong>Hai ô tô A và B cùng chuyển động thẳng đều trên một đoạn đường thẳng với các tốc độ lần lượt là <Math inline>{"v_A = 70\\text{ km/h}"}</Math> và <Math inline>{"v_B = 50\\text{ km/h}"}</Math>. Nếu hai xe chuyển động cùng chiều thì tốc độ của xe A đối với xe B là</>}
   options={[
     <><Math inline>{"120\\text{ km/h}"}</Math>.</>,
@@ -163,7 +170,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Cùng chiều: <Math inline>{"v_{A/B} = v_A - v_B = 70 - 50 = 20\\text{ km/h}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-014"
   question={<><strong>Câu 14: </strong>Trong thí nghiệm đo tốc độ tức thời bằng cổng quang điện kết hợp đồng hồ đo thời gian hiện số, dụng cụ nào được dùng để đo quãng đường (chiều rộng tấm chắn sáng)?</>}
   options={[
     <>Đồng hồ bấm giây.</>,
@@ -175,7 +183,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Bề rộng tấm chắn sáng rất nhỏ được đo chính xác bằng thước kẹp panme.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-015"
   question={<><strong>Câu 15: </strong>Nguyên lý đo tốc độ tức thời trong phòng thí nghiệm dựa trên việc đo khoảng thời gian <Math inline>{"\\Delta t"}</Math> rất nhỏ khi tấm chắn sáng có bề rộng <Math inline>{"d"}</Math> đi qua cổng quang điện. Tốc độ tức thời được tính theo công thức</>}
   options={[
     <><Math inline>{"v = \\frac{d}{\\Delta t}"}</Math>.</>,
@@ -187,7 +196,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<><Math inline>{"v = d / \\Delta t"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-016"
   question={<><strong>Câu 16: </strong>Công thức tính sai số tương đối của phép đo tốc độ gián tiếp <Math inline>{"v = \\frac{s}{t}"}</Math> từ sai số tuyệt đối của quãng đường <Math inline>{"\\Delta s"}</Math> và thời gian <Math inline>{"\\Delta t"}</Math> là</>}
   options={[
     <><Math inline>{"\\Delta v = \\Delta s - \\Delta t"}</Math>.</>,
@@ -199,7 +209,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Sai số tương đối gián tiếp của phép chia bằng tổng sai số tương đối các thành phần: <Math inline>{"\\Delta v = \\Delta s + \\Delta t"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-017"
   question={<><strong>Câu 17: </strong>Diện tích hình phẳng nằm dưới đồ thị vận tốc – thời gian (<Math inline>{"v - t"}</Math>) trong một khoảng thời gian <Math inline>{"\\Delta t"}</Math> đại diện cho đại lượng vật lý nào?</>}
   options={[
     <>Gia tốc của vật.</>,
@@ -211,7 +222,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Diện tích nằm dưới đường <Math inline>{"v - t"}</Math> chính bằng độ dịch chuyển <Math inline>{"d = \\int v dt"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-018"
   question={<><strong>Câu 18: </strong>Một máy bay di chuyển theo hướng Bắc với tốc độ so với không khí là <Math inline>{"200\\text{ m/s}"}</Math>. Gió thổi từ hướng Tây sang Đông với tốc độ <Math inline>{"50\\text{ m/s}"}</Math>. Tốc độ tổng hợp của máy bay so với mặt đất là</>}
   options={[
     <><Math inline>{"250\\text{ m/s}"}</Math>.</>,
@@ -223,7 +235,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Hai vectơ vận tốc vuông góc: <Math inline>{"v = \\sqrt{200^2 + 50^2} = \\sqrt{42500} \\approx 206,15\\text{ m/s}"}</Math>.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-019"
   question={<><strong>Câu 19: </strong>Khi đo 5 lần thời gian rơi của một vật cùng trên một quãng đường, ta thu được các giá trị khác nhau nhẹ. Nguồn gốc của các sự lệch nhau này chủ yếu là do</>}
   options={[
     <>Sai số hệ thống của dụng cụ.</>,
@@ -235,7 +248,8 @@ import { Math } from '@/components/lesson/Math'
   explanation={<>Do thao tác bấm và phản xạ mắt/tay người đo gây ra sai số ngẫu nhiên.</>}
 />
 
-<Quiz 
+<Quiz
+  id="bai-2-exercises-020"
   question={<><strong>Câu 20: </strong>Chọn phát biểu SAI khi nói về tốc độ và vận tốc:</>}
   options={[
     <>Tốc độ trung bình trên một khoảng thời gian luôn lớn hơn hoặc bằng độ lớn của vận tốc trung bình.</>,
@@ -250,7 +264,8 @@ import { Math } from '@/components/lesson/Math'
 ## PHẦN 2: TRẮC NGHIỆM ĐÚNG/SAI (10 CÂU)
 *Thí sinh xét tính Đúng/Sai của từng ý a, b, c, d trong mỗi câu.*
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-021"
   question="Câu 21:"
   context={<>Đồ thị độ dịch chuyển – thời gian (<Math inline>{"d - t"}</Math>) của hai xe A và B chuyển động thẳng dọc theo trục <Math inline>{"Ox"}</Math> được biểu diễn như hình vẽ:<br/><br/>Xe A khởi hành từ <Math inline>{"d_0 = 0"}</Math> tại <Math inline>{"t = 0"}</Math>, chuyển động thẳng đều đến <Math inline>{"d = 60\\text{ km}"}</Math> tại <Math inline>{"t = 2\\text{ h}"}</Math>.<br/>Xe B khởi hành từ <Math inline>{"d_0 = 100\\text{ km}"}</Math> tại <Math inline>{"t = 0"}</Math>, chuyển động thẳng đều về <Math inline>{"d = 20\\text{ km}"}</Math> tại <Math inline>{"t = 2\\text{ h}"}</Math>.</>}
   statements={[
@@ -281,7 +296,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-022"
   question="Câu 22:"
   context={<>Một chiếc ca nô chuyển động thẳng trên dòng sông nối giữa hai bến A và B. Khi không có dòng nước chảy, ca nô chạy từ A đến B mất <Math inline>{"1,5\\text{ giờ}"}</Math>. Khi nước chảy với tốc độ <Math inline>{"v_n = 4\\text{ km/h}"}</Math>, ca nô đi xuôi dòng từ A đến B mất <Math inline>{"1\\text{ giờ}"}</Math>.</>}
   statements={[
@@ -312,7 +328,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-023"
   question="Câu 23:"
   context={<>Xét phép đo tốc độ tức thời của chiếc xe lăn trên máng nghiêng bằng hệ thống Cổng quang điện và Đồng hồ đo thời gian hiện số:</>}
   statements={[
@@ -343,7 +360,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-024"
   question="Câu 24:"
   context={<>Một học sinh đi từ nhà đến trường bằng xe đạp theo một lộ trình phức tạp: đi sang hướng Đông <Math inline>{"3\\text{ km}"}</Math> trong <Math inline>{"10\\text{ phút}"}</Math>, sau đó rẽ sang hướng Bắc đi tiếp <Math inline>{"4\\text{ km}"}</Math> trong <Math inline>{"15\\text{ phút}"}</Math> thì đến nơi.</>}
   statements={[
@@ -374,7 +392,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-025"
   question="Câu 25:"
   context={<>Hai ô tô A và B chạy trên cùng một đường cao tốc thẳng theo chiều dương. Tại thời điểm <Math inline>{"t = 0"}</Math>, xe A đang ở vị trí <Math inline>{"x_A = 0\\text{ km}"}</Math> với vận tốc không đổi <Math inline>{"v_A = 90\\text{ km/h}"}</Math>; xe B đang ở vị trí <Math inline>{"x_B = 10\\text{ km}"}</Math> với vận tốc không đổi <Math inline>{"v_B = 70\\text{ km/h}"}</Math>.</>}
   statements={[
@@ -405,7 +424,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-026"
   question="Câu 26:"
   context={<>Đồ thị vận tốc – thời gian (<Math inline>{"v - t"}</Math>) của một chất điểm chuyển động dọc theo trục <Math inline>{"Ox"}</Math> gồm 3 giai đoạn:<br/><br/>Giai đoạn 1 (<Math inline>{"0 \\rightarrow 2\\text{ s}"}</Math>): <Math inline>{"v"}</Math> tăng đều từ <Math inline>{"0"}</Math> đến <Math inline>{"10\\text{ m/s}"}</Math>.<br/>Giai đoạn 2 (<Math inline>{"2 \\rightarrow 6\\text{ s}"}</Math>): <Math inline>{"v"}</Math> giữ nguyên <Math inline>{"10\\text{ m/s}"}</Math>.<br/>Giai đoạn 3 (<Math inline>{"6 \\rightarrow 8\\text{ s}"}</Math>): <Math inline>{"v"}</Math> giảm đều từ <Math inline>{"10\\text{ m/s}"}</Math> về <Math inline>{"0"}</Math>.</>}
   statements={[
@@ -436,7 +456,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-027"
   question="Câu 27:"
   context={<>Một nhóm học sinh tiến hành đo tốc độ trung bình của một viên bi thép lăn trên đường ray thẳng dài <Math inline>{"S = (1,000 \\pm 0,002)\\text{ m}"}</Math>. Kết quả đo thời gian trong 5 lần thu được: <Math inline>{"t_1 = 2,01\\text{ s}"}</Math>; <Math inline>{"t_2 = 1,99\\text{ s}"}</Math>; <Math inline>{"t_3 = 2,02\\text{ s}"}</Math>; <Math inline>{"t_4 = 1,98\\text{ s}"}</Math>; <Math inline>{"t_5 = 2,00\\text{ s}"}</Math>.</>}
   statements={[
@@ -467,7 +488,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-028"
   question="Câu 28:"
   context={<>Một máy bay trinh sát bay theo hướng Đông với vận tốc so với không khí là <Math inline>{"v_{m/k} = 150\\text{ m/s}"}</Math>. Có một luồng gió mạnh thổi từ hướng Nam lên hướng Bắc với vận tốc <Math inline>{"v_{k/đ} = 50\\text{ m/s}"}</Math>.</>}
   statements={[
@@ -498,7 +520,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-029"
   question="Câu 29:"
   context={<>Xét một điểm <Math inline>{"P"}</Math> nằm trên vành ngoài của một bánh xe bánh bán kính <Math inline>{"R = 0,5\\text{ m}"}</Math> đang quay đều quanh trục cố định với tốc độ <Math inline>{"v = 10\\text{ m/s}"}</Math>.</>}
   statements={[
@@ -529,7 +552,8 @@ import { Math } from '@/components/lesson/Math'
   ]}
 />
 
-<QuizTF 
+<QuizTF
+  id="bai-2-exercises-030"
   question="Câu 30:"
   context={<>Một ô tô đang di chuyển trên quốc lộ. Hệ thống súng bắn tốc độ laser phát ra 2 xung laser liên tiếp cách nhau khoảng thời gian <Math inline>{"\\Delta t_0 = 0,001\\text{ s}"}</Math> đến ô tô và thu lại phản xạ.</>}
   statements={[
@@ -563,70 +587,80 @@ import { Math } from '@/components/lesson/Math'
 ## PHẦN 3: TRẮC NGHIỆM TRẢ LỜI NGẮN (10 CÂU)
 *Thí sinh tính toán và điền kết quả dạng số.*
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-031"
   question="Câu 31:"
   context={<>Một ô tô di chuyển trên một đoạn đường thẳng. Xe chạy <Math inline>{"\\frac{1}{3}"}</Math> quãng đường đầu với tốc độ <Math inline>{"v_1 = 30\\text{ km/h}"}</Math>, và <Math inline>{"\\frac{2}{3}"}</Math> quãng đường còn lại với tốc độ <Math inline>{"v_2 = 60\\text{ km/h}"}</Math>. Tính tốc độ trung bình của ô tô trên cả quãng đường (đơn vị: <Math inline>{"\\text{km/h}"}</Math>).</>}
   answer="50"
   explanation={<><Math inline>{"v_{tb} = \\frac{S}{\\frac{S/3}{30} + \\frac{2S/3}{60}} = \\frac{1}{\\frac{1}{90} + \\frac{1}{90}} = \\frac{90}{2} = 50\\text{ km/h}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-032"
   question="Câu 32:"
   context={<>Một ca nô chạy xuôi dòng từ bến A đến bến B mất <Math inline>{"t_1 = 2\\text{ giờ}"}</Math>, và chạy ngược dòng từ B về A mất <Math inline>{"t_2 = 3\\text{ giờ}"}</Math>. Hỏi nếu ca nô tắt máy trôi tự do theo dòng nước từ A đến B thì thời gian trôi mất bao nhiêu giờ?</>}
   answer="12"
   explanation={<>Xuôi: <Math inline>{"L = (v_c + v_n) \\cdot 2"}</Math>; Ngược: <Math inline>{"L = (v_c - v_n) \\cdot 3 \\Rightarrow 2v_c + 2v_n = 3v_c - 3v_n \\Rightarrow v_c = 5v_n"}</Math>. Thay vào <Math inline>{"L = 6v_n \\cdot 2 = 12v_n \\Rightarrow t_{trôi} = L/v_n = 12\\text{ giờ}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-033"
   question="Câu 33:"
   context={<>Một người lái thuyền máy qua một sông rộng <Math inline>{"L = 120\\text{ m}"}</Math>. Thuyền chuyển động với tốc độ so với nước là <Math inline>{"v_{t/n} = 4\\text{ m/s}"}</Math> theo hướng vuông góc với bờ. Dòng nước chảy xuôi theo bờ sông với tốc độ <Math inline>{"v_{n/b} = 3\\text{ m/s}"}</Math>. Tính độ lớn độ dịch chuyển tổng cộng của thuyền khi sang đến bờ bên kia (đơn vị: <Math inline>{"\\text{m}"}</Math>).</>}
   answer="150"
   explanation={<>Thời gian qua sông: <Math inline>{"t = 120 / 4 = 30\\text{ s}"}</Math>. Độ dạt ngang: <Math inline>{"x = 3 \\cdot 30 = 90\\text{ m}"}</Math>. Độ dịch chuyển tổng cộng: <Math inline>{"d = \\sqrt{120^2 + 90^2} = 150\\text{ m}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-034"
   question="Câu 34:"
   context={<>Trong bài thực hành đo tốc độ tức thời dùng cổng quang điện, thước kẹp có sai số dụng cụ <Math inline>{"\\Delta d = 0,1\\text{ mm}"}</Math> đo bề rộng tấm chắn sáng là <Math inline>{"d = 20,0\\text{ mm}"}</Math>. Đồng hồ hiện số có sai số dụng cụ <Math inline>{"\\Delta t = 0,001\\text{ s}"}</Math> đo được thời gian chắn sáng là <Math inline>{"t = 0,050\\text{ s}"}</Math>. Tính sai số tương đối <Math inline>{"\\Delta v"}</Math> của phép đo tốc độ (kết quả tính theo <Math inline>{"%"}</Math> và làm tròn đến <Math inline>{"1"}</Math> chữ số thập phân).</>}
   answer="2.5"
   explanation={<><Math inline>{"\\Delta v = \\frac{\\Delta d}{d} + \\frac{\\Delta t}{t} = \\frac{0,1}{20,0} + \\frac{0,001}{0,050} = 0,005 + 0,020 = 0,025 = 2,5%"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-035"
   question="Câu 35:"
   context={<>Đồ thị độ dịch chuyển – thời gian (<Math inline>{"d - t"}</Math>) của một vật chuyển động thẳng có dạng đường thẳng đi qua hai điểm: <Math inline>{"A(t_1 = 2\\text{ s}; d_1 = 10\\text{ m})"}</Math> và <Math inline>{"B(t_2 = 8\\text{ s}; d_2 = 34\\text{ m})"}</Math>. Tính vận tốc của vật (đơn vị: <Math inline>{"\\text{m/s}"}</Math>).</>}
   answer="4"
   explanation={<><Math inline>{"v = \\frac{d_2 - d_1}{t_2 - t_1} = \\frac{34 - 10}{8 - 2} = \\frac{24}{6} = 4\\text{ m/s}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-036"
   question="Câu 36:"
   context={<>Hai ô tô A và B khởi hành cùng lúc từ hai vị trí cách nhau <Math inline>{"150\\text{ km}"}</Math> trên một đường thẳng, chuyển động ngược chiều nhau để gặp nhau. Xe A chạy với tốc độ không đổi <Math inline>{"60\\text{ km/h}"}</Math>, xe B chạy với tốc độ không đổi <Math inline>{"40\\text{ km/h}"}</Math>. Hỏi sau khoảng thời gian bao lâu kể từ khi xuất phát thì hai xe gặp nhau (đơn vị: <Math inline>{"\\text{giờ}"}</Math>)?</>}
   answer="1.5"
   explanation={<><Math inline>{"t = \\frac{S}{v_A + v_B} = \\frac{150}{60 + 40} = 1,5\\text{ giờ}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-037"
   question="Câu 37:"
   context={<>Học sinh đo 5 lần thời gian viên bi thép lăn qua cổng quang điện thu được các kết quả lần lượt là: <Math inline>{"0,041\\text{ s}"}</Math>; <Math inline>{"0,040\\text{ s}"}</Math>; <Math inline>{"0,042\\text{ s}"}</Math>; <Math inline>{"0,039\\text{ s}"}</Math>; <Math inline>{"0,038\\text{ s}"}</Math>. Bề rộng tấm chắn sáng là <Math inline>{"d = 20\\text{ mm}"}</Math>. Tính giá trị trung bình của tốc độ tức thời <Math inline>{"\\bar{v}"}</Math> (đơn vị: <Math inline>{"\\text{m/s}"}</Math>).</>}
   answer="0.5"
   explanation={<><Math inline>{"\\bar{t} = (0,041 + 0,040 + 0,042 + 0,039 + 0,038)/5 = 0,040\\text{ s}"}</Math>. <Math inline>{"\\bar{v} = \\frac{0,020\\text{ m}}{0,040\\text{ s}} = 0,5\\text{ m/s}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-038"
   question="Câu 38:"
   context={<>Một vận động viên chạy tập luyện trên đường chạy hình chữ nhật kích thước <Math inline>{"100\\text{ m} \\times 50\\text{ m}"}</Math>. Vận động viên chạy đúng 1 vòng khép kín hết thời gian <Math inline>{"60\\text{ s}"}</Math>. Tính độ lớn vận tốc trung bình của vận động viên trong <Math inline>{"60\\text{ s}"}</Math> đó (đơn vị: <Math inline>{"\\text{m/s}"}</Math>).</>}
   answer="0"
   explanation={<>Về đúng vị trí xuất phát nên độ dịch chuyển <Math inline>{"d = 0 \\Rightarrow v_{tb} = 0\\text{ m/s}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-039"
   question="Câu 39:"
   context={<>Hai tàu thủy A và B xuất phát cùng một thời điểm từ cùng một cảng biển <Math inline>{"O"}</Math>. Tàu A chạy về hướng Bắc với tốc độ không đổi <Math inline>{"30\\text{ km/h}"}</Math>. Tàu B chạy về hướng Đông với tốc độ không đổi <Math inline>{"40\\text{ km/h}"}</Math>. Xác định khoảng cách giữa hai tàu sau thời gian <Math inline>{"2\\text{ giờ}"}</Math> kể từ lúc xuất phát (đơn vị: <Math inline>{"\\text{km}"}</Math>).</>}
   answer="100"
   explanation={<>Tàu A đi được <Math inline>{"d_A = 30 \\cdot 2 = 60\\text{ km}"}</Math> về hướng Bắc. Tàu B đi được <Math inline>{"d_B = 40 \\cdot 2 = 80\\text{ km}"}</Math> về hướng Đông. Khoảng cách <Math inline>{"D = \\sqrt{60^2 + 80^2} = 100\\text{ km}"}</Math>.</>}
 />
 
-<QuizShort 
+<QuizShort
+  id="bai-2-exercises-040"
   question="Câu 40:"
   context={<>Một xe máy di chuyển trên quãng đường thẳng: trong <Math inline>{"10\\text{ s}"}</Math> đầu xe đi được <Math inline>{"100\\text{ m}"}</Math>, trong <Math inline>{"20\\text{ s}"}</Math> tiếp theo đi được <Math inline>{"300\\text{ m}"}</Math>, và trong <Math inline>{"10\\text{ s}"}</Math> cuối cùng đi được <Math inline>{"100\\text{ m}"}</Math> rồi dừng lại. Tính tốc độ trung bình của xe máy trên toàn bộ thời gian di chuyển (đơn vị: <Math inline>{"\\text{m/s}"}</Math>).</>}
   answer="12,5"

@@ -1,0 +1,426 @@
+import { MotionScenarios, AccelerationVectors, VelocityArea, MotionGraphs, BrakingDiagram, ChaseDiagram } from './components/Lesson3Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3">
+
+<InfoBox type="info" title="Lộ trình bài học">
+
+Chủ đề **Gia tốc và chuyển động thẳng biến đổi đều**, theo định hướng Kết nối tri thức với cuộc sống, kết hợp góc nhìn mở rộng của Halliday về vectơ, độ dốc và diện tích đồ thị.
+
+- Giải thích được gia tốc đo lường sự thay đổi vận tốc.
+- Phân biệt dấu của gia tốc với tính chất nhanh dần, chậm dần.
+- Vận dụng các công thức và đọc bốn loại đồ thị chuyển động.
+- Giải bài toán hãm phanh và bài toán hai xe gặp nhau.
+
+Các đoạn có nhãn **Mở rộng** dùng đạo hàm, tích phân để hiểu sâu hơn; có thể học phần cơ bản bằng đại số và hình học đồ thị.
+
+</InfoBox>
+
+<Section title="A. Mở đầu & Đặt vấn đề" icon="rocket">
+
+<h3 className="text-xl font-bold text-slate-800">1. Hai kịch bản giao thông</h3>
+
+<TwoColumns>
+<Col>
+
+**Kịch bản 1 — Chuyển động đều:** Một xe chạy trên đường thẳng, kim tốc kế giữ ở $60\,\mathrm{km/h}$ suốt 15 phút. Vận tốc không thay đổi.
+
+**Kịch bản 2 — Vận tốc thay đổi:** Một xe đua F1 xuất phát từ trạng thái nghỉ và đạt $100\,\mathrm{km/h}$ trong $2{,}6\,\mathrm{s}$; hoặc một ô tô đang chạy phải phanh khi gặp chướng ngại vật.
+
+Tốc độ cho biết vật đi nhanh hay chậm. Để mô tả **vận tốc thay đổi nhanh hay chậm**, ta cần đại lượng mới: **gia tốc**.
+
+</Col>
+<Col>
+<MotionScenarios />
+</Col>
+</TwoColumns>
+
+<InfoBox type="info" title="Câu hỏi định hướng">
+
+1. Đại lượng nào đo mức độ thay đổi vận tốc theo thời gian?
+2. Khi ô tô phanh, gia tốc mang dấu gì? Dấu của gia tốc có đủ để kết luận nhanh dần hay chậm dần không?
+3. Làm thế nào để lập phương trình và vẽ đồ thị của một vật có vận tốc thay đổi đều theo thời gian?
+
+</InfoBox>
+
+</Section>
+
+<Section title="B. Hình thành khái niệm & Lý thuyết" icon="book">
+
+<h3 className="text-xl font-bold text-blue-800">I. Gia tốc — Đại lượng đo sự biến thiên vận tốc</h3>
+
+**1. Gia tốc trung bình**
+
+Vận tốc có thể thay đổi cả về **độ lớn** lẫn **hướng**. Trong khoảng thời gian $\Delta t=t_2-t_1>0$, độ biến thiên vận tốc là $\Delta\vec v=\vec v_2-\vec v_1$.
+
+<InfoBox type="info" title="Định nghĩa">
+
+Gia tốc trung bình bằng độ biến thiên vận tốc chia cho khoảng thời gian xảy ra sự biến thiên:
+
+$$
+\vec a_{\mathrm{tb}}=\frac{\Delta\vec v}{\Delta t}
+=\frac{\vec v_2-\vec v_1}{t_2-t_1}.
+$$
+
+Đơn vị SI: **mét trên giây bình phương**, viết là $\mathrm{m/s^2}$ hoặc $\mathrm{m\cdot s^{-2}}$.
+
+</InfoBox>
+
+Ví dụ, gia tốc không đổi $2\,\mathrm{m/s^2}$ theo chiều dương có nghĩa là mỗi giây, giá trị đại số của vận tốc tăng thêm $2\,\mathrm{m/s}$.
+
+**2. Gia tốc tức thời và bản chất vectơ — Mở rộng**
+
+Để biết vận tốc thay đổi ra sao tại một thời điểm, xét khoảng thời gian rất nhỏ:
+
+$$
+\vec a(t)=\lim_{\Delta t\to0}\frac{\Delta\vec v}{\Delta t}
+=\frac{d\vec v}{dt}.
+$$
+
+Trong chuyển động một chiều, $a=dv/dt=d^2x/dt^2$: gia tốc là đạo hàm của vận tốc và là đạo hàm bậc hai của tọa độ theo thời gian.
+
+**Bản chất vectơ:** $\vec a_{\mathrm{tb}}$ cùng hướng với $\Delta\vec v$ trên khoảng xét; gia tốc tức thời có hướng giới hạn tương ứng khi khoảng thời gian tiến về 0. Gia tốc **không nhất thiết cùng hướng** với vận tốc.
+
+<AccelerationVectors />
+
+**3. Gia tốc và dấu trong chuyển động thẳng**
+
+Chọn trục $Ox$ và một chiều dương. Vận tốc $v$, gia tốc $a$ là các giá trị đại số trên trục đó:
+
+$$
+a_{\mathrm{tb}}=\frac{v-v_0}{t-t_0}.
+$$
+
+Khi gia tốc không đổi, gia tốc trung bình trên mọi khoảng bằng gia tốc tức thời: $a=a_{\mathrm{tb}}$.
+
+<TwoColumns>
+<Col>
+<InfoBox type="info" title="Nhanh dần: vận tốc và gia tốc cùng dấu">
+
+Độ lớn vận tốc tăng. Với $v\ne0$:
+
+$$av>0.$$
+
+Có thể là $a>0,\ v>0$ hoặc $a<0,\ v<0$.
+
+</InfoBox>
+</Col>
+<Col>
+<InfoBox type="warning" title="Chậm dần: vận tốc và gia tốc trái dấu">
+
+Độ lớn vận tốc giảm. Với $v\ne0$:
+
+$$av<0.$$
+
+Có thể là $a<0,\ v>0$ hoặc $a>0,\ v<0$.
+
+</InfoBox>
+</Col>
+</TwoColumns>
+
+Tại thời điểm $v=0$, cần xét chuyển động ngay trước và sau đó. Quy tắc dấu cho biết **nhanh dần/chậm dần**; chỉ thêm chữ **đều** khi gia tốc không đổi.
+
+<h3 className="text-xl font-bold text-blue-800">II. So sánh hai dạng chuyển động thẳng</h3>
+
+Trong các công thức dưới đây, chọn $t_0=0$, $v(0)=v_0$, $x(0)=x_0$ và gọi $d=x-x_0$ là **độ dịch chuyển đại số**.
+
+<CompareTable
+  title="Chuyển động thẳng đều và chuyển động thẳng biến đổi đều"
+  columns={['Đại lượng', 'Chuyển động thẳng đều', 'Chuyển động thẳng biến đổi đều']}
+  rows={[
+    ['Gia tốc', <Math inline>{"a=0"}</Math>, <Math inline>{"a=\\mathrm{const}\\ne0"}</Math>],
+    ['Vận tốc', <Math inline>{"v=v_0=\\mathrm{const}"}</Math>, <Math inline>{"v=v_0+at"}</Math>],
+    ['Độ dịch chuyển', <Math inline>{"d=vt"}</Math>, <Math inline>{"d=v_0t+\\frac12 at^2"}</Math>],
+    ['Tọa độ', <Math inline>{"x=x_0+vt"}</Math>, <Math inline>{"x=x_0+v_0t+\\frac12 at^2"}</Math>],
+    ['Liên hệ', <Math inline>{"d=vt"}</Math>, <Math inline>{"v^2-v_0^2=2ad"}</Math>]
+  ]}
+/>
+
+<InfoBox type="warning" title="Phân biệt độ dịch chuyển và quãng đường">
+
+Các công thức trên cho **độ dịch chuyển** $d$, có thể âm, dương hoặc bằng 0. Nếu vật không đổi chiều thì quãng đường $s=|d|$. Nếu vật đổi chiều, phải chia hành trình thành các đoạn không đổi chiều rồi cộng độ lớn độ dịch chuyển của từng đoạn.
+
+</InfoBox>
+
+<h3 className="text-xl font-bold text-blue-800">III. Xây dựng các công thức chuyển động</h3>
+
+**1. Vận tốc theo thời gian**
+
+Từ $a=(v-v_0)/t$ với gia tốc không đổi:
+
+$$v(t)=v_0+at.$$
+
+<details className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+<summary className="cursor-pointer font-semibold text-blue-800">Mở rộng: suy ra bằng tích phân</summary>
+
+$$
+\int_{v_0}^{v}dv=\int_0^t a\,dt
+\quad\Rightarrow\quad v-v_0=at.
+$$
+
+</details>
+
+**2. Độ dịch chuyển từ diện tích đồ thị**
+
+Đồ thị $v-t$ là đường thẳng đi từ $v_0$ ở $t=0$ đến $v=v_0+at$ ở thời điểm $t$.
+
+**Độ dịch chuyển bằng diện tích có dấu** giữa đồ thị vận tốc và trục thời gian: phần phía trên tính dương, phía dưới tính âm. Quãng đường bằng tổng các diện tích lấy giá trị tuyệt đối.
+
+<VelocityArea />
+
+Với hình minh họa $v_0>0,\ a>0$, ta tính diện tích hình thang theo hai cách:
+
+- **Cách 1 — Diện tích hình thang:**
+
+$$
+d=\frac{v_0+v}{2}\,t=v_{\mathrm{tb}}t,
+\qquad v_{\mathrm{tb}}=\frac{v_0+v}{2}.
+$$
+
+- **Cách 2 — Hình chữ nhật cộng tam giác:**
+
+$$
+d=v_0t+\frac12 t(v-v_0).
+$$
+
+Thay $v-v_0=at$:
+
+$$
+\boxed{d(t)=v_0t+\frac12 at^2},
+\qquad x(t)=x_0+v_0t+\frac12 at^2.
+$$
+
+Với gia tốc không đổi, các biểu thức đại số này vẫn đúng khi đồ thị cắt trục thời gian; lúc đó phải hiểu diện tích là **có dấu**.
+
+**3. Công thức độc lập thời gian**
+
+Với $a\ne0$, rút $t=(v-v_0)/a$, rồi thế vào $d=(v_0+v)t/2$:
+
+$$
+d=\frac{v+v_0}{2}\cdot\frac{v-v_0}{a}
+=\frac{v^2-v_0^2}{2a}.
+$$
+
+$$\boxed{v^2-v_0^2=2ad}.$$
+
+<InfoBox type="info" title="Hai trường hợp thường gặp">
+
+- **Xuất phát từ nghỉ:** $v_0=0\Rightarrow v^2=2ad$. Tốc độ là $|v|=\sqrt{2ad}$; dấu của vận tốc phụ thuộc chiều chuyển động.
+- **Hãm đến khi dừng:** $v=0$. Nếu chọn chiều dương theo vận tốc ban đầu, $a<0$ và quãng đường hãm là
+
+$$s_{\mathrm{ham}}=\frac{-v_0^2}{2a}=\frac{v_0^2}{2|a|}.$$
+
+Công thức quãng đường hãm này chỉ xét giai đoạn **bắt đầu phanh đến khi dừng**, chưa gồm quãng đường phản ứng.
+
+</InfoBox>
+
+<h3 className="text-xl font-bold text-blue-800">IV. Bốn đồ thị mô tả chuyển động</h3>
+
+**1. Chuyển động thẳng đều**
+
+- Đồ thị $a-t$ trùng trục thời gian vì $a=0$.
+- Đồ thị $v-t$ nằm ngang ở $v=v_0$. Diện tích có dấu hình chữ nhật là $d=vt$.
+- Đồ thị $d-t$ là đường thẳng qua gốc $O$, độ dốc bằng $v$.
+- Đồ thị $x-t$ là đường thẳng qua $x_0$ tại $t=0$, độ dốc bằng $v$.
+
+<MotionGraphs accelerated={false} />
+
+**2. Chuyển động thẳng biến đổi đều**
+
+- Đồ thị $a-t$ nằm ngang ở giá trị $a$ không đổi.
+- Đồ thị $v-t$ là đường thẳng: đi lên nếu $a>0$, đi xuống nếu $a<0$.
+- Độ dốc vật lý của đồ thị $v-t$ là $\Delta v/\Delta t=a$. Khi đo trên hình, phải tính đến tỉ lệ đơn vị trên từng trục; không đồng nhất tùy ý gia tốc với góc nghiêng nhìn thấy.
+- Đồ thị $d-t$ và $x-t$ là các phần của parabol: lõm lên nếu $a>0$, lõm xuống nếu $a<0$.
+- Độ dốc tiếp tuyến trên đồ thị $x-t$ tại một thời điểm bằng vận tốc tức thời $v(t)$.
+
+<MotionGraphs accelerated />
+
+Thử chọn $v_0=10\,\mathrm{m/s}$ và $a=-2\,\mathrm{m/s^2}$. Đồ thị vận tốc cắt trục thời gian tại $t=5\,\mathrm{s}$: vật chậm dần trước mốc này rồi nhanh dần theo chiều âm sau đó. Gia tốc vẫn giữ nguyên dấu.
+
+</Section>
+
+<Section title="C. Góc phân tích sâu" icon="idea">
+
+<h3 className="text-xl font-bold text-slate-800">1. Gia tốc âm có luôn nghĩa là chậm dần?</h3>
+
+Chọn chiều dương hướng sang phải. Một xe chạy sang trái có $v<0$. Nếu xe đi càng lúc càng nhanh sang trái thì gia tốc cũng hướng trái: $a<0$.
+
+Vậy xe có **gia tốc âm nhưng vẫn nhanh dần**, vì $av>0$.
+
+<InfoBox type="warning" title="Quy tắc vàng">
+
+Đừng kết luận chỉ từ dấu của $a$. Với chuyển động thẳng và $v\ne0$:
+
+$av>0$: **nhanh dần**; $av<0$: **chậm dần**.
+
+Đổi chiều dương của trục làm cả $v$ và $a$ đổi dấu, nhưng tích $av$ không đổi.
+
+</InfoBox>
+
+<h3 className="text-xl font-bold text-slate-800">2. Tung quả bóng thẳng đứng lên cao</h3>
+
+Bỏ qua lực cản không khí, xét gần mặt đất. Chọn chiều dương hướng lên: gia tốc của bóng luôn là $a=-g\approx-9{,}8\,\mathrm{m/s^2}$.
+
+- **Khi đi lên:** $v>0,\ a<0$, bóng chậm dần.
+- **Tại điểm cao nhất:** $v=0$ nhưng $a=-g\ne0$; trọng lực vẫn tác dụng.
+- **Khi rơi xuống:** $v<0,\ a<0$, bóng nhanh dần.
+
+<InfoBox type="info" title="Vận tốc bằng 0 không có nghĩa là gia tốc bằng 0">
+
+Một vật có thể có vận tốc bằng 0 tại một thời điểm nhưng đang thay đổi vận tốc. Tại đỉnh, bóng dừng tức thời rồi đổi chiều vì gia tốc vẫn hướng xuống.
+
+Ngược lại, gia tốc bằng 0 **chỉ tại một thời điểm** cũng không đủ để kết luận vận tốc sẽ không bao giờ thay đổi. Chỉ khi $a=0$ trong cả một khoảng thời gian thì vận tốc mới không đổi trên khoảng đó.
+
+</InfoBox>
+
+</Section>
+
+<Section title="D. Ví dụ minh họa" icon="edit">
+
+<h3 className="text-xl font-bold text-blue-800">Ví dụ 1. Bài toán hãm phanh an toàn</h3>
+
+Một ô tô đang chạy thẳng với tốc độ $72\,\mathrm{km/h}$ thì người lái nhìn thấy chướng ngại vật cách xe $40\,\mathrm{m}$. Người lái mất $0{,}6\,\mathrm{s}$ để phản ứng; trong thời gian này xe vẫn giữ nguyên vận tốc. Sau đó xe phanh với gia tốc có độ lớn $5\,\mathrm{m/s^2}$.
+
+1. Xe đi bao xa trong thời gian phản ứng?
+2. Tổng quãng đường cần để dừng là bao nhiêu? Xe có dừng kịp trước chướng ngại vật không?
+
+<BrakingDiagram />
+
+**Bước 1 — Chọn trục và chia giai đoạn**
+
+Chọn chiều dương theo chuyển động. Đổi $v_0=72/3{,}6=20\,\mathrm{m/s}$.
+
+- Phản ứng: $t_1=0{,}6\,\mathrm{s},\ a_1=0$.
+- Hãm phanh: $a_2=-5\,\mathrm{m/s^2}$, vận tốc cuối bằng 0.
+
+**Bước 2 — Tính từng quãng đường**
+
+$$s_1=v_0t_1=20\times0{,}6=12\,\mathrm{m}.$$
+
+$$
+0^2-20^2=2(-5)s_2
+\quad\Rightarrow\quad s_2=40\,\mathrm{m}.
+$$
+
+$$s_{\mathrm{tong}}=s_1+s_2=12+40=52\,\mathrm{m}.$$
+
+<InfoBox type="warning" title="Kết luận: không đủ khoảng cách để dừng">
+
+Quãng đường cần để dừng là $52\,\mathrm{m}$, lớn hơn khoảng cách $40\,\mathrm{m}$ đến vật cản. Theo mô hình bài toán, xe sẽ va chạm trước khi dừng.
+
+Sau thời gian phản ứng, khoảng cách còn lại chỉ là $40-12=28\,\mathrm{m}$. Mốc $52\,\mathrm{m}$ trên hình là vị trí dừng **dự kiến nếu không có vật cản**.
+
+</InfoBox>
+
+<h3 className="text-xl font-bold text-blue-800">Ví dụ 2. Đồ thị vận tốc và bài toán hai xe đuổi nhau</h3>
+
+Hai xe xuất phát cùng lúc từ cùng vị trí trên một đường thẳng:
+
+- Xe (1) xuất phát từ nghỉ, nhanh dần đều; tại $t=10\,\mathrm{s}$ đạt $20\,\mathrm{m/s}$.
+- Xe (2) chuyển động thẳng đều với $v_2=10\,\mathrm{m/s}$.
+
+Tính gia tốc xe (1), viết phương trình độ dịch chuyển, tìm thời điểm gặp lại và khoảng cách lớn nhất giữa hai xe trước khi gặp lại.
+
+<ChaseDiagram />
+
+**a) Gia tốc và phương trình**
+
+Chọn gốc tọa độ tại điểm xuất phát, chiều dương theo chuyển động và $t_0=0$.
+
+$$a_1=\frac{20-0}{10}=2\,\mathrm{m/s^2}.$$
+
+$$d_1(t)=\frac12 a_1t^2=t^2,\qquad d_2(t)=10t.$$
+
+Trong các phương trình này, $t$ tính bằng giây và $d$ tính bằng mét.
+
+**b) Thời điểm gặp lại**
+
+$$
+d_1=d_2
+\quad\Rightarrow\quad t^2=10t
+\quad\Rightarrow\quad t(t-10)=0.
+$$
+
+$t=0$ là lúc xuất phát. Hai xe **gặp lại tại $t=10\,\mathrm{s}$**, ở vị trí cách điểm xuất phát $100\,\mathrm{m}$.
+
+**c) Khoảng cách lớn nhất trước khi gặp lại**
+
+Trong $0\le t\le10$, xe (2) ở phía trước, nên:
+
+$$
+\Delta d=10t-t^2=25-(t-5)^2\le25\,\mathrm{m}.
+$$
+
+Khoảng cách lớn nhất là **$25\,\mathrm{m}$ tại $t=5\,\mathrm{s}$**. Lúc đó:
+
+$$v_1=2\times5=10\,\mathrm{m/s}=v_2.$$
+
+<InfoBox type="info" title="Cùng vận tốc khác với cùng vị trí">
+
+- Tại $t=5\,\mathrm{s}$: hai đường $v-t$ giao nhau, hai xe **cùng vận tốc** nhưng còn cách nhau $25\,\mathrm{m}$.
+- Tại $t=10\,\mathrm{s}$: diện tích dưới hai đồ thị bằng nhau, đều là $100\,\mathrm{m}$; hai xe **cùng vị trí** nhưng vận tốc khác nhau.
+
+Diện tích hình chữ nhật của xe (2): $10\times10=100\,\mathrm{m}$. Diện tích tam giác của xe (1): $\frac12\times10\times20=100\,\mathrm{m}$.
+
+</InfoBox>
+
+</Section>
+
+<Section title="E. Vận dụng nhanh" icon="check">
+
+Chọn một đáp án cho mỗi câu, sau đó bấm **Kiểm tra** để xem kết quả và lời giải.
+
+<Quiz
+  id="bai-3-check-001"
+  question="Câu 1: Chọn phát biểu đúng nhất về gia tốc trong chuyển động thẳng."
+  options={[
+    'Gia tốc đặc trưng cho độ nhanh hay chậm của chuyển động.',
+    'Gia tốc đặc trưng cho sự biến thiên nhanh hay chậm của vận tốc.',
+    'Gia tốc luôn có giá trị dương khi vật chuyển động nhanh dần.',
+    'Gia tốc luôn cùng chiều với chiều chuyển động.'
+  ]}
+  correctIndex={1}
+  explanation={<>Gia tốc đặc trưng cho sự biến thiên của vận tốc theo thời gian. Tốc độ cho biết mức độ nhanh hay chậm của chuyển động. Gia tốc có thể ngược chiều vận tốc khi vật chậm dần.</>}
+/>
+
+<Quiz
+  id="bai-3-check-002"
+  question={<>Câu 2: Một đoàn tàu bắt đầu rời ga, chuyển động thẳng nhanh dần đều. Sau <Math inline>{"20\\,\\mathrm{s}"}</Math>, tàu đạt tốc độ <Math inline>{"36\\,\\mathrm{km/h}"}</Math>. Gia tốc của đoàn tàu có độ lớn bằng bao nhiêu?</>}
+  options={[
+    <Math inline>{"1{,}8\\,\\mathrm{m/s^2}"}</Math>,
+    <Math inline>{"0{,}5\\,\\mathrm{m/s^2}"}</Math>,
+    <Math inline>{"0{,}9\\,\\mathrm{m/s^2}"}</Math>,
+    <Math inline>{"2{,}0\\,\\mathrm{m/s^2}"}</Math>
+  ]}
+  correctIndex={1}
+  explanation={<>Đổi <Math inline>{"36\\,\\mathrm{km/h}=10\\,\\mathrm{m/s}"}</Math>. Chọn chiều dương theo chuyển động: <Math inline>{"a=\\frac{10-0}{20}=0{,}5\\,\\mathrm{m/s^2}"}</Math>.</>}
+/>
+
+<Quiz
+  id="bai-3-check-003"
+  question={<>Câu 3: Đồ thị vận tốc – thời gian của một vật là đường thẳng đi xuống, cắt trục thời gian tại <Math inline>{"t_1>0"}</Math> và tiếp tục sau thời điểm này. Nhận xét nào đúng?</>}
+  options={[
+    <>Trước <Math inline>{"t_1"}</Math> vật nhanh dần đều, sau <Math inline>{"t_1"}</Math> vật đứng yên.</>,
+    <>Trước <Math inline>{"t_1"}</Math> vật chậm dần đều theo chiều dương; sau <Math inline>{"t_1"}</Math> vật nhanh dần đều theo chiều âm.</>,
+    'Vật luôn chuyển động chậm dần đều trong suốt quá trình.',
+    <>Gia tốc đổi dấu tại thời điểm <Math inline>{"t_1"}</Math>.</>
+  ]}
+  correctIndex={1}
+  explanation={<>Độ dốc âm và không đổi nên <Math inline>{"a<0"}</Math> suốt quá trình. Trước <Math inline>{"t_1"}</Math>: <Math inline>{"v>0,\\ av<0"}</Math>, vật chậm dần. Sau <Math inline>{"t_1"}</Math>: <Math inline>{"v<0,\\ av>0"}</Math>, vật nhanh dần theo chiều âm. Tại <Math inline>{"t_1"}</Math>, vật có vận tốc bằng 0 và đổi chiều.</>}
+/>
+
+<Quiz
+  id="bai-3-check-004"
+  question={<>Câu 4: Một quả cầu nhỏ bắt đầu lăn không vận tốc đầu xuống máng nghiêng dài <Math inline>{"1{,}6\\,\\mathrm{m}"}</Math>, với gia tốc không đổi <Math inline>{"0{,}8\\,\\mathrm{m/s^2}"}</Math>. Thời gian lăn hết máng là bao nhiêu?</>}
+  options={[
+    <Math inline>{"2{,}0\\,\\mathrm{s}"}</Math>,
+    <Math inline>{"4{,}0\\,\\mathrm{s}"}</Math>,
+    <Math inline>{"1{,}0\\,\\mathrm{s}"}</Math>,
+    <Math inline>{"2{,}83\\,\\mathrm{s}"}</Math>
+  ]}
+  correctIndex={0}
+  explanation={<>Vật chuyển động một chiều từ trạng thái nghỉ: <Math inline>{"d=\\frac12 at^2"}</Math>. Suy ra <Math inline>{"t=\\sqrt{\\frac{2d}{a}}=\\sqrt{\\frac{2\\times1{,}6}{0{,}8}}=2{,}0\\,\\mathrm{s}"}</Math>. Chọn nghiệm dương vì thời gian chuyển động không âm.</>}
+/>
+
+</Section>
+
+</div>

@@ -1,7 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 interface QuizTFProps {
+  id: string;
   question: React.ReactNode;
   context?: React.ReactNode;
   statements: {
@@ -12,11 +13,12 @@ interface QuizTFProps {
   }[];
 }
 
-export const QuizTF: React.FC<QuizTFProps> = ({ question, context, statements }) => {
+export const QuizTF: React.FC<QuizTFProps> = ({ id, question, context, statements }) => {
+  const instanceId = useId();
   const [showAnswer, setShowAnswer] = useState(false);
 
   return (
-    <div className="glass-panel p-5 rounded-lg border border-slate-200 shadow-sm mb-6 flex flex-col h-full bg-white">
+    <div data-question-id={id} className="glass-panel p-5 rounded-lg border border-slate-200 shadow-sm mb-6 flex flex-col h-full bg-white">
       <p className="font-bold text-slate-800 mb-2">{question}</p>
       {context && <div className="text-slate-700 mb-4">{context}</div>}
       
@@ -30,14 +32,14 @@ export const QuizTF: React.FC<QuizTFProps> = ({ question, context, statements })
             </tr>
           </thead>
           <tbody className="text-slate-700">
-            {statements.map((stmt, idx) => (
-              <tr key={idx} className="border-b border-slate-100">
+            {statements.map((stmt) => (
+              <tr key={stmt.id} className="border-b border-slate-100">
                 <td className="p-3 text-center font-bold">{stmt.id})</td>
                 <td className="p-3">{stmt.text}</td>
                 <td className="p-3 text-center">
                   <div className="flex gap-2 justify-center">
-                    <input type="radio" name={`tf-${question}-${idx}`} className="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300" />
-                    <input type="radio" name={`tf-${question}-${idx}`} className="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300" />
+                    <input aria-label={`Ý ${stmt.id}: Đúng`} type="radio" name={`tf-${id}-${instanceId}-${stmt.id}`} className="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300" />
+                    <input aria-label={`Ý ${stmt.id}: Sai`} type="radio" name={`tf-${id}-${instanceId}-${stmt.id}`} className="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300" />
                   </div>
                 </td>
               </tr>
@@ -57,8 +59,8 @@ export const QuizTF: React.FC<QuizTFProps> = ({ question, context, statements })
         {showAnswer && (
           <div className="p-4 text-sm text-slate-700 border-t border-amber-100 bg-white mt-2">
             <ul className="space-y-2">
-              {statements.map((stmt, idx) => (
-                <li key={idx}>
+              {statements.map((stmt) => (
+                <li key={stmt.id}>
                   <strong className={stmt.isTrue ? "text-green-600" : "text-red-600"}>
                     {stmt.id}) {stmt.isTrue ? "ĐÚNG" : "SAI"}:
                   </strong>{" "}
