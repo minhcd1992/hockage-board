@@ -1,5 +1,33 @@
 import { create } from 'zustand';
-import { ToolType } from '../types';
+import { ArrowHeadType, ToolType } from '../types';
+
+export interface ArrowOptions {
+  arrowStart: ArrowHeadType;
+  arrowEnd: ArrowHeadType;
+  middleArrow: boolean;
+}
+
+export interface ToolProperties extends ArrowOptions {
+  strokeColor: string;
+  strokeSize: number;
+  strokeStyleType: 'solid' | 'dashed' | 'dotted';
+  isFilled: boolean;
+  sineWavelength: number;
+  sineAmplitude: number;
+  fontFamily: string;
+  fontSize: number;
+}
+
+function defaultToolProperties(tool: ToolType): ToolProperties {
+  return {
+    strokeColor: tool === 'highlighter' ? '#FFFF00' : '#ffffff',
+    strokeSize: tool === 'highlighter' ? 12 : 2,
+    strokeStyleType: 'solid', isFilled: false,
+    arrowStart: 'none', arrowEnd: 'arrow', middleArrow: false,
+    sineWavelength: 150, sineAmplitude: 60,
+    fontFamily: 'Arial', fontSize: 24,
+  };
+}
 
 export interface BoardTab {
   id: string;
@@ -15,7 +43,8 @@ export interface BoardTab {
   theme?: 'green' | 'white';
 }
 
-interface BoardState {
+interface BoardState extends ToolProperties {
+  toolProperties: Partial<Record<ToolType, ToolProperties>>;
   // Tabs State
   tabs: BoardTab[];
   activeTabId: string;
@@ -28,10 +57,6 @@ interface BoardState {
 
   // Toolbar State
   tool: ToolType;
-  strokeColor: string;
-  strokeSize: number;
-  highlighterColor: string;
-  highlighterSize: number;
   
   // Viewport State
   zoom: number;
@@ -43,17 +68,8 @@ interface BoardState {
   gridEnabled: boolean;
   snapToGrid: boolean;
   // Shape State
-  strokeStyleType: 'solid' | 'dashed' | 'dotted';
-  isFilled: boolean;
-  sineWavelength: number;
-  sineAmplitude: number;
   editingObjectId: string | null;
   
-  // Text State
-  fontFamily: string;
-  fontSize: number;
-  
-  // UI State
   // UI State
   currentShapeTool: ToolType;
   viewMode: 'continuous' | 'single-page';
@@ -71,37 +87,37 @@ interface BoardState {
   setStrokeSize: (size: number) => void;
   setStrokeStyleType: (type: 'solid' | 'dashed' | 'dotted') => void;
   setIsFilled: (isFilled: boolean) => void;
+  setArrowOptions: (options: Partial<ArrowOptions>) => void;
   setSineWavelength: (val: number) => void;
   setSineAmplitude: (val: number) => void;
   setEditingObjectId: (id: string | null) => void;
   setFontFamily: (font: string) => void;
   setFontSize: (size: number) => void;
-  setCurrentShapeTool: (tool: ToolType) => void;
   setTheme: (theme: 'green' | 'white') => void;
 }
 
-export const useBoardStore = create<BoardState>((set) => ({
+export const useBoardStore = create<BoardState>((set) => {
+  const updateProperties = (updates: Partial<ToolProperties>) => set(state => ({
+    ...updates,
+    toolProperties: {
+      ...state.toolProperties,
+      [state.tool]: { ...(state.toolProperties[state.tool] ?? defaultToolProperties(state.tool)), ...updates },
+    },
+  }));
+  return ({
   tabs: [{ id: 'main', type: 'whiteboard', title: 'Bảng Trắng' }],
   activeTabId: 'main',
   
   tool: 'pen',
-  strokeColor: '#ffffff',
-  strokeSize: 2,
-  highlighterColor: '#FFFF00',
-  highlighterSize: 12,
+  ...defaultToolProperties('pen'),
+  toolProperties: {},
   panX: 0,
   panY: 0,
   zoom: 1,
   dpr: typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1,
   gridEnabled: true,
   snapToGrid: false,
-  strokeStyleType: 'solid',
-  isFilled: false,
-  sineWavelength: 150,
-  sineAmplitude: 60,
   editingObjectId: null,
-  fontFamily: 'Arial',
-  fontSize: 24,
   currentShapeTool: 'line',
   viewMode: 'continuous',
   theme: 'green',
@@ -169,7 +185,13 @@ export const useBoardStore = create<BoardState>((set) => ({
   activeEngineRef: null,
   setActiveEngineRef: (ref) => set({ activeEngineRef: ref }),
 
-  setTool: (tool) => set({ tool, editingObjectId: null }),
+  setTool: (tool) => set(state => ({
+    ...(state.toolProperties[tool] ?? defaultToolProperties(tool)),
+    tool,
+    currentShapeTool: ['line', 'arrow', 'rect', 'ellipse', 'arc', 'sine', 'bezier'].includes(tool)
+      ? tool : state.currentShapeTool,
+    editingObjectId: null,
+  })),
   setViewMode: (viewMode) => set({ viewMode }),
   setPan: (x, y) => set({ panX: x, panY: y }),
   setZoom: (zoom) => set({ zoom }),
@@ -177,15 +199,16 @@ export const useBoardStore = create<BoardState>((set) => ({
   setSnapToGrid: (snapToGrid) => set({ snapToGrid }),
   toggleGrid: () => set((state) => ({ gridEnabled: !state.gridEnabled })),
   toggleSnapToGrid: () => set((state) => ({ snapToGrid: !state.snapToGrid })),
-  setStrokeColor: (strokeColor) => set({ strokeColor }),
-  setStrokeSize: (strokeSize) => set({ strokeSize }),
-  setStrokeStyleType: (strokeStyleType) => set({ strokeStyleType }),
-  setIsFilled: (isFilled) => set({ isFilled }),
-  setSineWavelength: (val) => set({ sineWavelength: val }),
-  setSineAmplitude: (val) => set({ sineAmplitude: val }),
+  setStrokeColor: (strokeColor) => updateProperties({ strokeColor }),
+  setStrokeSize: (strokeSize) => updateProperties({ strokeSize }),
+  setStrokeStyleType: (strokeStyleType) => updateProperties({ strokeStyleType }),
+  setIsFilled: (isFilled) => updateProperties({ isFilled }),
+  setArrowOptions: updateProperties,
+  setSineWavelength: (val) => updateProperties({ sineWavelength: val }),
+  setSineAmplitude: (val) => updateProperties({ sineAmplitude: val }),
   setEditingObjectId: (id) => set({ editingObjectId: id }),
-  setFontFamily: (font) => set({ fontFamily: font }),
-  setFontSize: (size) => set({ fontSize: size }),
-  setCurrentShapeTool: (tool) => set({ currentShapeTool: tool }),
+  setFontFamily: (font) => updateProperties({ fontFamily: font }),
+  setFontSize: (size) => updateProperties({ fontSize: size }),
   setTheme: (theme) => set({ theme })
-}));
+  });
+});

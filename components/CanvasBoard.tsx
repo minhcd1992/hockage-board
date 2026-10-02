@@ -49,6 +49,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     textInputRef.current = textInput;
   }, [textInput]);
 
+  const cursorStyleRef = useRef('crosshair');
   const tool = useBoardStore(s => s.tool);
   const strokeColor = useBoardStore(s => s.strokeColor);
   const strokeSize = useBoardStore(s => s.strokeSize);
@@ -113,7 +114,9 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isActiveRef.current) return;
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.isComposing || e.altKey || e.target instanceof HTMLInputElement ||
+          e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement ||
+          (e.target instanceof HTMLElement && e.target.isContentEditable)) return;
 
       const engine = engineRef.current;
       
@@ -229,25 +232,20 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       
       if (e.ctrlKey || e.metaKey) return;
 
-      let newTool = storeState.tool;
-      if (key === ' ') newTool = 'hand';
-      if (key === 'p') newTool = 'pen';
-      if (key === 'v') newTool = 'select-object';
-      if (key === 'h') newTool = 'highlighter';
-      if (key === 'w') newTool = 'laser';
-      if (key === 'e') newTool = 'eraser-object';
-      if (key === 't') newTool = 'text';
-      if (key === 'l') { newTool = 'line'; storeState.setCurrentShapeTool('line'); }
-      if (key === 'a') { newTool = 'arrow'; storeState.setCurrentShapeTool('arrow'); }
-      if (key === 'r') { newTool = 'rect'; storeState.setCurrentShapeTool('rect'); }
-      if (key === 'o') { newTool = 'ellipse'; storeState.setCurrentShapeTool('ellipse'); }
-      if (key === 'c') { newTool = 'arc'; storeState.setCurrentShapeTool('arc'); }
-      if (key === 'n') { newTool = 'sine'; storeState.setCurrentShapeTool('sine'); }
-      if (key === 'b') { newTool = 'bezier'; storeState.setCurrentShapeTool('bezier'); }
-      
+      const shortcutTools: Record<string, import('../types').ToolType> = {
+        ' ': 'hand', p: 'pen', v: 'select-object', h: 'highlighter', w: 'laser',
+        e: 'eraser-object', t: 'text', l: 'line', a: 'arrow', r: 'rect',
+        o: 'ellipse', c: 'arc', n: 'sine', b: 'bezier',
+      };
+      const newTool = shortcutTools[key];
+      if (newTool) {
+        e.preventDefault();
+        storeState.setTool(newTool);
+        return;
+      }
+
       if (key === '1' || key === '2' || key === '3') {
         const newSize = key === '1' ? 0.5 : key === '2' ? 1.0 : 2.0;
-        storeState.setStrokeSize(newSize);
         if (storeState.editingObjectId && engineRef.current) {
           const obj = engineRef.current.scene.objects.find((o: any) => o.id === storeState.editingObjectId);
           if (obj && typeof (obj as any).size !== 'undefined') {
@@ -255,6 +253,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             engineRef.current.renderer.renderMain();
             window.dispatchEvent(new Event('requestBoardRender'));
           }
+        } else {
+          storeState.setStrokeSize(newSize);
         }
       }
       
@@ -274,7 +274,6 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       }
       
       if (key === 's') storeState.toggleSnapToGrid();
-      if (newTool !== storeState.tool) storeState.setTool(newTool);
     };
     
     const handleCopy = (e: ClipboardEvent) => {
@@ -725,6 +724,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       updateScrollbar();
     };
     window.addEventListener('resize', handleResize);
+    const boardResizeObserver = new ResizeObserver(handleResize);
+    if (containerRef.current) boardResizeObserver.observe(containerRef.current);
     
     // Handle manual render requests (e.g. from PdfObject async renders)
     const handleRequestRender = () => {
@@ -1011,7 +1012,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         engine.renderer.liveInk.begin(engine.currentStroke, e);
         syncLessonActivity();
       } else if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'rect' || state.tool === 'ellipse' || state.tool === 'sine') {
-        engine.currentShape = new Shape(state.tool as any, worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false, state.sineWavelength, state.sineAmplitude);
+        engine.currentShape = new Shape(state.tool, worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false, state.sineWavelength, state.sineAmplitude, state.arrowStart, state.arrowEnd, state.middleArrow);
         draftNeedsUpdate = true;
       } else if (state.tool === 'arc') {
         if (arcState === 'idle') {
@@ -1449,15 +1450,13 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     };
 
     pointer.onPointerUp = (p, e) => {
+      if (interactionLayerRef.current) interactionLayerRef.current.style.cursor = cursorStyleRef.current;
       if (isPanning) {
         isPanning = false;
         panStartScreen = null;
         initialPan = null;
         if (interactionLayerRef.current) {
-          const tool = useBoardStore.getState().tool;
-          if (tool === 'text') interactionLayerRef.current.style.cursor = 'text';
-          else if (tool === 'hand') interactionLayerRef.current.style.cursor = 'grab';
-          else interactionLayerRef.current.style.cursor = 'crosshair';
+          interactionLayerRef.current.style.cursor = cursorStyleRef.current;
         }
         return;
       }
@@ -1640,6 +1639,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           const obj = engine.scene.objects.find(o => o.id === hitId);
           if (obj?.type === 'text' || (obj && 'fontFamily' in obj)) {
             const textObj = obj as any; // Cast to access properties since we don't import Text here directly if it's tricky, wait we have Text imported!
+          state.setTool('text');
           state.setStrokeColor(textObj.color);
           state.setFontFamily(textObj.fontFamily);
           state.setFontSize(textObj.fontSize);
@@ -1648,7 +1648,6 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           const inputWidth = textObj.maxWidth ? (textObj.maxWidth * engine.camera.zoom + 8) : undefined;
           setTextInput({ x: screenP.x - 4, y: screenP.y - 4, text: textObj.text, width: inputWidth });
           engine.scene.removeObject(hitId);
-          state.setTool('text');
           engine.renderer.renderMain();
           }
         }
@@ -1658,6 +1657,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     };
 
     pointer.onPointerCancel = () => {
+      if (interactionLayerRef.current) interactionLayerRef.current.style.cursor = cursorStyleRef.current;
       const engine = engineRef.current!;
       engine.renderer.liveInk.clear();
       isPanning = false;
@@ -1717,10 +1717,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
     pointer.onPinchEnd = () => {
       if (interactionLayerRef.current) {
-        const tool = useBoardStore.getState().tool;
-        if (tool === 'text') interactionLayerRef.current.style.cursor = 'text';
-        else if (tool === 'hand') interactionLayerRef.current.style.cursor = 'grab';
-        else interactionLayerRef.current.style.cursor = 'crosshair';
+        interactionLayerRef.current.style.cursor = cursorStyleRef.current;
       }
     };
 
@@ -1731,6 +1728,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       renderer.liveInk.destroy();
       pointer.destroy();
       interLayer.removeEventListener('wheel', handleWheel);
+      boardResizeObserver.disconnect();
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('requestBoardRender', handleRequestRender);
     };
@@ -1791,6 +1789,13 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     // shape tools
     return 'crosshair';
   }, [tool, strokeSize, strokeColor]);
+
+  React.useLayoutEffect(() => {
+    cursorStyleRef.current = cursorStyle;
+    // React may see the same base cursor for two tools, while a drag handler
+    // has overwritten the DOM style. Always reset it on a tool/tab change.
+    if (interactionLayerRef.current) interactionLayerRef.current.style.cursor = cursorStyle;
+  }, [cursorStyle, tool, isActive]);
 
   const [windowHeight, setWindowHeight] = React.useState(0);
   const [windowWidth, setWindowWidth] = React.useState(0);

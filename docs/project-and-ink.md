@@ -18,7 +18,7 @@ Hai lần sửa trước vẫn không giải quyết trải nghiệm trên bản
 3. `LiveInk` giữ các đoạn đã có đủ điểm lân cận trong canvas đệm. Đoạn cuối được vẽ tạm tới đúng điểm bút mới nhất, rồi cập nhật khi nhận thêm mẫu; chỉ vùng đuôi cũ/mới được thay, không dựng lại cả nét trong mỗi event. Không đọc pixel về CPU. Bút không đi qua React state hay vòng requestAnimationFrame chung. Highlight vẽ opaque rồi áp opacity một lần lên lớp để tránh nối nét đậm.
 4. Khi nhấc bút, `Stroke` dùng cùng hình học lúc viết, không đổi nét qua perfect-freehand. `commitStroke` chỉ thêm nét mới lên main, không xóa/vẽ lại scene. Undo/redo, camera và sửa đối tượng vẫn dùng full render.
 5. Cache hình học ở tọa độ thế giới nên zoom không cần dựng lại đường viền. Copy giữ đúng highlight; bounding box/hit test tính độ rộng highlight.
-6. Nếu có Ink API, đăng ký `navigator.ink.requestPresenter` và cập nhật điểm cuối đã vẽ bằng sự kiện thật. Trình duyệt/hệ thống có thể vẽ tiếp đầu nét giữa những lần ứng dụng nhận event. Không có API hoặc API lỗi thì dùng canvas. Không yêu cầu bật experimental flags.
+6. Không dùng delegated Ink API nữa: lớp nét tạm của hệ điều hành có vòng đời riêng, có thể gây vệt nối lóe giữa hai lần đặt bút. Toàn bộ nét hiển thị do canvas quản lý và xóa trạng thái khi bắt đầu nét mới. Raw/coalesced input, canvas desynchronized và nội suy spline vẫn giữ nguyên. Mẫu có timestamp trước lần đặt bút/mẫu đã nhận, hoặc thuộc trạng thái hover, không được thêm vào nét hiện tại.
 
 Đã bỏ `InkPrediction` và việc chép/khôi phục vùng pixel dự đoán; không lưu điểm giả. Nét giữ áp lực nhưng kiểu nét có thể khác cách làm mượt cũ vì không dùng perfect-freehand nữa. Dependency chưa gỡ để tránh thay lockfile không cần thiết.
 
@@ -37,7 +37,7 @@ Thêm `?inkDebug=1` vào URL trang bảng rồi viết vài nét:
 - `engine: spline-v2`: xác nhận đang chạy bản nét cong.
 - `inputType`: driver gửi `pen` hay giả lập `mouse`.
 - `inputEvent`: raw hay pointermove fallback.
-- `nativeInk`, `nativeUpdates`: API khởi tạo được và số lần gọi thành công; không phải phép đo native trail đã xuất hiện trên màn hình.
+- `nativeInk: disabled`, `nativeUpdates: 0`: xác nhận lớp nét tạm của trình duyệt đã tắt.
 - `maxInputAgeMs`: tuổi event khi handler vẽ bắt đầu.
 - `maxDrawMs`: thời gian JS gửi lệnh vẽ một batch, không bao gồm toàn bộ GPU/compositor/màn hình/Meet.
 
@@ -49,9 +49,15 @@ Các số max tính từ lúc mount bảng. Chế độ mặc định không có
 - ESLint không tăng lỗi/cảnh báo ở các file sửa; ba module mới không có lỗi/cảnh báo.
 - `node scratch/check-ink.cjs`: cache world-space, raw/move không trùng, fallback, cancellation, clone/bounds highlight, scheduler dừng/tiếp tục và loại trừ thời gian pause.
 - `node scratch/check-ink-browser.cjs mouse` và `node scratch/check-ink-browser.cjs pen lesson`: Chrome headless, production localhost:3100, CDP:9333, DPR 2, CPU throttle 4x. Kiểm tra nét trước pointerup, commit không clear main, undo/redo, pause/resume iframe, fallback không có Ink API, hủy nét và alpha highlight không chồng đậm.
-- Lượt spline-v2 với pen trên lesson: 50 raw + 50 move, 51 batch gồm điểm đặt bút, 51 native updates thành công, 0 lần clear main trong thao tác. Đây là kiểm tra chức năng, không phải độ trễ end-to-end hay phiên Meet.
+- Kết quả bản cũ trước khi tắt Ink API: lượt spline-v2 với pen trên lesson: 50 raw + 50 move, 51 batch gồm điểm đặt bút, 51 native updates thành công, 0 lần clear main trong thao tác. Đây là kiểm tra chức năng, không phải độ trễ end-to-end hay phiên Meet.
 - Kiểm tra thêm spline qua từng điểm, giữ đúng đầu nét, đoạn đã ổn định không đổi khi có mẫu mới, tọa độ trùng/quay đầu/khoảng cách mẫu chênh lệch. So sánh pixel nét đang viết và nét chốt: khoảng 1% khác biệt ở ngưỡng alpha trong đường thử, chủ yếu do antialias khi tô từng đoạn. Bounding box và hit test dùng đường cong đã nội suy.
 - Ảnh so sánh cùng dữ liệu điểm: [đoạn thẳng và spline](../scratch/ink-curve-comparison.png).
 - Script có benchmark submission với 120 nét × 80 điểm: bản trước submit lại 120 nét mỗi lần chốt, bản mới submit 1 nét. Kết quả chỉ đo thời gian JS, có thể thấp hơn độ phân giải timer; không dùng làm tuyên bố FPS.
 
 Cần đối chiếu trên đúng bảng vẽ rời/trình duyệt của người dùng sau deploy, cả bảng trống và bài giảng trong Meet. Nếu còn trễ, dữ liệu chẩn đoán giúp phân biệt dispatch input, xử lý JS và đường hiển thị/capture; chưa thể kết luận từ headless.
+
+- `node scratch/check-boundaries-fullscreen-browser.cjs pen` (hoặc `mouse`, hoặc `pen lesson`): kiểm tra pixel vùng trống giữa hai nét lúc hover/đặt bút/di chuyển/nhấc bút, không đăng ký native presenter kể cả khi API có sẵn, bật/tắt fullscreen, thoát từ trình duyệt và xử lý yêu cầu fullscreen bị từ chối.
+
+## Toàn màn hình
+
+Nút cạnh **Lưu thành PDF** trên thanh công cụ đưa cả app vào toàn màn hình (bao gồm menu và các tab). Bấm lại hoặc Esc để thoát. Trạng thái nút theo `fullscreenchange`; lỗi/quyền từ chối được hiển thị tại thanh công cụ. Trình duyệt không hỗ trợ sẽ vô hiệu hóa nút.

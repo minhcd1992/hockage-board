@@ -1,33 +1,65 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useBoardStore } from '../store/useBoardStore';
+import React, { useSyncExternalStore } from 'react';
+import { ArrowOptions, useBoardStore } from '../store/useBoardStore';
 import { Shape } from '../objects/Shape';
 import { Stroke } from '../objects/Stroke';
 import { Text } from '../objects/Text';
-import { ArrowHeadType } from '../types';
+import { ArrowHeadType, ToolType } from '../types';
 import { PaintBucket, Grid, Magnet, Sun, Moon } from 'lucide-react';
+
+const toolNames: Record<ToolType, string> = {
+  pen: 'Bút vẽ', highlighter: 'Bút nhớ', laser: 'Bút laser',
+  line: 'Đường thẳng', arrow: 'Mũi tên', rect: 'Hình chữ nhật',
+  ellipse: 'Hình ellipse', arc: 'Cung tròn', sine: 'Sóng sin', bezier: 'Đường cong Bézier',
+  text: 'Chữ', hand: 'Di chuyển', 'select-object': 'Chọn đối tượng',
+  'eraser-object': 'Tẩy đối tượng', 'eraser-stroke': 'Tẩy nét', snip: 'Chụp vùng',
+};
+
+// The scene lives outside React. Subscribe to a stable property snapshot so
+// keyboard edits and selection changes cannot leave the panel stale.
+function subscribeObjectProperties(onChange: () => void) {
+  const unsubscribe = useBoardStore.subscribe(onChange);
+  window.addEventListener('requestBoardRender', onChange);
+  return () => {
+    unsubscribe();
+    window.removeEventListener('requestBoardRender', onChange);
+  };
+}
+
+function objectPropertiesSnapshot() {
+  const state = useBoardStore.getState();
+  if (state.tool !== 'select-object' || !state.editingObjectId) return '';
+  const obj = state.activeEngineRef?.current?.scene.objects.find(
+    (candidate: { id: string }) => candidate.id === state.editingObjectId,
+  );
+  if (!obj) return '';
+  const fields = ['type', 'shapeType', 'color', 'size', 'strokeStyleType', 'isFilled',
+    'arrowStart', 'arrowEnd', 'middleArrow', 'sineWavelength', 'sineAmplitude', 'fontFamily', 'fontSize'];
+  return JSON.stringify(Object.fromEntries(fields.map(field => [field, obj[field]])));
+}
 
 export function PropertiesBar() {
   const state = useBoardStore();
-  const engineRef = state.activeEngineRef;
   const presetColors = ['#ffffff', '#000000', '#ff0000', '#ffcc00', '#00ff00', '#00ccff', '#ff00ff', '#ff8800'];
   const fontFamilies = ['Arial', 'Times New Roman', 'Courier New', 'Georgia', 'Verdana'];
 
   // Identify context
   let isEditingObject = false;
   
-  const [, forceRender] = React.useReducer((s) => s + 1, 0);
+  const objectSnapshot = useSyncExternalStore(subscribeObjectProperties, objectPropertiesSnapshot, () => '');
+  const obj = objectSnapshot ? JSON.parse(objectSnapshot) : null;
 
   // Create safe update function for active object
   const updateActiveObject = (updates: any) => {
+    const engineRef = useBoardStore.getState().activeEngineRef;
     if (!engineRef || !engineRef.current || !state.editingObjectId) return;
     const obj = engineRef.current.scene.objects.find((o: any) => o.id === state.editingObjectId);
     if (obj) {
       Object.assign(obj, updates);
       engineRef.current.scene.saveState();
       engineRef.current.renderer.renderMain();
-      forceRender();
+      window.dispatchEvent(new Event('requestBoardRender'));
     }
   };
 
@@ -55,18 +87,11 @@ export function PropertiesBar() {
   let physicsAccelerationX = 0;
   let physicsAccelerationY = 0;
   
-  let arrowStart: ArrowHeadType = 'none';
-  let arrowEnd: ArrowHeadType = 'arrow';
-  let middleArrow = false;
+  let arrowStart = state.arrowStart;
+  let arrowEnd = state.arrowEnd;
+  let middleArrow = state.middleArrow;
   let sineW = state.sineWavelength;
   let sineA = state.sineAmplitude;
-
-  let obj = null;
-  let activeIsFilled_ = false;
-  
-  if (state.editingObjectId && engineRef && engineRef.current) {
-    obj = engineRef.current.scene.objects.find((o: any) => o.id === state.editingObjectId);
-  }
 
   if (obj) {
     isEditingObject = true;
@@ -109,9 +134,10 @@ export function PropertiesBar() {
       showSize = true;
       if (t !== 'pen' && t !== 'highlighter') {
         showStrokeStyle = true;
-        showFill = true;
+        showFill = t === 'rect' || t === 'ellipse';
       }
       if (t === 'sine') showSineParams = true;
+      if (t === 'arrow') showArrows = true;
     } else if (t === 'text') {
       showColor = true;
       showTextParams = true;
@@ -134,6 +160,10 @@ export function PropertiesBar() {
   const handleFillChange = (fill: boolean) => {
     if (isEditingObject) updateActiveObject({ isFilled: fill });
     else state.setIsFilled(fill);
+  };
+  const handleArrowChange = (options: Partial<ArrowOptions>) => {
+    if (isEditingObject) updateActiveObject(options);
+    else state.setArrowOptions(options);
   };
   const handleSineChange = (w: number, a: number) => {
     if (isEditingObject) updateActiveObject({ sineWavelength: w, sineAmplitude: a });
@@ -185,6 +215,11 @@ export function PropertiesBar() {
         </button>
       </div>
 
+      {!isEditingObject && (
+        <span data-active-tool={state.tool} style={{ fontWeight: 600, whiteSpace: 'nowrap' }}>
+          {toolNames[state.tool]}
+        </span>
+      )}
       {isEditingObject && (
         <div style={{ color: '#00ccff', fontWeight: 'bold' }}>
           Đang sửa thuộc tính đối tượng...
@@ -259,18 +294,18 @@ export function PropertiesBar() {
         </div>
       )}
       
-      {showArrows && isEditingObject && (
+      {showArrows && (
          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ color: '#aaa' }}>Đầu mũi tên:</span>
-            <select value={arrowStart} onChange={(e) => updateActiveObject({ arrowStart: e.target.value })} style={{ background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', padding: '2px 4px' }}>
+            <select aria-label="Đầu mũi tên" value={arrowStart} onChange={(e) => handleArrowChange({ arrowStart: e.target.value as ArrowHeadType })} style={{ background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', padding: '2px 4px' }}>
               <option value="none">Không</option><option value="arrow">Thuận</option><option value="inverted">Ngược</option>
             </select>
             <span style={{ color: '#aaa' }}>Cuối mũi tên:</span>
-            <select value={arrowEnd} onChange={(e) => updateActiveObject({ arrowEnd: e.target.value })} style={{ background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', padding: '2px 4px' }}>
+            <select aria-label="Cuối mũi tên" value={arrowEnd} onChange={(e) => handleArrowChange({ arrowEnd: e.target.value as ArrowHeadType })} style={{ background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', padding: '2px 4px' }}>
               <option value="none">Không</option><option value="arrow">Thuận</option><option value="inverted">Ngược</option>
             </select>
             <label style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#aaa' }}>
-              <input type="checkbox" checked={middleArrow} onChange={(e) => updateActiveObject({ middleArrow: e.target.checked })} /> Mũi tên giữa
+              <input type="checkbox" checked={middleArrow} onChange={(e) => handleArrowChange({ middleArrow: e.target.checked })} /> Mũi tên giữa
             </label>
          </div>
       )}

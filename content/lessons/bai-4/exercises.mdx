@@ -1,0 +1,753 @@
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3">
+
+<InfoBox type="info" title="Bộ bài tập bài 4 — Vật lý lớp 10">
+
+45 câu gồm 20 câu trắc nghiệm, 10 câu đúng/sai, 10 câu trả lời ngắn và 5 câu tự luận, kèm đáp án và lời giải chi tiết.
+
+Trừ khi đề nêu khác, bỏ qua sức cản không khí, coi gia tốc trọng trường không đổi trong phạm vi chuyển động. Các bài ném xiên là phần mở rộng.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất, sau đó bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-4-exercises-001"
+  question={<>{"Câu 1 (Nhận biết): Chuyển động rơi tự do là chuyển động của một vật"}</>}
+  options={[
+    <>{"chỉ chịu tác dụng của trọng lực."}</>,
+    <>{"chịu tác dụng của trọng lực và lực cản không khí rất lớn."}</>,
+    <>{"có gia tốc thay đổi liên tục theo thời gian."}</>,
+    <>{"theo phương nằm ngang dưới tác dụng của lực hấp dẫn."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Chuyển động rơi tự do là chuyển động chỉ chịu tác dụng của trọng lực."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-002"
+  question={<>{"Câu 2 (Nhận biết): Tại cùng một vị trí địa lý trên Trái Đất, mọi vật rơi tự do đều"}</>}
+  options={[
+    <>{"rơi với cùng một gia tốc trọng trường "}<Math inline>{"\\vec{g}"}</Math>{"."}</>,
+    <>{"rơi với vận tốc không đổi."}</>,
+    <>{"có quãng đường rơi tỉ lệ thuận với thời gian "}<Math inline>{"t"}</Math>{"."}</>,
+    <>{"có thời gian rơi tỉ lệ nghịch với độ cao."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Tại cùng một nơi, mọi vật rơi tự do với cùng gia tốc "}<Math inline>{"g"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-003"
+  question={<>{"Câu 3 (Nhận biết): Nhận xét nào sau đây ĐÚNG về gia tốc trọng trường "}<Math inline>{"g"}</Math>{"?"}</>}
+  options={[
+    <><Math inline>{"g"}</Math>{" có giá trị như nhau ở mọi nơi trên bề mặt Trái Đất."}</>,
+    <><Math inline>{"g"}</Math>{" phụ thuộc vào khối lượng của vật rơi."}</>,
+    <><Math inline>{"g"}</Math>{" thay đổi theo vĩ độ địa lý và độ cao so với mặt nước biển."}</>,
+    <><Math inline>{"g"}</Math>{" luôn hướng nằm ngang từ Tây sang Đông."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"g"}</Math>{" thay đổi theo vĩ độ (lớn ở cực, nhỏ ở xích đạo) và giảm dần theo độ cao."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-004"
+  question={<>{"Câu 4 (Nhận biết): Chuyển động ném ngang là chuyển động phức hợp gồm hai chuyển động thành phần độc lập:"}</>}
+  options={[
+    <>{"Theo phương ngang "}<Math inline>{"Ox"}</Math>{" là chuyển động thẳng đều, theo phương thẳng đứng "}<Math inline>{"Oy"}</Math>{" là chuyển động rơi tự do."}</>,
+    <>{"Theo phương ngang "}<Math inline>{"Ox"}</Math>{" là chuyển động rơi tự do, theo phương thẳng đứng "}<Math inline>{"Oy"}</Math>{" là chuyển động thẳng đều."}</>,
+    <>{"Cả hai phương "}<Math inline>{"Ox"}</Math>{" và "}<Math inline>{"Oy"}</Math>{" đều là chuyển động thẳng biến đổi đều."}</>,
+    <>{"Cả hai phương "}<Math inline>{"Ox"}</Math>{" và "}<Math inline>{"Oy"}</Math>{" đều là chuyển động thẳng đều."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"Ox"}</Math>{": chuyển động thẳng đều ("}<Math inline>{"v_x = v_0"}</Math>{"), "}<Math inline>{"Oy"}</Math>{": chuyển động rơi tự do ("}<Math inline>{"a_y = g"}</Math>{")."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-005"
+  question={<>{"Câu 5 (Thông hiểu): Công thức liên hệ giữa vận tốc "}<Math inline>{"v"}</Math>{" và độ cao rơi "}<Math inline>{"h"}</Math>{" của một vật rơi tự do không vận tốc đầu là"}</>}
+  options={[
+    <><Math inline>{"v = \\sqrt{gh}"}</Math>{"."}</>,
+    <><Math inline>{"v = \\sqrt{2gh}"}</Math>{"."}</>,
+    <><Math inline>{"v = 2gh"}</Math>{"."}</>,
+    <><Math inline>{"v = \\frac{1}{2}gh^2"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Công thức độc lập thời gian: "}<Math inline>{"v^2 = 2gh \\Rightarrow v = \\sqrt{2gh}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-006"
+  question={<>{"Câu 6 (Thông hiểu): Một vật rơi tự do từ độ cao "}<Math inline>{"h"}</Math>{" xuống mặt đất tại nơi có gia tốc trọng trường "}<Math inline>{"g"}</Math>{". Thời gian rơi "}<Math inline>{"t"}</Math>{" được tính bởi công thức"}</>}
+  options={[
+    <><Math inline>{"t = \\sqrt{\\frac{h}{g}}"}</Math>{"."}</>,
+    <><Math inline>{"t = \\sqrt{\\frac{2h}{g}}"}</Math>{"."}</>,
+    <><Math inline>{"t = \\frac{2h}{g}"}</Math>{"."}</>,
+    <><Math inline>{"t = \\sqrt{\\frac{h}{2g}}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Từ "}<Math inline>{"h = \\frac{1}{2}gt^2 \\Rightarrow t = \\sqrt{\\frac{2h}{g}}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-007"
+  question={<>{"Câu 7 (Thông hiểu): Quỹ đạo chuyển động của một vật ném ngang trong mặt phẳng "}<Math inline>{"Oxy"}</Math>{" (với gốc "}<Math inline>{"O"}</Math>{" tại điểm ném, trục "}<Math inline>{"Oy"}</Math>{" hướng thẳng đứng xuống dưới) có dạng là"}</>}
+  options={[
+    <>{"một đường thẳng đi qua gốc tọa độ."}</>,
+    <>{"một đường tròn bán kính "}<Math inline>{"R"}</Math>{"."}</>,
+    <>{"một nhánh của đường parabol có phương trình "}<Math inline>{"y = \\frac{g}{2v_0^2} x^2"}</Math>{"."}</>,
+    <>{"một đường elip tâm "}<Math inline>{"O"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Quỹ đạo ném ngang: "}<Math inline>{"y = \\frac{g}{2v_0^2}x^2"}</Math>{" (một nhánh parabol)."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-008"
+  question={<>{"Câu 8 (Thông hiểu): Hai vật có khối lượng "}<Math inline>{"m_1 = 2m_2"}</Math>{" được thả đồng thời, rơi tự do không vận tốc đầu từ cùng một độ cao "}<Math inline>{"h"}</Math>{" ở cùng một vị trí địa lý. Bỏ qua lực cản không khí. Bằng chứng thực nghiệm nào sau đây đúng?"}</>}
+  options={[
+    <>{"Vật "}<Math inline>{"m_1"}</Math>{" chạm đất trước vật "}<Math inline>{"m_2"}</Math>{" vì nặng hơn gấp đôi."}</>,
+    <>{"Vật "}<Math inline>{"m_2"}</Math>{" chạm đất trước vật "}<Math inline>{"m_1"}</Math>{" vì nhẹ hơn nên rơi nhanh hơn."}</>,
+    <>{"Cả hai vật chạm đất cùng một lúc với cùng một vận tốc."}</>,
+    <>{"Vật "}<Math inline>{"m_1"}</Math>{" có gia tốc rơi lớn hơn gia tốc rơi của vật "}<Math inline>{"m_2"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Gia tốc rơi tự do không phụ thuộc khối lượng vật, hai vật chạm đất cùng lúc với cùng vận tốc "}<Math inline>{"v = \\sqrt{2gh}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-009"
+  question={<>{"Câu 9 (Thông hiểu): Tầm xa "}<Math inline>{"L"}</Math>{" của một vật được ném ngang với vận tốc ban đầu "}<Math inline>{"v_0"}</Math>{" từ độ cao "}<Math inline>{"h"}</Math>{" phụ thuộc vào những yếu tố nào?"}</>}
+  options={[
+    <>{"Chỉ phụ thuộc vào vận tốc ban đầu "}<Math inline>{"v_0"}</Math>{"."}</>,
+    <>{"Chỉ phụ thuộc vào độ cao "}<Math inline>{"h"}</Math>{" và khối lượng "}<Math inline>{"m"}</Math>{"."}</>,
+    <>{"Phụ thuộc vào vận tốc ban đầu "}<Math inline>{"v_0"}</Math>{", độ cao "}<Math inline>{"h"}</Math>{" và gia tốc trọng trường "}<Math inline>{"g"}</Math>{"."}</>,
+    <>{"Phụ thuộc vào khối lượng "}<Math inline>{"m"}</Math>{" và vận tốc ban đầu "}<Math inline>{"v_0"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"L = v_0 t = v_0 \\sqrt{\\frac{2h}{g}}"}</Math>{", không phụ thuộc khối lượng "}<Math inline>{"m"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-010"
+  question={<>{"Câu 10 (Thông hiểu): Trong chuyển động ném ngang, véc-tơ vận tốc "}<Math inline>{"\\vec{v}"}</Math>{" tại thời điểm "}<Math inline>{"t"}</Math>{" bất kỳ luôn"}</>}
+  options={[
+    <>{"hướng theo phương nằm ngang "}<Math inline>{"Ox"}</Math>{"."}</>,
+    <>{"hướng thẳng đứng xuống dưới theo phương "}<Math inline>{"Oy"}</Math>{"."}</>,
+    <>{"tiếp tuyến với đường quỹ đạo parabol và hợp với phương ngang một góc "}<Math inline>{"\\alpha"}</Math>{" thỏa mãn "}<Math inline>{"\\tan \\alpha = \\frac{gt}{v_0}"}</Math>{"."}</>,
+    <>{"vuông góc với véc-tơ gia tốc trọng trường "}<Math inline>{"\\vec{g}"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"\\vec{v} = \\vec{v}_x + \\vec{v}_y"}</Math>{", "}<Math inline>{"\\tan \\alpha = \\frac{v_y}{v_x} = \\frac{gt}{v_0}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-011"
+  question={<>{"Câu 11 (Thông hiểu): Thả một hòn đá rơi tự do từ miệng một giếng sâu. Quãng đường hòn đá rơi được trong giây thứ "}<Math inline>{"3"}</Math>{" ("}<Math inline>{"s_3"}</Math>{") so với quãng đường rơi trong giây đầu tiên ("}<Math inline>{"s_1"}</Math>{") gấp"}</>}
+  options={[
+    <><Math inline>{"3"}</Math>{" lần."}</>,
+    <><Math inline>{"5"}</Math>{" lần."}</>,
+    <><Math inline>{"9"}</Math>{" lần."}</>,
+    <><Math inline>{"4"}</Math>{" lần."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"s_1 = \\frac{1}{2}g(1)^2 = 0,5g"}</Math>{". "}<Math inline>{"s_3 = \\frac{1}{2}g(3^2 - 2^2) = 2,5g \\Rightarrow s_3 / s_1 = 5"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-012"
+  question={<>{"Câu 12 (Thông hiểu): Một vật được ném xiên với vận tốc ban đầu "}<Math inline>{"v_0"}</Math>{" hợp với phương ngang một góc "}<Math inline>{"\\alpha"}</Math>{" ("}<Math inline>{"0 < \\alpha < 90^\\circ"}</Math>{"). Bỏ qua sức cản không khí. Tại đỉnh cao nhất của quỹ đạo, độ lớn vận tốc của vật bằng"}</>}
+  options={[
+    <><Math inline>{"0"}</Math>{"."}</>,
+    <><Math inline>{"v_0"}</Math>{"."}</>,
+    <><Math inline>{"v_0 \\cos \\alpha"}</Math>{"."}</>,
+    <><Math inline>{"v_0 \\sin \\alpha"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Tại đỉnh cao nhất "}<Math inline>{"v_y = 0"}</Math>{", chỉ còn thành phần nằm ngang "}<Math inline>{"v_x = v_0 \\cos \\alpha"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-013"
+  question={<>{"Câu 13 (Vận dụng): Một vật rơi tự do không vận tốc đầu, khi chạm đất có vận tốc "}<Math inline>{"v = 40\\text{ m/s}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Độ cao "}<Math inline>{"h"}</Math>{" nơi thả vật là"}</>}
+  options={[
+    <><Math inline>{"80\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"160\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"40\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"20\\text{ m}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"h = \\frac{v^2}{2g} = \\frac{40^2}{2 \\cdot 10} = 80\\text{ m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-014"
+  question={<>{"Câu 14 (Vận dụng): Một bi thép được ném ngang từ độ cao "}<Math inline>{"h = 20\\text{ m}"}</Math>{" với vận tốc ban đầu "}<Math inline>{"v_0 = 15\\text{ m/s}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tầm xa "}<Math inline>{"L"}</Math>{" của bi thép là"}</>}
+  options={[
+    <><Math inline>{"30\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"15\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"45\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"60\\text{ m}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"t = \\sqrt{\\frac{2 \\cdot 20}{10}} = 2\\text{ s} \\Rightarrow L = v_0 t = 15 \\cdot 2 = 30\\text{ m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-015"
+  question={<>{"Câu 15 (Vận dụng): Từ độ cao "}<Math inline>{"h = 45\\text{ m}"}</Math>{", người ta thả rơi tự do vật thứ nhất. Sau đó "}<Math inline>{"1\\text{ s}"}</Math>{", người ta ném thẳng đứng vật thứ hai xuống dưới với vận tốc "}<Math inline>{"v_0"}</Math>{" để hai vật chạm đất cùng một lúc. Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Vận tốc "}<Math inline>{"v_0"}</Math>{" bằng"}</>}
+  options={[
+    <><Math inline>{"12,5\\text{ m/s}"}</Math>{"."}</>,
+    <><Math inline>{"15,0\\text{ m/s}"}</Math>{"."}</>,
+    <><Math inline>{"20,0\\text{ m/s}"}</Math>{"."}</>,
+    <><Math inline>{"10,0\\text{ m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Thời gian rơi vật 1: "}<Math inline>{"t_1 = \\sqrt{\\frac{2 \\cdot 45}{10}} = 3\\text{ s}"}</Math>{". Vật 2 rơi trong "}<Math inline>{"t_2 = 3 - 1 = 2\\text{ s}"}</Math>{". Ta có: "}<Math inline>{"h = v_0 t_2 + \\frac{1}{2}gt_2^2 \\Rightarrow 45 = 2v_0 + \\frac{1}{2}(10)(4) \\Rightarrow 2v_0 = 25 \\Rightarrow v_0 = 12,5\\text{ m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-016"
+  question={<>{"Câu 16 (Vận dụng): Một quả bóng được ném xiên từ mặt đất với vận tốc ban đầu "}<Math inline>{"v_0 = 20\\text{ m/s}"}</Math>{" hợp với phương ngang một góc "}<Math inline>{"\\alpha = 45^\\circ"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tầm xa cực đại "}<Math inline>{"L_{\\max}"}</Math>{" của quả bóng trên mặt đất phẳng là"}</>}
+  options={[
+    <><Math inline>{"20\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"40\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"10\\sqrt{2}\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"80\\text{ m}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"L_{\\max} = \\frac{v_0^2 \\sin(2\\alpha)}{g} = \\frac{20^2 \\cdot \\sin 90^\\circ}{10} = \\frac{400 \\cdot 1}{10} = 40\\text{ m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-017"
+  question={<>{"Câu 17 (Vận dụng): Đồ thị biểu diễn sự phụ thuộc của độ dịch chuyển thẳng đứng "}<Math inline>{"y"}</Math>{" theo thời gian "}<Math inline>{"t"}</Math>{" của một vật rơi tự do không vận tốc đầu có dạng là Chọn gốc tọa độ tại điểm thả, chiều dương hướng xuống và gốc thời gian lúc thả."}</>}
+  options={[
+    <>{"đường thẳng đi qua gốc tọa độ "}<Math inline>{"O"}</Math>{"."}</>,
+    <>{"một nhánh parabol có đỉnh tại gốc tọa độ "}<Math inline>{"O"}</Math>{"."}</>,
+    <>{"đường thẳng song song với trục thời gian "}<Math inline>{"Ot"}</Math>{"."}</>,
+    <>{"đường hyperbol."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"y = \\frac{1}{2}gt^2"}</Math>{" có dạng nhánh parabol qua gốc "}<Math inline>{"O"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-018"
+  question={<>{"Câu 18 (Vận dụng): Hai vật "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{" được ném ngang đồng thời từ cùng một độ cao "}<Math inline>{"h"}</Math>{" với các vận tốc ban đầu lần lượt là "}<Math inline>{"v_{0A} = 10\\text{ m/s}"}</Math>{" và "}<Math inline>{"v_{0B} = 20\\text{ m/s}"}</Math>{". Bỏ qua lực cản không khí. Phát biểu nào sau đây ĐÚNG?"}</>}
+  options={[
+    <>{"Vật "}<Math inline>{"B"}</Math>{" chạm đất trước vật "}<Math inline>{"A"}</Math>{" vì có vận tốc ban đầu lớn hơn."}</>,
+    <>{"Vật "}<Math inline>{"A"}</Math>{" chạm đất trước vật "}<Math inline>{"B"}</Math>{" vì bị ném nhẹ hơn."}</>,
+    <>{"Cả hai vật "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{" chạm đất cùng một thời điểm."}</>,
+    <>{"Tầm xa của vật "}<Math inline>{"A"}</Math>{" lớn gấp đôi tầm xa của vật "}<Math inline>{"B"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Thời gian rơi "}<Math inline>{"t = \\sqrt{\\frac{2h}{g}}"}</Math>{" chỉ phụ thuộc vào độ cao "}<Math inline>{"h"}</Math>{", do đó hai vật chạm đất cùng lúc."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-019"
+  question={<>{"Câu 19 (Vận dụng cao): Một hòn đá rơi tự do từ đỉnh một tháp cao "}<Math inline>{"h"}</Math>{". Trong giây cuối cùng trước khi chạm đất, nó đi được quãng đường bằng "}<Math inline>{"\\frac{3}{4}h"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tổng thời gian rơi "}<Math inline>{"t"}</Math>{" của hòn đá là"}</>}
+  options={[
+    <><Math inline>{"1\\text{ s}"}</Math>{"."}</>,
+    <><Math inline>{"2\\text{ s}"}</Math>{"."}</>,
+    <><Math inline>{"3\\text{ s}"}</Math>{"."}</>,
+    <><Math inline>{"4\\text{ s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Gọi tổng thời gian rơi là "}<Math inline>{"t"}</Math>{". Quãng đường rơi trong "}<Math inline>{"t - 1"}</Math>{" giây đầu: "}<Math inline>{"s_{t-1} = \\frac{1}{2}g(t-1)^2"}</Math>{". Quãng đường rơi trong giây cuối: "}<Math inline>{"\\Delta s = h - s_{t-1} = \\frac{3}{4}h \\Rightarrow s_{t-1} = \\frac{1}{4}h \\Rightarrow \\frac{1}{2}g(t-1)^2 = \\frac{1}{4}\\left(\\frac{1}{2}gt^2\\right) \\Rightarrow (t-1)^2 = \\frac{1}{4}t^2 \\Rightarrow t - 1 = \\frac{1}{2}t \\Rightarrow t = 2\\text{ s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-4-exercises-020"
+  question={<>{"Câu 20 (Vận dụng cao): Một máy bay cứu hộ bay theo phương ngang ở độ cao "}<Math inline>{"h = 490\\text{ m}"}</Math>{" với tốc độ không đổi "}<Math inline>{"v_0 = 180\\text{ km/h}"}</Math>{". Người phi công cần thả gói hàng cứu trợ xuống một vị trí cố định trên mặt đất. Lấy "}<Math inline>{"g = 9,8\\text{ m/s}^2"}</Math>{". Khoảng cách theo phương ngang (khoảng cách ngắm thả) từ vị trí thả hàng đến mốc đích là"}</>}
+  options={[
+    <><Math inline>{"500\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"1000\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"250\\text{ m}"}</Math>{"."}</>,
+    <><Math inline>{"1800\\text{ m}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"v_0 = 180\\text{ km/h} = 50\\text{ m/s}"}</Math>{". Thời gian rơi gói hàng: "}<Math inline>{"t = \\sqrt{\\frac{2h}{g}} = \\sqrt{\\frac{2 \\cdot 490}{9,8}} = 10\\text{ s}"}</Math>{". Khoảng cách thả trước: "}<Math inline>{"L = v_0 t = 50 \\cdot 10 = 500\\text{ m}"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-4-exercises-021"
+  question={<>{"Câu 21: Xét một vật có khối lượng "}<Math inline>{"m = 0,5\\text{ kg}"}</Math>{" được thả rơi tự do không vận tốc đầu từ độ cao "}<Math inline>{"h = 80\\text{ m}"}</Math>{" so với mặt đất tại nơi có gia tốc trọng trường "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Bỏ qua lực cản của không khí."}</>}
+  statements={[
+    { id: "a", text: <>{"Chuyển động của vật là chuyển động thẳng nhanh dần đều với gia tốc "}<Math inline>{"a = 10\\text{ m/s}^2"}</Math>{"."}</>, isTrue: true, explanation: <>{"Rơi tự do là chuyển động thẳng nhanh dần đều với gia tốc "}<Math inline>{"a = g = 10\\text{ m/s}^2"}</Math>{"."}</> },
+    { id: "b", text: <>{"Thời gian vật rơi từ lúc thả đến khi chạm đất là "}<Math inline>{"4\\text{ s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"t = \\sqrt{\\frac{2 \\cdot 80}{10}} = 4\\text{ s}"}</Math>{"."}</> },
+    { id: "c", text: <>{"Vận tốc của vật ngay trước khi chạm đất có độ lớn là "}<Math inline>{"40\\text{ m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"v = gt = 10 \\cdot 4 = 40\\text{ m/s}"}</Math>{"."}</> },
+    { id: "d", text: <>{"Quãng đường vật đi được trong "}<Math inline>{"2\\text{ s}"}</Math>{" cuối cùng trước khi chạm đất là "}<Math inline>{"20\\text{ m}"}</Math>{"."}</>, isTrue: false, explanation: <>{"Quãng đường rơi trong 2s đầu: "}<Math inline>{"s_2 = \\frac{1}{2}(10)(2^2) = 20\\text{ m}"}</Math>{". Quãng đường rơi trong 2s cuối: "}<Math inline>{"\\Delta s = h - s_2 = 80 - 20 = 60\\text{ m}"}</Math>{" (không phải "}<Math inline>{"20\\text{ m}"}</Math>{")."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-022"
+  question={<>{"Câu 22: Từ đỉnh một tháp cao "}<Math inline>{"h = 45\\text{ m}"}</Math>{" so với mặt đất, hai viên bi thép "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{" được thả/ném đồng thời: Viên bi "}<Math inline>{"A"}</Math>{" được thả rơi tự do; viên bi "}<Math inline>{"B"}</Math>{" được ném theo phương ngang với vận tốc ban đầu "}<Math inline>{"v_0 = 20\\text{ m/s}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{"."}</>}
+  statements={[
+    { id: "a", text: <>{"Viên bi "}<Math inline>{"A"}</Math>{" chạm đất trước viên bi "}<Math inline>{"B"}</Math>{" vì nó di chuyển theo đường thẳng ngắn nhất."}</>, isTrue: false, explanation: <>{"Thời gian rơi của cả hai viên bi bằng nhau "}<Math inline>{"t = \\sqrt{\\frac{2h}{g}}"}</Math>{", nên hai viên bi chạm đất cùng lúc."}</> },
+    { id: "b", text: <>{"Thời gian chuyển động của viên bi "}<Math inline>{"B"}</Math>{" từ lúc ném đến khi chạm đất là "}<Math inline>{"3\\text{ s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"t=\\sqrt{2h/g}=\\sqrt{2\\cdot45/10}=3\\,\\mathrm{s}"}</Math>{", nên mệnh đề đúng."}</> },
+    { id: "c", text: <>{"Tầm xa theo phương ngang của viên bi "}<Math inline>{"B"}</Math>{" đạt được là "}<Math inline>{"60\\text{ m}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"L = v_0 t = 20 \\cdot 3 = 60\\text{ m}"}</Math>{"."}</> },
+    { id: "d", text: <>{"Ngay trước khi chạm đất, độ lớn vận tốc của viên bi "}<Math inline>{"B"}</Math>{" gấp đôi vận tốc của viên bi "}<Math inline>{"A"}</Math>{"."}</>, isTrue: false, explanation: <>{"Vận tốc "}<Math inline>{"A"}</Math>{": "}<Math inline>{"v_A = gt = 30\\text{ m/s}"}</Math>{". Vận tốc "}<Math inline>{"B"}</Math>{": "}<Math inline>{"v_B = \\sqrt{v_0^2 + (gt)^2} = \\sqrt{20^2 + 30^2} = 10\\sqrt{13} \\approx 36,06\\text{ m/s} \\ne 2v_A"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-023"
+  question={<>{"Câu 23: Mô hình phân tích chuyển động ném ngang trong mặt phẳng "}<Math inline>{"Oxy"}</Math>{" (trục "}<Math inline>{"Ox"}</Math>{" nằm ngang, trục "}<Math inline>{"Oy"}</Math>{" thẳng đứng hướng xuống, gốc "}<Math inline>{"O"}</Math>{" tại điểm ném ở độ cao "}<Math inline>{"h"}</Math>{")."}</>}
+  statements={[
+    { id: "a", text: <>{"Gia tốc của vật theo phương "}<Math inline>{"Ox"}</Math>{" là "}<Math inline>{"a_x = 0"}</Math>{" và theo phương "}<Math inline>{"Oy"}</Math>{" là "}<Math inline>{"a_y = g"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"a_x = 0"}</Math>{" (chuyển động thẳng đều) và "}<Math inline>{"a_y = g"}</Math>{" (rơi tự do)."}</> },
+    { id: "b", text: <>{"Thành phần vận tốc theo phương ngang "}<Math inline>{"v_x"}</Math>{" tăng dần theo thời gian "}<Math inline>{"t"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"v_x = v_0 = \\text{const}"}</Math>{" không đổi theo thời gian."}</> },
+    { id: "c", text: <>{"Phương trình chuyển động theo phương thẳng đứng là "}<Math inline>{"y = \\frac{1}{2}gt^2"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"y = \\frac{1}{2}gt^2"}</Math>{"."}</> },
+    { id: "d", text: <>{"Dạng quỹ đạo "}<Math inline>{"y = \\frac{g}{2v_0^2}x^2"}</Math>{" cho thấy nếu tăng vận tốc ném ban đầu "}<Math inline>{"v_0"}</Math>{", tại cùng một hoành độ "}<Math inline>{"x > 0"}</Math>{", độ hạ thấp "}<Math inline>{"y"}</Math>{" nhỏ hơn và quỹ đạo thoải hơn; vật vẫn đi xuống so với điểm ném."}</>, isTrue: true, explanation: <>{"Với cùng "}<Math inline>{"x"}</Math>{", tăng "}<Math inline>{"v_0"}</Math>{" làm "}<Math inline>{"y= gx^2/(2v_0^2)"}</Math>{" giảm. Vật hạ thấp ít hơn tại hoành độ đó, không phải chuyển động đi lên. Tầm xa tăng nếu giữ nguyên độ cao ném."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-024"
+  question={<>{"Câu 24: Một quả bóng đá được cầu thủ sút từ mặt đất với vận tốc ban đầu "}<Math inline>{"v_0 = 20\\text{ m/s}"}</Math>{" hợp với mặt đất nằm ngang một góc "}<Math inline>{"\\alpha = 30^\\circ"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{" và bỏ qua sức cản không khí."}</>}
+  statements={[
+    { id: "a", text: <>{"Thành phần vận tốc ban đầu theo phương ngang là "}<Math inline>{"v_{0x} = 10\\sqrt{3}\\text{ m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"v_{0x} = v_0 \\cos 30^\\circ = 20 \\cdot \\frac{\\sqrt{3}}{2} = 10\\sqrt{3}\\text{ m/s}"}</Math>{"."}</> },
+    { id: "b", text: <>{"Thời gian để quả bóng đạt tới tầm cao cực đại là "}<Math inline>{"1\\text{ s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"t_{\\mathrm{dinh}} = \\frac{v_0 \\sin 30^\\circ}{g} = \\frac{20 \\cdot 0,5}{10} = 1\\text{ s}"}</Math>{"."}</> },
+    { id: "c", text: <>{"Tầm cao cực đại "}<Math inline>{"H_{\\max}"}</Math>{" mà quả bóng đạt được là "}<Math inline>{"10\\text{ m}"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"H_{\\max} = \\frac{(v_0 \\sin 30^\\circ)^2}{2g} = \\frac{10^2}{20} = 5\\text{ m}"}</Math>{" (không phải "}<Math inline>{"10\\text{ m}"}</Math>{")."}</> },
+    { id: "d", text: <>{"Tầm xa "}<Math inline>{"L"}</Math>{" của quả bóng trên mặt đất xấp xỉ "}<Math inline>{"34,6\\text{ m}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"L = \\frac{v_0^2 \\sin 60^\\circ}{g} = \\frac{400 \\cdot \\sqrt{3}/2}{10} = 20\\sqrt{3} \\approx 34,64\\text{ m}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-025"
+  question={<>{"Câu 25: Hiện tượng giọt nước mưa rơi thẳng đứng trong không khí đứng yên. Xét mô hình gồm trọng lực và lực cản, bỏ qua lực đẩy nổi. Ở ý d, giả sử giọt mưa được thả từ trạng thái nghỉ và lấy "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: "a", text: <>{"Giọt nước mưa trong không khí là một ví dụ hoàn hảo về chuyển động rơi tự do."}</>, isTrue: false, explanation: <>{"Trong không khí thực tế, giọt mưa còn chịu lực cản nên không phải ví dụ hoàn hảo về rơi tự do."}</> },
+    { id: "b", text: <>{"Khi rơi trong không khí, giọt nước mưa chịu tác dụng của hai lực ngược chiều: trọng lực "}<Math inline>{"\\vec{P}"}</Math>{" (hướng xuống) và lực cản không khí "}<Math inline>{"\\vec{F}_c"}</Math>{" (hướng lên)."}</>, isTrue: true, explanation: <>{"Hai lực ngược chiều là trọng lực "}<Math inline>{"\\vec{P}"}</Math>{" và lực cản "}<Math inline>{"\\vec{F}_c"}</Math>{"."}</> },
+    { id: "c", text: <>{"Khi độ lớn lực cản không khí tăng đến mức cân bằng với trọng lực ("}<Math inline>{"F_c = P"}</Math>{"), gia tốc của giọt nước mưa bằng "}<Math inline>{"0"}</Math>{" và nó chuyển động thẳng đều với \"tốc độ tới hạn\" (terminal speed)."}</>, isTrue: true, explanation: <>{"Khi "}<Math inline>{"F_c = P \\Rightarrow F_{hl} = 0 \\Rightarrow a = 0"}</Math>{", giọt mưa đạt tốc độ tới hạn."}</> },
+    { id: "d", text: <>{"Nếu không có không khí cản trở, các giọt mưa rơi từ mây cao "}<Math inline>{"2000\\text{ m}"}</Math>{" sẽ chạm đất với tốc độ khoảng "}<Math inline>{"200\\text{ m/s}"}</Math>{" (xấp xỉ "}<Math inline>{"720\\text{ km/h}"}</Math>{")."}</>, isTrue: true, explanation: <>{"Nếu rơi tự do từ "}<Math inline>{"2000\\text{ m}"}</Math>{": "}<Math inline>{"v = \\sqrt{2gh} = \\sqrt{2 \\cdot 10 \\cdot 2000} = 200\\text{ m/s} = 720\\text{ km/h}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-026"
+  question={<>{"Câu 26 (Nghịch lý Halliday - Thợ săn và Con khỉ): Một người thợ săn ngắm bắn thẳng vào một con khỉ đang treo mình trên cành cây ở độ cao "}<Math inline>{"h"}</Math>{". Ngay tại thời điểm viên đạn rời khỏi nòng súng với vận tốc "}<Math inline>{"v_0"}</Math>{", con khỉ buông tay rơi tự do xuống dưới. Bỏ qua lực cản không khí."}</>}
+  statements={[
+    { id: "a", text: <>{"Viên đạn sẽ bay phía trên đầu con khỉ vì con khỉ đã rơi xuống thấp hơn."}</>, isTrue: false, explanation: <>{"Hai vật cùng hạ thấp "}<Math inline>{"gt^2/2"}</Math>{" so với vị trí tương ứng nếu không có trọng lực. Chúng gặp nhau nếu chuyển động gặp còn diễn ra trước khi chạm đất; không thể kết luận đạn luôn bay phía trên."}</> },
+    { id: "b", text: <>{"Trong suốt quá trình bay, độ hạ thấp do trọng trường gây ra của viên đạn và con khỉ so với đường ngắm ban đầu là hoàn toàn bằng nhau tại mọi thời điểm "}<Math inline>{"t"}</Math>{" ("}<Math inline>{"\\Delta y = \\frac{1}{2}gt^2"}</Math>{")."}</>, isTrue: true, explanation: <>{"Độ rơi tự do của cả hai so với đường ngắm ban đầu đều là "}<Math inline>{"\\Delta y = \\frac{1}{2}gt^2"}</Math>{"."}</> },
+    { id: "c", text: <>{"Viên đạn chắc chắn sẽ trúng con khỉ, miễn là vận tốc ban đầu "}<Math inline>{"v_0"}</Math>{" đủ lớn để đạn tới vị trí con khỉ trước khi nó chạm đất."}</>, isTrue: true, explanation: <>{"Đạn chắc chắn trúng khỉ nếu đạn tới vị trí "}<Math inline>{"x_0"}</Math>{" trước khi khỉ chạm đất."}</> },
+    { id: "d", text: <>{"Kết quả viên đạn trúng khỉ phụ thuộc vào khối lượng của con khỉ."}</>, isTrue: false, explanation: <>{"Chuyển động rơi không phụ thuộc vào khối lượng của con khỉ."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-027"
+  question={<>{"Câu 27: Một bi sắt được thả rơi tự do từ độ cao "}<Math inline>{"H"}</Math>{". Gọi "}<Math inline>{"v(t)"}</Math>{", "}<Math inline>{"y(t)"}</Math>{", "}<Math inline>{"a(t)"}</Math>{" lần lượt là vận tốc, độ dịch chuyển thẳng đứng và gia tốc của bi sắt tại thời điểm "}<Math inline>{"t"}</Math>{". Chọn chiều dương hướng xuống, gốc tọa độ tại điểm thả và "}<Math inline>{"t=0"}</Math>{" lúc thả."}</>}
+  statements={[
+    { id: "a", text: <>{"Đồ thị "}<Math inline>{"a(t)"}</Math>{" theo thời gian "}<Math inline>{"t"}</Math>{" là một đường thẳng song song với trục thời gian "}<Math inline>{"Ot"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"a(t) = g = \\text{const}"}</Math>{" nằm ngang."}</> },
+    { id: "b", text: <>{"Đồ thị "}<Math inline>{"v(t)"}</Math>{" theo thời gian "}<Math inline>{"t"}</Math>{" là một đường thẳng đi qua gốc tọa độ với độ dốc bằng "}<Math inline>{"g"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"v(t) = gt"}</Math>{" là đường thẳng qua gốc "}<Math inline>{"O"}</Math>{" có hệ số góc "}<Math inline>{"g"}</Math>{"."}</> },
+    { id: "c", text: <>{"Đồ thị "}<Math inline>{"y(t)"}</Math>{" theo thời gian "}<Math inline>{"t"}</Math>{" là một đường thẳng có hệ số góc bằng "}<Math inline>{"g/2"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"y(t) = \\frac{1}{2}gt^2"}</Math>{" là một đường parabol, không phải đường thẳng."}</> },
+    { id: "d", text: <>{"Diện tích hình phẳng dưới đồ thị "}<Math inline>{"v - t"}</Math>{" từ "}<Math inline>{"t = 0"}</Math>{" đến "}<Math inline>{"t = t_1"}</Math>{" đại diện cho quãng đường rơi "}<Math inline>{"s"}</Math>{" trong khoảng thời gian đó."}</>, isTrue: true, explanation: <>{"Diện tích dưới đồ thị "}<Math inline>{"v - t"}</Math>{" chính là độ dịch chuyển/quãng đường rơi "}<Math inline>{"s"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-028"
+  question={<>{"Câu 28: Quy tắc tỷ lệ Galilei trong rơi tự do không vận tốc đầu."}</>}
+  statements={[
+    { id: "a", text: <>{"Trong các khoảng thời gian bằng nhau liên tiếp "}<Math inline>{"\\Delta t"}</Math>{", quãng đường vật rơi tự do đi được tỉ lệ với các số tự nhiên "}<Math inline>{"1, 2, 3, 4..."}</Math></>, isTrue: false, explanation: <>{"Tỉ lệ với các số lẻ liên tiếp, không phải số tự nhiên."}</> },
+    { id: "b", text: <>{"Tỉ lệ quãng đường đi được trong các khoảng thời gian "}<Math inline>{"\\Delta t"}</Math>{" bằng nhau liên tiếp là "}<Math inline>{"1 : 3 : 5 : 7 : 9..."}</Math>{" (dãy số lẻ liên tiếp)."}</>, isTrue: true, explanation: <><Math inline>{"1 : 3 : 5 : 7 : 9..."}</Math></> },
+    { id: "c", text: <>{"Quãng đường tổng cộng rơi được sau các khoảng thời gian "}<Math inline>{"1\\Delta t, 2\\Delta t, 3\\Delta t..."}</Math>{" tỉ lệ với "}<Math inline>{"1 : 4 : 9 : 16..."}</Math>{" (bình phương các số tự nhiên)."}</>, isTrue: true, explanation: <><Math inline>{"s_{t} = \\frac{1}{2}gt^2"}</Math>{" nên tổng quãng đường tỉ lệ với "}<Math inline>{"t^2"}</Math>{" tức "}<Math inline>{"1 : 4 : 9 : 16..."}</Math></> },
+    { id: "d", text: <>{"Quy tắc tỷ lệ này chỉ đúng khi gia tốc "}<Math inline>{"g"}</Math>{" thay đổi theo thời gian."}</>, isTrue: false, explanation: <>{"Quy tắc này nghiệm đúng khi gia tốc "}<Math inline>{"g"}</Math>{" là HẰNG SỐ."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-029"
+  question={<>{"Câu 29: Một vận động viên nhảy xa rời mặt đất với vận tốc "}<Math inline>{"v_0 = 10\\text{ m/s}"}</Math>{" hợp với phương ngang góc "}<Math inline>{"\\alpha = 45^\\circ"}</Math>{". Coi vận động viên là chất điểm ném xiên, bỏ qua lực cản và giả sử điểm rơi cùng độ cao với điểm xuất phát. Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{"."}</>}
+  statements={[
+    { id: "a", text: <>{"Tầm xa nhảy của vận động viên theo lý thuyết lý tưởng là "}<Math inline>{"10\\text{ m}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"L_{\\max} = \\frac{v_0^2 \\sin 90^\\circ}{g} = \\frac{100}{10} = 10\\text{ m}"}</Math>{"."}</> },
+    { id: "b", text: <>{"Thời gian vận động viên bay trên không trung là "}<Math inline>{"1\\text{ s}"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"T = \\frac{2v_0 \\sin 45^\\circ}{g} = \\frac{2 \\cdot 10 \\cdot \\frac{\\sqrt{2}}{2}}{10} = \\sqrt{2} \\approx 1,41\\text{ s}"}</Math>{"."}</> },
+    { id: "c", text: <>{"Tại điểm cao nhất của cú nhảy, gia tốc của vận động viên bằng "}<Math inline>{"0"}</Math>{"."}</>, isTrue: false, explanation: <>{"Tại đỉnh cao nhất gia tốc vẫn là "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{" hướng xuống."}</> },
+    { id: "d", text: <>{"Vận tốc của vận động viên tại đỉnh cao nhất là "}<Math inline>{"5\\sqrt{2}\\text{ m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"v_{\\mathrm{dinh}} = v_{0x} = v_0 \\cos 45^\\circ = 10 \\cdot \\frac{\\sqrt{2}}{2} = 5\\sqrt{2}\\text{ m/s}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-4-exercises-030"
+  question={<>{"Câu 30: Phân tích thực hành đo gia tốc trọng trường "}<Math inline>{"g"}</Math>{" bằng bộ dụng cụ rơi tự do cổng quang điện kết hợp đồng hồ đo thời gian hiện số."}</>}
+  statements={[
+    { id: "a", text: <>{"Bộ dụng cụ gồm: nam điện từ giữ vật, cổng quang điện, thước đo độ cao "}<Math inline>{"h"}</Math>{" và đồng hồ hiện số."}</>, isTrue: true, explanation: <>{"Bộ dụng cụ chuẩn gồm nam điện từ, cổng quang, thước và đồng hồ hiện số."}</> },
+    { id: "b", text: <>{"Để giảm sai số, cần đo thời gian rơi "}<Math inline>{"t"}</Math>{" ở cùng một độ cao "}<Math inline>{"h"}</Math>{" nhiều lần (thường 5 lần) để tính giá trị trung bình "}<Math inline>{"\\bar{t}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Đo nhiều lần để giảm sai số ngẫu nhiên."}</> },
+    { id: "c", text: <>{"Gia tốc trọng trường trung bình được tính theo công thức "}<Math inline>{"\\bar{g} = \\frac{2\\bar{h}}{\\bar{t}^2}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Từ "}<Math inline>{"h = \\frac{1}{2}gt^2 \\Rightarrow \\bar{g} = \\frac{2\\bar{h}}{\\bar{t}^2}"}</Math>{"."}</> },
+    { id: "d", text: <>{"Lực cản của không khí và sai số đọc độ cao trên thước là những nguyên nhân có thể gây ra sai số phép đo."}</>, isTrue: true, explanation: <>{"Lực cản, sai số đo độ cao, độ trễ nhả vật, căn chỉnh cổng quang và sai số đồng hồ đều có thể ảnh hưởng kết quả. Đo lặp giúp đánh giá phần ngẫu nhiên nhưng không loại bỏ hết sai số hệ thống."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả dạng số theo đơn vị và cách làm tròn trong đề; bấm **Xem lời giải** để tự đối chiếu.
+
+<QuizShort
+  id="bai-4-exercises-031"
+  question={<>{"Câu 31: Một hòn đá được thả rơi tự do không vận tốc đầu từ độ cao "}<Math inline>{"h = 45\\text{ m}"}</Math>{" so với mặt đất. Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính thời gian rơi "}<Math inline>{"t"}</Math>{" của hòn đá cho đến khi chạm đất (đơn vị: giây)."}</>}
+  answer={"3"}
+  explanation={<><Math inline>{"t = \\sqrt{\\frac{2h}{g}} = \\sqrt{\\frac{2 \\cdot 45}{10}} = \\sqrt{9} = 3\\text{ s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-032"
+  question={<>{"Câu 32: Một vật rơi tự do từ một vị trí trên cao. Khi chạm đất, vật đạt tốc độ "}<Math inline>{"v = 30\\text{ m/s}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính độ cao "}<Math inline>{"h"}</Math>{" nơi thả vật (đơn vị: mét)."}</>}
+  answer={"45"}
+  explanation={<><Math inline>{"h = \\frac{v^2}{2g} = \\frac{30^2}{2 \\cdot 10} = 45\\text{ m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-033"
+  question={<>{"Câu 33: Thả rơi tự do một vật từ độ cao "}<Math inline>{"h = 80\\text{ m}"}</Math>{" so với mặt đất. Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính quãng đường vật rơi được trong "}<Math inline>{"1\\text{ s}"}</Math>{" cuối cùng trước khi chạm đất (đơn vị: mét)."}</>}
+  answer={"35"}
+  explanation={<>{"Tổng thời gian rơi "}<Math inline>{"t = \\sqrt{\\frac{2 \\cdot 80}{10}} = 4\\text{ s}"}</Math>{". Quãng đường rơi trong 3s đầu: "}<Math inline>{"s_3 = \\frac{1}{2}(10)(3^2) = 45\\text{ m}"}</Math>{". Quãng đường rơi trong 1s cuối: "}<Math inline>{"\\Delta s = 80 - 45 = 35\\text{ m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-034"
+  question={<>{"Câu 34: Một hòn bi thép được ném ngang từ độ cao "}<Math inline>{"h = 20\\text{ m}"}</Math>{" với tốc độ ban đầu "}<Math inline>{"v_0 = 15\\text{ m/s}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính tầm xa "}<Math inline>{"L"}</Math>{" của hòn bi thép trên mặt đất (đơn vị: mét)."}</>}
+  answer={"30"}
+  explanation={<><Math inline>{"t = \\sqrt{\\frac{2 \\cdot 20}{10}} = 2\\text{ s} \\Rightarrow L = v_0 t = 15 \\cdot 2 = 30\\text{ m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-035"
+  question={<>{"Câu 35: Một vật được ném ngang từ độ cao "}<Math inline>{"h = 45\\text{ m}"}</Math>{". Biết rằng khi chạm đất, vật đạt tầm xa "}<Math inline>{"L = 60\\text{ m}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính tốc độ ném ban đầu "}<Math inline>{"v_0"}</Math>{" của vật (đơn vị: m/s)."}</>}
+  answer={"20"}
+  explanation={<><Math inline>{"t = \\sqrt{\\frac{2 \\cdot 45}{10}} = 3\\text{ s} \\Rightarrow v_0 = \\frac{L}{t} = \\frac{60}{3} = 20\\text{ m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-036"
+  question={<>{"Câu 36: Ném ngang một quả bóng từ độ cao "}<Math inline>{"h = 20\\text{ m}"}</Math>{" với vận tốc ban đầu "}<Math inline>{"v_0 = 10\\text{ m/s}"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính độ lớn vận tốc "}<Math inline>{"v"}</Math>{" của quả bóng ngay khi chạm đất (làm tròn kết quả đến 1 chữ số thập phân, đơn vị: m/s)."}</>}
+  answer={"22,4"}
+  explanation={<><Math inline>{"t = \\sqrt{\\frac{2 \\cdot 20}{10}} = 2\\text{ s}"}</Math>{". Thành phần "}<Math inline>{"v_y = gt = 10 \\cdot 2 = 20\\text{ m/s}"}</Math>{". Vận tốc chạm đất: "}<Math inline>{"v = \\sqrt{v_0^2 + v_y^2} = \\sqrt{10^2 + 20^2} = \\sqrt{500} \\approx 22,36 \\approx 22,4\\text{ m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-037"
+  question={<>{"Câu 37: Một quả bóng được cầu thủ sút ném xiên với vận tốc ban đầu "}<Math inline>{"v_0 = 20\\text{ m/s}"}</Math>{" hợp với phương ngang góc "}<Math inline>{"\\alpha = 45^\\circ"}</Math>{". Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính tầm xa "}<Math inline>{"L"}</Math>{" của quả bóng (đơn vị: mét)."}</>}
+  answer={"40"}
+  explanation={<><Math inline>{"L = \\frac{v_0^2 \\sin(2\\alpha)}{g} = \\frac{20^2 \\cdot \\sin 90^\\circ}{10} = 40\\text{ m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-038"
+  question={<>{"Câu 38: Thả một hòn đá rơi tự do xuống một giếng sâu thẳng đứng. Sau thời gian "}<Math inline>{"t = 3,25\\text{ s}"}</Math>{" kể từ lúc thả, người ta nghe thấy tiếng đá chạm đáy giếng vang lên. Biết tốc độ truyền âm trong không khí là "}<Math inline>{"v_{\\mathrm{am}} = 340\\text{ m/s}"}</Math>{" và "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{". Tính chiều sâu "}<Math inline>{"H"}</Math>{" của giếng (đơn vị: mét, làm tròn đến hàng đơn vị)."}</>}
+  answer={"48"}
+  explanation={<>{"Gọi "}<Math inline>{"t_1"}</Math>{" là thời gian rơi, "}<Math inline>{"t_2"}</Math>{" là thời gian âm truyền lên. Khi đó "}<Math inline>{"H=5t_1^2=340t_2"}</Math>{" và "}<Math inline>{"t_1+t_2=3{,}25"}</Math>{". Suy ra "}<Math inline>{"5t_1^2+340t_1-1105=0"}</Math>{". Lấy nghiệm dương "}<Math inline>{"t_1\\approx3{,}10795\\,\\mathrm{s}"}</Math>{", được "}<Math inline>{"H\\approx48{,}2968\\,\\mathrm{m}"}</Math>{". Làm tròn đến hàng đơn vị: "}<Math inline>{"48\\,\\mathrm{m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-039"
+  question={<>{"Câu 39: Hai vật "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{" được thả rơi tự do không vận tốc đầu từ hai độ cao khác nhau: Vật "}<Math inline>{"A"}</Math>{" từ độ cao "}<Math inline>{"h_1 = 180\\text{ m}"}</Math>{", vật "}<Math inline>{"B"}</Math>{" từ độ cao "}<Math inline>{"h_2 = 80\\text{ m}"}</Math>{". Để hai vật chạm đất cùng một lúc, vật "}<Math inline>{"B"}</Math>{" phải được thả sau vật "}<Math inline>{"A"}</Math>{" một khoảng thời gian "}<Math inline>{"\\Delta t"}</Math>{" bằng bao nhiêu giây? (Lấy "}<Math inline>{"g = 10\\text{ m/s}^2"}</Math>{")."}</>}
+  answer={"2"}
+  explanation={<>{"Thời gian rơi vật A: "}<Math inline>{"t_A = \\sqrt{\\frac{2 \\cdot 180}{10}} = 6\\text{ s}"}</Math>{". Thời gian rơi vật B: "}<Math inline>{"t_B = \\sqrt{\\frac{2 \\cdot 80}{10}} = 4\\text{ s}"}</Math>{". Để chạm đất cùng lúc, B thả sau A: "}<Math inline>{"\\Delta t = t_A - t_B = 6 - 4 = 2\\text{ s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-4-exercises-040"
+  question={<>{"Câu 40: Trong bài thực hành đo gia tốc trọng trường "}<Math inline>{"g"}</Math>{" bằng hệ thống cổng quang điện kép: Tấm chắn sáng có bề rộng "}<Math inline>{"d = 2\\text{ cm} = 0,02\\text{ m}"}</Math>{" rơi đi qua cổng quang điện 1 với thời gian chắn sáng "}<Math inline>{"\\Delta t_1 = 0,020\\text{ s}"}</Math>{" và qua cổng quang điện 2 với thời gian "}<Math inline>{"\\Delta t_2 = 0,010\\text{ s}"}</Math>{". Khoảng cách giữa hai cổng quang điện là "}<Math inline>{"s = 0,375\\text{ m}"}</Math>{". Tính gia tốc trọng trường "}<Math inline>{"g"}</Math>{" đo được từ thí nghiệm (đơn vị: "}<Math inline>{"\\text{m/s}^2"}</Math>{"). Dùng xấp xỉ tốc độ tại mỗi cổng "}<Math inline>{"v_i \\approx d/\\Delta t_i"}</Math>{"."}</>}
+  answer={"4,0"}
+  explanation={<><Math inline>{"v_1\\approx0{,}02/0{,}020=1\\,\\mathrm{m/s}"}</Math>{" và "}<Math inline>{"v_2\\approx0{,}02/0{,}010=2\\,\\mathrm{m/s}"}</Math>{". Theo xấp xỉ của đề, "}<Math inline>{"g\\approx(v_2^2-v_1^2)/(2s)=(4-1)/(2\\cdot0{,}375)=4{,}0\\,\\mathrm{m/s^2}"}</Math>{". Đây là kết quả từ số liệu đã cho, không phải "}<Math inline>{"9{,}6\\,\\mathrm{m/s^2}"}</Math>{". Giá trị lệch nhiều so với gia tốc trọng trường gần mặt đất, nên cần kiểm tra lại số liệu và thiết lập thí nghiệm trước khi chấp nhận phép đo."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+Trình bày cách chọn hệ trục, công thức, phép tính và kết luận trước khi mở lời giải.
+
+<div data-question-id="bai-4-exercises-041" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 41. Máy bay cứu trợ — Ném ngang</h3>
+
+Máy bay cứu trợ bay ngang ở độ cao $h=500\,\mathrm{m}$ với tốc độ không đổi $v_0=180\,\mathrm{km/h}=50\,\mathrm{m/s}$. Máy bay cần thả gói hàng xuống một mốc trên đảo. Lấy $g=10\,\mathrm{m/s^2}$, bỏ qua sức cản không khí.
+
+- **a)** Lập phương trình chuyển động. Chọn gốc $O$ tại vị trí thả, $Ox$ theo hướng bay, $Oy$ thẳng đứng xuống dưới và $t=0$ lúc thả.
+- **b)** Tính thời gian rơi và tầm xa. Phi công phải thả hàng khi cách mốc bao xa theo phương ngang?
+- **c)** Tính độ lớn vận tốc và góc nghiêng của vận tốc so với phương ngang ngay trước khi chạm đất.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 41</summary>
+
+**a)** Gói hàng giữ vận tốc ngang ban đầu của máy bay; vận tốc ban đầu theo phương thẳng đứng bằng 0:
+
+$$
+x=v_0t=50t,\qquad y=\frac12gt^2=5t^2.
+$$
+
+Trong các phương trình trên, $t$ tính bằng giây, $x,y$ tính bằng mét.
+
+**b)** Chạm đất khi $y=h$:
+
+$$
+T=\sqrt{\frac{2h}{g}}=\sqrt{\frac{2\cdot500}{10}}=10\,\mathrm{s},
+\qquad L=v_0T=50\cdot10=500\,\mathrm{m}.
+$$
+
+Phải thả hàng **trước mốc 500 m theo phương ngang**, khi đường bay hướng về mốc.
+
+**c)** Ngay trước khi chạm đất:
+
+$$
+v_x=50\,\mathrm{m/s},\qquad v_y=gT=100\,\mathrm{m/s}.
+$$
+
+$$
+v=\sqrt{v_x^2+v_y^2}=50\sqrt5\approx111{,}8\,\mathrm{m/s}.
+$$
+
+$$
+\tan\beta=\frac{v_y}{v_x}=2\quad\Rightarrow\quad\beta\approx63{,}4^\circ.
+$$
+
+Vận tốc hướng chếch xuống, hợp với phương ngang góc $63{,}4^\circ$.
+
+</details>
+</div>
+
+<div data-question-id="bai-4-exercises-042" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 42. Chứng minh tỉ lệ Galilei</h3>
+
+Một vật được thả rơi tự do từ trạng thái nghỉ dưới tác dụng của gia tốc trọng trường không đổi $g$.
+
+- **a)** Gọi $s_n$ là quãng đường trong khoảng thời gian thứ $n$, mỗi khoảng dài $\Delta t$. Chứng minh $s_n=\frac12g(2n-1)(\Delta t)^2$. Suy ra công thức cho giây thứ $n$ khi $\Delta t=1\,\mathrm{s}$.
+- **b)** Chứng minh tỉ lệ $s_1:s_2:s_3:\cdots:s_n=1:3:5:\cdots:(2n-1)$.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 42</summary>
+
+**a)** Quãng đường tổng cộng đến thời điểm $t$ là $s(t)=\frac12gt^2$. Quãng đường trong khoảng thứ $n$ bằng hiệu hai quãng đường tích lũy:
+
+$$
+s_n=s(n\Delta t)-s((n-1)\Delta t).
+$$
+
+$$
+s_n=\frac12g\left[n^2-(n-1)^2\right](\Delta t)^2
+=\frac12g(2n-1)(\Delta t)^2.
+$$
+
+Với $\Delta t=1\,\mathrm{s}$, giá trị số theo đơn vị SI thường được viết gọn $s_n=\frac12g(2n-1)$; thừa số $(1\,\mathrm{s})^2$ được hiểu ngầm.
+
+**b)** Thay lần lượt $n=1,2,3,\ldots$:
+
+$$
+s_1=\frac12g(\Delta t)^2,\quad
+s_2=3\frac12g(\Delta t)^2,\quad
+s_3=5\frac12g(\Delta t)^2.
+$$
+
+Chia cho thừa số chung $\frac12g(\Delta t)^2$:
+
+$$
+s_1:s_2:s_3:\cdots:s_n=1:3:5:\cdots:(2n-1).
+$$
+
+Quy tắc áp dụng cho các khoảng thời gian bằng nhau liên tiếp tính từ lúc thả, khi vận tốc đầu bằng 0 và $g$ không đổi.
+
+</details>
+</div>
+
+<div data-question-id="bai-4-exercises-043" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 43. Cú sút phạt — Kiểm tra giới hạn mô hình</h3>
+
+Cầu thủ sút bóng từ mặt đất cách khung thành $20\,\mathrm{m}$. Bóng rời chân với $v_0=15\,\mathrm{m/s}$, góc ném $\alpha=30^\circ$. Xà ngang cao $2{,}44\,\mathrm{m}$. Lấy $g=10\,\mathrm{m/s^2}$, bỏ qua sức cản và coi bóng là chất điểm.
+
+- **a)** Viết phương trình quỹ đạo $y(x)$, với gốc tại điểm sút, $Ox$ hướng về khung thành và $Oy$ hướng lên.
+- **b)** Tính giá trị $y(20)$ theo phương trình. Bóng bay vào lưới trực tiếp, vượt xà hay chạm đất trước khung thành?
+- **c)** Có thể xác định vận tốc thực tế khi bóng qua vạch khung thành chỉ từ dữ kiện đã cho không? Tính vận tốc của mô hình kéo dài đến $x=20\,\mathrm{m}$ và giải thích giới hạn của kết quả đó.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 43</summary>
+
+**a)** Từ $x=v_0\cos\alpha\,t$ và $y=v_0\sin\alpha\,t-\frac12gt^2$, khử $t$:
+
+$$
+y=x\tan\alpha-\frac{gx^2}{2v_0^2\cos^2\alpha}
+=\frac{x}{\sqrt3}-\frac{x^2}{33{,}75}.
+$$
+
+Biểu thức số dùng $x,y$ theo mét, chỉ mô tả chuyển động bay trước khi chạm đất.
+
+**b)** Thay $x=20$:
+
+$$
+y(20)=\frac{20}{\sqrt3}-\frac{400}{33{,}75}
+\approx-0{,}305\,\mathrm{m}.
+$$
+
+Giá trị âm cho thấy điểm này nằm trên **phần kéo dài toán học dưới mặt sân**. Tầm xa thực tế trước lần chạm đất đầu tiên là:
+
+$$
+L=\frac{v_0^2\sin(2\alpha)}{g}
+=\frac{225\sin60^\circ}{10}\approx19{,}486\,\mathrm{m}<20\,\mathrm{m}.
+$$
+
+Bóng chạm đất trước vạch khung thành khoảng $0{,}514\,\mathrm{m}$, nên không bay vào lưới trực tiếp và cũng không vượt xà trong lần bay này.
+
+**c)** Thời gian bay đến lần chạm đất đầu tiên là $T=2v_0\sin30^\circ/g=1{,}5\,\mathrm{s}$. Nếu kéo dài mô hình ném xiên đến $x=20\,\mathrm{m}$:
+
+$$
+t_* = \frac{20}{15\cos30^\circ}\approx1{,}5396\,\mathrm{s}>T.
+$$
+
+$$
+v_x=15\cos30^\circ\approx12{,}99\,\mathrm{m/s},
+\qquad v_y=7{,}5-10t_*\approx-7{,}90\,\mathrm{m/s}.
+$$
+
+$$
+|\vec v_*|\approx\sqrt{12{,}99^2+7{,}90^2}\approx15{,}2\,\mathrm{m/s}.
+$$
+
+Đây **không phải vận tốc thực tế tại vạch khung thành**. Sau khi chạm đất, bóng có thể nảy hoặc lăn; đề chưa cho quy luật va chạm và ma sát nên không đủ dữ kiện tính vận tốc đó. Ngay trước lần chạm đất đầu tiên, $v_y=-7{,}5\,\mathrm{m/s}$ và tốc độ bằng $15\,\mathrm{m/s}$.
+
+</details>
+</div>
+
+<div data-question-id="bai-4-exercises-044" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 44. Thí nghiệm tưởng tượng “Thợ săn và con khỉ”</h3>
+
+Trong mô hình lý tưởng, người thợ săn ngắm thẳng vào con khỉ đang treo tại $(x_0,y_0)$. Chọn $O$ tại đầu nòng súng, $Ox$ nằm ngang về phía cây, $Oy$ hướng lên. Lúc $t=0$, viên đạn rời nòng với tốc độ $v_0$, góc $\alpha$ thỏa mãn $\tan\alpha=y_0/x_0$; đồng thời con khỉ buông tay rơi tự do. Bỏ qua sức cản.
+
+- **a)** Viết phương trình chuyển động của hai vật.
+- **b)** Chứng minh hai tung độ bằng nhau tại $t_*=x_0/(v_0\cos\alpha)$, với điều kiện hai vật vẫn đang chuyển động tự do.
+- **c)** Cho $x_0=30\,\mathrm{m}$, $y_0=10\,\mathrm{m}$, $g=10\,\mathrm{m/s^2}$. Trong phần này, giả sử mặt đất là $y=0$. Tìm ngưỡng tốc độ để gặp nhau khi $y\ge0$, và phân biệt với yêu cầu gặp **trước** khi chạm đất.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 44</summary>
+
+**a)** Với chỉ số $d$ cho viên đạn, $k$ cho con khỉ:
+
+$$
+x_d=v_0\cos\alpha\,t,\qquad
+y_d=v_0\sin\alpha\,t-\frac12gt^2.
+$$
+
+$$
+x_k=x_0,\qquad y_k=y_0-\frac12gt^2.
+$$
+
+**b)** Khi $x_d=x_0$, ta có $t_*=x_0/(v_0\cos\alpha)$. Do $x_0\tan\alpha=y_0$:
+
+$$
+y_d(t_*)=x_0\tan\alpha-\frac12gt_*^2
+=y_0-\frac12gt_*^2=y_k(t_*).
+$$
+
+Hai vật cùng hạ thấp một khoảng $gt^2/2$ so với vị trí tương ứng nếu không có trọng lực. Kết quả gặp nhau cần xảy ra trước khi va chạm với mặt đất làm mất hiệu lực các phương trình.
+
+**c)** Điều kiện gặp ở trên hoặc ngay tại mặt đất:
+
+$$
+y_k(t_*)\ge0\quad\Leftrightarrow\quad
+t_*\le\sqrt{\frac{2y_0}{g}}.
+$$
+
+$$
+v_0\ge\frac{x_0}{\cos\alpha\sqrt{2y_0/g}}.
+$$
+
+Vì $\tan\alpha=1/3$ nên $\cos\alpha=3/\sqrt{10}$ và $\sqrt{2y_0/g}=\sqrt2\,\mathrm{s}$. Do đó:
+
+$$
+v_0\ge10\sqrt5\approx22{,}36\,\mathrm{m/s}.
+$$
+
+Ở đúng ngưỡng $10\sqrt5\,\mathrm{m/s}$, hai vật gặp nhau **ngay tại mặt đất**. Nếu yêu cầu gặp **trước khi chạm đất** ($y>0$), phải có $v_0>10\sqrt5\,\mathrm{m/s}$; ngưỡng trên là cận dưới, không phải một tốc độ nhỏ nhất đạt được trong điều kiện nghiêm ngặt này.
+
+</details>
+</div>
+
+<div data-question-id="bai-4-exercises-045" className="rounded-xl border border-slate-200 bg-white p-4 my-6">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 45. Đo gia tốc trọng trường và xử lý sai số</h3>
+
+Một nhóm học sinh đo thời gian rơi tự do từ trạng thái nghỉ với khoảng cách cố định $h=0{,}800\,\mathrm{m}$, sai số dụng cụ đo chiều dài $\Delta h=0{,}001\,\mathrm{m}$. Năm lần đo cho kết quả:
+
+<CompareTable title="Kết quả đo thời gian rơi" columns={['Lần đo', 'Thời gian (s)']}
+  rows={[
+    ['1', '0,402'],
+    ['2', '0,405'],
+    ['3', '0,398'],
+    ['4', '0,401'],
+    ['5', '0,404']
+  ]}
+/>
+
+- **a)** Tính thời gian trung bình $\bar t$ và sai số tuyệt đối ngẫu nhiên trung bình $\overline{\Delta t}$ theo độ lệch tuyệt đối trung bình.
+- **b)** Sai số dụng cụ đo thời gian là $\Delta t_{\mathrm{dc}}=0{,}001\,\mathrm{s}$. Tính sai số tổng cộng và viết kết quả $t=\bar t\pm\Delta t$.
+- **c)** Tính $\bar g$, sai số tương đối $\delta g$ và kết quả $g=\bar g\pm\Delta g$. Dùng quy tắc cộng sai số tương đối bậc nhất.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 45</summary>
+
+**a)** Trung bình năm lần đo:
+
+$$
+\bar t=\frac{0{,}402+0{,}405+0{,}398+0{,}401+0{,}404}{5}
+=0{,}402\,\mathrm{s}.
+$$
+
+Các độ lệch tuyệt đối lần lượt là $0;\ 0{,}003;\ 0{,}004;\ 0{,}001;\ 0{,}002\,\mathrm{s}$:
+
+$$
+\overline{\Delta t}=\frac{\sum_{i=1}^5|t_i-\bar t|}{5}
+=\frac{0{,}010}{5}=0{,}002\,\mathrm{s}.
+$$
+
+**b)** Theo quy ước xử lý sai số của bài:
+
+$$
+\Delta t=\overline{\Delta t}+\Delta t_{\mathrm{dc}}
+=0{,}002+0{,}001=0{,}003\,\mathrm{s}.
+$$
+
+$$
+t=(0{,}402\pm0{,}003)\,\mathrm{s}.
+$$
+
+**c)** Giữ đủ chữ số trong các bước trung gian:
+
+$$
+\bar g=\frac{2h}{\bar t^2}
+=\frac{1{,}600}{0{,}402^2}\approx9{,}900745\,\mathrm{m/s^2}.
+$$
+
+Với các sai số nhỏ, quy tắc cộng sai số tương đối bậc nhất cho:
+
+$$
+\delta g\approx\frac{\Delta h}{h}+2\frac{\Delta t}{\bar t}
+=\frac{0{,}001}{0{,}800}+2\frac{0{,}003}{0{,}402}
+\approx0{,}016175\approx1{,}62\%.
+$$
+
+$$
+\Delta g\approx\bar g\,\delta g\approx0{,}16015\,\mathrm{m/s^2}.
+$$
+
+Có thể báo cáo $g=(9{,}90\pm0{,}16)\,\mathrm{m/s^2}$ khi giữ hai chữ số có nghĩa cho sai số, hoặc $g=(9{,}9\pm0{,}2)\,\mathrm{m/s^2}$ khi làm tròn sai số đến một chữ số có nghĩa. Giá trị trung tâm và sai số phải có cùng bậc thập phân.
+
+</details>
+</div>
+
+</Section>
+
+</div>

@@ -41,7 +41,7 @@ const fs = require('node:fs');
     await call('Runtime.enable');
     await call('Page.enable');
     await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
-    for (const slug of ['bai-1', 'bai-2', 'bai-3']) {
+    for (const slug of ['bai-1', 'bai-2', 'bai-3', 'bai-4']) {
       for (const part of ['theory', 'exercises']) {
         const url = `/lesson/${slug}${part === 'exercises' ? '/bai-tap' : ''}`;
         const questionPart = part;
@@ -72,7 +72,7 @@ const fs = require('node:fs');
         })()`);
         assert.ok(page.grade && page.title.includes('lớp 10'), `${url}: grade metadata`);
         assert.ok(page.styled, `${url}: Tailwind styles`);
-        const essayCount = slug === 'bai-3' && part === 'exercises' ? 5 : 0;
+        const essayCount = ['bai-3', 'bai-4'].includes(slug) && part === 'exercises' ? 5 : 0;
         assert.equal(page.questions, expectedQuestions + essayCount, `${url}: all questions rendered`);
         assert.equal(new Set(page.ids).size, page.questions, `${url}: unique question IDs`);
         assert.ok(page.groupsIndependent, `${url}: independent radio groups`);
@@ -80,6 +80,140 @@ const fs = require('node:fs');
         if (slug === 'bai-1') assert.ok(page.heading.includes('Quãng đường'));
         if (slug === 'bai-2' && part === 'theory') {
           assert.equal(await evaluate(`document.querySelector('caption')?.textContent`), 'So sánh Tốc độ và Vận tốc');
+        }
+        if (slug === 'bai-4') {
+          assert.equal(await evaluate(`document.querySelectorAll('.katex-error').length`), 0, 'Lesson 4 formulas render');
+          assert.ok(page.heading.includes('Rơi tự do và chuyển động ném'));
+          if (part === 'theory') {
+            assert.deepEqual(page.ids, [1,2,3,4].map(n => `bai-4-check-${String(n).padStart(3, '0')}`), 'Lecture keeps its original four checks');
+            assert.equal(await evaluate(`document.querySelectorAll('[data-figure]').length`), 7);
+            await evaluate(`window.setLesson4Slider = (figureId, label, value) => {
+              const figure = [...document.querySelectorAll('[data-figure]')].find(f => f.dataset.figure === figureId);
+              const input = [...figure.querySelectorAll('input[type="range"]')].find(i => i.getAttribute('aria-label').startsWith(label));
+              Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(input, value);
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+              input.dispatchEvent(new Event('change', { bubbles: true }));
+            }`);
+            await evaluate(`setLesson4Slider('4.3','Tiến trình',100)`);
+            await waitFor(`document.querySelector('[data-figure="4.3"] output').textContent.includes('chạm đất đồng thời')`);
+            assert.ok(await evaluate(`document.querySelector('[data-figure="4.3"] output').textContent.includes('chạm đất = 2 s')`));
+            await evaluate(`setLesson4Slider('4.3','Tốc độ',20)`);
+            await waitFor(`document.querySelector('[data-figure="4.3"] output').textContent.includes('Tầm xa = 40 m')`);
+            assert.ok(await evaluate(`document.querySelector('[data-figure="4.3"] output').textContent.includes('chạm đất = 2 s')`));
+            await evaluate(`setLesson4Slider('4.3','Độ cao',80)`);
+            await waitFor(`document.querySelector('[data-figure="4.3"] output').textContent.includes('chạm đất = 4 s')`);
+            assert.ok(await evaluate(`document.querySelector('[data-figure="4.3"] output').textContent.includes('Tầm xa = 80 m')`));
+            for (const angle of [30,60]) {
+              await evaluate(`setLesson4Slider('4.4','Góc ném',${angle})`);
+              await waitFor(`document.querySelector('[data-figure="4.4"] output').textContent.includes('L = 34,64 m')`);
+            }
+            await evaluate(`setLesson4Slider('4.4','Góc ném',45)`);
+            await waitFor(`document.querySelector('[data-figure="4.4"] output').textContent.includes('L = 40 m')`);
+            // Frame changes must transform positions AND velocities at the same instant.
+            await evaluate(`window.setLesson4Frame = (id, value) => {
+              const select = document.querySelector('[data-figure="' + id + '"] select[aria-label="Hệ quy chiếu"]');
+              select.value = value;
+              select.dispatchEvent(new Event('change', { bubbles: true }));
+            }`);
+            const sim = async id => evaluate(`(() => {
+              const s = document.querySelector('[data-figure="${id}"] [data-simulation]');
+              return {time:+s.dataset.time, vx:+s.dataset.vx, vy:+s.dataset.vy, x:+s.dataset.x, y:+s.dataset.y, playing:s.dataset.playing, frame:s.dataset.frame};
+            })()`);
+            const near = (actual, expected, name) => assert.ok(Math.abs(actual - expected) < 1e-7, `${name}: ${actual} != ${expected}`);
+            await evaluate(`setLesson4Slider('4.3','Độ cao',20)`);
+            await evaluate(`setLesson4Slider('4.3','Tốc độ',10)`);
+            await evaluate(`setLesson4Slider('4.3','Tiến trình',50)`);
+            let state = await sim('4.3');
+            near(state.time, 1, 'Horizontal time'); near(state.x, 10, 'Horizontal x'); near(state.y, 5, 'Horizontal y');
+            near(state.vx, 10, 'Horizontal vx'); near(state.vy, 10, 'Horizontal vy');
+            await evaluate(`setLesson4Frame('4.3','moving')`);
+            state = await sim('4.3');
+            near(state.time, 1, 'Frame switch keeps time'); near(state.vx, 0, 'Moving frame vx'); near(state.x, 0, 'Moving frame x'); near(state.vy, 10, 'Moving frame vy');
+            assert.ok(await evaluate(`(() => {
+              const p = document.querySelector('[data-figure="4.3"] [data-trajectory="predicted"]').getAttribute('d').match(/-?\\d+(?:\\.\\d+)?/g).map(Number);
+              return p.filter((_,i) => i%2 === 0).every(x => Math.abs(x-p[0]) < 1e-7);
+            })()`), 'Moving frame trajectory is vertical');
+            await evaluate(`setLesson4Frame('4.3','custom')`);
+            for (const u of [20,-20]) {
+              await evaluate(`setLesson4Slider('4.3','Vận tốc hệ',${u})`);
+              state = await sim('4.3');
+              near(state.vx, 10-u, 'Custom frame vx'); near(state.x, 10-u, 'Custom frame x'); near(state.time, 1, 'Custom frame keeps time');
+            }
+            await evaluate(`setLesson4Frame('4.3','ground')`);
+            await evaluate(`setLesson4Slider('4.4','Tiến trình',50)`);
+            state = await sim('4.4'); near(state.vy, 0, 'Apex vertical velocity'); near(state.vx, Math.sqrt(200), 'Apex horizontal velocity');
+            await evaluate(`setLesson4Frame('4.4','moving')`);
+            state = await sim('4.4'); near(state.vx, 0, 'Moving apex vx'); near(state.vy, 0, 'Moving apex vy');
+            await evaluate(`setLesson4Frame('4.4','ground')`);
+            for (const progress of [25,75]) {
+              await evaluate(`setLesson4Slider('4.4','Tiến trình',${progress})`);
+              state = await sim('4.4');
+              assert.equal(state.vy > 0, progress < 50, 'Vertical velocity reverses after apex');
+              assert.equal(await evaluate(`(() => {
+                const arrow=document.querySelector('[data-figure="4.4"] [data-vector="v′ᵧ"] line');
+                return +arrow.getAttribute('y2') < +arrow.getAttribute('y1');
+              })()`), progress < 50, 'Vertical arrow follows velocity sign');
+            }
+            await evaluate(`setLesson4Slider('4.7','Tiến trình',100)`);
+            state = await sim('4.7');
+            near(state.time,10,'Aid impact time'); near(state.x,500,'Aid range'); near(state.y,490,'Aid fall'); near(state.vx,50,'Aid vx'); near(state.vy,98,'Aid vy');
+            await evaluate(`setLesson4Frame('4.7','moving')`);
+            state = await sim('4.7'); near(state.vx,0,'Aircraft frame vx'); near(state.x,0,'Aircraft frame x'); near(state.vy,98,'Aircraft frame vy');
+            near(await evaluate(`+document.querySelector('[data-figure="4.7"] [data-plane-x]').dataset.planeX`),0,'Aircraft stationary in own frame');
+            await evaluate(`setLesson4Frame('4.6','falling')`);
+            for (const progress of [25,75,100]) {
+              await evaluate(`setLesson4Slider('4.6','Tiến trình',${progress})`);
+              state = await sim('4.6');
+              near(state.vy,400/Math.sqrt(1300),'Free-fall frame constant vy');
+              near(await evaluate(`+document.querySelector('[data-figure="4.6"] [data-target-y]').dataset.targetY`),20,'Target stationary in falling frame');
+            }
+            near(state.x,30,'Meeting x'); near(state.y,20,'Meeting y in falling frame');
+            await evaluate(`setLesson4Frame('4.6','ground')`);
+            await evaluate(`setLesson4Slider('4.6','Tốc độ',5)`);
+            await evaluate(`setLesson4Slider('4.6','Tiến trình',100)`);
+            state = await sim('4.6'); near(state.y,0,'Slow projectile stops at ground');
+            assert.ok(await evaluate(`document.querySelector('[data-figure="4.6"] output').textContent.includes('Tốc độ chưa đủ')`));
+            await evaluate(`setLesson4Slider('4.6','Tốc độ',20)`);
+            await evaluate(`setLesson4Slider('4.1','Tiến trình',50)`);
+            assert.deepEqual(await evaluate(`[...document.querySelectorAll('[data-figure="4.1"] [data-drop]')].map(e=>e.dataset.landed)`), ['false','true'], 'Air resistance changes landing times');
+            await evaluate(`document.querySelector('[data-figure="4.1"] input[type=checkbox]').click()`);
+            await evaluate(`setLesson4Slider('4.1','Tiến trình',100)`);
+            assert.deepEqual(await evaluate(`[...document.querySelectorAll('[data-figure="4.1"] [data-drop]')].map(e=>e.dataset.landed)`), ['true','true'], 'Vacuum restores simultaneous fall');
+            // Exercise real animation, pause, reset, automatic stop and replay for all seven.
+            for (const id of ['4.1','4.2','4.3','4.4','4.5','4.6','4.7']) {
+              await evaluate(`(() => {
+                const f=document.querySelector('[data-figure="${id}"]');
+                f.querySelector('[data-action="reset"]').click(); f.scrollIntoView();
+              })()`);
+              await evaluate(`document.querySelector('[data-figure="${id}"] [data-action="play"]').click()`);
+              await waitFor(`+document.querySelector('[data-figure="${id}"] [data-simulation]').dataset.time > 0.1`);
+              await evaluate(`document.querySelector('[data-figure="${id}"] [data-action="play"]').click()`);
+              const paused = (await sim(id)).time;
+              await new Promise(resolve => setTimeout(resolve,150));
+              near((await sim(id)).time,paused,'Pause freezes '+id);
+              await evaluate(`setLesson4Slider('${id}','Tiến trình',99.9)`);
+              await evaluate(`document.querySelector('[data-figure="${id}"] [data-action="play"]').click()`);
+              await waitFor(`document.querySelector('[data-figure="${id}"] [data-simulation]').dataset.playing === 'false'`);
+              await evaluate(`document.querySelector('[data-figure="${id}"] [data-action="play"]').click()`);
+              await waitFor(`document.querySelector('[data-figure="${id}"] [data-simulation]').dataset.playing === 'true'`);
+              await evaluate(`document.querySelector('[data-figure="${id}"] [data-action="reset"]').click()`);
+              near((await sim(id)).time,0,'Reset '+id);
+            }
+            await evaluate(`setLesson4Frame('4.7','ground'); setLesson4Slider('4.7','Tiến trình',65)`);
+            await evaluate(`document.querySelector('[data-figure="4.7"] svg').scrollIntoView()`);
+            const aidScreenshot = await call('Page.captureScreenshot', { format:'png' });
+            fs.writeFileSync('.next/lesson4-aid-simulation.png', Buffer.from(aidScreenshot.data,'base64'));
+            console.log('PASS all lesson 4 simulation clocks, vectors, reference frames and collision boundaries');
+          }
+          await call('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+          if (part === 'theory') {
+            await evaluate(`document.querySelector('[data-figure="4.7"] svg').scrollIntoView()`);
+          }
+          const overflow = await evaluate(`(() => {const a=document.querySelector('article');return {width:a.clientWidth,scroll:a.scrollWidth};})()`);
+          assert.ok(overflow.scroll <= overflow.width + 2, 'Lesson 4 mobile: ' + JSON.stringify(overflow));
+          const screenshot = await call('Page.captureScreenshot', { format: 'png' });
+          fs.writeFileSync('.next/lesson4-' + part + '-mobile.png', Buffer.from(screenshot.data, 'base64'));
+          await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
         }
         if (slug === 'bai-3') {
           assert.equal(await evaluate(`document.querySelectorAll('.katex-error').length`), 0, 'Lesson 3 math renders');
@@ -128,8 +262,16 @@ const fs = require('node:fs');
           })()`));
           await evaluate(`document.querySelector('[data-question-id] button').click()`);
           await waitFor(`document.querySelector('[data-question-id]').textContent.includes('Giải thích:')`);
-          if (slug === 'bai-3') {
-            const correct = [2,1,0,1,2,2,2,2,1,2,0,1,1,0,1,0,1,2,1,1];
+          if (['bai-3', 'bai-4'].includes(slug)) {
+            const correct = slug === 'bai-3'
+              ? [2,1,0,1,2,2,2,2,1,2,0,1,1,0,1,0,1,2,1,1]
+              : [0,0,2,0,1,1,2,2,2,2,1,2,0,0,0,1,1,2,1,0];
+            const expectedTF = slug === 'bai-3'
+              ? [[true,true,true,true],[true,false,true,true],[false,true,false,true],[true,true,true,false],[true,true,true,true],[true,false,true,true],[true,true,false,true],[true,true,true,true],[true,false,true,true],[true,true,true,true]]
+              : [[true,true,true,false],[false,true,true,false],[true,false,true,true],[true,true,false,true],[false,true,true,true],[false,true,true,false],[true,true,false,true],[false,true,true,false],[true,false,false,true],[true,true,true,true]];
+            const expectedShort = slug === 'bai-3'
+              ? ['1','20','1','8','2','108','3','6,2','0,4','77,5']
+              : ['3','45','35','30','20','22,4','40','48','2','4,0'];
             await evaluate(`(() => {
               const correct = ${JSON.stringify(correct)};
               const questions = [...document.querySelectorAll('[data-question-id]')];
@@ -140,7 +282,7 @@ const fs = require('node:fs');
               for (let i = 1; i < 40; i++) questions[i].querySelector('button').click();
               for (const detail of document.querySelectorAll('details')) detail.open = true;
             })()`);
-            await waitFor(`document.querySelector('[data-question-id="bai-3-exercises-040"]').textContent.includes('Đáp án: 77,5')`);
+            await waitFor(`document.querySelector('[data-question-id="${slug}-exercises-040"]').textContent.includes('Đáp án: ${expectedShort[9]}')`);
             const answers = await evaluate(`(() => {
               const questions = [...document.querySelectorAll('[data-question-id]')];
               return {
@@ -153,8 +295,8 @@ const fs = require('node:fs');
               };
             })()`);
             assert.deepEqual(answers.mc, correct, 'All 20 correct option indices');
-            assert.deepEqual(answers.tf, [[true,true,true,true],[true,false,true,true],[false,true,false,true],[true,true,true,false],[true,true,true,true],[true,false,true,true],[true,true,false,true],[true,true,true,true],[true,false,true,true],[true,true,true,true]], 'All 40 true/false statements');
-            assert.deepEqual(answers.short, ['1','20','1','8','2','108','3','6,2','0,4','77,5'].map(a => 'Đáp án: ' + a));
+            assert.deepEqual(answers.tf, expectedTF, 'All 40 true/false statements');
+            assert.deepEqual(answers.short, expectedShort.map(a => 'Đáp án: ' + a));
             assert.equal(answers.mathErrors, 0, 'All revealed answers have valid math');
             assert.equal(answers.essays, 5);
             assert.equal(answers.invalidNesting, 0);
@@ -164,6 +306,14 @@ const fs = require('node:fs');
               return {width:article.clientWidth,scroll:article.scrollWidth};
             })()`);
             assert.ok(overflow.scroll <= overflow.width + 2, 'Expanded exercises fit mobile: ' + JSON.stringify(overflow));
+            if (slug === 'bai-4') {
+              assert.equal(page.questions, 45, 'Lesson 4 contains exactly 45 exercises');
+              assert.ok(await evaluate(`[...document.querySelectorAll('[data-question-id]')].every((q,i) => q.textContent.includes('Câu ' + (i + 1)))`), 'All question labels retain Vietnamese text');
+              assert.ok(await evaluate(`document.querySelector('[data-question-id="bai-4-exercises-043"]').textContent.includes('không phải vận tốc thực tế')`));
+              await evaluate(`document.querySelector('[data-question-id="bai-4-exercises-022"]').scrollIntoView()`);
+              const mobile = await call('Page.captureScreenshot', { format: 'png' });
+              fs.writeFileSync('.next/lesson4-exercises-expanded-mobile.png', Buffer.from(mobile.data, 'base64'));
+            }
             await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
           }
         }
@@ -182,7 +332,7 @@ const fs = require('node:fs');
       correctTitle: document.body.textContent.includes('Bài 1: Quãng đường & Độ dịch chuyển'),
       oldTitle: document.body.textContent.includes('Khái quát về Vật lí'),
     })`);
-    assert.equal(library.gradeCount, 3);
+    assert.equal(library.gradeCount, 4);
     assert.ok(library.correctTitle && !library.oldTitle);
     await evaluate(`[...document.querySelectorAll('button')].find(b => b.textContent.trim() === 'Lý thuyết').click()`);
     await waitFor(`!!document.querySelector('iframe')?.contentDocument?.documentElement?.hasAttribute('data-board-ready')`);

@@ -1,0 +1,382 @@
+import { AirResistance, FreeFallVectors, HorizontalThrow, ObliqueThrow, GalileoParadox, FallingTarget, AidDrop } from './components/Lesson4Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3">
+
+<InfoBox type="info" title="Lộ trình bài học">
+
+Tài liệu lý thuyết và dẫn dắt tư duy theo chủ đề của chương trình GDPT 2018, kết hợp cách phân tích chuyển động trong Halliday Physics.
+
+- Nhận biết điều kiện gần đúng của rơi tự do.
+- Dùng các công thức rơi từ trạng thái nghỉ.
+- Phân tích ném ngang thành hai chuyển động thành phần.
+- Khám phá ném xiên và hai thí nghiệm tưởng tượng trong phần **Mở rộng**.
+- Giải bài toán đo độ sâu giếng và thả hàng cứu trợ.
+
+</InfoBox>
+
+<Section title="A. Mở đầu & Đặt vấn đề" icon="rocket">
+
+Lá cây chao đảo rơi chậm trong gió, trong khi viên sỏi rơi nhanh xuống đất. Quan sát này dễ dẫn đến suy luận: **vật nặng luôn rơi nhanh hơn vật nhẹ**. Nhưng sự khác nhau đó đến từ trọng lực hay từ lực cản không khí?
+
+<AirResistance />
+
+<InfoBox type="info" title="Hai câu hỏi dẫn dắt">
+
+1. Trong một ống thủy tinh đã rút hết không khí, lông chim và viên bi thép được thả cùng lúc, từ cùng độ cao có chạm đáy đồng thời không?
+2. Từ cùng độ cao, ta đồng thời thả quả bóng A và ném ngang quả bóng B. Bỏ qua lực cản, quả nào chạm mặt đất trước?
+
+</InfoBox>
+
+Ta sẽ giải thích bằng **gia tốc trọng trường** và cách phân tích chuyển động theo hai trục vuông góc.
+
+</Section>
+
+<Section title="B. Hình thành khái niệm & Lý thuyết" icon="book">
+
+<h3 className="text-xl font-bold text-blue-800">I. Rơi tự do</h3>
+
+<InfoBox type="info" title="Định nghĩa và điều kiện áp dụng">
+
+Rơi tự do là chuyển động của vật chỉ dưới tác dụng của trọng lực. Khi lực cản không khí rất nhỏ so với trọng lượng, có thể coi chuyển động gần đúng là rơi tự do.
+
+Trong phần này, ta xét **vật được thả từ trạng thái nghỉ, gần mặt đất**, với gia tốc trọng trường coi như không đổi. Khi đó, vật chuyển động thẳng đứng xuống dưới và nhanh dần đều.
+
+</InfoBox>
+
+**Gia tốc trọng trường $\vec g$:**
+
+- Tại cùng vị trí gần mặt đất, mọi vật rơi tự do có cùng gia tốc, không phụ thuộc khối lượng.
+- Vectơ $\vec g$ hướng thẳng đứng xuống dưới.
+- Thường dùng $g\approx9{,}8\,\mathrm{m/s^2}$ hoặc $10\,\mathrm{m/s^2}$ theo đề bài. Giá trị này thay đổi theo vị trí và độ cao; bài học coi $g$ không đổi trong vùng khảo sát.
+
+**Chọn tọa độ:** Gốc $O$ tại điểm thả, trục $Oy$ hướng xuống; $t=0$ là lúc thả, $v_0=0$.
+
+<FreeFallVectors />
+
+Các công thức:
+
+$$
+v(t)=gt,\qquad y(t)=d(t)=\frac12gt^2.
+$$
+
+Nếu vật rơi hết độ cao $h$:
+
+$$
+t_{\mathrm{roi}}=\sqrt{\frac{2h}{g}},\qquad v^2=2gh,\qquad v=\sqrt{2gh}.
+$$
+
+Ở đây $y$ là khoảng cách đã rơi tính từ điểm thả; **độ cao còn lại so với mặt đất** là $h-y$.
+
+<InfoBox type="warning" title="Định nghĩa chung và trường hợp đang xét">
+
+Chỉ chịu trọng lực không đồng nghĩa vật luôn có vận tốc ban đầu bằng 0 hay quỹ đạo luôn thẳng đứng. Vật ném cũng có thể chỉ chịu trọng lực; hướng vận tốc ban đầu quyết định dạng quỹ đạo. Các công thức $v=gt$, $y=\frac12gt^2$ ở trên áp dụng cho **thả từ nghỉ** theo quy ước trục đã chọn.
+
+</InfoBox>
+
+<h3 className="text-xl font-bold text-blue-800">II. Chuyển động ném ngang</h3>
+
+Vật được ném theo phương ngang với tốc độ $v_0$ từ độ cao $h$. Bỏ qua không khí, coi mặt đất phẳng và $g$ không đổi.
+
+Chọn $O$ tại điểm ném, $Ox$ hướng theo vận tốc ban đầu, $Oy$ hướng **xuống dưới**, gốc thời gian khi ném.
+
+**Phân tích chuyển động thành phần:** Trong mô hình này, trọng lực chỉ gây gia tốc theo phương đứng. Ta giải chuyển động theo từng trục rồi kết hợp bằng cùng thời gian $t$.
+
+<CompareTable
+  title="Hai chuyển động thành phần của ném ngang"
+  columns={['Đặc điểm', 'Theo Ox — ngang', 'Theo Oy — hướng xuống']}
+  rows={[
+    ['Lực và gia tốc', <Math inline>{"F_x=0,\\ a_x=0"}</Math>, <Math inline>{"F_y=mg,\\ a_y=g"}</Math>],
+    ['Vận tốc ban đầu', <Math inline>{"v_{0x}=v_0"}</Math>, <Math inline>{"v_{0y}=0"}</Math>],
+    ['Tính chất', 'Thẳng đều', 'Rơi từ trạng thái nghỉ'],
+    ['Vận tốc', <Math inline>{"v_x=v_0"}</Math>, <Math inline>{"v_y=gt"}</Math>],
+    ['Tọa độ', <Math inline>{"x=v_0t"}</Math>, <Math inline>{"y=\\frac12gt^2"}</Math>]
+  ]}
+/>
+
+<HorizontalThrow />
+
+**Thử đổi hệ quy chiếu:** Chạy mô phỏng trong hệ mặt đất, tạm dừng rồi chọn hệ chuyển động ngang cùng $v_{0x}$. Vật B có $v'_x=0$, nên quỹ đạo trong hệ này là đường thẳng đứng. Chọn người quan sát có $U>v_{0x}$ để thấy $v'_x<0$. Thời điểm chạm đất vẫn giữ nguyên.
+
+**1. Phương trình quỹ đạo**
+
+Với $v_0>0$, từ $t=x/v_0$ suy ra:
+
+$$
+y=\frac{g}{2v_0^2}x^2.
+$$
+
+Quỹ đạo là một phần của parabol có đỉnh tại $O$. Trên hình, parabol đi xuống vì trục $Oy$ cũng hướng xuống.
+
+**2. Thời gian bay và tầm xa**
+
+Khi chạm đất, $y=h$:
+
+$$
+t_{\mathrm{cd}}=\sqrt{\frac{2h}{g}},\qquad
+L=v_0t_{\mathrm{cd}}=v_0\sqrt{\frac{2h}{g}}.
+$$
+
+<InfoBox type="info" title="Ném nhanh hơn có làm rơi lâu hơn không?">
+
+Trong mô hình ném ngang, thời gian rơi phụ thuộc $h$ và $g$, không phụ thuộc $v_0$. Tăng gấp đôi $v_0$ làm tầm xa tăng gấp đôi nhưng không đổi thời gian rơi.
+
+Vật thả rơi và vật ném ngang từ cùng độ cao, cùng lúc, có cùng vận tốc đầu theo phương đứng bằng 0 nên chạm mặt đất đồng thời.
+
+</InfoBox>
+
+**3. Vận tốc tổng hợp**
+
+Hai thành phần vận tốc vuông góc nhau:
+
+$$
+\vec v=\vec v_x+\vec v_y,\qquad
+v=\sqrt{v_0^2+(gt)^2}.
+$$
+
+Góc $\theta$ hướng xuống so với phương ngang thỏa mãn:
+
+$$
+\tan\theta=\frac{v_y}{v_x}=\frac{gt}{v_0}.
+$$
+
+Vận tốc ngang không đổi, vận tốc đứng tăng dần; vectơ vận tốc tổng hợp luôn tiếp tuyến với quỹ đạo.
+
+<h3 className="text-xl font-bold text-blue-800">III. Ném xiên — Mở rộng</h3>
+
+Vật được ném với tốc độ $v_0$, hợp phương ngang góc $0<\alpha<90^\circ$. Xét điểm ném và điểm rơi **cùng độ cao**; bỏ qua lực cản.
+
+<InfoBox type="warning" title="Đổi quy ước chiều dương">
+
+Ở phần ném xiên, đặt $O$ tại điểm ném, $Ox$ nằm ngang và $Oy$ hướng **lên trên**. Do đó $a_y=-g$. Cần ghi rõ hệ trục trước khi dùng công thức.
+
+</InfoBox>
+
+Phân tích vận tốc đầu:
+
+$$
+v_{0x}=v_0\cos\alpha,\qquad v_{0y}=v_0\sin\alpha.
+$$
+
+Phương trình chuyển động:
+
+$$
+x(t)=v_0\cos\alpha\,t,\qquad
+y(t)=v_0\sin\alpha\,t-\frac12gt^2.
+$$
+
+$$
+v_x=v_0\cos\alpha,\qquad v_y=v_0\sin\alpha-gt.
+$$
+
+<ObliqueThrow />
+
+**Quan sát các vectơ:** Tua đến 50% thời gian bay để thấy $v_y=0$ ở đỉnh. Trong hệ mặt đất, vật vẫn có vận tốc ngang; trong hệ chuyển động ngang cùng $v_{0x}$, vật đứng yên tức thời ở đỉnh rồi rơi xuống. Với hệ chuyển động ngang đều: $x'=x-Ut$, $v'_x=v_x-U$, $v'_y=v_y$.
+
+Các kết quả quan trọng:
+
+$$
+T=\frac{2v_0\sin\alpha}{g},\qquad
+H_{\max}=\frac{(v_0\sin\alpha)^2}{2g},\qquad
+L=\frac{v_0^2\sin2\alpha}{g}.
+$$
+
+- $T$ là thời gian từ lúc ném đến lúc trở lại độ cao ban đầu.
+- Ở đỉnh quỹ đạo, $v_y=0$ nhưng $v_x$ vẫn khác 0 và gia tốc vẫn hướng xuống.
+- Với cùng $v_0$, **tầm xa** $L$ đạt cực đại khi $\alpha=45^\circ$, lúc đó $L_{\max}=v_0^2/g$.
+- Hai góc phụ nhau, chẳng hạn $30^\circ$ và $60^\circ$, cho cùng tầm xa nhưng khác thời gian bay và tầm cao.
+
+</Section>
+
+<Section title="C. Góc phân tích sâu" icon="idea">
+
+<h3 className="text-xl font-bold text-slate-800">1. Nghịch lý buộc hai vật của Galileo</h3>
+
+Giả sử vật A nặng $10\,\mathrm{kg}$ rơi nhanh hơn vật B nặng $1\,\mathrm{kg}$. Khi buộc chúng lại thành hệ $11\,\mathrm{kg}$, giả thuyết “vật nặng rơi nhanh hơn” dẫn đến hai dự đoán trái nhau.
+
+<GalileoParadox />
+
+Mâu thuẫn này giúp bác bỏ cách giải thích tốc độ rơi chỉ bằng khối lượng. Trong mô hình không có lực cản, thực nghiệm cho thấy các vật có cùng gia tốc trọng trường tại cùng vị trí. Không nên xem lập luận tưởng tượng này là phép đo giá trị $g$.
+
+<h3 className="text-xl font-bold text-slate-800">2. Thợ săn và con khỉ — Thí nghiệm tưởng tượng</h3>
+
+Một vật phóng được hướng thẳng vào vị trí ban đầu của con khỉ đang treo trên cây. Đúng lúc phóng, con khỉ buông tay rơi. Bỏ qua lực cản: hai vật có gặp nhau không?
+
+Đặt điểm phóng ở $O$, trục $Oy$ hướng lên. Vị trí ban đầu của mục tiêu là $(D,H)$ và hướng ngắm có $\tan\alpha=H/D$.
+
+$$
+y_{\mathrm{k}}=H-\frac12gt^2,\qquad
+y_{\mathrm{p}}=v_0\sin\alpha\,t-\frac12gt^2.
+$$
+
+Thời điểm vật phóng đến tọa độ ngang $D$ là:
+
+$$
+t_*=\frac{D}{v_0\cos\alpha}.
+$$
+
+Khi đó $v_0\sin\alpha\,t_*=D\tan\alpha=H$, nên hai tung độ bằng nhau.
+
+<FallingTarget />
+
+**Thử nghiệm:** Đổi sang hệ **Cùng rơi tự do** để thấy mục tiêu đứng yên và vật phóng chuyển động thẳng đều về phía mục tiêu. Đây là hệ có gia tốc; gia tốc tương đối bằng 0 vì hai vật cùng chịu gia tốc trọng trường. Giảm tốc độ phóng để kiểm tra trường hợp một vật chạm đất trước khi gặp nhau.
+
+<InfoBox type="info" title="Cả hai cùng lệch xuống một khoảng">
+
+So với chuyển động giả định không có trọng lực, cả vật phóng và mục tiêu đều dịch xuống $\frac12gt^2$ trong cùng thời gian. Trong hệ quy chiếu cùng rơi, ảnh hưởng gia tốc trọng trường chung bị triệt tiêu trong chuyển động tương đối.
+
+Điều kiện để gặp nhau **trước khi mục tiêu chạm đất** là $t_*<\sqrt{2H/g}$, đồng thời đường bay không bị cản. Nếu tốc độ phóng quá nhỏ, không thể kết luận chúng luôn gặp nhau trên không.
+
+</InfoBox>
+
+</Section>
+
+<Section title="D. Ví dụ minh họa" icon="edit">
+
+<h3 className="text-xl font-bold text-blue-800">Ví dụ 1. Đo độ sâu giếng bằng thời gian nghe tiếng va chạm</h3>
+
+Thả một viên sỏi từ trạng thái nghỉ tại miệng giếng khô. Sau $T=3{,}0\,\mathrm{s}$, học sinh nghe tiếng sỏi chạm đáy. Biết $g=9{,}8\,\mathrm{m/s^2}$ và tốc độ âm $c=340\,\mathrm{m/s}$. Tính độ sâu $h$.
+
+**Bước 1 — Tách hai khoảng thời gian**
+
+- Sỏi rơi hết $t_1$.
+- Âm thanh truyền từ đáy lên miệng giếng hết $t_2$.
+- Đồng hồ đo tổng $T=t_1+t_2$, không chỉ thời gian rơi.
+
+**Bước 2 — Lập phương trình**
+
+$$
+h=\frac12gt_1^2,\qquad t_2=\frac{h}{c}.
+$$
+
+$$
+\sqrt{\frac{2h}{9{,}8}}+\frac{h}{340}=3{,}0.
+$$
+
+**Bước 3 — Giải và giữ đủ chữ số trung gian**
+
+Có thể đặt $u=\sqrt h\ge0$ để giải phương trình bậc hai theo $u$. Một cách tương đương, gọn hơn là giải trực tiếp theo thời gian rơi:
+
+$$
+\frac{g}{2c}t_1^2+t_1-T=0
+\quad\Rightarrow\quad
+t_1=\frac{2T}{1+\sqrt{1+2gT/c}}.
+$$
+
+$$
+t_1\approx2{,}88043\,\mathrm{s},\qquad
+h=\frac12(9{,}8)t_1^2\approx40{,}6546\,\mathrm{m}.
+$$
+
+Độ sâu làm tròn: **$h\approx40{,}7\,\mathrm{m}$**; thời gian truyền âm $t_2\approx0{,}11957\,\mathrm{s}$.
+
+**Bước 4 — Đánh giá gần đúng**
+
+Nếu bỏ qua thời gian âm truyền, tính được $h'=\frac12(9{,}8)(3{,}0)^2=44{,}1\,\mathrm{m}$. So với giá trị chưa làm tròn, mức chênh tương đối là:
+
+$$
+\frac{h'-h}{h}\times100\%\approx8{,}47\%.
+$$
+
+Làm tròn sớm các hệ số của phương trình có thể làm thay đổi kết quả trung gian. Chỉ nên làm tròn ở bước kết luận.
+
+<h3 className="text-xl font-bold text-blue-800">Ví dụ 2. Thả hàng từ máy bay cứu trợ</h3>
+
+Máy bay bay ngang ở độ cao $h=490\,\mathrm{m}$ với tốc độ $v_0=180\,\mathrm{km/h}=50\,\mathrm{m/s}$. Thả một thùng hàng xuống đảo. Bỏ qua lực cản, lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+**a)** Phải thả trước đảo một khoảng ngang bao nhiêu? **b)** Vận tốc ngay trước khi chạm đất có độ lớn và hướng thế nào?
+
+<AidDrop />
+
+**Góc nhìn từ máy bay:** Chọn hệ **Máy bay** để thấy thùng hàng rơi thẳng đứng ngay bên dưới máy bay, còn mốc nhận hàng chuyển động về phía sau. Trong hệ mặt đất, cùng thùng hàng đó đi theo parabol. Các vectơ và số đo trên mô phỏng luôn ứng với hệ đang chọn; tầm xa trong lời giải dưới đây đo so với mặt đất.
+
+Thùng hàng giữ vận tốc ngang của máy bay ngay khi rời máy bay và có vận tốc đầu theo phương đứng bằng 0.
+
+**a) Thời gian rơi và tầm xa**
+
+$$
+t_{\mathrm{cd}}=\sqrt{\frac{2\times490}{9{,}8}}=10\,\mathrm{s},
+\qquad L=50\times10=500\,\mathrm{m}.
+$$
+
+**b) Vận tốc trước khi chạm đất**
+
+$$
+v_x=50\,\mathrm{m/s},\qquad v_y=9{,}8\times10=98\,\mathrm{m/s}.
+$$
+
+$$
+v=\sqrt{50^2+98^2}\approx110\,\mathrm{m/s},
+\qquad \theta=\arctan\frac{98}{50}\approx62{,}97^\circ.
+$$
+
+<InfoBox type="warning" title="Phạm vi của mô hình">
+
+Thùng hàng chạm đất với tốc độ khoảng $110\,\mathrm{m/s}$ và hướng chếch xuống khoảng $63^\circ$. Đây là kết quả khi **bỏ qua lực cản**. Nếu dùng dù để giảm tốc độ chạm đất, lực cản trở nên quan trọng và các công thức ném ngang lý tưởng không còn mô tả đầy đủ quá trình.
+
+</InfoBox>
+
+</Section>
+
+<Section title="E. Vận dụng nhanh" icon="check">
+
+<InfoBox type="info" title="Vận dụng nhanh của bài 4">
+
+Bốn câu dưới đây đi kèm tài liệu bài giảng. Chọn đáp án, rồi bấm **Kiểm tra** để xem lời giải.
+
+</InfoBox>
+
+<Quiz
+  id="bai-4-check-001"
+  question={<>Câu 1: Hai vật có khối lượng <Math inline>{"m_1=2m_2"}</Math> được thả từ trạng thái nghỉ, cùng lúc, cùng độ cao và cùng vị trí địa lý. Bỏ qua sức cản không khí. Phát biểu nào đúng?</>}
+  options={[
+    'Vật 1 chạm đất trước vật 2.',
+    'Vật 2 chạm đất trước vật 1.',
+    'Cả hai vật chạm đất đồng thời với cùng tốc độ.',
+    'Cả hai vật chạm đất đồng thời nhưng vật 1 có tốc độ lớn hơn.'
+  ]}
+  correctIndex={2}
+  explanation={<>Hai vật có cùng gia tốc <Math inline>{"g"}</Math>, cùng thời gian rơi <Math inline>{"t=\\sqrt{2h/g}"}</Math> và cùng tốc độ khi chạm đất <Math inline>{"v=\\sqrt{2gh}"}</Math>. Các biểu thức không phụ thuộc khối lượng.</>}
+/>
+
+<Quiz
+  id="bai-4-check-002"
+  question={<>Câu 2: Hòn đá được ném ngang với <Math inline>{"v_0=10\\,\\mathrm{m/s}"}</Math> từ một tháp đủ cao. Lấy <Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>. Sau <Math inline>{"2\\,\\mathrm{s}"}</Math>, khi đá vẫn đang bay, độ lớn thành phần vận tốc thẳng đứng là bao nhiêu?</>}
+  options={[
+    <Math inline>{"10\\,\\mathrm{m/s}"}</Math>,
+    <Math inline>{"20\\,\\mathrm{m/s}"}</Math>,
+    <Math inline>{"14{,}1\\,\\mathrm{m/s}"}</Math>,
+    <Math inline>{"30\\,\\mathrm{m/s}"}</Math>
+  ]}
+  correctIndex={1}
+  explanation={<>Thành phần thẳng đứng có vận tốc ban đầu bằng 0 nên <Math inline>{"v_y=gt=10\\times2=20\\,\\mathrm{m/s}"}</Math>. Đây là thành phần thẳng đứng, không phải độ lớn vận tốc tổng hợp.</>}
+/>
+
+<Quiz
+  id="bai-4-check-003"
+  question={<>Câu 3: Tăng tốc độ ném ngang ban đầu từ <Math inline>{"v_0"}</Math> lên <Math inline>{"2v_0"}</Math>, giữ nguyên độ cao và gia tốc trọng trường, bỏ qua lực cản. Đại lượng nào sau đây thay đổi?</>}
+  options={[
+    'Thời gian đến khi chạm đất.',
+    'Gia tốc rơi của vật.',
+    'Tầm xa của vật.',
+    'Thành phần vận tốc thẳng đứng khi chạm đất.'
+  ]}
+  correctIndex={2}
+  explanation={<>Thời gian rơi <Math inline>{"t=\\sqrt{2h/g}"}</Math> không đổi. Vì <Math inline>{"L=v_0t"}</Math> nên tầm xa tăng gấp đôi; thành phần thẳng đứng khi chạm đất vẫn bằng <Math inline>{"gt"}</Math>.</>}
+/>
+
+<Quiz
+  id="bai-4-check-004"
+  question={<>Câu 4 — Mở rộng: Với cùng tốc độ ném, bỏ qua lực cản và điểm rơi cùng độ cao với điểm ném, vì sao góc ném <Math inline>{"45^\\circ"}</Math> cho tầm xa lớn nhất?</>}
+  options={[
+    'Vì lực phóng đạt giá trị cực đại ở góc này.',
+    'Vì sự kết hợp giữa vận tốc ngang và thời gian bay làm tích của chúng lớn nhất.',
+    'Vì gia tốc trọng trường nhỏ nhất ở góc này.',
+    'Vì chỉ ở góc này vật mới không chịu lực cản không khí.'
+  ]}
+  correctIndex={1}
+  explanation={<>Tầm xa <Math inline>{"L=\\frac{v_0^2\\sin2\\alpha}{g}"}</Math> đạt cực đại khi <Math inline>{"\\sin2\\alpha=1"}</Math>, tức <Math inline>{"\\alpha=45^\\circ"}</Math>. Kết quả cần các giả thiết đã nêu; không áp dụng nguyên xi khi điểm rơi khác độ cao hoặc có lực cản đáng kể.</>}
+/>
+
+</Section>
+
+</div>

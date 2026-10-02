@@ -71,7 +71,7 @@ const element = {
 };
 const { PointerManager } = require('../input/PointerManager.ts');
 const pointer = new PointerManager(element);
-const event = { button: 0, pointerId: 1, pointerType: 'pen', clientX: 20, clientY: 30, pressure: 0.7 };
+const event = { button: 0, buttons: 1, timeStamp: 1, pointerId: 1, pointerType: 'pen', clientX: 20, clientY: 30, pressure: 0.7 };
 listeners.pointerdown(event);
 pointer.pendingPoints = [];
 reads = 0;
@@ -115,6 +115,36 @@ assert.equal(raw.isPointerDown, false, 'blur releases drawing state');
 assert.equal(raw.activePointers.size, 0, 'blur forgets captured pointers');
 assert.equal(raw.pendingPoints.length, 0);
 raw.destroy();
+// Reused pen IDs, delayed coalesced samples and hover must not bridge gestures.
+const isolated = new PointerManager(element);
+isolated.useRawInput = () => true;
+isolated.handlePointerDown({ ...event, timeStamp: 100 });
+isolated.handlePointerRawUpdate({ ...event, type: 'pointerrawupdate', timeStamp: 110, clientX: 50 });
+isolated.handlePointerUp({ ...event, buttons: 0, timeStamp: 120 });
+isolated.handlePointerDown({ ...event, timeStamp: 200, clientX: 500 });
+isolated.pendingPoints = [];
+isolated.handlePointerRawUpdate({ ...event, type: 'pointerrawupdate', timeStamp: 210, clientX: 520,
+  getCoalescedEvents: () => [
+    { ...event, timeStamp: 110, clientX: 50 },
+    { ...event, timeStamp: 199, buttons: 0, clientX: 450 },
+    { ...event, timeStamp: 201, buttons: 0, clientX: 480 },
+    { ...event, timeStamp: 205, clientX: 510 },
+    { ...event, timeStamp: 210, clientX: 520 },
+  ],
+});
+assert.deepEqual(isolated.pendingPoints.map(p => p.x), [500, 510], 'only current contact samples survive');
+isolated.handlePointerRawUpdate({ ...event, type: 'pointerrawupdate', timeStamp: 115, clientX: 55 });
+isolated.handlePointerMove({ ...event, type: 'pointermove', timeStamp: 210, clientX: 520 });
+isolated.handlePointerRawUpdate({ ...event, type: 'pointerrawupdate', timeStamp: 220, buttons: 0, clientX: 900 });
+assert.equal(isolated.pendingPoints.length, 2, 'late batches, duplicates and hover cannot append');
+isolated.handlePointerCancel(event);
+isolated.handlePointerDown({ ...event, timeStamp: 300, clientX: 600 });
+isolated.pendingPoints = [];
+isolated.handlePointerRawUpdate({ ...event, type: 'pointerrawupdate', timeStamp: 210, clientX: 520 });
+isolated.handlePointerMove({ ...event, type: 'pointermove', timeStamp: 301, clientX: 610 });
+assert.deepEqual(isolated.pendingPoints.map(p => p.x), [600], 'fallback still works after cancel');
+isolated.destroy();
+
 const highlight = new Stroke('#ff0', 5, false, true);
 highlight.addPoint({x:10,y:10});
 assert.equal(highlight.clone().isHighlighter, true, 'copy keeps highlighting');

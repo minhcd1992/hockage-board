@@ -4,12 +4,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { MousePointer2, Hand, Pen, Highlighter, Eraser, Type, Minus, ArrowRight, Square, Circle, ChevronDown, Download, Wand2, Play, Pause, RotateCcw, Scissors, BookOpen, ClipboardList } from 'lucide-react';
 import { ToolType } from '../types';
+import { FullscreenButton } from './FullscreenButton';
 import { useBoardStore } from '../store/useBoardStore';
 import { resolveLessonUrl, lessonUrl, lessonTabTitle } from '@/lib/lessons';
 
 
 export function TopMenu() {
-  const { tool, setTool, currentShapeTool, setCurrentShapeTool, tabs, activeTabId, activeEngineRef, addTab, setActiveTab } = useBoardStore();
+  const { tool, setTool, currentShapeTool, tabs, activeTabId, activeEngineRef, addTab, setActiveTab } = useBoardStore();
   const activeTab = tabs.find(t => t.id === activeTabId);
   const activeLesson = activeTab?.type === 'lesson' && activeTab.url ? resolveLessonUrl(activeTab.url) : undefined;
   const [showShapeDropdown, setShowShapeDropdown] = useState(false);
@@ -62,7 +63,6 @@ export function TopMenu() {
   };
 
   const handleShapeSelect = (shapeType: ToolType) => {
-    setCurrentShapeTool(shapeType);
     setTool(shapeType);
     setShowShapeDropdown(false);
   };
@@ -198,6 +198,7 @@ export function TopMenu() {
         <button className="tool-btn" onClick={() => window.dispatchEvent(new CustomEvent('export-pdf'))} title="Lưu thành PDF">
           <Download size={20} />
         </button>
+        <FullscreenButton />
       </div>
 
     </div>

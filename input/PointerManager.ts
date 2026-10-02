@@ -3,6 +3,7 @@ import { Point } from '../types';
 export class PointerManager {
   private element: HTMLElement;
   private receivedRawInput = false;
+  private lastSampleTime = -Infinity;
   useRawInput?: () => boolean;
   
   isPointerDown: boolean = false;
@@ -77,9 +78,11 @@ export class PointerManager {
 
     if (this.activePointers.size === 1) {
       this.receivedRawInput = false;
+      this.lastSampleTime = e.timeStamp;
       this.isPointerDown = true;
       this.pendingPoints = [];
       const p = this.getPoint(e);
+      this.lastPointerPos = p;
       this.pendingPoints.push(p);
       this.element.setPointerCapture(e.pointerId);
       if (this.onPointerDown) this.onPointerDown(p, e);
@@ -89,7 +92,6 @@ export class PointerManager {
   private handlePointerRawUpdate = (event: Event) => {
     const e = event as PointerEvent;
     if (!this.isPointerDown || this.isPinching || !this.activePointers.has(e.pointerId) || !this.useRawInput?.()) return;
-    this.receivedRawInput = true;
     this.handlePointerMove(e);
   };
 
@@ -133,6 +135,10 @@ export class PointerManager {
       return;
     }
 
+    // A queued batch can contain hover or samples preceding this pen-down.
+    // Never connect those positions to the new stroke, even with the same ID.
+    if (e.timeStamp < this.lastSampleTime || e.buttons === 0) return;
+
     // Raw updates already contain the samples repeated by pointermove.
     if (e.type === 'pointermove' && this.receivedRawInput && this.useRawInput?.()) {
       return;
@@ -152,10 +158,16 @@ export class PointerManager {
     
     // One layout read per event batch, not one per hardware sample.
     const rect = this.element.getBoundingClientRect();
+    let accepted = false;
     for (const ev of events) {
+      if (ev.pointerId !== e.pointerId || ev.timeStamp < this.lastSampleTime || ev.buttons === 0) continue;
       const p = this.getPoint(ev as PointerEvent, rect);
       this.pendingPoints.push(p);
+      this.lastSampleTime = ev.timeStamp;
+      accepted = true;
     }
+    if (!accepted) return;
+    if (e.type === 'pointerrawupdate') this.receivedRawInput = true;
     
     this.lastPointerPos = this.getPoint(e, rect);
     if (this.onPointerMove) this.onPointerMove(this.lastPointerPos, e);

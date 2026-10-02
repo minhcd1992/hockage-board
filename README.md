@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Bài giảng và bài tập
 
-Nội dung nằm trong `content/lessons/`; ba bài hiện tại thuộc **Vật lý lớp 10**.
+Nội dung nằm trong `content/lessons/`; bốn bài hiện tại thuộc **Vật lý lớp 10**.
 Xem [hướng dẫn thêm và sửa bài học](docs/lessons.md) để quản lý nội dung, mô phỏng và câu hỏi.
 
 ## Getting Started

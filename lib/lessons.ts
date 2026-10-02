@@ -1,6 +1,7 @@
 import bai1 from '@/content/lessons/bai-1/meta';
 import bai2 from '@/content/lessons/bai-2/meta';
 import bai3 from '@/content/lessons/bai-3/meta';
+import bai4 from '@/content/lessons/bai-4/meta';
 
 export interface LessonMeta {
   slug: string;
@@ -16,7 +17,7 @@ export type LessonPart = 'theory' | 'exercises';
 
 // Register each lesson here once. Keep this catalogue free of MDX/simulation imports
 // so the board can list lessons without loading their interactive content.
-export const lessons: readonly LessonMeta[] = [bai1, bai2, bai3].sort(
+export const lessons: readonly LessonMeta[] = [bai1, bai2, bai3, bai4].sort(
   (a, b) => a.grade - b.grade || a.subject.localeCompare(b.subject, 'vi') || a.order - b.order,
 );
 
