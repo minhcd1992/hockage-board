@@ -1,76 +1,76 @@
-# Project và engine bút spline-v2
+# Project và engine bút quadratic-v4.1
 
 ## Cấu trúc
 
-- `app/page.tsx`: thanh công cụ và các tab bảng; `store/useBoardStore.ts`: công cụ, màu, kích thước, zoom/pan, tab.
-- `components/CanvasBoard.tsx`: điều phối input, camera, tài liệu, clipboard và xuất PDF. Mỗi bảng có canvas nền, main chứa đối tượng đã chốt và draft chứa nét đang viết.
-- `engine/Scene.ts`: đối tượng/history/selection; `Camera.ts`: đổi tọa độ màn hình/thế giới; `objects/`: nét, hình, chữ, ảnh và trang PDF.
-- `app/lesson/`: MDX bài giảng/bài tập; `components/lesson/`: khối nội dung và câu hỏi; `components/simulations/`: mô phỏng. Bài giảng nằm trong iframe dưới lớp chú thích.
+- `components/CanvasBoard.tsx`: input, camera, tài liệu, clipboard và xuất PDF.
+- `input/PointerManager.ts`: nhận mẫu raw/coalesced, fallback pointermove, loại mẫu cũ/hover và hủy thao tác khi mất capture.
+- `engine/InkGeometry.ts`: hình học dùng chung cho nét đang viết, nét chốt, hit test và bounds.
+- `engine/LiveInk.ts`: canvas nét đang viết, đệm phần ổn định và thay vùng đuôi.
+- `objects/Stroke.ts`: lấy mẫu theo khoảng cách, cache, áp lực, clone.
+- `engine/Scene.ts`: đối tượng/history/selection; `Camera.ts`: đổi tọa độ màn hình/thế giới.
+- `app/lesson/`, `components/lesson/`, `components/simulations/`: bài giảng MDX trong iframe dưới lớp chú thích.
 
-## Vì sao thay engine
+## Vì sao thay thuật toán
 
-Hai lần sửa trước vẫn không giải quyết trải nghiệm trên bảng vẽ rời, kể cả bảng trống; bài giảng lag nặng hơn. TypeScript, kiểm tra chức năng canvas và CPU throttle không chứng minh được độ trễ con trỏ–màn hình trong Google Meet. Bản này thay phần hình học và vòng đời nét, đồng thời giảm tải mô phỏng.
+Người dùng vẫn gặp nét gấp khúc trên XP-Pen với spline-v3, trong khi cùng thiết lập driver viết ổn ở các phần mềm khác. Thuật toán cũ nội suy qua mọi mẫu của pen; chỉ mouse có hiệu chỉnh cục bộ tối đa 0,65 CSS pixel. Nội suy vẫn có thể giữ rung và bậc thang của tọa độ đầu vào.
 
-## Luồng mới
+quadratic-v4 thay nội suy cubic và bỏ `smoothMousePoint`. Cả pen lẫn mouse dùng cùng đường cong xấp xỉ quadratic qua trung điểm. Điểm đo là điểm điều khiển, không bắt buộc nằm trên đường cong. Đây là thay đổi hình học, không phải tăng hệ số lọc cũ.
 
-1. `PointerManager` nhận mẫu thực từ raw/coalesced events, dùng pointermove nếu không có raw. Không ghi trùng hai luồng. Mất capture, blur hoặc pointercancel hủy thao tác.
-2. `InkGeometry` nội suy Bézier qua các mẫu, độ rộng theo áp lực. Hướng tiếp tuyến kết hợp hai đoạn lân cận; độ dài tay nắm bị giới hạn để tránh vòng xoắn khi mẫu phân bố không đều. Đường cong được chia nhỏ theo sai số hình học, không làm mất các điểm đầu vào.
-3. `LiveInk` giữ các đoạn đã có đủ điểm lân cận trong canvas đệm. Đoạn cuối được vẽ tạm tới đúng điểm bút mới nhất, rồi cập nhật khi nhận thêm mẫu; chỉ vùng đuôi cũ/mới được thay, không dựng lại cả nét trong mỗi event. Không đọc pixel về CPU. Bút không đi qua React state hay vòng requestAnimationFrame chung. Highlight vẽ opaque rồi áp opacity một lần lên lớp để tránh nối nét đậm.
-4. Khi nhấc bút, `Stroke` dùng cùng hình học lúc viết, không đổi nét qua perfect-freehand. `commitStroke` chỉ thêm nét mới lên main, không xóa/vẽ lại scene. Undo/redo, camera và sửa đối tượng vẫn dùng full render.
-5. Cache hình học ở tọa độ thế giới nên zoom không cần dựng lại đường viền. Copy giữ đúng highlight; bounding box/hit test tính độ rộng highlight.
-6. Không dùng delegated Ink API nữa: lớp nét tạm của hệ điều hành có vòng đời riêng, có thể gây vệt nối lóe giữa hai lần đặt bút. Toàn bộ nét hiển thị do canvas quản lý và xóa trạng thái khi bắt đầu nét mới. Raw/coalesced input, canvas desynchronized và nội suy spline vẫn giữ nguyên. Mẫu có timestamp trước lần đặt bút/mẫu đã nhận, hoặc thuộc trạng thái hover, không được thêm vào nét hiện tại.
+## Lọc rung nhẹ — quadratic-v4.1
 
-Đã bỏ `InkPrediction` và việc chép/khôi phục vùng pixel dự đoán; không lưu điểm giả. Nét giữ áp lực nhưng kiểu nét có thể khác cách làm mượt cũ vì không dùng perfect-freehand nữa. Dependency chưa gỡ để tránh thay lockfile không cần thiết.
+Giữ engine quadratic đã được người dùng chấp nhận và thêm `engine/InkStabilizer.ts`. Bộ lọc khớp đa thức cục bộ theo hướng nét, chỉ hiệu chỉnh vuông góc với hướng đi để tránh kéo lùi bút:
 
-Tham khảo: [Ink API](https://wicg.github.io/ink-enhancement/), [Chrome: desynchronized canvas](https://developer.chrome.com/blog/desynchronized). Đây là progressive enhancement: API tồn tại chưa bảo đảm mọi tổ hợp trình duyệt/driver/GPU có cùng đường hiển thị nhanh hoặc cùng kết quả trong video chia sẻ màn hình.
+- Dùng tối đa 3 điểm điều khiển mỗi phía, giới hạn vùng xét 8 CSS pixel mỗi phía.
+- Đoạn gần thẳng dùng mô hình đường thẳng; đoạn có độ cong dùng đa thức bậc hai. Chuyển tiếp liên tục giữa hai mô hình.
+- Giới hạn hiệu chỉnh 1,25 CSS pixel; giữ nguyên áp lực, điểm đầu và điểm bút hiện tại. Bỏ lọc khi gặp góc gấp, quay đầu, mẫu thưa hoặc hệ phương trình không ổn định.
+- Luôn khớp từ dữ liệu đo gốc, không lọc lại dữ liệu đã làm mượt. Mỗi event chỉ tính lại tối đa 4 điểm cuối.
+- `Stroke.stableThrough` xác định phần hình học đã cố định; LiveInk giữ 4 đoạn đuôi có thể thay thế để không lưu nhầm điểm đang được bộ lọc hiệu chỉnh. Không làm mượt toàn nét lần nữa khi nhấc bút.
 
-## Giảm tải bài giảng
+Cách khớp đa thức cục bộ có cùng cơ sở với [lọc Savitzky–Golay](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.savgol_filter.html), nhưng ở đây dùng tọa độ chiếu thực tế cho mẫu cách nhau không đều và có giới hạn hiệu chỉnh riêng cho nét viết. Không thêm dependency.
 
-`lib/lessonAnimation.ts` quản lý riêng RAF của mô phỏng, không monkey-patch API toàn cục. Khi viết hoặc tab bài giảng bị ẩn, iframe nhận trạng thái từ đúng parent cùng origin và dừng animation. Nhấc bút thì tiếp tục. Đồng hồ mô phỏng trừ thời gian tạm dừng để không nhảy trạng thái. CSS animation cũng tạm dừng; interval đồng hồ tốc độ bỏ cập nhật khi paused. Vòng render bảng ẩn được dừng.
+`node scratch/check-ink-stabilizer.cjs` so sánh với mã Stroke v4 đóng băng trong `scratch/fixtures/quadratic-v4-stroke.txt`. Trên dữ liệu rung giả lập: sai số RMS nét thẳng 0,350 → 0,072 px; cung bán kính 40 px: 0,385 → 0,106 px; chữ S: 0,369 → 0,137 px. Kiểm tra thêm nhiều hướng nét, vòng nhỏ, đỉnh cong, góc gấp, quay đầu, áp lực, zoom, clone và phần nét đã ổn định.
 
-Đánh đổi có chủ ý: mô phỏng đứng hình trong thời gian đặt bút, rồi tiếp tục. Áp dụng bài giảng/bài tập của project, không can thiệp HTML bên ngoài.
+[Ảnh so sánh v4/v4.1 trên cùng dữ liệu](../scratch/ink-stabilizer-comparison.png). Browser test kiểm tra từng mẫu rung, nét live so với full render, pen trong bài giảng, mouse, commit, undo/redo, highlight và tách nét. Kết quả giả lập không phải cam kết mọi nét viết thực đều trở thành đường hình học hoàn hảo.
 
-## Chẩn đoán bản deploy
+## Luồng dựng nét
 
-Thêm `?inkDebug=1` vào URL trang bảng rồi viết vài nét:
+1. `Stroke.addPoint` giữ nguyên điểm đầu, đầu bút hiện tại và áp lực. Các điểm quá sát nhau dùng chung một đuôi có thể thay thế; khoảng cách tạo điểm điều khiển mới là 2 CSS pixel, quy đổi theo zoom lúc đặt bút. Không chờ timer/frame, không tạo điểm dự đoán.
+2. Các đoạn quadratic gặp nhau tại trung điểm với cùng tiếp tuyến. Điểm cuối luôn tới tọa độ mới nhất. Quay đầu gần 180 độ giữ đỉnh thành cusp để không co mất nét đi ngược lại. Đường cong và áp lực được chia nhỏ theo sai số; không dùng kiểm tra khoảng cách đến đường thẳng đơn thuần vì nó có thể bỏ mất quay đầu thẳng hàng.
+3. LiveInk giữ bốn đoạn cuối có thể thay thế theo cửa sổ lọc rung. Theo dõi revision thay vì chỉ đếm điểm để cập nhật được chuyển động nhỏ và thay đổi áp lực tại chỗ. Phần ổn định chỉ rasterize một lần, thay vùng đuôi bằng canvas đệm; không đọc pixel về CPU.
+4. `Stroke._draw`, bounds, hit test, copy, undo/redo và xuất ảnh/PDF dùng cùng hình học. Khi nhấc bút không chạy một lượt làm mượt khác. Cache tọa độ thế giới dùng lại khi zoom.
+5. Highlight vẽ opaque trên draft rồi áp opacity một lần; nét chốt cũng chỉ áp alpha một lần. Không có mối nối hoặc giao nét đậm hơn.
+6. Raw/coalesced vẫn được xử lý trực tiếp ngoài React state và RAF chung. Giữ nguyên fallback, loại trùng raw/move, loại mẫu hover/cũ và tách hai lần đặt bút. Delegated Ink API vẫn tắt.
+7. Commit chỉ thêm nét mới vào main. Camera, undo/redo hoặc sửa đối tượng vẫn dùng render đầy đủ.
 
-- `engine: spline-v3`: xác nhận đang chạy bản nét cong.
-- `inputType`: driver gửi `pen` hay giả lập `mouse`.
-- `inputEvent`: raw hay pointermove fallback.
-- `nativeInk: disabled`, `nativeUpdates: 0`: xác nhận lớp nét tạm của trình duyệt đã tắt.
-- `maxInputAgeMs`: tuổi event khi handler vẽ bắt đầu.
-- `maxDrawMs`: thời gian JS gửi lệnh vẽ một batch, không bao gồm toàn bộ GPU/compositor/màn hình/Meet.
+Đánh đổi: đường cong xấp xỉ có thể bo góc và đi phía trong đường đi qua các điểm đo, nhất là khi mẫu thưa. Không cam kết đi qua mọi điểm giữa nét. Đầu/cuối giữ nguyên; không có trạng thái lọc truyền từ nét trước sang nét sau.
 
-Các số max tính từ lúc mount bảng. Chế độ mặc định không có panel hoặc timer cập nhật panel.
+## Chẩn đoán
+
+Thêm `?inkDebug=1`:
+
+- `engine: quadratic-v4.1`, `smoothing: local-polynomial-quadratic`: xác nhận bản mới ở cả pen/mouse.
+- `inputType`: driver báo pen hay mouse.
+- `inputEvent`: raw hoặc pointermove fallback.
+- `nativeInk: disabled`, `nativeUpdates: 0`.
+- `maxInputAgeMs`: tuổi event tại lúc bắt đầu xử lý.
+- `maxDrawMs`: thời gian JS gửi lệnh vẽ, không phải độ trễ từ con trỏ đến màn hình/Meet.
+
+Không mở debug thì không có panel hay timer cập nhật panel.
 
 ## Kiểm thử
 
-- Production build và TypeScript đạt. KaTeX còn cảnh báo sẵn có từ nội dung bài giảng.
-- ESLint không tăng lỗi/cảnh báo ở các file sửa; ba module mới không có lỗi/cảnh báo.
-- `node scratch/check-ink.cjs`: cache world-space, raw/move không trùng, fallback, cancellation, clone/bounds highlight, scheduler dừng/tiếp tục và loại trừ thời gian pause.
-- `node scratch/check-ink-browser.cjs mouse` và `node scratch/check-ink-browser.cjs pen lesson`: Chrome headless, production localhost:3100, CDP:9333, DPR 2, CPU throttle 4x. Kiểm tra nét trước pointerup, commit không clear main, undo/redo, pause/resume iframe, fallback không có Ink API, hủy nét và alpha highlight không chồng đậm.
-- Kết quả bản cũ trước khi tắt Ink API: lượt spline-v2 với pen trên lesson: 50 raw + 50 move, 51 batch gồm điểm đặt bút, 51 native updates thành công, 0 lần clear main trong thao tác. Đây là kiểm tra chức năng, không phải độ trễ end-to-end hay phiên Meet.
-- Kiểm tra thêm spline qua từng điểm, giữ đúng đầu nét, đoạn đã ổn định không đổi khi có mẫu mới, tọa độ trùng/quay đầu/khoảng cách mẫu chênh lệch. So sánh pixel nét đang viết và nét chốt: khoảng 1% khác biệt ở ngưỡng alpha trong đường thử, chủ yếu do antialias khi tô từng đoạn. Bounding box và hit test dùng đường cong đã nội suy.
-- Ảnh so sánh cùng dữ liệu điểm: [đoạn thẳng và spline](../scratch/ink-curve-comparison.png).
-- Script có benchmark submission với 120 nét × 80 điểm: bản trước submit lại 120 nét mỗi lần chốt, bản mới submit 1 nét. Kết quả chỉ đo thời gian JS, có thể thấp hơn độ phân giải timer; không dùng làm tuyên bố FPS.
+- `npm.cmd run build`, `npx.cmd tsc --noEmit`, ESLint các module engine đã sửa.
+- `node scratch/check-ink.cjs`: cache, áp lực, raw/coalesced, fallback, cancellation, tách các nét, clone/bounds highlight và scheduler bài giảng.
+- `node scratch/check-mouse-ink.cjs`: kiểm tra engine chung, giảm rung, đầu/cuối, prefix ổn định, thay đuôi khi số điểm không tăng, áp lực tại chỗ, zoom, clone, quay đầu và dữ liệu không hợp lệ.
+- Baseline spline-v3 được đóng băng trong `scratch/fixtures/spline-v3.json`, không phụ thuộc HEAD của git. Kết quả v4 trước khi thêm lọc rung, với 160 mẫu đường chéo bị lượng tử hóa: sai lệch trung bình 0,252 → 0,167; tổng dao động hướng 62,00 → 8,24 rad (baseline mouse cũ: 39,42 rad). Chỉ là phép đo hình học trên dữ liệu giả lập.
+- Browser test dùng production localhost:3100, Chrome CDP:9333, DPR 2 và CPU throttle 4x: `node scratch/check-ink-browser.cjs mouse`, `node scratch/check-ink-browser.cjs pen lesson`. Kiểm tra nét hiện trước pointerup, commit không clear main, undo/redo, pause/resume iframe, highlight, hủy nét và so sánh pixel live/full sau từng mẫu ở nhiều zoom/cỡ nét, gồm di chuyển dưới 2 pixel và thay đổi áp lực tại chỗ.
+- `node scratch/check-boundaries-fullscreen-browser.cjs pen` (hoặc `mouse`): kiểm tra khoảng trống giữa hai nét và fullscreen.
+- Ảnh cùng bộ dữ liệu: [spline-v3 và quadratic-v4](../scratch/ink-quadratic-comparison.png). Các chấm đen đánh dấu điểm đo của đường cong thưa.
 
-Cần đối chiếu trên đúng bảng vẽ rời/trình duyệt của người dùng sau deploy, cả bảng trống và bài giảng trong Meet. Nếu còn trễ, dữ liệu chẩn đoán giúp phân biệt dispatch input, xử lý JS và đường hiển thị/capture; chưa thể kết luận từ headless.
+Các kiểm tra tự động không thay thế thử trên XP-Pen thật với cùng driver, trình duyệt và buổi chia sẻ màn hình. Chưa có dữ liệu phần cứng để khẳng định đã hết gấp khúc hoặc đo độ trễ end-to-end.
 
-- `node scratch/check-boundaries-fullscreen-browser.cjs pen` (hoặc `mouse`, hoặc `pen lesson`): kiểm tra pixel vùng trống giữa hai nét lúc hover/đặt bút/di chuyển/nhấc bút, không đăng ký native presenter kể cả khi API có sẵn, bật/tắt fullscreen, thoát từ trình duyệt và xử lý yêu cầu fullscreen bị từ chối.
+## Bài giảng và toàn màn hình
 
-## Toàn màn hình
+`lib/lessonAnimation.ts` quản lý RAF riêng. Khi viết hoặc tab bị ẩn, iframe cùng origin dừng animation; nhấc bút thì tiếp tục, đồng hồ mô phỏng trừ thời gian pause. CSS animation cũng tạm dừng. Không can thiệp HTML bên ngoài.
 
-Nút cạnh **Lưu thành PDF** trên thanh công cụ đưa cả app vào toàn màn hình (bao gồm menu và các tab). Bấm lại hoặc Esc để thoát. Trạng thái nút theo `fullscreenchange`; lỗi/quyền từ chối được hiển thị tại thanh công cụ. Trình duyệt không hỗ trợ sẽ vô hiệu hóa nút.
-
-## Mouse Mode — spline-v3
-
-Khi Chrome báo `pointerType: mouse`, Stroke lọc điểm lặp và làm mềm điểm ngay trước đầu nét bằng hai điểm lân cận thực. Hiệu chỉnh tối đa 0,65 CSS pixel theo zoom khi đặt bút; giữ điểm đầu/cuối, góc gấp có đoạn đủ dài và điểm quay đầu. Không chờ thêm frame, không dự đoán vượt con trỏ và không tạo áp lực giả.
-
-LiveInk giữ hai đoạn đuôi có thể thay thế cho Mouse Mode, chỉ ghi phần đã ổn định vào canvas đệm. Nét chốt, copy, hit test và xuất ảnh dùng chính các điểm đã lọc; không làm mượt lại toàn bộ khi nhấc bút. Đầu vào `pen` giữ cách xử lý trước đây.
-
-PointerManager nhận các mẫu pointermove mới hơn nếu raw input ngừng giữa nét, đồng thời bỏ mẫu trùng raw/move. Timestamp bằng nhau nhưng tọa độ khác vẫn được nhận để hỗ trợ độ phân giải thời gian thấp.
-
-- `?inkDebug=1`: bản mới hiện `engine: spline-v3`; đầu vào chuột hiện `smoothing: bounded-mouse`.
-- `node scratch/check-mouse-ink.cjs`: kiểm tra giảm bậc thang, giới hạn sai lệch, đầu nét không bị giữ lại, hình học đoạn ổn định, góc/quay đầu, zoom, clone và raw fallback.
-- Browser test so sánh canvas vẽ tăng dần với vẽ lại đầy đủ sau từng mẫu ở nhiều cỡ nét/zoom, gồm điểm lặp và chuyển động nhanh. Nét rất mảnh có khác biệt khử răng cưa giữa các lần tô; không có pixel đặc lệch vào vùng trống của đường tham chiếu trong các ca kiểm tra.
-- Đã kiểm tra luồng mouse trên bảng trống, pen trên bài giảng, commit/undo/redo và hai nét rời nhau. Đây là kiểm tra tự động, chưa thay thế trải nghiệm trên XP-Pen thật.
+Nút cạnh **Lưu thành PDF** đưa cả app vào toàn màn hình, bao gồm menu và các tab. Bấm lại hoặc Esc để thoát. Trạng thái theo `fullscreenchange`; lỗi yêu cầu được hiển thị ở thanh công cụ.

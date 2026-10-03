@@ -5,7 +5,7 @@ import { inkPath, inkSamples } from './InkGeometry';
 // Owns only wet ink. The scene, React and the animation loop do not rasterize
 // this surface while input is active. Live and saved ink share the same geometry.
 export class LiveInk {
-  private rendered = 0;
+  private renderedRevision = -1;
   private stableThrough = 0;
   private hasStart = false;
   private backing: HTMLCanvasElement;
@@ -20,7 +20,7 @@ export class LiveInk {
     this.backing = document.createElement('canvas');
     this.backingCtx = this.backing.getContext('2d')!;
     canvas.addEventListener('board-ink-diagnostics', this.report);
-    canvas.dataset.inkEngine = 'spline-v3';
+    canvas.dataset.inkEngine = 'quadratic-v4.1';
     // A delegated OS trail has its own lifetime and can briefly bridge pen lifts.
     // Keep all visible ink on our canvas, whose pixels reset on every stroke.
     canvas.dataset.nativeInk = 'disabled';
@@ -40,16 +40,15 @@ export class LiveInk {
     if (!stroke) return;
     const start = performance.now();
     const count = stroke.points.length;
-    if (count > this.rendered) {
+    if (stroke.revision !== this.renderedRevision) {
       if (this.backing.width !== this.canvas.width || this.backing.height !== this.canvas.height) {
         this.backing.width = this.canvas.width;
         this.backing.height = this.canvas.height;
       }
       const firstChanged = this.stableThrough + 1;
-      // Mouse filtering revises the previous point: keep two tail segments
-      // replaceable while rasterizing each stable segment only once.
-      const tailSegments = stroke.mouseSmoothing ? 2 : 1;
-      const stableEnd = Math.max(0, count - 1 - tailSegments);
+      // The exact tip can move without increasing the control-point count.
+      // Keep every span touched by the local fit replaceable.
+      const stableEnd = stroke.stableThrough;
       this.backingCtx.save();
       this.camera.applyTransform(this.backingCtx);
       this.backingCtx.fillStyle = stroke.color;
@@ -94,8 +93,8 @@ export class LiveInk {
       this.ctx.restore();
       this.stableThrough = stableEnd;
       this.dirty = nextDirty;
-      this.metrics.samples += count - this.rendered;
-      this.rendered = count;
+      this.metrics.samples += stroke.revision - Math.max(0, this.renderedRevision);
+      this.renderedRevision = stroke.revision;
     }
     if (event) {
       this.inputType = event.pointerType;
@@ -110,7 +109,7 @@ export class LiveInk {
   redraw() {
     this.erasePixels();
     this.resetBacking();
-    this.rendered = 0;
+    this.renderedRevision = -1;
     this.render();
   }
 
@@ -133,15 +132,15 @@ export class LiveInk {
 
   clear() {
     this.stroke = null;
-    this.rendered = 0;
+    this.renderedRevision = -1;
     this.resetBacking();
     this.erasePixels();
     this.canvas.style.opacity = '1';
   }
 
   diagnostics() {
-    return { engine: 'spline-v3', inputType: this.inputType, inputEvent: this.inputEvent,
-      smoothing: this.inputType === 'mouse' ? 'bounded-mouse' : 'measured',
+    return { engine: 'quadratic-v4.1', inputType: this.inputType, inputEvent: this.inputEvent,
+      smoothing: 'local-polynomial-quadratic',
       nativeInk: 'disabled', nativeUpdates: 0,
       desynchronized: this.ctx.getContextAttributes().desynchronized,
       dpr: window.devicePixelRatio || 1, ...this.metrics };

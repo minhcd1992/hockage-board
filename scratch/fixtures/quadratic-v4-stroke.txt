@@ -1,6 +1,5 @@
 import { BoardObject, Point, Rect } from '../types';
 import { inkPath, inkSamples } from '../engine/InkGeometry';
-import { INK_LOOKAHEAD, stabilizeInkPoint } from '../engine/InkStabilizer';
 
 export class Stroke extends BoardObject {
   points: Point[];
@@ -9,11 +8,6 @@ export class Stroke extends BoardObject {
   isDrawing: boolean;
   revision = 0;
   private inputZoom: number;
-  private inputPoints: Point[] = [];
-
-  get stableThrough() {
-    return Math.max(0, this.points.length - INK_LOOKAHEAD - 2);
-  }
   private samplesCache: { points: Point[]; count: number; samples: Point[] } | null = null;
 
   private centerline() {
@@ -42,23 +36,17 @@ export class Stroke extends BoardObject {
 
   addPoint(p: Point) {
     if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) return;
-    const last = this.inputPoints.at(-1);
+    const last = this.points.at(-1);
     if (last?.x === p.x && last.y === p.y && last.pressure === p.pressure) return;
-    const anchor = this.inputPoints.at(-2);
+    const anchor = this.points.at(-2);
     // Both native pen and mouse-mode tablets use distance-based controls.
     // Retain a mutable, exact tip between anchors instead of recording every
     // tiny jitter or waiting for another animation frame. Never move the start.
     if (last && anchor && ((last.x === p.x && last.y === p.y) ||
         Math.hypot(last.x - anchor.x, last.y - anchor.y) * this.inputZoom < 2)) {
-      this.inputPoints[this.inputPoints.length - 1] = { ...p };
+      this.points[this.points.length - 1] = { ...p };
     } else {
-      this.inputPoints.push({ ...p });
-    }
-    // Refit only the controls touched by the newest sample. Always fit from
-    // measured controls, never previously smoothed output (no cumulative drift).
-    const count = this.inputPoints.length;
-    for (let i = Math.max(0, count - INK_LOOKAHEAD - 1); i < count; i++) {
-      this.points[i] = { ...stabilizeInkPoint(this.inputPoints, i, this.inputZoom) };
+      this.points.push({ ...p });
     }
     this.revision++;
     this.outlineCache = null;
@@ -154,7 +142,7 @@ export class Stroke extends BoardObject {
   _translate(dx: number, dy: number): void {
     this.outlineCache = null;
     this.samplesCache = null;
-    for (const p of [...this.points, ...this.inputPoints]) {
+    for (const p of this.points) {
       p.x += dx;
       p.y += dy;
     }
@@ -170,7 +158,6 @@ export class Stroke extends BoardObject {
     const s = new Stroke(this.color, this.size, this.isEraser, this.isHighlighter,
       { zoom: this.inputZoom });
     s.points = this.points.map(p => ({ ...p }));
-    s.inputPoints = this.inputPoints.map(p => ({ ...p }));
     s.isDrawing = this.isDrawing;
     s.copyTransforms(this);
     return s;

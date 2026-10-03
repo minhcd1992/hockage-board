@@ -20,7 +20,8 @@ const { inkSamples } = require('../engine/InkGeometry.ts');
 const curve = [{x:0,y:40,pressure:0.2},{x:12,y:12,pressure:0.5},{x:40,y:0,pressure:0.8},{x:70,y:12,pressure:0.6}];
 const smooth = inkSamples(curve);
 assert.ok(smooth.length > curve.length, 'sparse curved input gets curved interpolation');
-for (const p of curve) assert.ok(smooth.some(s => s.x === p.x && s.y === p.y), 'spline preserves measured positions');
+assert.deepEqual(smooth[0], curve[0], 'curve starts at measured pen-down');
+assert.ok(!smooth.some(s => s.x === curve[1].x && s.y === curve[1].y), 'interior samples are controls, not forced interpolation knots');
 assert.deepEqual(smooth.at(-1), curve.at(-1), 'tail ends at measured cursor position');
 assert.deepEqual(inkSamples(curve.slice(0,3),1,1), inkSamples(curve,1,1), 'segments with lookahead never change again');
 for (const points of [

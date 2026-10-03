@@ -1,70 +1,53 @@
 import { Point } from '../types';
 
-// Filter small mouse/relative-tablet stair steps with one real neighbour.
-// The live tip stays measured; correction is bounded in screen pixels.
-export function smoothMousePoint(before: Point, point: Point, after: Point, zoom: number): Point {
-  const incoming = Math.hypot(point.x - before.x, point.y - before.y);
-  const outgoing = Math.hypot(after.x - point.x, after.y - point.y);
-  if (!incoming || !outgoing) return point;
-  const cosine = ((point.x - before.x) * (after.x - point.x) +
-    (point.y - before.y) * (after.y - point.y)) / (incoming * outgoing);
-  // Preserve reversals and deliberate corners; smooth tiny pixel stair steps.
-  if (cosine < -0.25 || (cosine < 0.5 && Math.min(incoming, outgoing) * zoom > 2.5)) return point;
-  const t = incoming / (incoming + outgoing);
-  const dx = (before.x + (after.x - before.x) * t - point.x) * 0.6;
-  const dy = (before.y + (after.y - before.y) * t - point.y) * 0.6;
-  const distance = Math.hypot(dx, dy);
-  const weight = distance ? Math.min(1, 0.65 / (zoom * distance)) : 0;
-  return { ...point, x: point.x + dx * weight, y: point.y + dy * weight };
-}
-
 export function inkRadius(point: Point, size: number, highlighter = false) {
   return highlighter ? size * 2 : size * (0.8 + 0.4 * Math.max(0, Math.min(1, point.pressure ?? 0.5))) / 2;
 }
 
-// Interpolating cubic spline. Tangents bisect adjacent segment directions;
-// handles are bounded by the shorter adjacent edge to avoid loops when input
-// spacing changes abruptly. The final segment uses a one-sided tangent until
-// another real sample arrives. Every measured point remains on the curve.
+const midpoint = (a: Point, b: Point): Point => ({
+  x: (a.x + b.x) / 2,
+  y: (a.y + b.y) / 2,
+  pressure: ((a.pressure ?? 0.5) + (b.pressure ?? 0.5)) / 2,
+});
+
+// Approximating quadratic B-spline: measurements are control points, not knots
+// the curve must pass through. Adjacent quadratics meet at edge midpoints with
+// identical derivatives. Only the final span reaches the measured tip.
+// Span i uses controls i-2, i-1, i; span 0 is the initial dot. LiveInk keeps
+// the spans touched by Stroke sampling and local stabilization replaceable.
 export function inkSamples(points: Point[], from = 0, to = points.length - 1): Point[] {
   if (!points.length) return [];
-  const result: Point[] = [points[Math.max(0, from - 1)]];
-  const mix = (a: Point, b: Point): Point => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
-  const handle = (before: Point, at: Point, after: Point, length: number) => {
-    const incoming = Math.hypot(at.x - before.x, at.y - before.y);
-    const outgoing = Math.hypot(after.x - at.x, after.y - at.y);
-    const dx = (incoming ? (at.x - before.x) / incoming : 0) + (outgoing ? (after.x - at.x) / outgoing : 0);
-    const dy = (incoming ? (at.y - before.y) / incoming : 0) + (outgoing ? (after.y - at.y) / outgoing : 0);
-    const norm = Math.hypot(dx, dy);
-    const distance = Math.min(length, incoming || length, outgoing || length) / 3;
-    return norm > 1e-6 ? { x: dx / norm * distance, y: dy / norm * distance } : { x: 0, y: 0 };
+  const first = Math.max(1, from);
+  if (first > points.length) return [];
+  const result: Point[] = [first === 1 ? points[0] : midpoint(points[first - 2], points[first - 1])];
+  const flatten = (a: Point, control: Point, b: Point, depth = 0) => {
+    // Parametric chord error also catches collinear reversals, which a simple
+    // distance-to-line test would collapse. Pressure follows the same curve.
+    const error = Math.hypot(a.x - 2 * control.x + b.x, a.y - 2 * control.y + b.y) / 4;
+    const pressureError = Math.abs((a.pressure ?? 0.5) - 2 * (control.pressure ?? 0.5) + (b.pressure ?? 0.5)) / 4;
+    if ((error <= 0.05 && pressureError <= 0.01) || depth >= 12) {
+      result.push(b);
+      return;
+    }
+    const left = midpoint(a, control), right = midpoint(control, b);
+    const center = midpoint(left, right);
+    flatten(a, left, center, depth + 1);
+    flatten(center, right, b, depth + 1);
   };
-  for (let i = Math.max(1, from); i <= Math.min(to, points.length - 1); i++) {
-    const a = points[i - 1], b = points[i];
-    const length = Math.hypot(b.x - a.x, b.y - a.y);
-    const start = handle(points[i - 2] ?? a, a, b, length);
-    const end = handle(a, b, points[i + 1] ?? b, length);
-    const c1 = { x: a.x + start.x, y: a.y + start.y };
-    const c2 = { x: b.x - end.x, y: b.y - end.y };
-    const flatten = (p0: Point, p1: Point, p2: Point, p3: Point, t0: number, t1: number, depth: number) => {
-      // Control-point distance from the chord bounds the curve's deviation.
-      const dx = p3.x - p0.x, dy = p3.y - p0.y;
-      const chord = Math.hypot(dx, dy);
-      const deviation = chord ? Math.max(
-        Math.abs(dx * (p1.y - p0.y) - dy * (p1.x - p0.x)),
-        Math.abs(dx * (p2.y - p0.y) - dy * (p2.x - p0.x)),
-      ) / chord : Math.max(Math.hypot(p1.x - p0.x, p1.y - p0.y), Math.hypot(p2.x - p0.x, p2.y - p0.y));
-      if (deviation <= 0.1 || depth >= 10) {
-        result.push({ ...p3, pressure: (a.pressure ?? 0.5) * (1 - t1) + (b.pressure ?? 0.5) * t1 });
-        return;
-      }
-      const p01 = mix(p0, p1), p12 = mix(p1, p2), p23 = mix(p2, p3);
-      const p012 = mix(p01, p12), p123 = mix(p12, p23), center = mix(p012, p123);
-      const tm = (t0 + t1) / 2;
-      flatten(p0, p01, p012, center, t0, tm, depth + 1);
-      flatten(center, p123, p23, p3, tm, t1, depth + 1);
-    };
-    flatten(a, c1, c2, b, 0, 1, 0);
+  for (let i = first; i <= Math.min(to, points.length - 1); i++) {
+    const a = i === 1 ? points[0] : midpoint(points[i - 2], points[i - 1]);
+    const b = i === points.length - 1 ? points[i] : midpoint(points[i - 1], points[i]);
+    const control = points[i - 1];
+    const dxIn = control.x - a.x, dyIn = control.y - a.y;
+    const dxOut = b.x - control.x, dyOut = b.y - control.y;
+    const lengths = Math.hypot(dxIn, dyIn) * Math.hypot(dxOut, dyOut);
+    // A deliberate near-U-turn is a cusp, not jitter. Retain its extremum;
+    // otherwise the approximating curve would pull a retraced stroke inward.
+    if (lengths > 0 && (dxIn * dxOut + dyIn * dyOut) / lengths < -0.8) {
+      result.push(control, b);
+    } else {
+      flatten(a, control, b);
+    }
   }
   return result;
 }
