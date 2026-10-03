@@ -1,5 +1,23 @@
 import { Point } from '../types';
 
+// Filter small mouse/relative-tablet stair steps with one real neighbour.
+// The live tip stays measured; correction is bounded in screen pixels.
+export function smoothMousePoint(before: Point, point: Point, after: Point, zoom: number): Point {
+  const incoming = Math.hypot(point.x - before.x, point.y - before.y);
+  const outgoing = Math.hypot(after.x - point.x, after.y - point.y);
+  if (!incoming || !outgoing) return point;
+  const cosine = ((point.x - before.x) * (after.x - point.x) +
+    (point.y - before.y) * (after.y - point.y)) / (incoming * outgoing);
+  // Preserve reversals and deliberate corners; smooth tiny pixel stair steps.
+  if (cosine < -0.25 || (cosine < 0.5 && Math.min(incoming, outgoing) * zoom > 2.5)) return point;
+  const t = incoming / (incoming + outgoing);
+  const dx = (before.x + (after.x - before.x) * t - point.x) * 0.6;
+  const dy = (before.y + (after.y - before.y) * t - point.y) * 0.6;
+  const distance = Math.hypot(dx, dy);
+  const weight = distance ? Math.min(1, 0.65 / (zoom * distance)) : 0;
+  return { ...point, x: point.x + dx * weight, y: point.y + dy * weight };
+}
+
 export function inkRadius(point: Point, size: number, highlighter = false) {
   return highlighter ? size * 2 : size * (0.8 + 0.4 * Math.max(0, Math.min(1, point.pressure ?? 0.5))) / 2;
 }

@@ -3,7 +3,7 @@ import { Stroke } from '../objects/Stroke';
 import { inkPath, inkSamples } from './InkGeometry';
 
 // Owns only wet ink. The scene, React and the animation loop do not rasterize
-// this surface while input is active. Saved ink always contains measured points.
+// this surface while input is active. Live and saved ink share the same geometry.
 export class LiveInk {
   private rendered = 0;
   private stableThrough = 0;
@@ -20,7 +20,7 @@ export class LiveInk {
     this.backing = document.createElement('canvas');
     this.backingCtx = this.backing.getContext('2d')!;
     canvas.addEventListener('board-ink-diagnostics', this.report);
-    canvas.dataset.inkEngine = 'spline-v2';
+    canvas.dataset.inkEngine = 'spline-v3';
     // A delegated OS trail has its own lifetime and can briefly bridge pen lifts.
     // Keep all visible ink on our canvas, whose pixels reset on every stroke.
     canvas.dataset.nativeInk = 'disabled';
@@ -46,7 +46,10 @@ export class LiveInk {
         this.backing.height = this.canvas.height;
       }
       const firstChanged = this.stableThrough + 1;
-      const stableEnd = Math.max(0, count - 2);
+      // Mouse filtering revises the previous point: keep two tail segments
+      // replaceable while rasterizing each stable segment only once.
+      const tailSegments = stroke.mouseSmoothing ? 2 : 1;
+      const stableEnd = Math.max(0, count - 1 - tailSegments);
       this.backingCtx.save();
       this.camera.applyTransform(this.backingCtx);
       this.backingCtx.fillStyle = stroke.color;
@@ -87,7 +90,7 @@ export class LiveInk {
       this.ctx.save();
       this.camera.applyTransform(this.ctx);
       this.ctx.fillStyle = stroke.color;
-      if (count > 1) this.ctx.fill(inkPath(stroke.points, stroke.size, stroke.isHighlighter, count - 1));
+      if (count > 1) this.ctx.fill(inkPath(stroke.points, stroke.size, stroke.isHighlighter, stableEnd + 1));
       this.ctx.restore();
       this.stableThrough = stableEnd;
       this.dirty = nextDirty;
@@ -137,7 +140,8 @@ export class LiveInk {
   }
 
   diagnostics() {
-    return { engine: 'spline-v2', inputType: this.inputType, inputEvent: this.inputEvent,
+    return { engine: 'spline-v3', inputType: this.inputType, inputEvent: this.inputEvent,
+      smoothing: this.inputType === 'mouse' ? 'bounded-mouse' : 'measured',
       nativeInk: 'disabled', nativeUpdates: 0,
       desynchronized: this.ctx.getContextAttributes().desynchronized,
       dpr: window.devicePixelRatio || 1, ...this.metrics };

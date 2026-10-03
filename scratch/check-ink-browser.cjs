@@ -43,6 +43,7 @@ const lesson = process.argv[3] === 'lesson';
       })()`)) break;
       await new Promise(resolve => setTimeout(resolve, 100));
     }
+    await evaluate('document.fonts.ready.then(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))');
     const surface = await evaluate(`(() => {
       const c = window.testCanvas;
       const r = c.getBoundingClientRect();
@@ -123,7 +124,7 @@ const lesson = process.argv[3] === 'lesson';
       // Force the unsupported-API path to exercise the portable engine too.
       Object.defineProperty(navigator,'ink',{value:undefined,configurable:true});
       const live = new LiveInk(c,ctx,camera); delete navigator.ink;
-      const curved = new Stroke('#2563eb',4);
+      const curved = new Stroke('#2563eb',4,false,false,{mouse:${pointerType === 'mouse'}});
       const input = [{x:30,y:80},{x:45,y:40},{x:80,y:25},{x:115,y:40},{x:130,y:80},{x:115,y:120},{x:80,y:135},{x:45,y:120},{x:30,y:80}];
       const event = {isTrusted:false,pointerType:'pen',type:'pointermove',timeStamp:performance.now()};
       curved.addPoint(input[0]); live.begin(curved,event);
@@ -140,6 +141,39 @@ const lesson = process.argv[3] === 'lesson';
         if((wet[i]>128)!==(dry[i]>128)) mismatch++;
       }
       if(mismatch/occupied > 0.04) throw new Error('wet/dry curve diverged: '+mismatch+'/'+occupied);
+
+      // Mouse input revises one previous point. At every event, compare the
+      // incremental canvas against a full draw to catch stale cached tails.
+      let mouseWorstMismatch=0;
+      for(const zoom of [.5,1,2]) {
+        camera.zoom=zoom;
+        for(const width of [1,4]) {
+          live.clear();
+          const expected=document.createElement('canvas');expected.width=c.width;expected.height=c.height;
+          const expectedCtx=expected.getContext('2d');
+          const mouse=new Stroke('#2563eb',width,false,false,{mouse:true,zoom});
+          const samples=Array.from({length:60},(_,i)=>({x:(30+i*2)/zoom,y:(30+Math.round(8*Math.sin(i/10)))/zoom,pressure:.5}));
+          // Include duplicates, an intentional corner, reversal and sparse fast input.
+          samples.push({...samples.at(-1)},{x:160/zoom,y:60/zoom},{x:160/zoom,y:100/zoom},{x:160/zoom,y:60/zoom},{x:400/zoom,y:200/zoom});
+          for(let i=0;i<samples.length;i++) {
+            mouse.addPoint(samples[i]);
+            if(!i)live.begin(mouse,event);else live.render(event);
+            expectedCtx.clearRect(0,0,c.width,c.height);
+            expectedCtx.save();camera.applyTransform(expectedCtx);mouse._draw(expectedCtx);expectedCtx.restore();
+            const actual=ctx.getImageData(0,0,c.width,c.height).data;
+            const reference=expectedCtx.getImageData(0,0,c.width,c.height).data;
+            let different=0,ink=0,interiorMismatch=0;
+            for(let j=3;j<actual.length;j+=4){if(actual[j]>128||reference[j]>128)ink++;if((actual[j]>128)!==(reference[j]>128))different++;if((actual[j]>200&&reference[j]<30)||(reference[j]>200&&actual[j]<30))interiorMismatch++;}
+            mouseWorstMismatch=Math.max(mouseWorstMismatch,different/Math.max(1,ink));
+            // At subpixel widths, tiny antialias changes can cross alpha 128.
+            // Reject opaque-vs-empty mismatches, not those edge-only changes.
+            if(interiorMismatch)throw new Error('mouse wet/dry interior drift at sample '+i+': '+interiorMismatch);
+          }
+          live.clear();
+          if(ctx.getImageData(0,0,c.width,c.height).data.some(v=>v))throw new Error('mouse stroke left a tail after clear');
+        }
+      }
+      camera.zoom=1;
       const picture=document.createElement('canvas');picture.width=720;picture.height=370;
       const pic=picture.getContext('2d');pic.fillStyle='white';pic.fillRect(0,0,720,370);
       pic.fillStyle='#17212b';pic.font='18px sans-serif';pic.fillText('Before: straight segments',24,30);pic.fillText('After: interpolating spline',375,30);
@@ -183,7 +217,7 @@ const lesson = process.argv[3] === 'lesson';
         results[name+'30CommitsSubmissionMedianMs']=samples[7];
       }
       live.destroy();
-      return {strokes,pointsPerStroke:points,curveMismatchFraction:mismatch/occupied,preview:picture.toDataURL(),...results};
+      return {strokes,pointsPerStroke:points,curveMismatchFraction:mismatch/occupied,mouseWorstMismatch,preview:picture.toDataURL(),...results};
     })()`);
     fs.writeFileSync('scratch/ink-curve-comparison.png',Buffer.from(benchmark.preview.split(',')[1],'base64'));
     delete benchmark.preview;

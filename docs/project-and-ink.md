@@ -34,7 +34,7 @@ Tham khảo: [Ink API](https://wicg.github.io/ink-enhancement/), [Chrome: desync
 
 Thêm `?inkDebug=1` vào URL trang bảng rồi viết vài nét:
 
-- `engine: spline-v2`: xác nhận đang chạy bản nét cong.
+- `engine: spline-v3`: xác nhận đang chạy bản nét cong.
 - `inputType`: driver gửi `pen` hay giả lập `mouse`.
 - `inputEvent`: raw hay pointermove fallback.
 - `nativeInk: disabled`, `nativeUpdates: 0`: xác nhận lớp nét tạm của trình duyệt đã tắt.
@@ -61,3 +61,16 @@ Cần đối chiếu trên đúng bảng vẽ rời/trình duyệt của ngườ
 ## Toàn màn hình
 
 Nút cạnh **Lưu thành PDF** trên thanh công cụ đưa cả app vào toàn màn hình (bao gồm menu và các tab). Bấm lại hoặc Esc để thoát. Trạng thái nút theo `fullscreenchange`; lỗi/quyền từ chối được hiển thị tại thanh công cụ. Trình duyệt không hỗ trợ sẽ vô hiệu hóa nút.
+
+## Mouse Mode — spline-v3
+
+Khi Chrome báo `pointerType: mouse`, Stroke lọc điểm lặp và làm mềm điểm ngay trước đầu nét bằng hai điểm lân cận thực. Hiệu chỉnh tối đa 0,65 CSS pixel theo zoom khi đặt bút; giữ điểm đầu/cuối, góc gấp có đoạn đủ dài và điểm quay đầu. Không chờ thêm frame, không dự đoán vượt con trỏ và không tạo áp lực giả.
+
+LiveInk giữ hai đoạn đuôi có thể thay thế cho Mouse Mode, chỉ ghi phần đã ổn định vào canvas đệm. Nét chốt, copy, hit test và xuất ảnh dùng chính các điểm đã lọc; không làm mượt lại toàn bộ khi nhấc bút. Đầu vào `pen` giữ cách xử lý trước đây.
+
+PointerManager nhận các mẫu pointermove mới hơn nếu raw input ngừng giữa nét, đồng thời bỏ mẫu trùng raw/move. Timestamp bằng nhau nhưng tọa độ khác vẫn được nhận để hỗ trợ độ phân giải thời gian thấp.
+
+- `?inkDebug=1`: bản mới hiện `engine: spline-v3`; đầu vào chuột hiện `smoothing: bounded-mouse`.
+- `node scratch/check-mouse-ink.cjs`: kiểm tra giảm bậc thang, giới hạn sai lệch, đầu nét không bị giữ lại, hình học đoạn ổn định, góc/quay đầu, zoom, clone và raw fallback.
+- Browser test so sánh canvas vẽ tăng dần với vẽ lại đầy đủ sau từng mẫu ở nhiều cỡ nét/zoom, gồm điểm lặp và chuyển động nhanh. Nét rất mảnh có khác biệt khử răng cưa giữa các lần tô; không có pixel đặc lệch vào vùng trống của đường tham chiếu trong các ca kiểm tra.
+- Đã kiểm tra luồng mouse trên bảng trống, pen trên bài giảng, commit/undo/redo và hai nét rời nhau. Đây là kiểm tra tự động, chưa thay thế trải nghiệm trên XP-Pen thật.

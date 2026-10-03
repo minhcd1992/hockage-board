@@ -1002,7 +1002,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         laserPointsRef.current = [{ x: worldP.x, y: worldP.y, time: Date.now() }];
         if (!laserFrameRef.current) startLaserLoop();
       } else if (state.tool === 'pen' || state.tool === 'highlighter') {
-        engine.currentStroke = new Stroke(state.strokeColor, state.strokeSize, false, state.tool === 'highlighter');
+        engine.currentStroke = new Stroke(state.strokeColor, state.strokeSize, false, state.tool === 'highlighter',
+          { mouse: e.pointerType === 'mouse', zoom: engine.camera.zoom });
         engine.currentStroke.addPoint({ ...p, ...engine.camera.screenToWorld(p.x, p.y) });
         pointer.pendingPoints = [];
         if (engine.scene.getSelectedObjects().length) {

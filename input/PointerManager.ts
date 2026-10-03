@@ -4,6 +4,7 @@ export class PointerManager {
   private element: HTMLElement;
   private receivedRawInput = false;
   private lastSampleTime = -Infinity;
+  private lastSamplePosition = { x: NaN, y: NaN };
   useRawInput?: () => boolean;
   
   isPointerDown: boolean = false;
@@ -79,6 +80,7 @@ export class PointerManager {
     if (this.activePointers.size === 1) {
       this.receivedRawInput = false;
       this.lastSampleTime = e.timeStamp;
+      this.lastSamplePosition = { x: e.clientX, y: e.clientY };
       this.isPointerDown = true;
       this.pendingPoints = [];
       const p = this.getPoint(e);
@@ -139,8 +141,9 @@ export class PointerManager {
     // Never connect those positions to the new stroke, even with the same ID.
     if (e.timeStamp < this.lastSampleTime || e.buttons === 0) return;
 
-    // Raw updates already contain the samples repeated by pointermove.
-    if (e.type === 'pointermove' && this.receivedRawInput && this.useRawInput?.()) {
+    // Skip repeated batches, but accept newer pointermove if raw delivery stops.
+    if (e.type === 'pointermove' && this.receivedRawInput && this.useRawInput?.() && e.timeStamp <= this.lastSampleTime &&
+        e.clientX === this.lastSamplePosition.x && e.clientY === this.lastSamplePosition.y) {
       return;
     }
     
@@ -161,9 +164,12 @@ export class PointerManager {
     let accepted = false;
     for (const ev of events) {
       if (ev.pointerId !== e.pointerId || ev.timeStamp < this.lastSampleTime || ev.buttons === 0) continue;
+      if (this.receivedRawInput && ev.timeStamp === this.lastSampleTime &&
+          ev.clientX === this.lastSamplePosition.x && ev.clientY === this.lastSamplePosition.y) continue;
       const p = this.getPoint(ev as PointerEvent, rect);
       this.pendingPoints.push(p);
       this.lastSampleTime = ev.timeStamp;
+      this.lastSamplePosition = { x: ev.clientX, y: ev.clientY };
       accepted = true;
     }
     if (!accepted) return;

@@ -1,11 +1,15 @@
 import { BoardObject, Point, Rect } from '../types';
-import { inkPath, inkSamples } from '../engine/InkGeometry';
+import { inkPath, inkSamples, smoothMousePoint } from '../engine/InkGeometry';
 
 export class Stroke extends BoardObject {
   points: Point[];
   color: string;
   size: number;
   isDrawing: boolean;
+  readonly mouseSmoothing: boolean;
+  private inputZoom: number;
+  private previousInput: Point | null = null;
+  private lastInput: Point | null = null;
   private samplesCache: { points: Point[]; count: number; samples: Point[] } | null = null;
 
   private centerline() {
@@ -19,7 +23,8 @@ export class Stroke extends BoardObject {
   isEraser: boolean = false;
   isHighlighter: boolean = false;
   
-  constructor(color: string, size: number, isEraser: boolean = false, isHighlighter: boolean = false) {
+  constructor(color: string, size: number, isEraser: boolean = false, isHighlighter: boolean = false,
+    input: { mouse?: boolean; zoom?: number } = {}) {
     super();
     this.type = 'stroke';
     this.points = [];
@@ -28,15 +33,25 @@ export class Stroke extends BoardObject {
     this.isDrawing = true;
     this.isEraser = isEraser;
     this.isHighlighter = isHighlighter;
+    this.mouseSmoothing = !!input.mouse;
+    this.inputZoom = Math.max(0.1, input.zoom ?? 1);
   }
 
   addPoint(p: Point) {
+    if (this.mouseSmoothing) {
+      if (this.lastInput?.x === p.x && this.lastInput.y === p.y) return;
+      if (this.previousInput && this.lastInput) {
+        this.points[this.points.length - 1] = smoothMousePoint(this.previousInput, this.lastInput, p, this.inputZoom);
+      }
+      this.previousInput = this.lastInput;
+      this.lastInput = { ...p };
+    }
     this.points.push(p);
     this.outlineCache = null;
     this.samplesCache = null;
   }
 
-  // Identical measured geometry during input, after pointerup, and in exports.
+  // Identical geometry during input, after pointerup, and in exports.
   _draw(ctx: CanvasRenderingContext2D): void {
     if (!this.points.length) return;
     let cache = this.outlineCache;
@@ -138,7 +153,8 @@ export class Stroke extends BoardObject {
   }
 
   clone(): BoardObject {
-    const s = new Stroke(this.color, this.size, this.isEraser, this.isHighlighter);
+    const s = new Stroke(this.color, this.size, this.isEraser, this.isHighlighter,
+      { mouse: this.mouseSmoothing, zoom: this.inputZoom });
     s.points = this.points.map(p => ({ ...p }));
     s.isDrawing = this.isDrawing;
     s.copyTransforms(this);
