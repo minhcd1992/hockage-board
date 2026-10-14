@@ -1,11 +1,12 @@
 # Quản lý bài giảng và bài tập
 
-Bốn bài hiện tại thuộc **Vật lý lớp 10, chương Động học**:
+Các bài hiện tại thuộc **Vật lý lớp 10**; bài 1–4 thuộc chương Động học, bài 5 thuộc chương Động lực học:
 
 - `bai-1`: Quãng đường & Độ dịch chuyển.
 - `bai-2`: Tốc độ, vận tốc và thực hành đo tốc độ.
 - `bai-3`: Gia tốc và chuyển động thẳng biến đổi đều.
 - `bai-4`: Rơi tự do và chuyển động ném.
+- `bai-5`: Tổng hợp và phân tích lực.
 
 ## Sửa nội dung ở đâu?
 
@@ -34,6 +35,12 @@ content/lessons/
     exercises.mdx            # 45 câu bài tập và lời giải
     components/
       Lesson4Figures.tsx     # 7 mô phỏng, dùng chung đồng hồ và cách vẽ vectơ
+  bai-5/
+    meta.ts
+    theory.mdx
+    exercises.mdx            # 45 câu luyện tập và lời giải
+    components/
+      Lesson5Figures.tsx     # 6 hình, trong đó 3 hình cho phép đổi tham số
 ```
 
 Mỗi bài cần **3 file chính**. Chỉ tạo thêm thư mục mô phỏng hoặc component khi cần.
@@ -47,16 +54,17 @@ Không viết lại tên bài hoặc đường dẫn chuyển trang vào MDX.
 - `/lesson/bai-2` và `/lesson/bai-2/bai-tap`.
 - `/lesson/bai-3` và `/lesson/bai-3/bai-tap`.
 - `/lesson/bai-4` và `/lesson/bai-4/bai-tap`.
+- `/lesson/bai-5` và `/lesson/bai-5/bai-tap`.
 
 Khối lớp là dữ liệu `grade`, không suy ra từ tên bài hay URL. Slug phải duy nhất trong
 toàn bộ danh mục; có thể dùng `lop-11-bai-1` cho một bài lớp 11 sau này.
 
 ## Thêm bài mới
 
-1. Tạo thư mục `content/lessons/bai-5/` và ba file sau.
+1. Tạo thư mục `content/lessons/bai-6/` và ba file sau.
 2. Đăng ký metadata **một lần** trong `lib/lessons.ts`:
-   thêm `import bai5 from '@/content/lessons/bai-5/meta';`, rồi thêm `bai5` vào mảng
-   `[bai1, bai2, bai3, bai4, bai5]`. Thư viện và các trang dùng chung sẽ đọc danh mục này.
+   thêm `import bai6 from '@/content/lessons/bai-6/meta';`, rồi thêm `bai6` vào mảng
+   `[bai1, bai2, bai3, bai4, bai5, bai6]`. Thư viện và các trang dùng chung sẽ đọc danh mục này.
 3. Chạy `npm run build` để kiểm tra MDX, TypeScript và việc tạo đủ trang.
 
 Không cần tạo route mới hay sửa `TabsBar`, `TopMenu`, `mdx-components.tsx`.
@@ -68,12 +76,12 @@ Trong PowerShell nếu `npm.ps1` bị chặn, dùng `npm.cmd run build`.
 import type { LessonMeta } from '@/lib/lessons';
 
 export default {
-  slug: 'bai-5', // Trùng tên thư mục; dùng chữ thường, số và dấu gạch ngang.
+  slug: 'bai-6', // Trùng tên thư mục; dùng chữ thường, số và dấu gạch ngang.
   grade: 10,
   subject: 'Vật lý',
-  chapter: 'Động học',
-  order: 5,
-  title: 'Bài 5: Tên bài học',
+  chapter: 'Động lực học',
+  order: 6,
+  title: 'Bài 6: Tên bài học',
   description: 'Mô tả ngắn nội dung bài học.',
 } satisfies LessonMeta;
 ```
@@ -98,7 +106,7 @@ Tốc độ trung bình: <Math inline>{"v = \\frac{s}{t}"}</Math>.
 <Section title="Bài tập luyện tập" icon="edit">
 
 <Quiz
-  id="bai-5-exercises-001"
+  id="bai-6-exercises-001"
   question="Một vật đi 10 m trong 2 s. Tốc độ trung bình là bao nhiêu?"
   options={['2 m/s', '5 m/s', '10 m/s', '20 m/s']}
   correctIndex={1}
@@ -172,3 +180,45 @@ giải, chưa tự chấm hoặc lưu kết quả.
 Kiểm tra hồi quy bằng Chrome: chạy server production trên cổng 3100, mở Chrome
 với remote debugging ở cổng 9333 rồi chạy `node scratch/check-lessons.cjs`.
 Script tạo một tab kiểm thử riêng và đóng tab đó khi xong.
+
+Bài 5 thuộc chương **Động lực học**, có ba ví dụ giải theo bốn bước và ba câu
+luyện tập nhanh trong `bai-5/theory.mdx`. Ba câu cũ được chuyển từ trang bài tập
+sang lý thuyết, giữ nguyên ID `bai-5-exercises-001` đến `bai-5-exercises-003`.
+Bộ 45 câu mới trong `bai-5/exercises.mdx` dùng ID `bai-5-sbt-001` đến
+`bai-5-sbt-045`: 20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận.
+Lời giải tự luận dùng khối mở/đóng; sơ đồ câu 41 và 45 nằm trong
+`bai-5/components/Lesson5ExerciseFigures.tsx`.
+Sáu hình lý thuyết nằm trong `bai-5/components/Lesson5Figures.tsx`; ba hình
+cho phép đổi tham số: hợp lực, góc dốc và góc dây treo.
+
+Hiệu đính lý thuyết: phân biệt Py âm với độ lớn thành phần nén dương; phân tích
+duy nhất theo hai phương không song song; thí nghiệm cần dây đàn hồi đối kháng
+và vòng tự do tại O; hướng hợp lực kéo không tự xác định quỹ đạo xà lan.
+Hiệu đính bộ bài tập: khôi phục ký hiệu LaTeX bị lỗi ký tự điều khiển; câu 14
+không mặc định thị sai luôn là sai số ngẫu nhiên; câu 21d là Đúng (6595 N là
+số làm tròn); câu 29c giữ nguyên tải đứng; câu 32 dùng giá trị trung gian
+4764,906 N; câu 34 tránh làm tròn hai lần; câu 41 thống nhất mô hình hai dây
+và nêu cách đổi sang bốn dây, phân biệt tổng độ lớn thành phần ngang với hợp
+lực và nội lực nén; câu 43 dùng N = −Py; câu 44 nêu quy ước cộng sai số và
+kết luận phù hợp trong phạm vi sai số; câu 45 có Q ≈ 1060,03 N.
+
+Sau lần rà soát hình bài 5: các khung rộng tối đa 600 px, SVG rộng tối đa
+480 px và dùng chung cách vẽ vectơ/cung góc trong `Lesson5Diagram.tsx`.
+Hình 5.1a chỉ minh họa bố trí tàu kéo và xà lan, dây nối mũi xà lan với đuôi tàu;
+hình 5.1b là cấu tạo cầu dây văng và hướng lực tại một điểm neo, không lặp lại
+sơ đồ ba lực của câu 41. Hình 5.2 chỉ tập trung phép cộng vectơ; hình 5.3 chỉ
+phân tích trọng lực, bánh xe tiếp xúc mặt đường. Thí nghiệm 5.4 trong `ForceExperiment.tsx` có bốn bước: bố trí, kéo bằng hai lực,
+tự chỉnh lực thay thế và đối chiếu. Vòng R tự do; O chỉ là mốc. Chỉ được ghi
+kết quả khi vòng trở lại O; học sinh chọn góc 30°, 60° hoặc 90° cho mỗi lượt.
+Mô hình cân bằng dùng dây đàn hồi tuyến tính, thang chỉnh lực 0,1 N và ngưỡng
+trùng mốc tương ứng ±0,05 N khi đúng hướng. Đây là số liệu mô phỏng. Hình 5.5 giữ
+chiều dài dây 2 m không đổi: hai đầu dịch ngang, độ võng bằng sin θ (m).
+Các vectơ lực ở 5.2, 5.3, 5.5 và câu 41 dùng cùng tỉ lệ trong mỗi khung;
+bản vẽ bố trí tàu, cầu và sơ đồ thanh ở câu 45 không biểu diễn độ lớn lực.
+
+Công thức dùng thống nhất KaTeX 0.16.47 (phiên bản trực tiếp được khóa trong
+`package.json` và `package-lock.json`), tương thích với `rehype-katex` 7.
+Không nâng riêng CSS/KaTeX trực tiếp lên 0.18 khi MDX còn dùng 0.16: tên class
+`base`, `strut`, `sizing` đã thay đổi và có thể làm chỉ số mất định dạng.
+Script kiểm tra bài học đối chiếu phiên bản renderer và đo kích thước chỉ số
+trên trình duyệt (scriptstyle bằng 70% cỡ chữ cha), cho cả MDX và `Math`.

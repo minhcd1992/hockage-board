@@ -1,0 +1,255 @@
+import { TowingForces, BridgeForces, ForceAddition, InclineForces, ForceExperiment, CableTension } from './components/Lesson5Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Nhận biết lực là đại lượng vectơ và hệ lực đồng quy.
+- Tổng hợp lực bằng quy tắc hình bình hành, xác định khoảng giá trị hợp lực.
+- Phân tích lực theo hai phương cho trước, đặc biệt trên mặt phẳng nghiêng.
+- Kiểm chứng bằng thí nghiệm và vận dụng điều kiện cân bằng.
+
+</InfoBox>
+
+<Section title="A. Mở đầu & Đặt vấn đề" icon="rocket">
+
+**Hiện tượng 1 — Tàu kéo xà lan trên sông Hồng:** Hai tàu dùng dây cáp kéo một xà lan chở cát nặng hàng trăm tấn. Khi hai lực kéo bằng nhau và đối xứng, dù hai dây hợp thành góc $2\theta$, hợp lực kéo vẫn hướng theo đường phân giác giữa hai dây.
+
+<TowingForces />
+
+**Hiện tượng 2 — Cầu dây văng Mỹ Thuận / Nhật Tân:** Các dây cáp thép căng xiên nối nhiều điểm trên dầm cầu với trụ tháp. Tại mỗi điểm neo, cáp kéo dầm dọc theo dây về phía tháp; thành phần đứng của lực căng góp phần đỡ tải trọng. Hình dưới chỉ mô tả cấu tạo. Ở phần vận dụng, ta xét riêng mô hình hai dây đối xứng để tính lực căng.
+
+<BridgeForces />
+
+<InfoBox type="info" title="Câu hỏi dẫn dắt">
+
+1. Làm thế nào hai hay nhiều lực theo các hướng khác nhau có tác dụng tương đương với một lực duy nhất?
+2. Vì sao khi xét ô tô trên đèo Bảo Lộc hay tủ gỗ trên sàn nhà, ta thường tách lực thành hai thành phần vuông góc?
+3. Có thể kéo một sợi dây đang đỡ vật nặng thành đường thẳng nằm ngang tuyệt đối không?
+
+</InfoBox>
+
+</Section>
+
+<Section title="B. Hình thành khái niệm & Lý thuyết" icon="book">
+
+### I. Lực và hệ lực đồng quy
+
+**Lực** là đại lượng vectơ đặc trưng cho tác dụng của vật này lên vật khác, có thể gây gia tốc hoặc làm vật biến dạng.
+
+- Một lực có **điểm đặt, phương, chiều, độ lớn**. Đơn vị lực là newton ($\mathrm N$).
+- **Giá của lực** là đường thẳng chứa vectơ lực.
+- **Hệ lực đồng quy** gồm các lực có giá cắt nhau tại một điểm.
+
+Trong bài này, ta xét vật được mô hình hóa như chất điểm hoặc các hệ lực đồng quy phù hợp với mô hình đó.
+
+### II. Tổng hợp lực
+
+**Tổng hợp lực** là thay thế hai hay nhiều lực tác dụng đồng thời lên vật bằng một lực có tác dụng cơ học tương đương, gọi là **hợp lực**.
+
+**Quy tắc hình bình hành:** Biểu diễn hai lực đồng quy bằng hai cạnh kề của một hình bình hành. Đường chéo xuất phát từ điểm đồng quy biểu diễn hợp lực:
+
+$$
+\vec F_{\mathrm{th}}=\vec F_1+\vec F_2.
+$$
+
+<ForceAddition />
+
+Với $\alpha$ là góc giữa hai lực, $0^\circ\le\alpha\le180^\circ$:
+
+$$
+F=\sqrt{F_1^2+F_2^2+2F_1F_2\cos\alpha}.
+$$
+
+- **Cùng chiều**, $\alpha=0^\circ$: $F_{\max}=F_1+F_2$, hợp lực cùng hướng hai lực.
+- **Ngược chiều**, $\alpha=180^\circ$: $F_{\min}=|F_1-F_2|$, hợp lực hướng theo lực lớn hơn. Nếu hai lực bằng nhau thì hợp lực bằng $0$, không có hướng xác định.
+- **Vuông góc**, $\alpha=90^\circ$: $F=\sqrt{F_1^2+F_2^2}$.
+- **Hai lực bằng nhau**, $F_1=F_2=F_0$ và $\alpha<180^\circ$: $F=2F_0\cos(\alpha/2)$, hướng theo đường phân giác.
+
+<InfoBox type="info" title="Khoảng giá trị của hợp lực">
+
+$$
+|F_1-F_2|\le F\le F_1+F_2.
+$$
+
+Độ lớn hợp lực phụ thuộc cả độ lớn từng lực **và góc giữa chúng**. Với nhiều lực, cộng vectơ lần lượt hoặc cộng các thành phần theo từng trục.
+
+</InfoBox>
+
+### III. Phân tích lực
+
+**Phân tích lực** là thay thế một lực bằng hai hay nhiều lực thành phần có tác dụng tương đương. Đây là phép toán ngược của tổng hợp lực.
+
+Trong mặt phẳng, phép phân tích thành **hai thành phần theo hai phương không song song cho trước** có nghiệm duy nhất. Nếu chưa biết phương hoặc có nhiều hơn hai thành phần, cần thêm điều kiện để xác định chúng.
+
+Trên hệ trục vuông góc $Oxy$, với $\theta$ là góc định hướng từ chiều dương $Ox$ đến $\vec F$:
+
+$$
+F_x=F\cos\theta,\qquad F_y=F\sin\theta.
+$$
+
+$F_x,F_y$ là **giá trị đại số**: dương nếu thành phần cùng chiều trục, âm nếu ngược chiều trục.
+
+### IV. Phân tích trọng lực trên mặt phẳng nghiêng
+
+Chọn $Ox$ dọc dốc **hướng xuống**, $Oy$ vuông góc mặt dốc **hướng ra ngoài**. Trọng lực $\vec P=m\vec g$ thẳng đứng xuống dưới.
+
+<InclineForces />
+
+$$
+P_x=mg\sin\alpha,\qquad P_y=-mg\cos\alpha.
+$$
+
+- Độ lớn thành phần kéo vật xuống dốc: $P_{\parallel}=mg\sin\alpha$.
+- Độ lớn thành phần nén vật vào dốc: $P_{\perp}=mg\cos\alpha$.
+
+<InfoBox type="warning" title="Phân biệt độ lớn và giá trị đại số">
+
+Vì trục $Oy$ hướng ra khỏi mặt dốc, hình chiếu $P_y$ mang dấu âm; $P_{\perp}=|P_y|$ luôn không âm. Hai lực thành phần thay thế trọng lực khi tính toán, không phải hai lực mới để cộng thêm vào $\vec P$.
+
+</InfoBox>
+
+</Section>
+
+<Section title="C. Thực hành kiểm chứng quy tắc hình bình hành" icon="target">
+
+**Mục đích:** Tìm một lực thay thế hai lực kéo bằng cách quan sát vòng có trở lại cùng vị trí hay không; sau đó mới đối chiếu với quy tắc hình bình hành.
+
+**Dụng cụ:** Bảng chia độ, vòng kim loại nhẹ, dây nối nhẹ không dãn, hai lực kế, dây đàn hồi và chốt neo C. Ở bước thay thế, dùng lại một lực kế.
+
+<ForceExperiment />
+
+<InfoBox type="info" title="Vì sao phải đưa vòng trở lại O?">
+
+Chốt C và dây đàn hồi không đổi. Khi vòng trở lại cùng vị trí O, dây đàn hồi có cùng hướng và độ giãn, nên tạo cùng lực đàn hồi. Vì vòng cân bằng ở cả hai lần, lực kéo thay thế phải tương đương với hợp lực của hai lực kéo ban đầu.
+
+Lực thay thế **cùng hướng** với hợp lực; lực đàn hồi hướng ngược lại để cân bằng. O chỉ là dấu mốc, tuyệt đối không dùng chốt khóa vòng ở O khi kiểm chứng.
+
+</InfoBox>
+
+**Khi làm thí nghiệm thật:** Đưa các dây vào cùng mặt phẳng, chỉnh vạch 0 và đọc lực kế đúng hướng. Ghi cả độ lớn lẫn phương của lực thay thế. Với $F_{\mathrm{lt}}>0$, độ lệch tương đối giữa kết quả thực nghiệm và lý thuyết là:
+
+$$
+\delta F=\frac{|F_{\mathrm{tn}}-F_{\mathrm{lt}}|}{F_{\mathrm{lt}}}\times100\%.
+$$
+
+Lặp lại với góc khác và so sánh kết quả trong phạm vi sai số lực kế, đọc góc và định vị vòng. Các bước trên màn hình là mô phỏng để tập thao tác; không thay thế số liệu thực nghiệm.
+
+</Section>
+
+<Section title="D. Thí nghiệm tưởng tượng — Dây cáp có thể nằm ngang tuyệt đối?" icon="idea">
+
+Buộc quả cầu khối lượng $m>0$ vào giữa một dây cáp nhẹ. Hai người giữ hai đầu ở cùng độ cao rồi kéo về hai phía, giữ nguyên chiều dài dây. Có thể làm hai đoạn dây nằm ngang hoàn toàn mà quả cầu vẫn cân bằng không?
+
+<CableTension />
+
+Hai lực căng có cùng độ lớn $T$; các thành phần ngang triệt tiêu. Gọi $\theta$ là góc mỗi đoạn dây hợp với **phương ngang**. Cân bằng theo phương đứng đòi hỏi:
+
+$$
+2T\sin\theta=mg\quad\Rightarrow\quad T=\frac{mg}{2\sin\theta}.
+$$
+
+Khi $\theta\to0^+$, $\sin\theta\to0^+$ nên $T\to\infty$. Ở $\theta=0$, mọi lực căng hữu hạn đều không có thành phần đứng để cân bằng trọng lực.
+
+<InfoBox type="info" title="Kết luận vật lý">
+
+Không thể dùng lực căng hữu hạn để giữ dây mềm nằm ngang tuyệt đối khi dây phải đỡ trọng lượng. Dây treo vật nặng và dây điện chịu trọng lượng bản thân đều cần độ võng. Công thức trên áp dụng cho dây nhẹ đỡ **một vật ở giữa**; dây nặng phân bố liên tục có hình dạng và phân bố lực căng khác.
+
+</InfoBox>
+
+</Section>
+
+<Section title="E. Ví dụ vận dụng theo bốn bước" icon="edit">
+
+### Ví dụ 1. Ô tô trên đèo Bảo Lộc
+
+Một ô tô điện VinFast VF8 được mô hình hóa với khối lượng $m=2600\,\mathrm{kg}$, đỗ trên dốc góc $\alpha=15^\circ$. Phân tích trọng lực theo phương song song và vuông góc mặt đường; lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. **Tóm tắt và phân tích:** Trọng lực hướng thẳng đứng xuống; $m=2600\,\mathrm{kg}$, $\alpha=15^\circ$.
+2. **Lập luận vật lý:** Chọn $Ox$ xuống dốc, $Oy$ hướng ra ngoài mặt dốc. Góc giữa trọng lực và hướng nén vào dốc bằng $\alpha$.
+3. **Tính toán:**
+
+$$
+P=mg=2600\times9{,}8=25480\,\mathrm N.
+$$
+
+$$
+P_{\parallel}=25480\sin15^\circ\approx6594{,}7\,\mathrm N,
+$$
+
+$$
+P_{\perp}=25480\cos15^\circ\approx24611{,}8\,\mathrm N.
+$$
+
+4. **Nhận xét:** Thành phần khoảng $6{,}59\,\mathrm{kN}$ có xu hướng kéo xe trôi xuống dốc, được cân bằng bởi ma sát nghỉ khi xe đứng yên. Thành phần khoảng $24{,}61\,\mathrm{kN}$ nén xe xuống đường. Nếu không có lực khác theo phương vuông góc mặt đường, phản lực có độ lớn $N=P_{\perp}$. Theo hệ trục đã chọn, $P_y=-24611{,}8\,\mathrm N$.
+
+### Ví dụ 2. Lực căng cáp giữ dầm cầu
+
+Một dầm bê tông khối lượng $M=10\,\mathrm{tấn}$ cân bằng nhờ hai dây cáp đối xứng. Mỗi dây hợp với **phương thẳng đứng** góc $\theta=30^\circ$. Bỏ qua khối lượng dây; lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. **Tóm tắt và phân tích:** $M=10000\,\mathrm{kg}$, $T_1=T_2=T$. Xét mô hình ba lực đồng quy: $\vec P,\vec T_1,\vec T_2$.
+2. **Lập luận vật lý:** Cân bằng yêu cầu $\vec P+\vec T_1+\vec T_2=\vec0$. Hai thành phần ngang triệt tiêu; theo phương đứng: $2T\cos\theta=Mg$.
+3. **Tính toán:**
+
+$$
+P=98000\,\mathrm N,\qquad
+T=\frac{98000}{2\cos30^\circ}=\frac{98000}{\sqrt3}\approx56580{,}3\,\mathrm N.
+$$
+
+4. **Nhận xét:** Mỗi dây chịu lực căng khoảng $56{,}58\,\mathrm{kN}$. Khi góc với phương đứng tăng, lực căng tăng. Trong mô hình này, nâng điểm neo cao hơn với khoảng cách ngang giữ nguyên giúp giảm góc và giảm lực căng.
+
+### Ví dụ 3. Hai tàu kéo xà lan
+
+Hai lực kéo có độ lớn $F_1=F_2=8000\,\mathrm N$, hợp góc $\alpha=60^\circ$. Tính hợp lực và góc hợp lực tạo với mỗi dây.
+
+1. **Tóm tắt và phân tích:** Hai lực đồng quy bằng nhau, đối xứng quanh hướng kéo chung.
+2. **Lập luận vật lý:** Hình bình hành trở thành hình thoi. Đường chéo hợp lực là phân giác, nên $\beta=\alpha/2=30^\circ$.
+3. **Tính toán:**
+
+$$
+F_{\mathrm{th}}=2F_1\cos\frac\alpha2
+=16000\cos30^\circ\approx13856{,}4\,\mathrm N.
+$$
+
+4. **Nhận xét:** Hợp lực kéo khoảng $13{,}86\,\mathrm{kN}$ hướng theo phân giác. Xà lan chuyển động thẳng theo hướng này khi vận tốc ban đầu và các lực khác không tạo chuyển động lệch ngang; riêng hướng hợp lực kéo chưa đủ để xác định toàn bộ quỹ đạo.
+
+</Section>
+
+<Section title="F. Luyện tập nhanh" icon="edit">
+
+<Quiz
+  id="bai-5-exercises-001"
+  question="Câu 1. Hai lực đồng quy có độ lớn 30 N và 40 N. Hợp lực của chúng không thể nhận giá trị nào sau đây?"
+  options={['10 N', '50 N', '70 N', '85 N']}
+  correctIndex={3}
+  explanation={<>Độ lớn hợp lực thỏa mãn <Math inline>{"|30-40|\\le F\\le30+40"}</Math>, tức <Math inline>{"10\\,\\mathrm N\\le F\\le70\\,\\mathrm N"}</Math>. Vì vậy 85 N không thể là độ lớn hợp lực. Các giá trị 10 N, 50 N và 70 N lần lượt ứng với hai lực ngược chiều, vuông góc và cùng chiều.</>}
+/>
+
+<QuizShort
+  id="bai-5-exercises-002"
+  question="Câu 2. Một đèn trang trí khối lượng 2,0 kg được treo cân bằng bằng hai dây nhẹ đối xứng, mỗi dây hợp với trần nhà nằm ngang góc 45°. Tính lực căng mỗi dây, lấy g = 10 m/s²."
+  answer="14,14 N"
+  explanation={<><p>Hai thành phần ngang của lực căng triệt tiêu. Thành phần đứng của mỗi lực căng là T sin 45°.</p><Math>{"2T\\sin45^\\circ=mg=20\\,\\mathrm N"}</Math><Math>{"T=\\frac{20}{2\\sin45^\\circ}=10\\sqrt2\\approx14{,}14\\,\\mathrm N."}</Math><p>Góc đo từ trần nhà (phương ngang), nên dùng sin khi chiếu theo phương đứng.</p></>}
+/>
+
+<QuizShort
+  id="bai-5-exercises-003"
+  question="Câu 3. Một người đẩy xe hàng bằng lực 100 N nghiêng góc 30° xuống dưới so với phương ngang. Tính độ lớn thành phần đẩy xe tiến lên và thành phần nén xe xuống sàn (đơn vị N)."
+  answer="86,6 N; 50,0 N"
+  explanation={<><p>Chọn Ox nằm ngang theo hướng đẩy, Oy thẳng đứng hướng lên.</p><Math>{"F_x=100\\cos30^\\circ\\approx86{,}6\\,\\mathrm N."}</Math><Math>{"F_y=-100\\sin30^\\circ=-50{,}0\\,\\mathrm N."}</Math><p>Thành phần đẩy tới có độ lớn 86,6 N; thành phần nén xuống có độ lớn 50,0 N. Dấu âm của hình chiếu Fy cho biết hướng xuống, ngược chiều dương Oy.</p></>}
+/>
+
+</Section>
+
+<Section title="G. Ghi nhớ" icon="check">
+
+- Cộng **vectơ lực**, không cộng độ lớn một cách tùy ý.
+- Luôn xác định góc được đo từ phương ngang hay phương thẳng đứng.
+- Phân tích lực theo các phương đã chọn và giữ nhất quán dấu của hình chiếu.
+- Với chất điểm cân bằng: $\sum\vec F=\vec0$, tức tổng hình chiếu lực trên từng trục bằng $0$.
+
+Bộ 45 câu luyện tập kèm lời giải nằm trong phần **Bài tập**.
+
+</Section>
+
+</div>

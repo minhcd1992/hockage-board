@@ -1,0 +1,772 @@
+import { BridgeExerciseDiagram, BeamExerciseDiagram } from './components/Lesson5ExerciseFigures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1">
+
+<InfoBox type="info" title="Bộ bài tập bài 5 — Vật lý lớp 10">
+
+45 câu gồm **20 câu trắc nghiệm, 10 câu đúng/sai, 10 câu trả lời ngắn và 5 câu tự luận**, kèm đáp án và lời giải.
+
+Trừ khi đề nêu khác, xét dây nhẹ, lực đồng phẳng và hệ quy chiếu gắn với mặt đất. Các bài về ma sát nghỉ, lực song song và mômen lực là phần mở rộng. Khối lượng xe và hệ số ma sát là số liệu giả định của bài toán.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-5-sbt-001"
+  question={<>{"Câu 1: Lực là một đại lượng vectơ đặc trưng cho"}</>}
+  options={[
+    <>{"mức quán tính nhanh hay chậm của vật."}</>,
+    <>{"tác dụng của vật này lên vật khác, gây ra gia tốc hoặc làm biến dạng vật."}</>,
+    <>{"khả năng thực hiện công cơ học của vật trong một đơn vị thời gian."}</>,
+    <>{"sự biến thiên động năng của vật trong Hệ quy chiếu phi quán tính."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lực đặc trưng cho tác dụng của vật này lên vật khác, có thể gây gia tốc hoặc biến dạng."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-002"
+  question={<>{"Câu 2: Hai lực đồng quy "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" có độ lớn lần lượt là "}<Math inline>{"6 \\text{ N}"}</Math>{" và "}<Math inline>{"8 \\text{ N}"}</Math>{". Độ lớn hợp lực "}<Math inline>{"F"}</Math>{" của hai lực này không thể nhận giá trị nào sau đây?"}</>}
+  options={[
+    <><Math inline>{"2 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"10 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"14 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"15 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={3}
+  explanation={<><Math inline>{"|8-6|\\le F\\le8+6"}</Math>{", tức "}<Math inline>{"2\\,\\mathrm N\\le F\\le14\\,\\mathrm N"}</Math>{". Vì vậy 15 N không thể là hợp lực."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-003"
+  question={<>{"Câu 3: Hai lực đồng quy "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" hợp với nhau một góc "}<Math inline>{"\\alpha"}</Math>{". Công thức tính độ lớn hợp lực "}<Math inline>{"F"}</Math>{" theo quy tắc hình bình hành là"}</>}
+  options={[
+    <><Math inline>{"F = \\sqrt{F_1^2 + F_2^2 - 2F_1F_2\\cos\\alpha}"}</Math>{"."}</>,
+    <><Math inline>{"F = \\sqrt{F_1^2 + F_2^2 + 2F_1F_2\\cos\\alpha}"}</Math>{"."}</>,
+    <><Math inline>{"F = F_1 + F_2 + 2F_1F_2\\cos\\alpha"}</Math>{"."}</>,
+    <><Math inline>{"F = \\sqrt{F_1^2 + F_2^2 + F_1F_2\\sin\\alpha}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Bình phương độ lớn tổng hai vectơ là "}<Math inline>{"F^2=F_1^2+F_2^2+2F_1F_2\\cos\\alpha"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-004"
+  question={<>{"Câu 4: Hai lực "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" có độ lớn bằng nhau "}<Math inline>{"F_1 = F_2 = 50 \\text{ N}"}</Math>{", góc giữa hai lực là "}<Math inline>{"\\alpha = 120^\\circ"}</Math>{". Độ lớn của hợp lực "}<Math inline>{"F"}</Math>{" bằng"}</>}
+  options={[
+    <><Math inline>{"50 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"50\\sqrt{3} \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"100 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"25 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"F=2F_1\\cos(\\alpha/2)=2\\times50\\cos60^\\circ=50\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-005"
+  question={<>{"Câu 5: Lực "}<Math inline>{"\\vec{F}"}</Math>{" có độ lớn "}<Math inline>{"100 \\text{ N}"}</Math>{" tác dụng lên một vật trượt trên mặt phẳng nằm ngang, hợp với phương ngang một góc "}<Math inline>{"\\alpha = 30^\\circ"}</Math>{". Thành phần của lực "}<Math inline>{"\\vec{F}"}</Math>{" theo phương nằm ngang "}<Math inline>{"F_x"}</Math>{" có độ lớn bằng"}</>}
+  options={[
+    <><Math inline>{"50 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"50\\sqrt{3} \\text{ N} \\approx 86{,}6 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"100 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"50\\sqrt{2} \\text{ N} \\approx 70{,}7 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_x=F\\cos30^\\circ=50\\sqrt3\\,\\mathrm N\\approx86{,}6\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-006"
+  question={<>{"Câu 6: Một ô tô VinFast VF8 khối lượng "}<Math inline>{"m = 2600 \\text{ kg}"}</Math>{" đậu trên đường dốc nghiêng góc "}<Math inline>{"\\alpha = 15^\\circ"}</Math>{" so với phương ngang. Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Thành phần trọng lực "}<Math inline>{"P_x"}</Math>{" có xu hướng kéo ô tô trượt xuống dốc có độ lớn bằng"}</>}
+  options={[
+    <><Math inline>{"25480 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"6595 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"24612 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"12740 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"P_x=mg\\sin15^\\circ\\approx6594{,}709\\,\\mathrm N"}</Math>{", làm tròn được 6595 N."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-007"
+  question={<>{"Câu 7: Phát biểu nào sau đây về phân tích lực là đúng nhất?"}</>}
+  options={[
+    <>{"Phân tích lực là thay thế một lực bằng hai hay nhiều lực thành phần có tác dụng giống hệt lực ban đầu."}</>,
+    <>{"Phân tích lực luôn luôn tạo ra hai lực thành phần vuông góc với nhau."}</>,
+    <>{"Lực thành phần luôn có độ lớn nhỏ hơn lực ban đầu."}</>,
+    <>{"Chỉ có thể phân tích một lực theo hai phương vuông góc "}<Math inline>{"Oxy"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Hai hoặc nhiều lực thành phần phải có tổng vectơ bằng lực ban đầu. Các phương phân tích không bắt buộc vuông góc; một thành phần có thể lớn hơn lực ban đầu."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-008"
+  question={<>{"Câu 8: Hai lực đồng quy "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" vuông góc với nhau ("}<Math inline>{"\\alpha = 90^\\circ"}</Math>{"). Biết "}<Math inline>{"F_1 = 30 \\text{ N}"}</Math>{" và hợp lực "}<Math inline>{"F = 50 \\text{ N}"}</Math>{". Độ lớn của lực "}<Math inline>{"F_2"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"20 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"40 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"80 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"10 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_2=\\sqrt{F^2-F_1^2}=\\sqrt{50^2-30^2}=40\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-009"
+  question={<>{"Câu 9: Một ngọn đèn đường khối lượng "}<Math inline>{"m = 4{,}0 \\text{ kg}"}</Math>{" được treo vào điểm chính giữa "}<Math inline>{"C"}</Math>{" của sợi dây cáp nhẹ "}<Math inline>{"AB"}</Math>{". Dây võng xuống làm góc giữa hai nửa dây cáp là "}<Math inline>{" \\theta = 150^\\circ"}</Math>{" (mỗi bên nghiêng "}<Math inline>{"15^\\circ"}</Math>{" so với phương ngang). Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Lực căng dây "}<Math inline>{"T"}</Math>{" ở mỗi nửa dây cáp bằng"}</>}
+  options={[
+    <><Math inline>{"39{,}2 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"75{,}8 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"151{,}5 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"19{,}6 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Mỗi dây nghiêng 15° so với phương ngang. Cân bằng đứng: "}<Math inline>{"2T\\sin15^\\circ=mg"}</Math>{", nên "}<Math inline>{"T\\approx75{,}8\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-010"
+  question={<>{"Câu 10: Khi hai lực thành phần "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" cùng chiều ("}<Math inline>{"\\alpha = 0^\\circ"}</Math>{"), độ lớn hợp lực "}<Math inline>{"F"}</Math>{" đạt giá trị"}</>}
+  options={[
+    <>{"cực đại "}<Math inline>{"F_{\\max} = F_1 + F_2"}</Math>{"."}</>,
+    <>{"cực tiểu "}<Math inline>{"F_{\\min} = |F_1 - F_2|"}</Math>{"."}</>,
+    <>{"trung bình "}<Math inline>{"F = (F_1 + F_2)/2"}</Math>{"."}</>,
+    <><Math inline>{"F = \\sqrt{F_1^2 + F_2^2}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Khi "}<Math inline>{"\\alpha=0^\\circ"}</Math>{", "}<Math inline>{"\\cos\\alpha=1"}</Math>{" và "}<Math inline>{"F=F_1+F_2"}</Math>{" đạt cực đại."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-011"
+  question={<>{"Câu 11: Một chiếc xà lan trên sông Hồng được kéo bởi hai tàu kéo với các lực "}<Math inline>{"F_1 = 8000 \\text{ N}"}</Math>{" và "}<Math inline>{"F_2 = 8000 \\text{ N}"}</Math>{". Góc giữa hai dây kéo là "}<Math inline>{"\\alpha = 60^\\circ"}</Math>{". Độ lớn hợp lực tác dụng lên xà lan là"}</>}
+  options={[
+    <><Math inline>{"16000 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"8000\\sqrt{3} \\text{ N} \\approx 13856 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"8000 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"11314 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F=2\\times8000\\cos30^\\circ=8000\\sqrt3\\approx13856\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-012"
+  question={<>{"Câu 12: Lực "}<Math inline>{"\\vec{F}"}</Math>{" có độ lớn "}<Math inline>{"60 \\text{ N}"}</Math>{" được phân tích thành hai lực thành phần "}<Math inline>{"\\vec{F}_x"}</Math>{" và "}<Math inline>{"\\vec{F}_y"}</Math>{" vuông góc nhau. Biết "}<Math inline>{"F_x = 36 \\text{ N}"}</Math>{". Độ lớn "}<Math inline>{"F_y"}</Math>{" bằng"}</>}
+  options={[
+    <><Math inline>{"24 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"48 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"96 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"12 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_y=\\sqrt{F^2-F_x^2}=\\sqrt{60^2-36^2}=48\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-013"
+  question={<>{"Câu 13: Một vật chịu tác dụng của 3 lực đồng phẳng, đồng quy "}<Math inline>{"\\vec{F}_1, \\vec{F}_2, \\vec{F}_3"}</Math>{" và đứng yên cân bằng. Phát biểu nào sau đây đúng?"}</>}
+  options={[
+    <>{"Hợp lực của hai lực bất kỳ cân bằng với lực thứ ba: "}<Math inline>{"\\vec{F}_1 + \\vec{F}_2 = -\\vec{F}_3"}</Math>{"."}</>,
+    <>{"Độ lớn "}<Math inline>{"F_3"}</Math>{" luôn bằng "}<Math inline>{"F_1 + F_2"}</Math>{"."}</>,
+    <>{"Ba lực phải có độ lớn bằng nhau."}</>,
+    <>{"Ba lực phải vuông góc với nhau đôi một."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Cân bằng đòi hỏi "}<Math inline>{"\\vec F_1+\\vec F_2+\\vec F_3=\\vec0"}</Math>{", nên "}<Math inline>{"\\vec F_1+\\vec F_2=-\\vec F_3"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-014"
+  question={<>{"Câu 14: Trong thí nghiệm tổng hợp hai lực đồng quy bằng đĩa tròn chia độ, thao tác nào sau đây trực tiếp gây sai số thị sai khi đọc góc giữa hai lực kế?"}</>}
+  options={[
+    <>{"lực kế bị dãn lò xo sau thời gian dài sử dụng."}</>,
+    <>{"mắt người quan sát nhìn lệch góc (lỗi Parallax) khi đọc vạch chia độ trên đĩa."}</>,
+    <>{"gia tốc trọng trường "}<Math inline>{"g"}</Math>{" tại phòng thí nghiệm bị thay đổi."}</>,
+    <>{"đĩa tròn bị làm bằng chất liệu nhựa."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Nhìn lệch vạch chia độ gây sai số thị sai. Nếu hướng nhìn thay đổi giữa các lần đo, sai lệch đọc góc có thể biến thiên; nếu luôn nhìn lệch theo cùng một cách, có thể tạo độ lệch có hệ thống. Không thể mặc định mọi thị sai đều là sai số ngẫu nhiên."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-015"
+  question={<>{"Câu 15: Độ lớn hợp lực của hai lực "}<Math inline>{"\\vec{F}_1 = 15 \\text{ N}"}</Math>{" và "}<Math inline>{"\\vec{F}_2 = 20 \\text{ N}"}</Math>{" khi góc giữa chúng "}<Math inline>{"\\alpha = 180^\\circ"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"35 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"5 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"25 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"300 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Hai lực ngược chiều: "}<Math inline>{"F=|15-20|=5\\,\\mathrm N"}</Math>{", hướng theo lực 20 N."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-016"
+  question={<>{"Câu 16: Vật khối lượng "}<Math inline>{"m=10\\,\\mathrm{kg}"}</Math>{" đặt trên mặt phẳng nghiêng góc "}<Math inline>{"30^\\circ"}</Math>{", không có gia tốc vuông góc mặt dốc. Ngoài trọng lực, vật chỉ chịu phản lực và có thể chịu ma sát của mặt dốc. Lấy "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Phản lực "}<Math inline>{"N"}</Math>{" do mặt dốc tác dụng lên vật có độ lớn là"}</>}
+  options={[
+    <><Math inline>{"49{,}0 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"84{,}9 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"98{,}0 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"69{,}3 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Không có gia tốc vuông góc mặt dốc và không có lực khác theo phương này: "}<Math inline>{"N=mg\\cos30^\\circ\\approx84{,}9\\,\\mathrm N"}</Math>{". N là phản lực do mặt dốc tác dụng lên vật, hướng ra khỏi dốc."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-017"
+  question={<>{"Câu 17: Hai lực "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" có "}<Math inline>{"F_1 = 40 \\text{ N}, F_2 = 30 \\text{ N}"}</Math>{". Góc "}<Math inline>{"\\alpha"}</Math>{" giữa hai lực bằng bao nhiêu để hợp lực có độ lớn "}<Math inline>{"F = 10 \\text{ N}"}</Math>{"?"}</>}
+  options={[
+    <><Math inline>{"0^\\circ"}</Math>{"."}</>,
+    <><Math inline>{"60^\\circ"}</Math>{"."}</>,
+    <><Math inline>{"90^\\circ"}</Math>{"."}</>,
+    <><Math inline>{"180^\\circ"}</Math>{"."}</>
+  ]}
+  correctIndex={3}
+  explanation={<><Math inline>{"F=10\\,\\mathrm N=|40-30|"}</Math>{" là hợp lực nhỏ nhất, đạt được khi "}<Math inline>{"\\alpha=180^\\circ"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-018"
+  question={<>{"Câu 18: Một người kéo chiếc va li nặng trên sàn nhà bằng một sợi dây hợp với phương ngang góc "}<Math inline>{"45^\\circ"}</Math>{" một lực "}<Math inline>{"F = 80 \\text{ N}"}</Math>{". Độ lớn lực kéo theo phương thẳng đứng có xu hướng nâng va li lên là"}</>}
+  options={[
+    <><Math inline>{"40 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"56{,}6 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"80 \\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"113{,}1 \\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_y=80\\sin45^\\circ=40\\sqrt2\\approx56{,}6\\,\\mathrm N"}</Math>{", hướng lên."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-019"
+  question={<>{"Câu 19: Khi tổng hợp hai lực song song cùng chiều "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" tác dụng vào một vật rắn, điểm đặt của hợp lực "}<Math inline>{"\\vec{F}"}</Math>{" chia khoảng cách giữa hai giá của lực theo tỉ lệ Gọi d₁, d₂ là khoảng cách từ giá hợp lực đến giá của F₁, F₂; hai lực khác 0."}</>}
+  options={[
+    <>{"thuận với độ lớn hai lực: "}<Math inline>{"\\frac{d_1}{d_2} = \\frac{F_1}{F_2}"}</Math>{"."}</>,
+    <>{"nghịch với độ lớn hai lực: "}<Math inline>{"\\frac{d_1}{d_2} = \\frac{F_2}{F_1}"}</Math>{"."}</>,
+    <>{"tỉ lệ với bình phương độ lớn: "}<Math inline>{"\\frac{d_1}{d_2} = \\frac{F_2^2}{F_1^2}"}</Math>{"."}</>,
+    <>{"không phụ thuộc vào độ lớn hai lực."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Bảo toàn mômen đối với giá hợp lực: "}<Math inline>{"F_1d_1=F_2d_2"}</Math>{", suy ra "}<Math inline>{"d_1/d_2=F_2/F_1"}</Math>{". Giá hợp lực nằm giữa hai giá lực và gần lực lớn hơn."}</>}
+/>
+
+<Quiz
+  id="bai-5-sbt-020"
+  question={<>{"Câu 20: Điều kiện cân bằng của một chất điểm chịu tác dụng của nhiều lực là"}</>}
+  options={[
+    <>{"hợp lực của tất cả các lực tác dụng lên chất điểm phải bằng zero: "}<Math inline>{"\\sum \\vec{F} = \\vec{0}"}</Math>{"."}</>,
+    <>{"các lực tác dụng phải đôi một vuông góc."}</>,
+    <>{"tổng độ lớn các lực phải bằng zero: "}<Math inline>{"\\sum F_i = 0"}</Math>{"."}</>,
+    <>{"chất điểm phải chịu ít nhất 4 lực đồng phẳng."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Điều kiện cân bằng của chất điểm là "}<Math inline>{"\\sum\\vec F=\\vec0"}</Math>{". Tổng vectơ bằng không không có nghĩa tổng độ lớn bằng không."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="idea">
+
+Chọn Đúng hoặc Sai cho từng mệnh đề, sau đó mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-5-sbt-021"
+  question={<>{"Câu 21: Khảo sát ô tô điện VinFast VF8 khối lượng "}<Math inline>{"m = 2600 \\text{ kg}"}</Math>{" đỗ cố định trên đường dốc nghiêng "}<Math inline>{"\\alpha = 15^\\circ"}</Math>{" so với phương ngang. Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Xét mô hình xe chịu trọng lực, phản lực và ma sát nghỉ; các ký hiệu thành phần trong mệnh đề chỉ độ lớn."}</>}
+  statements={[
+    { id: "a", text: <>{"Trọng lực tác dụng lên ô tô có độ lớn "}<Math inline>{"P = 25480 \\text{ N}"}</Math>{" hướng thẳng đứng xuống dưới."}</>, isTrue: true, explanation: <><Math inline>{"P=mg=2600\\times9{,}8=25480\\,\\mathrm N"}</Math>{", hướng thẳng đứng xuống."}</> },
+    { id: "b", text: <>{"Thành phần trọng lực song song với mặt dốc "}<Math inline>{"P_x = P \\cos 15^\\circ \\approx 24612 \\text{ N}"}</Math>{"."}</>, isTrue: false, explanation: <>{"Độ lớn thành phần song song là "}<Math inline>{"P_x=P\\sin15^\\circ\\approx6595\\,\\mathrm N"}</Math>{"."}</> },
+    { id: "c", text: <>{"Thành phần trọng lực vuông góc với mặt dốc "}<Math inline>{"P_y = P \\sin 15^\\circ \\approx 6595 \\text{ N}"}</Math>{"."}</>, isTrue: false, explanation: <>{"Độ lớn thành phần nén là "}<Math inline>{"P_{\\perp}=P\\cos15^\\circ\\approx24612\\,\\mathrm N"}</Math>{". Nếu Oy hướng ra khỏi dốc thì "}<Math inline>{"P_y=-P_{\\perp}"}</Math>{"."}</> },
+    { id: "d", text: <>{"Để ô tô đứng yên không trôi xuống dốc, lực ma sát nghỉ do mặt đường tác dụng lên các bánh xe phải cân bằng với "}<Math inline>{"P_x"}</Math>{" và có độ lớn xấp xỉ "}<Math inline>{"6595 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cân bằng dọc dốc cho "}<Math inline>{"F_{\\mathrm{msn}}=P_x\\approx6595\\,\\mathrm N"}</Math>{", hướng lên dốc. Mệnh đề d là Đúng; đáp án Sai trong tài liệu nguồn mâu thuẫn với chính mệnh đề."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-022"
+  question={<>{"Câu 22: Hai lực đồng quy "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" có độ lớn "}<Math inline>{"F_1 = 30 \\text{ N}"}</Math>{" và "}<Math inline>{"F_2 = 40 \\text{ N}"}</Math>{"."}</>}
+  statements={[
+    { id: "a", text: <>{"Độ lớn hợp lực "}<Math inline>{"F"}</Math>{" luôn nằm trong khoảng từ "}<Math inline>{"10 \\text{ N}"}</Math>{" đến "}<Math inline>{"70 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"|40-30|\\le F\\le40+30"}</Math>{"."}</> },
+    { id: "b", text: <>{"Khi góc giữa hai lực "}<Math inline>{"\\alpha = 90^\\circ"}</Math>{", độ lớn hợp lực "}<Math inline>{"F = 50 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F=\\sqrt{30^2+40^2}=50\\,\\mathrm N"}</Math>{"."}</> },
+    { id: "c", text: <>{"Khi góc giữa hai lực "}<Math inline>{"\\alpha = 60^\\circ"}</Math>{", độ lớn hợp lực "}<Math inline>{"F = 10\\sqrt{37} \\text{ N} \\approx 60{,}8 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F=\\sqrt{30^2+40^2+2\\times30\\times40\\cos60^\\circ}=10\\sqrt{37}\\approx60{,}8\\,\\mathrm N"}</Math>{"."}</> },
+    { id: "d", text: <>{"Nếu tăng góc "}<Math inline>{"\\alpha"}</Math>{" từ "}<Math inline>{"0^\\circ"}</Math>{" đến "}<Math inline>{"180^\\circ"}</Math>{" thì độ lớn hợp lực "}<Math inline>{"F"}</Math>{" giảm liên tục từ "}<Math inline>{"70 \\text{ N}"}</Math>{" xuống "}<Math inline>{"10 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Khi góc tăng từ 0° đến 180°, cos giảm từ 1 xuống −1, nên F giảm liên tục từ 70 N xuống 10 N."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-023"
+  question={<>{"Câu 23: Một chậu cây cảnh khối lượng "}<Math inline>{"m = 6{,}0 \\text{ kg}"}</Math>{" được treo cân bằng bằng hai sợi dây nhẹ không dãn "}<Math inline>{"AC"}</Math>{" và "}<Math inline>{"BC"}</Math>{" buộc vào trần nhà. Biết dây "}<Math inline>{"AC"}</Math>{" hợp với trần nằm ngang góc "}<Math inline>{"30^\\circ"}</Math>{", dây "}<Math inline>{"BC"}</Math>{" hợp với trần góc "}<Math inline>{"60^\\circ"}</Math>{". Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Hai điểm neo A, B nằm ở hai phía của C."}</>}
+  statements={[
+    { id: "a", text: <>{"Góc giữa hai sợi dây "}<Math inline>{"AC"}</Math>{" và "}<Math inline>{"BC"}</Math>{" tại điểm chụm "}<Math inline>{"C"}</Math>{" là "}<Math inline>{"90^\\circ"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"180^\\circ-30^\\circ-60^\\circ=90^\\circ"}</Math>{"."}</> },
+    { id: "b", text: <>{"Trọng lực tác dụng lên chậu cây có độ lớn "}<Math inline>{"P = 58{,}8 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"P=6\\times9{,}8=58{,}8\\,\\mathrm N"}</Math>{"."}</> },
+    { id: "c", text: <>{"Lực căng dây "}<Math inline>{"T_{AC}"}</Math>{" có độ lớn là "}<Math inline>{"29{,}4 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cân bằng ngang: "}<Math inline>{"T_{AC}\\cos30^\\circ=T_{BC}\\cos60^\\circ"}</Math>{". Cân bằng đứng: "}<Math inline>{"T_{AC}\\sin30^\\circ+T_{BC}\\sin60^\\circ=P"}</Math>{". Giải được "}<Math inline>{"T_{AC}=P/2=29{,}4\\,\\mathrm N"}</Math>{"."}</> },
+    { id: "d", text: <>{"Lực căng dây "}<Math inline>{"T_{BC}"}</Math>{" có độ lớn là "}<Math inline>{"29{,}4\\sqrt{3} \\text{ N} \\approx 50{,}92 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"T_{BC}=\\sqrt3T_{AC}=29{,}4\\sqrt3\\approx50{,}92\\,\\mathrm N"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-024"
+  question={<>{"Câu 24: Trong thí nghiệm kiểm chứng quy tắc tổng hợp hai lực đồng quy bằng đĩa tròn chia độ "}<Math inline>{"360^\\circ"}</Math>{" và lực kế lò xo: Vòng nối dây tự do, ba lực kế kéo vòng cân bằng tại O; bỏ qua ma sát và trọng lượng vòng."}</>}
+  statements={[
+    { id: "a", text: <>{"Phải điều chỉnh vạch "}<Math inline>{"0"}</Math>{" của các lực kế trước khi tiến hành đo."}</>, isTrue: true, explanation: <>{"Hiệu chỉnh vạch 0 giúp loại bỏ độ lệch ban đầu có hệ thống."}</> },
+    { id: "b", text: <>{"Các sợi dây nối lực kế phải nằm sát và song song với mặt đĩa tròn chia độ để tránh sai số do lực kéo bị lệch mặt phẳng."}</>, isTrue: true, explanation: <>{"Các dây cần gần và song song với mặt đĩa, nhưng không cọ sát vào đĩa; như vậy góc đọc trên đĩa phản ánh góc giữa các lực."}</> },
+    { id: "c", text: <>{"Giá trị hợp lực lý thuyết "}<Math inline>{"F_{lt}"}</Math>{" được tính bằng công thức "}<Math inline>{"F_{lt} = \\sqrt{F_1^2 + F_2^2 + 2F_1F_2\\cos\\alpha}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Áp dụng quy tắc hình bình hành với góc giữa hai lực: "}<Math inline>{"F_{\\mathrm{lt}}=\\sqrt{F_1^2+F_2^2+2F_1F_2\\cos\\alpha}"}</Math>{"."}</> },
+    { id: "d", text: <>{"Lực kế thứ ba đo lực cân bằng "}<Math inline>{"\\vec{F}_3"}</Math>{" phải có độ lớn "}<Math inline>{"F_3"}</Math>{" khác với "}<Math inline>{"F_{lt}"}</Math>{" và ngược chiều với hợp lực "}<Math inline>{"\\vec{F}_{12}"}</Math>{"."}</>, isTrue: false, explanation: <>{"Lực cân bằng thỏa mãn "}<Math inline>{"\\vec F_3=-\\vec F_{12}"}</Math>{": cùng độ lớn, ngược chiều trong mô hình lý tưởng. Số đo thực tế có thể lệch trong phạm vi sai số."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-025"
+  question={<>{"Câu 25: Xét dây nhẹ, hai đầu ở cùng độ cao, treo vật khối lượng m > 0 tại chính giữa. Gọi θ là góc mỗi nửa dây với phương ngang. Xét trạng thái cân bằng với lực căng hữu hạn và giới hạn khi θ tiến về 0."}</>}
+  statements={[
+    { id: "a", text: <>{"Khi treo một vật nặng khối lượng "}<Math inline>{"m"}</Math>{" vào chính giữa một sợi dây cáp giăng ngang, sợi dây bắt buộc phải võng xuống một góc "}<Math inline>{" \\theta > 0"}</Math>{" so với phương ngang."}</>, isTrue: true, explanation: <>{"Với vật có trọng lượng và lực căng hữu hạn, dây phải võng để tạo thành phần lực hướng lên."}</> },
+    { id: "b", text: <>{"Lực căng dây "}<Math inline>{"T"}</Math>{" ở mỗi nửa sợi dây được tính bằng biểu thức "}<Math inline>{"T = \\frac{mg}{2\\sin \\theta}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cân bằng đứng: "}<Math inline>{"2T\\sin\\theta=mg"}</Math>{"."}</> },
+    { id: "c", text: <>{"Nếu muốn sợi dây cáp thẳng tắp tuyệt đối ("}<Math inline>{" \\theta = 0^\\circ"}</Math>{"), lực căng dây "}<Math inline>{"T"}</Math>{" phải tiến đến vô cực ("}<Math inline>{"T \\to \\infty"}</Math>{")."}</>, isTrue: true, explanation: <>{"Khi "}<Math inline>{"\\theta\\to0^+"}</Math>{" thì "}<Math inline>{"T=mg/(2\\sin\\theta)\\to\\infty"}</Math>{". Đây là giới hạn, không phải một trạng thái cân bằng có thể đạt bằng lực hữu hạn."}</> },
+    { id: "d", text: <>{"Trong thực tế xây dựng đường dây điện cao thế, người ta cố tình kéo dây thật căng để "}<Math inline>{" \\theta = 0^\\circ"}</Math>{" nhằm tiết kiệm chiều dài dây."}</>, isTrue: false, explanation: <>{"Dây mềm chịu trọng lượng cần độ võng; càng cố kéo ngang, lực căng càng lớn."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-026"
+  question={<>{"Câu 26: Một chiếc xà lan chở cát trên sông Tiền được kéo bởi hai chiếc tàu kéo "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{". Tàu "}<Math inline>{"A"}</Math>{" kéo lực "}<Math inline>{"F_1 = 5000 \\text{ N}"}</Math>{" hợp với trục xà lan góc "}<Math inline>{"30^\\circ"}</Math>{". Tàu "}<Math inline>{"B"}</Math>{" kéo lực "}<Math inline>{"F_2"}</Math>{" hợp với trục xà lan góc "}<Math inline>{"45^\\circ"}</Math>{". Xà lan di chuyển thẳng tắp dọc theo trục giữa. Hai dây nằm hai phía trục; vận tốc ban đầu dọc trục và các lực khác không có thành phần ngang. Ở ý d, lực F₂ và góc kéo của tàu B giữ nguyên."}</>}
+  statements={[
+    { id: "a", text: <>{"Để xà lan không bị dạt sang hai bên bờ sông, thành phần lực vuông góc với trục xà lan do hai tàu tạo ra phải triệt tiêu nhau: "}<Math inline>{"F_1 \\sin 30^\\circ = F_2 \\sin 45^\\circ"}</Math>{"."}</>, isTrue: true, explanation: <>{"Hai thành phần ngang trái dấu và bằng nhau về độ lớn: "}<Math inline>{"F_1\\sin30^\\circ=F_2\\sin45^\\circ"}</Math>{"."}</> },
+    { id: "b", text: <>{"Độ lớn lực kéo "}<Math inline>{"F_2"}</Math>{" của tàu "}<Math inline>{"B"}</Math>{" bằng "}<Math inline>{"2500\\sqrt{2} \\text{ N} \\approx 3535{,}5 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F_2=5000\\sin30^\\circ/\\sin45^\\circ=2500\\sqrt2\\approx3535{,}5\\,\\mathrm N"}</Math>{"."}</> },
+    { id: "c", text: <>{"Tổng lực kéo xà lan tiến về phía trước theo trục giữa có độ lớn bằng "}<Math inline>{"F_1 \\cos 30^\\circ + F_2 \\cos 45^\\circ \\approx 6830 \\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F_{\\mathrm{th}}=5000\\cos30^\\circ+2500\\sqrt2\\cos45^\\circ\\approx6830\\,\\mathrm N"}</Math>{"."}</> },
+    { id: "d", text: <>{"Nếu tàu "}<Math inline>{"A"}</Math>{" tăng lực kéo "}<Math inline>{"F_1"}</Math>{" nhưng giữ nguyên góc "}<Math inline>{"30^\\circ"}</Math>{", xà lan vẫn tiếp tục di chuyển thẳng tắp theo trục cũ mà không bị chệch hướng."}</>, isTrue: false, explanation: <>{"Khi F₂ và cả hai góc giữ nguyên, tăng F₁ làm xuất hiện hợp lực ngang về phía tàu A, khiến vận tốc có thêm thành phần lệch ngang."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-027"
+  question={<>{"Câu 27: Phân tích lực tác dụng lên một hòn đá khối lượng "}<Math inline>{"m"}</Math>{" nằm yên trên dốc nghiêng góc "}<Math inline>{"\\alpha"}</Math>{" có hệ số ma sát nghỉ "}<Math inline>{"\\mu_n"}</Math>{". Xét 0 < α < 90°; không có lực ngoài nào khác ngoài trọng lực và lực tiếp xúc với dốc."}</>}
+  statements={[
+    { id: "a", text: <>{"Hòn đá chịu tác dụng của 3 lực: Trọng lực "}<Math inline>{"\\vec{P}"}</Math>{", Pháp lực "}<Math inline>{"\\vec{N}"}</Math>{" và Lực ma sát nghỉ "}<Math inline>{"\\vec{F}_{msn}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Trong mô hình đã nêu, vật chịu trọng lực, phản lực của mặt dốc và ma sát nghỉ."}</> },
+    { id: "b", text: <>{"Pháp lực của mặt dốc tác dụng lên hòn đá có độ lớn "}<Math inline>{"N = mg \\sin\\alpha"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"N=mg\\cos\\alpha"}</Math>{", không phải "}<Math inline>{"mg\\sin\\alpha"}</Math>{"."}</> },
+    { id: "c", text: <>{"Độ lớn lực ma sát nghỉ "}<Math inline>{"F_{msn} = mg \\sin\\alpha"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cân bằng dọc dốc: "}<Math inline>{"F_{\\mathrm{msn}}=mg\\sin\\alpha"}</Math>{". Ma sát nghỉ không luôn đạt giá trị cực đại."}</> },
+    { id: "d", text: <>{"Điều kiện để hòn đá nằm yên không bị trôi dốc là "}<Math inline>{" \\tan\\alpha \\le \\mu_n"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"mg\\sin\\alpha\\le\\mu_nmg\\cos\\alpha"}</Math>{" tương đương "}<Math inline>{"\\tan\\alpha\\le\\mu_n"}</Math>{" với "}<Math inline>{"0\\le\\alpha<90^\\circ"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-028"
+  question={<>{"Câu 28: Khi biểu diễn các lực tác dụng lên chất điểm trong Hệ tọa độ "}<Math inline>{"Oxy"}</Math>{": Các lực đều nằm trong mặt phẳng Oxy."}</>}
+  statements={[
+    { id: "a", text: <>{"Phương pháp tọa độ cho phép thay thế phương trình vectơ "}<Math inline>{"\\sum \\vec{F}_i = \\vec{0}"}</Math>{" bằng hai phương trình đại số "}<Math inline>{"\\sum F_{ix} = 0"}</Math>{" và "}<Math inline>{"\\sum F_{iy} = 0"}</Math>{"."}</>, isTrue: true, explanation: <>{"Trong mặt phẳng Oxy, "}<Math inline>{"\\sum\\vec F_i=\\vec0"}</Math>{" tương đương "}<Math inline>{"\\sum F_{ix}=0"}</Math>{" và "}<Math inline>{"\\sum F_{iy}=0"}</Math>{"."}</> },
+    { id: "b", text: <>{"Thành phần chiếu "}<Math inline>{"F_x"}</Math>{" của lực "}<Math inline>{"\\vec{F}"}</Math>{" lên trục "}<Math inline>{"Ox"}</Math>{" luôn mang giá trị dương."}</>, isTrue: false, explanation: <><Math inline>{"F_x=F\\cos\\theta"}</Math>{" có thể dương, âm hoặc bằng 0 tùy hướng lực."}</> },
+    { id: "c", text: <>{"Nếu lực "}<Math inline>{"\\vec{F}"}</Math>{" vuông góc với trục "}<Math inline>{"Ox"}</Math>{" thì giá trị chiếu "}<Math inline>{"F_x = 0"}</Math>{"."}</>, isTrue: true, explanation: <>{"Lực vuông góc Ox không có thành phần theo Ox."}</> },
+    { id: "d", text: <>{"Nếu lực "}<Math inline>{"\\vec{F}"}</Math>{" ngược chiều với chiều dương của trục "}<Math inline>{"Oy"}</Math>{" thì giá trị chiếu "}<Math inline>{"F_y = -F"}</Math>{"."}</>, isTrue: true, explanation: <>{"Nếu lực nằm dọc Oy và hướng ngược chiều dương thì "}<Math inline>{"F_y=-F"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-029"
+  question={<>{"Câu 29: Xét mô hình dây cáp mềm nâng đỡ dầm cầu nằm ngang, với điểm neo trên trụ tháp. Khi thay đổi góc dây ở ý c, giữ nguyên tải trọng thẳng đứng mà dây phải nâng đỡ và cách phân chia tải."}</>}
+  statements={[
+    { id: "a", text: <>{"Các sợi dây cáp thép chỉ có khả năng chịu lực kéo, không chịu được lực nén."}</>, isTrue: true, explanation: <>{"Dây cáp mềm truyền lực kéo; khi bị ép dọc trục, dây chùng thay vì chịu nén như thanh cứng."}</> },
+    { id: "b", text: <>{"Lực căng dây cáp tác dụng vào dầm cầu luôn hướng dọc theo sợi dây về phía đỉnh trụ tháp."}</>, isTrue: true, explanation: <>{"Lực căng tác dụng lên dầm hướng dọc dây về điểm neo ở tháp."}</> },
+    { id: "c", text: <>{"Khi góc nghiêng "}<Math inline>{"\\alpha"}</Math>{" của dây cáp so với dầm cầu càng nhỏ thì thành phần lực nén nằm ngang tác dụng lên dầm cầu càng lớn."}</>, isTrue: true, explanation: <>{"Giữ nguyên tải đứng V mà dây nâng đỡ: "}<Math inline>{"T\\sin\\alpha=V"}</Math>{", nên "}<Math inline>{"F_n=T\\cos\\alpha=V\\cot\\alpha"}</Math>{". Góc nhỏ hơn làm thành phần ngang lớn hơn."}</> },
+    { id: "d", text: <>{"Lực căng dây cáp không phụ thuộc vào trọng lượng của đoạn dầm cầu mà nó nâng đỡ."}</>, isTrue: false, explanation: <>{"Với góc cố định, "}<Math inline>{"T=V/\\sin\\alpha"}</Math>{" phụ thuộc tải đứng mà dây đỡ."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-5-sbt-030"
+  question={<>{"Câu 30: Xét hệ ba lực đồng phẳng "}<Math inline>{"\\vec{F}_1, \\vec{F}_2, \\vec{F}_3"}</Math>{" tác dụng vào một vật. Các lực có độ lớn khác 0 và đồng quy. Ở ý b, giả sử hệ đang cân bằng."}</>}
+  statements={[
+    { id: "a", text: <>{"Nếu "}<Math inline>{"\\vec{F}_1 + \\vec{F}_2 + \\vec{F}_3 = \\vec{0}"}</Math>{" thì ba lực này có thể tạo thành một tam giác lực khép kín khi xếp nối tiếp các vectơ."}</>, isTrue: true, explanation: <>{"Tổng ba vectơ bằng không nghĩa là xếp nối đuôi nhau tạo một đường khép kín (tam giác có thể suy biến nếu các lực cùng phương)."}</> },
+    { id: "b", text: <>{"Hợp lực của "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" phải cùng phương, cùng chiều với "}<Math inline>{"\\vec{F}_3"}</Math>{"."}</>, isTrue: false, explanation: <>{"Trong trạng thái cân bằng, "}<Math inline>{"\\vec F_1+\\vec F_2=-\\vec F_3"}</Math>{", nên hợp lực ngược chiều lực thứ ba."}</> },
+    { id: "c", text: <>{"Nếu "}<Math inline>{"F_1 = 3 \\text{ N}, F_2 = 4 \\text{ N}, F_3 = 5 \\text{ N}"}</Math>{" và cân bằng thì góc giữa "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" bằng "}<Math inline>{"90^\\circ"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"5^2=3^2+4^2+2\\times3\\times4\\cos\\alpha"}</Math>{" cho "}<Math inline>{"\\cos\\alpha=0"}</Math>{", nên "}<Math inline>{"\\alpha=90^\\circ"}</Math>{"."}</> },
+    { id: "d", text: <>{"Nếu ba lực cân bằng và "}<Math inline>{"F_1 = F_2 = F_3"}</Math>{" thì góc giữa từng cặp lực bằng "}<Math inline>{"120^\\circ"}</Math>{"."}</>, isTrue: true, explanation: <>{"Với độ lớn chung "}<Math inline>{"F>0"}</Math>{": "}<Math inline>{"F^2=2F^2+2F^2\\cos\\alpha"}</Math>{", suy ra "}<Math inline>{"\\cos\\alpha=-1/2"}</Math>{" và "}<Math inline>{"\\alpha=120^\\circ"}</Math>{"."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn nêu trong đề, rồi mở lời giải.
+
+<QuizShort
+  id="bai-5-sbt-031"
+  question={<>{"Câu 31: Hai lực đồng quy có độ lớn "}<Math inline>{"F_1 = 40 \\text{ N}"}</Math>{" và "}<Math inline>{"F_2 = 30 \\text{ N}"}</Math>{" hợp với nhau một góc "}<Math inline>{"60^\\circ"}</Math>{". Tính độ lớn hợp lực "}<Math inline>{"F"}</Math>{" (kết quả làm tròn đến hàng đơn vị theo đơn vị Newton)."}</>}
+  answer="61"
+  explanation={<><Math inline>{"F=\\sqrt{40^2+30^2+2\\times40\\times30\\cos60^\\circ}=\\sqrt{3700}\\approx60{,}828\\,\\mathrm N"}</Math>{". Làm tròn hàng đơn vị: 61 N."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-032"
+  question={<>{"Câu 32: Một xe ô tô điện VinFast VF9 khối lượng "}<Math inline>{"2800 \\text{ kg}"}</Math>{" đứng yên trên dốc nghiêng "}<Math inline>{"10^\\circ"}</Math>{". Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Tính độ lớn thành phần trọng lực kéo xe trượt xuống dốc (làm tròn đến hàng đơn vị theo đơn vị Newton)."}</>}
+  answer="4765"
+  explanation={<><Math inline>{"P_{\\parallel}=mg\\sin10^\\circ=27440\\sin10^\\circ\\approx4764{,}906\\,\\mathrm N"}</Math>{". Làm tròn: 4765 N."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-033"
+  question={<>{"Câu 33: Lực "}<Math inline>{"\\vec{F}"}</Math>{" có độ lớn "}<Math inline>{"120 \\text{ N}"}</Math>{" tác dụng lên một vật trượt trên sàn. Biết thành phần lực theo phương ngang "}<Math inline>{"F_x = 60\\sqrt{3} \\text{ N}"}</Math>{". Tính góc "}<Math inline>{"\\alpha"}</Math>{" (theo độ) mà lực "}<Math inline>{"\\vec{F}"}</Math>{" hợp với phương nằm ngang. Lấy góc nhọn giữa lực và phương ngang."}</>}
+  answer="30"
+  explanation={<><Math inline>{"\\cos\\alpha=F_x/F=60\\sqrt3/120=\\sqrt3/2"}</Math>{". Góc nhọn giữa lực và phương ngang là 30°."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-034"
+  question={<>{"Câu 34: Một vương miện trang trí khối lượng "}<Math inline>{"m = 5{,}0 \\text{ kg}"}</Math>{" được treo cân bằng bằng hai dây cáp nhẹ đối xứng hợp với trần nhà nằm ngang góc "}<Math inline>{"45^\\circ"}</Math>{". Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Tính lực căng "}<Math inline>{"T"}</Math>{" trên mỗi dây cáp (làm tròn đến 1 chữ số thập phân theo đơn vị Newton)."}</>}
+  answer="34,6"
+  explanation={<>{"Cân bằng đứng: "}<Math inline>{"2T\\sin45^\\circ=mg=49\\,\\mathrm N"}</Math>{". Do đó "}<Math inline>{"T=49/\\sqrt2\\approx34{,}6482\\,\\mathrm N"}</Math>{", làm tròn một chữ số thập phân là 34,6 N. Giữ đủ chữ số trung gian để tránh làm tròn hai lần."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-035"
+  question={<>{"Câu 35: Hai lực đồng quy "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{" có độ lớn bằng nhau "}<Math inline>{"F_1 = F_2 = 80 \\text{ N}"}</Math>{". Biết hợp lực của chúng có độ lớn "}<Math inline>{"F = 80\\sqrt{2} \\text{ N}"}</Math>{". Tính góc "}<Math inline>{"\\alpha"}</Math>{" (theo độ) giữa hai lực "}<Math inline>{"\\vec{F}_1"}</Math>{" và "}<Math inline>{"\\vec{F}_2"}</Math>{"."}</>}
+  answer="90"
+  explanation={<><Math inline>{"80\\sqrt2=2\\times80\\cos(\\alpha/2)"}</Math>{", nên "}<Math inline>{"\\alpha/2=45^\\circ"}</Math>{" và "}<Math inline>{"\\alpha=90^\\circ"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-036"
+  question={<>{"Câu 36: Một người dùng dây kéo một thùng hàng khối lượng "}<Math inline>{"40 \\text{ kg}"}</Math>{" trượt đều trên sàn nhà nằm ngang bằng một lực "}<Math inline>{"F = 100 \\text{ N}"}</Math>{" hướng chếch lên, nghiêng góc "}<Math inline>{"30^\\circ"}</Math>{" so với phương ngang. Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Tính độ lớn phản lực "}<Math inline>{"N"}</Math>{" do mặt sàn tác dụng lên thùng hàng (làm tròn đến hàng đơn vị theo đơn vị Newton)."}</>}
+  answer="342"
+  explanation={<>{"Lực kéo hướng chếch lên có "}<Math inline>{"F_y=100\\sin30^\\circ=50\\,\\mathrm N"}</Math>{". Cân bằng đứng: "}<Math inline>{"N=mg-F_y=392-50=342\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-037"
+  question={<>{"Câu 37: Hai lực song song cùng chiều "}<Math inline>{"F_1 = 30 \\text{ N}"}</Math>{" và "}<Math inline>{"F_2 = 50 \\text{ N}"}</Math>{" đặt tại hai đầu thanh nhẹ "}<Math inline>{"AB"}</Math>{" dài "}<Math inline>{"80 \\text{ cm}"}</Math>{". Tính khoảng cách từ điểm đặt "}<Math inline>{"O"}</Math>{" của hợp lực đến đầu "}<Math inline>{"A"}</Math>{" gắn lực "}<Math inline>{"F_1"}</Math>{" (theo đơn vị cm). Hai lực vuông góc với thanh AB."}</>}
+  answer="50"
+  explanation={<><Math inline>{"F=30+50=80\\,\\mathrm N"}</Math>{". Lấy mômen đối với A: "}<Math inline>{"F\\cdot AO=F_2\\cdot AB"}</Math>{", nên "}<Math inline>{"AO=50\\times80/80=50\\,\\mathrm{cm}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-038"
+  question={<>{"Câu 38: Trong thí nghiệm tổng hợp lực, học sinh đo được "}<Math inline>{"F_1 = (4{,}0 \\pm 0{,}1) \\text{ N}"}</Math>{", "}<Math inline>{"F_2 = (3{,}0 \\pm 0{,}1) \\text{ N}"}</Math>{" khi góc giữa hai lực là "}<Math inline>{"\\alpha = 90^\\circ"}</Math>{". Tính giá trị lý thuyết của hợp lực "}<Math inline>{"F_{lt}"}</Math>{" (theo đơn vị Newton)."}</>}
+  answer="5,0"
+  explanation={<>{"Giá trị trung tâm lý thuyết: "}<Math inline>{"F_{\\mathrm{lt}}=\\sqrt{4{,}0^2+3{,}0^2}=5{,}0\\,\\mathrm N"}</Math>{". Câu hỏi chưa yêu cầu truyền sai số của các phép đo."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-039"
+  question={<>{"Câu 39: Một chiếc xà lan được kéo bởi hai chiếc tàu kéo chạy dọc hai bên bờ kênh. Hai lực kéo cùng độ lớn "}<Math inline>{"F_1 = F_2 = 6000 \\text{ N}"}</Math>{" và hợp với nhau góc "}<Math inline>{"40^\\circ"}</Math>{". Tính tổng lực kéo tác dụng lên xà lan theo hướng chuyển động (làm tròn đến hàng đơn vị theo đơn vị Newton). Hướng chuyển động trùng với phân giác của hai lực kéo."}</>}
+  answer="11276"
+  explanation={<>{"Hai lực bằng nhau nên hợp lực theo phân giác: "}<Math inline>{"F=2\\times6000\\cos20^\\circ\\approx11276{,}311\\,\\mathrm N"}</Math>{". Làm tròn: 11276 N."}</>}
+/>
+
+<QuizShort
+  id="bai-5-sbt-040"
+  question={<>{"Câu 40: Một vật khối lượng "}<Math inline>{"m = 2{,}0 \\text{ kg}"}</Math>{" nằm yên cân bằng trên mặt phẳng nghiêng góc "}<Math inline>{"30^\\circ"}</Math>{". Lấy "}<Math inline>{"g = 9{,}8 \\text{ m/s}^2"}</Math>{". Tính độ lớn lực ma sát nghỉ tác dụng lên vật (làm tròn đến 1 chữ số thập phân theo đơn vị Newton). Vật chỉ chịu trọng lực, phản lực và ma sát nghỉ của mặt dốc."}</>}
+  answer="9,8"
+  explanation={<>{"Cân bằng dọc dốc: "}<Math inline>{"F_{\\mathrm{msn}}=mg\\sin30^\\circ=2\\times9{,}8\\times0{,}5=9{,}8\\,\\mathrm N"}</Math>{", hướng lên dốc."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="book">
+
+Trình bày sơ đồ lực, chọn trục, lập phương trình rồi thay số. Các câu 43 và 45 dùng thêm điều kiện ma sát nghỉ và cân bằng mômen.
+
+<div data-question-id="bai-5-sbt-041" className="my-6 rounded-xl border border-slate-200 bg-white p-4">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 41. Dầm cầu dây văng — Phân tích lực hai chiều</h3>
+
+Một đoạn dầm bê tông khối lượng $M=20\,\mathrm{tấn}=20000\,\mathrm{kg}$ được mô hình hóa là cân bằng nhờ **hai dây cáp đối xứng**, mỗi dây hợp với mặt đường nằm ngang góc $\alpha=35^\circ$. Lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+- **a)** Vẽ sơ đồ trọng lực và hai lực căng trong mô hình chất điểm.
+- **b)** Lập phương trình cân bằng, tính lực căng mỗi dây.
+- **c)** Tính độ lớn thành phần ngang của mỗi lực căng và hợp lực ngang. Giải thích khả năng xuất hiện lực nén trong dầm dù hợp lực ngang bằng không.
+
+<InfoBox type="info" title="Làm rõ số dây và mô hình">
+
+Tài liệu nguồn ghi “hai cặp dây” nhưng sơ đồ và lời giải lại dùng hai lực căng của hai dây. Câu này thống nhất mô hình **hai dây**. Nếu có bốn dây chia tải đều, lực căng mỗi dây bằng một nửa kết quả hai dây bên dưới. Sơ đồ chất điểm chỉ xác định hợp lực ngoài; muốn tìm nội lực từng đoạn dầm phải xét vị trí neo và kết cấu cụ thể.
+
+</InfoBox>
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 41</summary>
+
+**a) Sơ đồ lực:** Trọng lực thẳng đứng xuống, hai lực căng hướng lên dọc dây, đối xứng qua phương đứng.
+
+<BridgeExerciseDiagram />
+
+**b) Chọn $Ox$ ngang, $Oy$ lên trên:**
+
+$$
+-T_1\cos35^\circ+T_2\cos35^\circ=0,
+$$
+
+$$
+T_1\sin35^\circ+T_2\sin35^\circ-Mg=0.
+$$
+
+Suy ra $T_1=T_2=T$ và:
+
+$$
+T=\frac{Mg}{2\sin35^\circ}
+=\frac{196000}{2\sin35^\circ}
+\approx170857{,}8\,\mathrm N\approx170{,}86\,\mathrm{kN}.
+$$
+
+Nếu xét **bốn dây chia tải đều**, mỗi dây chịu:
+
+$$
+T_4=\frac{Mg}{4\sin35^\circ}\approx85{,}43\,\mathrm{kN}.
+$$
+
+**c) Thành phần ngang của mỗi lực căng trong mô hình hai dây:**
+
+$$
+H=T\cos35^\circ\approx139958{,}5\,\mathrm N\approx139{,}96\,\mathrm{kN}.
+$$
+
+Hai thành phần ngang ngược chiều nên **hợp lực ngang bằng 0**. Tổng hai độ lớn là $2H\approx279{,}92\,\mathrm{kN}$, nhưng đây **không phải hợp lực ngang hay mặc nhiên là nội lực nén của dầm**.
+
+Khi hai lực có độ lớn $H$ ép vào hai đầu một đoạn dầm theo hai hướng đối nhau, đoạn dầm vẫn chịu nén dù tổng lực ngoài bằng 0. Trong mô hình thanh đơn giản này, lực nén trên một mặt cắt là $H$, không phải $2H$. Dầm phải chịu được các tác dụng nén, uốn và cắt theo cấu tạo và phân bố tải thực tế; mô hình chất điểm không đánh giá đầy đủ độ bền kết cấu.
+
+</details>
+</div>
+
+<div data-question-id="bai-5-sbt-042" className="my-6 rounded-xl border border-slate-200 bg-white p-4">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 42. Hai tàu kéo xà lan trên sông Hồng</h3>
+
+Xà lan cần hợp lực kéo dọc trục lòng sông $F_{\mathrm{th}}=20\,\mathrm{kN}=20000\,\mathrm N$. Hai dây kéo nằm ở hai phía của trục. Vận tốc ban đầu dọc trục và các lực khác không có thành phần ngang.
+
+- **a)** Khi hai lực cùng độ lớn $F_0$, mỗi dây hợp với trục góc $\theta$, lập biểu thức $F_0$ theo $F_{\mathrm{th}}$ và $\theta$.
+- **b)** Tính $F_0$ nếu $\theta=30^\circ$.
+- **c)** Tàu A kéo ở góc $\theta_1=30^\circ$, tàu B kéo ở góc $\theta_2=45^\circ$. Tìm $F_1,F_2$ để hợp lực vẫn có độ lớn 20000 N theo trục sông.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 42</summary>
+
+**a)** Các thành phần ngang triệt tiêu; các thành phần dọc trục cộng lại:
+
+$$
+F_{\mathrm{th}}=2F_0\cos\theta
+\quad\Rightarrow\quad F_0=\frac{F_{\mathrm{th}}}{2\cos\theta},
+\qquad 0\le\theta<90^\circ.
+$$
+
+**b)** Với $\theta=30^\circ$:
+
+$$
+F_0=\frac{20000}{\sqrt3}\approx11547{,}0\,\mathrm N\approx11{,}55\,\mathrm{kN}.
+$$
+
+**c)** Chọn $Ox$ dọc trục, $Oy$ ngang về phía tàu A. Để không có hợp lực ngang và có đủ lực kéo dọc trục:
+
+$$
+\begin{cases}
+F_1\sin30^\circ-F_2\sin45^\circ=0,\\
+F_1\cos30^\circ+F_2\cos45^\circ=20000.
+\end{cases}
+$$
+
+Phương trình đầu cho $F_1=\sqrt2F_2$. Thay vào phương trình sau:
+
+$$
+F_2=\frac{40000}{\sqrt6+\sqrt2}\approx10352{,}8\,\mathrm N,
+$$
+
+$$
+F_1=\sqrt2F_2\approx14641{,}0\,\mathrm N.
+$$
+
+Vậy tàu A cần khoảng **14,64 kN**, tàu B cần khoảng **10,35 kN**. Chỉ tăng một lực mà giữ nguyên lực còn lại và hai góc sẽ làm mất điều kiện triệt tiêu thành phần ngang.
+
+</details>
+</div>
+
+<div data-question-id="bai-5-sbt-043" className="my-6 rounded-xl border border-slate-200 bg-white p-4">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 43. Ô tô trên đèo Bảo Lộc và giới hạn ma sát</h3>
+
+Ô tô được mô hình hóa với $m=2600\,\mathrm{kg}$, đỗ trên dốc góc $\alpha=18^\circ$. Lấy $g=9{,}8\,\mathrm{m/s^2}$ và hệ số ma sát nghỉ giả định $\mu_n=0{,}60$. Coi bánh xe được giữ không lăn; xe chỉ chịu trọng lực, phản lực và ma sát nghỉ của mặt đường.
+
+- **a)** Chọn $Ox$ dọc dốc hướng xuống, $Oy$ vuông góc dốc hướng ra ngoài. Viết các hình chiếu đại số $P_x,P_y$.
+- **b)** Tính độ lớn thành phần kéo trượt và phản lực $N$.
+- **c)** Kiểm tra điều kiện không trượt ở $18^\circ$, tìm góc dốc giới hạn trong mô hình này.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 43</summary>
+
+**a)** Trọng lực $P=mg=25480\,\mathrm N$. Với chiều trục đã chọn:
+
+$$
+P_x=mg\sin18^\circ,\qquad P_y=-mg\cos18^\circ.
+$$
+
+**b)** Thay số, giữ đủ chữ số trung gian:
+
+$$
+P_x\approx7873{,}75\,\mathrm N\approx7874\,\mathrm N,
+$$
+
+$$
+N=-P_y=mg\cos18^\circ\approx24232{,}92\,\mathrm N\approx24233\,\mathrm N.
+$$
+
+Phản lực hướng ra khỏi mặt dốc; vì $P_y<0$, phải viết $N=-P_y$, không phải $N=P_y$.
+
+**c)** Ma sát nghỉ cần thiết là $F_{\mathrm{msn}}=P_x$. Giá trị cực đại có thể đạt:
+
+$$
+F_{\mathrm{msn,max}}=\mu_nN
+\approx0{,}60\times24232{,}92\approx14539{,}75\,\mathrm N.
+$$
+
+Vì $7873{,}75<14539{,}75$, điều kiện cân bằng không trượt được thỏa mãn. Lực ma sát thực tế ở trạng thái này chỉ khoảng 7874 N, không phải giá trị cực đại.
+
+$$
+mg\sin\alpha\le\mu_nmg\cos\alpha
+\quad\Leftrightarrow\quad\tan\alpha\le\mu_n.
+$$
+
+$$
+\alpha_{\max}=\arctan0{,}60\approx30{,}96^\circ.
+$$
+
+Kết quả là ngưỡng không trượt của mô hình với các giả thiết đã nêu, không phải đánh giá đầy đủ về an toàn đỗ xe thực tế.
+
+</details>
+</div>
+
+<div data-question-id="bai-5-sbt-044" className="my-6 rounded-xl border border-slate-200 bg-white p-4">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 44. Thực hành tổng hợp lực — Xử lý số liệu</h3>
+
+Trong thí nghiệm với ba lực kế, lực kế thứ ba tạo lực cân bằng với hợp lực của hai lực đầu. Số chỉ của nó cho độ lớn $F_{\mathrm{tn}}$. Giữ góc giữa hai lực đầu ở $60^\circ$ và thu được:
+
+<CompareTable title="Năm lần đo lực" columns={['Lần đo', 'F₁ (N)', 'F₂ (N)', 'Ftn (N)']}
+  rows={[
+    ['1', '3,00', '4,00', '6,05'],
+    ['2', '3,00', '4,00', '6,10'],
+    ['3', '3,00', '4,00', '6,00'],
+    ['4', '3,00', '4,00', '6,15'],
+    ['5', '3,00', '4,00', '6,10']
+  ]}
+/>
+
+- **a)** Tính hợp lực lý thuyết $F_{\mathrm{lt}}$.
+- **b)** Tính trung bình $\bar F_{\mathrm{tn}}$ và độ lệch tuyệt đối trung bình $\overline{\Delta F}_{\mathrm{tn}}$.
+- **c)** Theo quy ước của bài, cộng độ lệch tuyệt đối trung bình với sai số dụng cụ $\Delta F_{\mathrm{dc}}=0{,}05\,\mathrm N$. Viết kết quả đo, tính sai số tương đối và nhận xét.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 44</summary>
+
+**a)** Theo quy tắc hình bình hành:
+
+$$
+F_{\mathrm{lt}}=\sqrt{3^2+4^2+2\times3\times4\cos60^\circ}
+=\sqrt{37}\approx6{,}082763\,\mathrm N.
+$$
+
+**b)** Trung bình năm lần đo:
+
+$$
+\bar F_{\mathrm{tn}}=\frac{6{,}05+6{,}10+6{,}00+6{,}15+6{,}10}{5}
+=6{,}080\,\mathrm N.
+$$
+
+Các độ lệch tuyệt đối lần lượt là $0{,}03;\ 0{,}02;\ 0{,}08;\ 0{,}07;\ 0{,}02\,\mathrm N$.
+
+$$
+\overline{\Delta F}_{\mathrm{tn}}=\frac{0{,}03+0{,}02+0{,}08+0{,}07+0{,}02}{5}
+=0{,}044\,\mathrm N.
+$$
+
+**c)** Theo cách ước lượng sai số được chỉ định trong đề:
+
+$$
+\Delta F=\overline{\Delta F}_{\mathrm{tn}}+\Delta F_{\mathrm{dc}}
+=0{,}044+0{,}05=0{,}094\,\mathrm N.
+$$
+
+Nếu giữ hai chữ số có nghĩa của sai số:
+
+$$
+F_{\mathrm{tn}}=(6{,}080\pm0{,}094)\,\mathrm N.
+$$
+
+Nếu làm tròn sai số đến một chữ số có nghĩa, có thể ghi $F_{\mathrm{tn}}=(6{,}08\pm0{,}09)\,\mathrm N$. Giá trị trung tâm và sai số phải có cùng bậc thập phân.
+
+Dùng số chưa làm tròn để tính:
+
+$$
+\delta F=\frac{\Delta F}{\bar F_{\mathrm{tn}}}\times100\%
+=\frac{0{,}094}{6{,}080}\times100\%\approx1{,}55\%.
+$$
+
+Độ lệch giữa trung bình thực nghiệm và giá trị lý thuyết chỉ khoảng $0{,}0028\,\mathrm N$, nhỏ hơn mức sai số ước lượng. Kết quả **phù hợp với quy tắc tổng hợp lực trong phạm vi sai số**, không phải trùng khớp tuyệt đối hay chứng minh phép đo không có sai số. Sai số tương đối 1,55% ở đây mô tả mức bất định của phép đo, khác với độ lệch tương đối giữa hai giá trị trung tâm (khoảng 0,045%). Chưa xét sai số truyền từ $F_1,F_2$ và góc vì đề chưa cung cấp.
+
+</details>
+</div>
+
+<div data-question-id="bai-5-sbt-045" className="my-6 rounded-xl border border-slate-200 bg-white p-4">
+
+<h3 className="text-xl font-bold text-blue-800">Câu 45. Thanh treo biển quảng cáo — Cân bằng mômen</h3>
+
+Biển quảng cáo khối lượng $m=30\,\mathrm{kg}$ treo tại đầu B của thanh nhẹ AB dài $L=2{,}0\,\mathrm m$. Thanh nằm ngang, gắn bản lề tại A trên tường. Dây CD nối trung điểm C của thanh với D trên tường, phía trên A, hợp với thanh góc $30^\circ$. Bỏ qua trọng lượng thanh và dây; lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+- **a)** Vẽ lực do biển tác dụng xuống tại B, lực căng dây tại C và phản lực bản lề tại A.
+- **b)** Lấy mômen đối với A để tính lực căng $T$.
+- **c)** Tính độ lớn và hướng phản lực $\vec Q$ của bản lề.
+
+<details className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+<summary className="cursor-pointer font-semibold text-indigo-700">Xem lời giải câu 45</summary>
+
+**a) Sơ đồ lực:** Biển đứng yên nên truyền xuống thanh lực $P_B=mg=294\,\mathrm N$ tại B. Dây kéo C lên về phía D. Phản lực bản lề tại A gồm hai thành phần $Q_x,Q_y$ cần xác định.
+
+<BeamExerciseDiagram />
+
+**b) Cân bằng mômen:** Vật rắn cần cả điều kiện tổng lực bằng 0 và tổng mômen bằng 0. Lấy A làm tâm tính mômen để loại phản lực bản lề:
+
+$$
+T\cdot\frac L2\sin30^\circ=P_BL.
+$$
+
+$$
+T=\frac{2P_B}{\sin30^\circ}=4P_B=1176\,\mathrm N.
+$$
+
+Lực căng tác dụng ở **trung điểm**, nên cánh tay đòn là $(L/2)\sin30^\circ$, không phải $L\sin30^\circ$.
+
+**c) Cân bằng lực:** Chọn $Ox$ từ A đến B, $Oy$ hướng lên:
+
+$$
+Q_x-T\cos30^\circ=0
+\quad\Rightarrow\quad Q_x=588\sqrt3\approx1018{,}45\,\mathrm N,
+$$
+
+$$
+Q_y+T\sin30^\circ-P_B=0
+\quad\Rightarrow\quad Q_y=294-588=-294\,\mathrm N.
+$$
+
+Do đó phản lực hướng sang phải và chếch xuống:
+
+$$
+Q=\sqrt{Q_x^2+Q_y^2}=294\sqrt{13}\approx1060{,}03\,\mathrm N.
+$$
+
+Góc phản lực hợp với thanh theo hướng từ A đến B:
+
+$$
+\beta=\arctan\frac{|Q_y|}{Q_x}
+=\arctan\frac{1}{2\sqrt3}\approx16{,}1^\circ.
+$$
+
+Phản lực có độ lớn khoảng **1,06 kN**, nghiêng **16,1° xuống dưới** so với phương ngang. Dấu âm của $Q_y$ phù hợp với việc thành phần lực căng hướng lên (588 N) lớn hơn tải xuống tại B (294 N).
+
+</details>
+</div>
+
+</Section>
+
+</div>
