@@ -46,7 +46,7 @@ assert.equal(katex.version, mdxKatex.version, 'KaTeX renderer/CSS version mismat
     await call('Runtime.enable');
     await call('Page.enable');
     await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
-    for (const slug of ['bai-1', 'bai-2', 'bai-3', 'bai-4', 'bai-5']) {
+    for (const slug of ['bai-1', 'bai-2', 'bai-3', 'bai-4', 'bai-5', 'bai-6']) {
       for (const part of ['theory', 'exercises']) {
         const url = `/lesson/${slug}${part === 'exercises' ? '/bai-tap' : ''}`;
         const questionPart = part;
@@ -77,7 +77,7 @@ assert.equal(katex.version, mdxKatex.version, 'KaTeX renderer/CSS version mismat
         })()`);
         assert.ok(page.grade && page.title.includes('lớp 10'), `${url}: grade metadata`);
         assert.ok(page.styled, `${url}: Tailwind styles`);
-        const essayCount = ['bai-3', 'bai-4', 'bai-5'].includes(slug) && part === 'exercises' ? 5 : 0;
+        const essayCount = slug === 'bai-6' ? (part === 'theory' ? 2 : 5) : ['bai-3', 'bai-4', 'bai-5'].includes(slug) && part === 'exercises' ? 5 : 0;
         assert.equal(page.questions, expectedQuestions + essayCount, `${url}: all questions rendered`);
         assert.equal(new Set(page.ids).size, page.questions, `${url}: unique question IDs`);
         assert.ok(page.groupsIndependent, `${url}: independent radio groups`);
@@ -86,6 +86,107 @@ assert.equal(katex.version, mdxKatex.version, 'KaTeX renderer/CSS version mismat
         if (slug === 'bai-2' && part === 'theory') {
           assert.equal(await evaluate(`document.querySelector('caption')?.textContent`), 'So sánh Tốc độ và Vận tốc');
         }
+﻿        if (slug === 'bai-6') {
+          assert.ok(page.heading.includes('Ba định luật Newton'));
+          if (part === 'theory') {
+            assert.equal(await evaluate(`document.querySelectorAll('[data-figure]').length`),6);
+            await evaluate(`window.setSix = (id,label,value) => {
+              const el=document.querySelector('[data-figure="'+id+'"] input[aria-label="'+label+'"]');
+              Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(el,value);
+              el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}));
+            }`);
+            const car='document.querySelector(\'[data-simulation="car-forces"]\')';
+            assert.equal(await evaluate(`+${car}.dataset.acceleration`),6);
+            await evaluate(`setSix('6.2','Khối lượng m (kg)',1300)`);
+            await waitFor(`+${car}.dataset.acceleration===12`);
+            await evaluate(`setSix('6.2','Lực kéo Fk (N)',2600)`);
+            await waitFor(`+${car}.dataset.acceleration===0`);
+            assert.equal(await evaluate(`document.querySelectorAll('[data-figure="6.2"] [data-vector="a"]').length`),0);
+            await evaluate(`setSix('6.2','Lực kéo Fk (N)',0)`);
+            await waitFor(`+${car}.dataset.acceleration===-2`);
+            const forceBalance=await evaluate(`(() => {
+              const f=document.querySelector('[data-figure="6.2"]');
+              const vec=label=>{const a=f.querySelector('[data-vector="'+label+'"] line');return [Number(a.getAttribute('x2'))-Number(a.getAttribute('x1')),Number(a.getAttribute('y2'))-Number(a.getAttribute('y1'))]};
+              return {up:vec('N'),down:vec('P'),drag:vec('Fc')};
+            })()`);
+            assert.equal(forceBalance.up[1]+forceBalance.down[1],0);
+            assert.equal(Math.abs(forceBalance.up[1]/forceBalance.drag[0]),5,'All car forces share scale');
+            await evaluate(`setSix('6.2','Khối lượng m (kg)',2600);setSix('6.2','Lực kéo Fk (N)',18200)`);
+            const air='document.querySelector(\'[data-simulation="air-track"]\')';
+            for(const speed of [0.5,1,2]) {
+              await evaluate(`setSix('6.4','Vận tốc ban đầu (m/s)',${speed})`);
+              await waitFor(`+${air}.dataset.v===${speed}`);
+              assert.equal(await evaluate(`+${air}.dataset.time`),0);
+              await evaluate(`setSix('6.4','Tiến trình (%)',75)`);
+              await waitFor(`+${air}.dataset.x===3`);
+              assert.equal(await evaluate(`+${air}.dataset.time`),3/speed);
+              assert.equal(await evaluate(`+${air}.querySelector('[data-graph-point]').getAttribute('cx')`),70+50*3/speed,'x–t uses fixed time scale');
+              await evaluate(`setSix('6.4','Tiến trình (%)',100)`);
+              await waitFor(`+${air}.dataset.x===4`);
+              assert.equal(await evaluate(`${air}.dataset.playing`),'false');
+            }
+            const sensor='document.querySelector(\'[data-simulation="force-sensors"]\')';
+            for(const [percent,f] of [[0,0],[10,6],[20,12],[60,12],[70,6],[80,0],[100,0]]) {
+              await evaluate(`setSix('6.5','Tiến trình (%)',${percent})`);
+              await waitFor(`Math.abs(+${sensor}.dataset.time-${percent/20})<1e-7`);
+              assert.equal(await evaluate(`+${sensor}.dataset.forceA`),f);
+              assert.equal(await evaluate(`+${sensor}.dataset.forceA + +${sensor}.dataset.forceB`),0);
+            }
+            // Play/pause, seek, restart and off-screen suspension of both clocks.
+            for(const id of ['6.4','6.5']) {
+              const f=`document.querySelector('[data-figure="${id}"]')`;
+              const sim=`${f}.querySelector('[data-time]')`;
+              await evaluate(`${f}.scrollIntoView({block:'center'});${f}.querySelector('[data-action="reset"]').click()`);
+              await evaluate(`${f}.querySelector('[data-action="play"]').click()`);
+              await waitFor(`+${sim}.dataset.time>0.1`);
+              await evaluate(`${f}.querySelector('[data-action="play"]').click()`);
+              const paused=await evaluate(`+${sim}.dataset.time`);
+              await new Promise(r=>setTimeout(r,120));
+              assert.equal(await evaluate(`+${sim}.dataset.time`),paused);
+              await evaluate(`${f}.querySelector('[data-action="play"]').click();document.querySelector('h1').scrollIntoView()`);
+              await new Promise(r=>setTimeout(r,120));
+              const hidden=await evaluate(`+${sim}.dataset.time`);
+              await new Promise(r=>setTimeout(r,150));
+              assert.equal(await evaluate(`+${sim}.dataset.time`),hidden,'Off-screen simulation stops advancing');
+              await evaluate(`${f}.querySelector('[data-action="reset"]').click()`);
+            }
+            assert.ok(await evaluate(`[...document.querySelectorAll('[data-figure] svg')].every(s=>!/NaN|Infinity/.test(s.outerHTML))`));
+            assert.deepEqual(page.ids,[1,2,3,4].map(i=>'bai-6-exercises-'+String(i).padStart(3,'0')));
+            await evaluate("document.querySelectorAll('[data-question-id] button').forEach(b=>b.click()); document.querySelectorAll('[data-question-id] details').forEach(d=>d.open=true)");
+            await waitFor("document.body.textContent.includes('Đáp án: 800 N') && document.body.textContent.includes('Đáp án: 4/3 m/s²')");
+          } else {
+            assert.deepEqual(page.ids,Array.from({length:45},(_,i)=>'bai-6-sbt-'+String(i+1).padStart(3,'0')));
+            const expected = {"keys":[1,1,1,2,1,1,1,2,1,1,2,1,1,2,1,2,1,0,1,2],"truth":[[true,true,true,false],[true,true,false,false],[true,true,false,true],[true,true,true,false],[true,true,false,false],[true,true,true,false],[true,true,false,true],[true,true,true,true],[true,true,false,true],[false,true,true,true]],"answers":["16049 N","3,0 m/s²","9,0 N","500 m/s²","0,33","5,0 s","2,45 m/s²","500 N","708 N","200 N"]};
+            await evaluate('(() => { const keys='+JSON.stringify(expected.keys)+'; const qs=[...document.querySelectorAll("[data-question-id]")]; keys.forEach((key,i)=>qs[i].querySelectorAll("input[type=radio]")[key].click());qs[20].querySelector("input").click();qs[21].querySelector("input").click(); })()');
+            assert.ok(await evaluate('[...document.querySelectorAll("[data-question-id]")].slice(0,22).every(q=>q.querySelector("input:checked"))'));
+            await evaluate('document.querySelectorAll("[data-question-id] button").forEach(b=>b.click());document.querySelectorAll("details").forEach(d=>d.open=true)');
+            await waitFor('document.querySelector("[data-question-id=bai-6-sbt-040]").textContent.includes("Đáp án: 200 N")');
+            const answers=await evaluate('(() => {const qs=[...document.querySelectorAll("[data-question-id]")];return {mc:qs.slice(0,20).map(q=>[...q.querySelectorAll("label")].findIndex(l=>l.className.includes("bg-green-100"))),tf:qs.slice(20,30).map(q=>[...q.querySelectorAll("li > strong")].map(x=>x.textContent.includes("ĐÚNG"))),short:qs.slice(30,40).map(q=>q.querySelector(".text-lg.font-bold.text-green-700").textContent),details:document.querySelectorAll("details[open]").length,figures:document.querySelectorAll("[data-exercise-figure]").length}})()');
+            assert.deepEqual(answers.mc,expected.keys);
+            assert.deepEqual(answers.tf,expected.truth);
+            assert.deepEqual(answers.short,expected.answers.map(a=>'Đáp án: '+a));
+            assert.equal(answers.details,5);assert.equal(answers.figures,2);
+            assert.ok(await evaluate('document.querySelector("[data-question-id=bai-6-sbt-031]").textContent.includes("16049")'));
+            assert.ok(await evaluate('document.querySelector("[data-question-id=bai-6-sbt-044]").textContent.includes("dữ kiện bổ sung")'));
+            assert.ok(await evaluate('document.querySelector("[data-question-id=bai-6-sbt-045]").textContent.includes("không rời bệ") && document.querySelector("[data-question-id=bai-6-sbt-045]").textContent.includes("680000")'));
+          }
+          assert.equal(await evaluate(`document.querySelectorAll('.katex-error, p p, p div').length`),0);
+          assert.equal(await evaluate(`/[\x00-\x08\x0b\x0c\x0e-\x1f]/.test(document.querySelector('article').textContent)`),false);
+          await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+          assert.ok(await evaluate(`document.querySelector('article').scrollWidth<=document.querySelector('article').clientWidth+2`),'Lesson 6 fits mobile');
+          await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+          if (part === 'exercises') {
+            await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
+            const layout=await evaluate('(() => {const tf=document.querySelector("[data-question-id=bai-6-sbt-021] tbody tr"), data=document.querySelector("[data-question-id=bai-6-sbt-044] table");return {statement:tf.children[1].getBoundingClientRect().width, dataRow:getComputedStyle(data.querySelector("tbody tr")).display, header:getComputedStyle(data.querySelector("thead")).display, width:data.getBoundingClientRect().width, container:data.parentElement.clientWidth}})()');
+            assert.ok(layout.statement>230,'True/false statements use phone width');
+            assert.equal(layout.dataRow,'table-row','Measurement data stays a table');
+            assert.equal(layout.header,'table-header-group');
+            assert.ok(layout.width<=layout.container+2,'All five measurements fit phone');
+            await call('Emulation.setDeviceMetricsOverride',{width:1280,height:900,deviceScaleFactor:1,mobile:false});
+          }
+          console.log('PASS lesson 6: Newton models, clocks, force scales, solutions, mobile');
+        }
+
         if (slug === 'bai-5') {
           assert.ok(page.heading.includes('Tổng hợp và phân tích lực'));
           assert.ok(await evaluate(`document.querySelector('article header').textContent.includes('Động lực học')`));
@@ -427,7 +528,7 @@ assert.equal(katex.version, mdxKatex.version, 'KaTeX renderer/CSS version mismat
             await call('Emulation.setDeviceMetricsOverride', { width: 1280, height: 900, deviceScaleFactor: 1, mobile: false });
           }
         }
-        if (part === 'exercises' && slug !== 'bai-5') {
+        if (part === 'exercises' && ['bai-1', 'bai-2', 'bai-3', 'bai-4'].includes(slug)) {
           // Selecting an answer in one question must not clear another question.
           assert.ok(await evaluate(`(() => {
             const [first, second] = document.querySelectorAll('[data-question-id]');
@@ -517,9 +618,10 @@ assert.equal(katex.version, mdxKatex.version, 'KaTeX renderer/CSS version mismat
       correctTitle: document.body.textContent.includes('Bài 1: Quãng đường & Độ dịch chuyển'),
       oldTitle: document.body.textContent.includes('Khái quát về Vật lí'),
     })`);
-    assert.equal(library.gradeCount, 5);
+    assert.equal(library.gradeCount, 6);
     assert.ok(await evaluate(`document.body.textContent.includes('Bài 5: Tổng hợp và phân tích lực')`));
     assert.ok(library.correctTitle && !library.oldTitle);
+    assert.ok(await evaluate(`document.body.textContent.includes('Bài 6: Ba định luật Newton')`));
     await evaluate(`[...document.querySelectorAll('button')].find(b => b.textContent.trim() === 'Lý thuyết').click()`);
     await waitFor(`!!document.querySelector('iframe')?.contentDocument?.documentElement?.hasAttribute('data-board-ready')`);
     assert.ok(await evaluate(`document.querySelector('iframe').contentDocument.querySelector('header').textContent.includes('Lớp 10')`));

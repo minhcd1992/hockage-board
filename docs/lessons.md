@@ -1,12 +1,13 @@
 # Quản lý bài giảng và bài tập
 
-Các bài hiện tại thuộc **Vật lý lớp 10**; bài 1–4 thuộc chương Động học, bài 5 thuộc chương Động lực học:
+Các bài hiện tại thuộc **Vật lý lớp 10**; bài 1–4 thuộc chương Động học, bài 5–6 thuộc chương Động lực học:
 
 - `bai-1`: Quãng đường & Độ dịch chuyển.
 - `bai-2`: Tốc độ, vận tốc và thực hành đo tốc độ.
 - `bai-3`: Gia tốc và chuyển động thẳng biến đổi đều.
 - `bai-4`: Rơi tự do và chuyển động ném.
 - `bai-5`: Tổng hợp và phân tích lực.
+- `bai-6`: Ba định luật Newton.
 
 ## Sửa nội dung ở đâu?
 
@@ -40,7 +41,13 @@ content/lessons/
     theory.mdx
     exercises.mdx            # 45 câu luyện tập và lời giải
     components/
-      Lesson5Figures.tsx     # 6 hình, trong đó 3 hình cho phép đổi tham số
+      Lesson5Figures.tsx     # 6 hình, gồm thực hành theo bốn bước
+  bai-6/
+    meta.ts
+    theory.mdx               # Ba định luật, hai ví dụ mẫu
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson6Figures.tsx     # 3 hình tĩnh và 3 mô phỏng tương tác
 ```
 
 Mỗi bài cần **3 file chính**. Chỉ tạo thêm thư mục mô phỏng hoặc component khi cần.
@@ -55,16 +62,17 @@ Không viết lại tên bài hoặc đường dẫn chuyển trang vào MDX.
 - `/lesson/bai-3` và `/lesson/bai-3/bai-tap`.
 - `/lesson/bai-4` và `/lesson/bai-4/bai-tap`.
 - `/lesson/bai-5` và `/lesson/bai-5/bai-tap`.
+- `/lesson/bai-6` và `/lesson/bai-6/bai-tap`.
 
 Khối lớp là dữ liệu `grade`, không suy ra từ tên bài hay URL. Slug phải duy nhất trong
 toàn bộ danh mục; có thể dùng `lop-11-bai-1` cho một bài lớp 11 sau này.
 
 ## Thêm bài mới
 
-1. Tạo thư mục `content/lessons/bai-6/` và ba file sau.
+1. Tạo thư mục mới (ví dụ `content/lessons/bai-7/`) và ba file sau.
 2. Đăng ký metadata **một lần** trong `lib/lessons.ts`:
-   thêm `import bai6 from '@/content/lessons/bai-6/meta';`, rồi thêm `bai6` vào mảng
-   `[bai1, bai2, bai3, bai4, bai5, bai6]`. Thư viện và các trang dùng chung sẽ đọc danh mục này.
+   thêm `import bai7 from '@/content/lessons/bai-7/meta';`, rồi thêm `bai7` vào mảng
+   `[bai1, bai2, bai3, bai4, bai5, bai6, bai7]`. Thư viện và các trang dùng chung sẽ đọc danh mục này.
 3. Chạy `npm run build` để kiểm tra MDX, TypeScript và việc tạo đủ trang.
 
 Không cần tạo route mới hay sửa `TabsBar`, `TopMenu`, `mdx-components.tsx`.
@@ -76,12 +84,12 @@ Trong PowerShell nếu `npm.ps1` bị chặn, dùng `npm.cmd run build`.
 import type { LessonMeta } from '@/lib/lessons';
 
 export default {
-  slug: 'bai-6', // Trùng tên thư mục; dùng chữ thường, số và dấu gạch ngang.
+  slug: 'bai-7', // Trùng tên thư mục; dùng chữ thường, số và dấu gạch ngang.
   grade: 10,
   subject: 'Vật lý',
   chapter: 'Động lực học',
-  order: 6,
-  title: 'Bài 6: Tên bài học',
+  order: 7,
+  title: 'Bài 7: Tên bài học',
   description: 'Mô tả ngắn nội dung bài học.',
 } satisfies LessonMeta;
 ```
@@ -106,7 +114,7 @@ Tốc độ trung bình: <Math inline>{"v = \\frac{s}{t}"}</Math>.
 <Section title="Bài tập luyện tập" icon="edit">
 
 <Quiz
-  id="bai-6-exercises-001"
+  id="bai-7-exercises-001"
   question="Một vật đi 10 m trong 2 s. Tốc độ trung bình là bao nhiêu?"
   options={['2 m/s', '5 m/s', '10 m/s', '20 m/s']}
   correctIndex={1}
@@ -222,3 +230,47 @@ Không nâng riêng CSS/KaTeX trực tiếp lên 0.18 khi MDX còn dùng 0.16: t
 `base`, `strut`, `sizing` đã thay đổi và có thể làm chỉ số mất định dạng.
 Script kiểm tra bài học đối chiếu phiên bản renderer và đo kích thước chỉ số
 trên trình duyệt (scriptstyle bằng 70% cỡ chữ cha), cho cả MDX và `Math`.
+
+Bài 6: `bai-6/theory.mdx` gồm ba định luật Newton, sáu hình (ba hình tĩnh,
+ba mô phỏng tương tác), hai ví dụ bốn bước và bốn câu nền tảng có lời giải
+(ID `bai-6-exercises-001` đến `004`). Trang `bai-6/exercises.mdx` là bộ 45 câu.
+Các hình nằm trong `bai-6/components/Lesson6Figures.tsx`, khung tối đa 600 px,
+SVG tối đa 480 px. Đệm khí và cảm biến có chạy/dừng/tua, ngừng tính thời gian
+khi ngoài màn hình hoặc tab bị ẩn. Đổi tham số bắt đầu lại lượt chạy.
+Đồ thị x–t của đệm khí dùng cùng thang 0–8 s để so sánh độ dốc; thời gian
+kết thúc phụ thuộc tốc độ tại x = 4 m. Mô phỏng ô tô xét thời điểm xe đang
+đi sang phải, lực cản ngược vận tốc, toàn bộ vectơ lực dùng cùng tỉ lệ.
+
+Hiệu đính nguồn bài 6: bỏ thông số tăng tốc chưa kiểm chứng của VF8, dùng
+ô tô điện và bộ số liệu giả định; phân biệt lực mặt đường với mômen động cơ;
+không áp dụng trực tiếp F = d(mv)/dt cho riêng tên lửa mất khối lượng; cặp
+lực–phản lực triệt tiêu khi xét cả hệ nhưng không cân bằng trên từng vật.
+Ví dụ va chạm dùng lực/gia tốc trung bình, không suy ra mức biến dạng hoặc
+chấn thương chỉ từ khối lượng. Câu vali cần điều kiện tàu đang đi về trước
+để kết luận giảm tốc; câu bóng xét lực trung bình với giả thiết bỏ qua các
+lực khác. Nguồn đối chiếu OpenStax/MIT được liên kết trong bài học.
+
+Sách bài tập Bài 6 đã thay trang bốn câu bằng 45 câu mới, ID
+`bai-6-sbt-001` đến `bai-6-sbt-045` (20 chọn đáp án, 10 đúng/sai, 10 trả lời
+ngắn, 5 tự luận). Bốn câu nền tảng chuyển sang cuối lý thuyết, giữ các ID
+`bai-6-exercises-001` đến `004`. Sơ đồ ngựa–xe–Trái Đất và máy Atwood
+đặt trong `Lesson6ExerciseFigures.tsx`, chỉ mở cùng lời giải câu 42/43.
+
+Hiệu đính SBT6: câu 4 dùng tàu thăm dò giả định thay vệ tinh địa tĩnh bay
+thẳng đều; câu 5 bỏ điều kiện từ nghỉ để phương án gia tốc cùng vận tốc
+không đồng thời đúng; câu 12 nêu đúng cách chọn hệ và dòng động lượng.
+Câu 21d tiếp tục thẳng đều khi bỏ qua mọi cản; câu 22 phân biệt lực căng
+với trọng lượng móc; câu 24 phân biệt gia tốc với vận tốc; câu 25 thêm
+sàn nhẵn và hệ tịnh tiến; câu 27 dùng lực/gia tốc trung bình; câu 28 không
+suy diễn phá hỏng cabin; câu 29 nêu mô hình cản tuyến tính; câu 30 quy ước
+μ = −dm/dt > 0. Câu 31 kết quả 16049 N khi không làm tròn trung gian.
+Câu 34 ghi rõ mô hình giật lùi lý tưởng và giả thiết khí thuốc; câu 41 phân
+biệt bánh trượt lê với ABS, không đưa quy tắc khoảng cách an toàn phổ quát.
+Câu 44 cho bổ sung Δa = 0,015 m/s², dùng a = 2s/t̄²; thực nghiệm lớn hơn
+lý thuyết, ma sát/quán tính ròng rọc không giải thích riêng dấu chênh lệch.
+Câu 45 giữ μ = 120 kg/s: F = 300 kN, tên lửa vẫn ở bệ và a = 0 trong
+100 s đầu; tính lực đỡ bệ. μ = 500 kg/s là trường hợp mở rộng tách biệt.
+
+`Lesson6Workbook.module.css` chỉ áp dụng cho SBT6: trên điện thoại, mỗi ý
+đúng/sai xếp thành một khối có hai lựa chọn được gắn nhãn; bảng năm lần đo
+giữ dạng bảng với cỡ chữ và khoảng đệm phù hợp. Các bài khác không đổi.

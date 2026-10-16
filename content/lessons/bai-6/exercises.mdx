@@ -1,0 +1,711 @@
+import styles from './components/Lesson6Workbook.module.css'
+import { HorseForces, AtwoodForces } from './components/Lesson6ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 6 — Ba định luật Newton">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Số liệu phương tiện là giả định; xét hệ quy chiếu mặt đất gần đúng quán tính trừ khi đề nêu khác. Các câu về lực quán tính, máy Atwood, sai số và tên lửa là phần mở rộng.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-6-sbt-001"
+  question={<>{"Câu 1 (Bẫy bản chất Quán tính): Xe buýt Hà Nội tuyến 01 đang chạy thẳng đều trên đường Nguyễn Trãi thì tài xế đột ngột đạp phanh khẩn cấp. Hành khách không thắt dây an toàn bị chồm mạnh về phía trước. Phát biểu nào sau đây giải thích đúng bản chất vật lý của hiện tượng này?"}</>}
+  options={[
+    <>{"Lực phanh của ô tô truyền sang hành khách đẩy họ chồm về phía trước."}</>,
+    <>{"Do quán tính, phần thân hành khách có xu hướng giữ vận tốc ban đầu khi xe giảm tốc."}</>,
+    <>{"Khi phanh khẩn cấp, trọng lực tác dụng lên hành khách tăng đột ngột đẩy họ về phía trước."}</>,
+    <>{"Quán tính của hành khách chỉ xuất hiện ngay tại thời điểm phanh và biến mất khi xe dừng hẳn."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Quán tính là xu hướng bảo toàn vận tốc, không phải một lực đẩy người về trước. Khi xe giảm tốc, thân người chưa giảm tốc cùng mức nên chồm về trước so với xe."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-002"
+  question={<>{"Câu 2 (Khối lượng - Số đo Quán tính): Hai vật "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{" đặt trên mặt phẳng ngang hoàn toàn không ma sát. Khi tác dụng cùng một hợp lực "}<Math inline>{"\\vec{F}"}</Math>{" không đổi trong khoảng thời gian "}<Math inline>{"\\Delta t"}</Math>{", vật "}<Math inline>{"A"}</Math>{" thay đổi vận tốc một lượng "}<Math inline>{"\\Delta v_A = 6{,}0\\text{ m/s}"}</Math>{", vật "}<Math inline>{"B"}</Math>{" thay đổi vận tốc một lượng "}<Math inline>{"\\Delta v_B = 2{,}0\\text{ m/s}"}</Math>{". Tỉ số khối lượng "}<Math inline>{"m_A / m_B"}</Math>{" bằng"}</>}
+  options={[
+    <><Math inline>{"3{,}0"}</Math>{"."}</>,
+    <><Math inline>{"1/3"}</Math>{"."}</>,
+    <><Math inline>{"9{,}0"}</Math>{"."}</>,
+    <><Math inline>{"1/9"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Cùng "}<Math inline>{"F"}</Math>{" và "}<Math inline>{"\\Delta t"}</Math>{": "}<Math inline>{"m_A\\Delta v_A=m_B\\Delta v_B"}</Math>{", nên "}<Math inline>{"m_A/m_B=2/6=1/3"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-003"
+  question={<>{"Câu 3 (Bản chất Định luật 1 Newton): Một kiện hàng nằm yên trên sàn cabin của con tàu hỏa đang di chuyển thẳng đều với vận tốc "}<Math inline>{"90\\text{ km/h}"}</Math>{" trên đường ray bằng phẳng. Nhận định nào sau đây là đúng?"}</>}
+  options={[
+    <>{"Lực ma sát nghỉ giữa sàn tàu và kiện hàng đóng vai trò lực kéo duy trì vận tốc "}<Math inline>{"90\\text{ km/h}"}</Math>{"."}</>,
+    <>{"Hợp lực của tất cả các lực tác dụng lên kiện hàng bằng "}<Math inline>{"0"}</Math>{"."}</>,
+    <>{"Kiện hàng không có quán tính vì nó đang chuyển động thẳng đều."}</>,
+    <>{"Muốn kiện hàng tiếp tục di chuyển "}<Math inline>{"90\\text{ km/h}"}</Math>{" thì bắt buộc phải có lực kéo nằm ngang tác dụng liên tục lên nó."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Chuyển động thẳng đều cho "}<Math inline>{"\\vec a=\\vec0"}</Math>{", vì vậy "}<Math inline>{"\\sum\\vec F=\\vec0"}</Math>{". Không cần lực ngang liên tục để duy trì vận tốc."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-004"
+  question={<>{"Câu 4 (Nhận diện Hệ quy chiếu Quán tính - IRF): Hệ quy chiếu nào sau đây không phải là Hệ quy chiếu quán tính (xấp xỉ hoặc chính xác)?"}</>}
+  options={[
+    <>{"Hệ tọa độ gắn với tòa nhà Landmark 81 cố định trên mặt đất (bỏ qua sự tự quay rất nhỏ của Trái Đất)."}</>,
+    <>{"Hệ tọa độ gắn với tàu điện Cát Linh – Hà Đông đang chạy thẳng đều với tốc độ "}<Math inline>{"35\\text{ km/h}"}</Math>{"."}</>,
+    <>{"Hệ tọa độ gắn với chiếc xe tải đang hãm phanh vào cua trên đường đèo Bảo Lộc."}</>,
+    <>{"Hệ tọa độ không quay gắn với một tàu thăm dò giả định đang chuyển động thẳng đều trong vùng không gian xa các thiên thể."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Xe vừa phanh vừa đổi hướng có gia tốc; hệ gắn với nó không phải hệ quán tính. Các phương án còn lại dùng mô hình gần đúng đã nêu."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-005"
+  question={<>{"Câu 5. Trong hệ quy chiếu quán tính, một vật có khối lượng "}<Math inline>{"m"}</Math>{" không đổi chịu hợp lực "}<Math inline>{"\\vec F\\ne\\vec0"}</Math>{". Phát biểu nào sau đây luôn đúng?"}</>}
+  options={[
+    <><Math inline>{"\\vec{a}"}</Math>{" luôn cùng hướng với vận tốc "}<Math inline>{"\\vec{v}"}</Math>{" của vật."}</>,
+    <><Math inline>{"\\vec{a}"}</Math>{" luôn cùng hướng với hợp lực "}<Math inline>{"\\vec{F}"}</Math>{" tác dụng lên vật."}</>,
+    <>{"Độ lớn gia tốc "}<Math inline>{"a"}</Math>{" tỉ lệ thuận với khối lượng "}<Math inline>{"m"}</Math>{" của vật."}</>,
+    <>{"Khi hợp lực "}<Math inline>{"\\vec{F}"}</Math>{" tăng gấp đôi thì gia tốc "}<Math inline>{"a"}</Math>{" giảm đi một nửa."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\vec a=\\vec F/m"}</Math>{" với "}<Math inline>{"m>0"}</Math>{", nên gia tốc cùng hướng hợp lực. Gia tốc có thể ngược hướng vận tốc, như khi xe đang phanh."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-006"
+  question={<>{"Câu 6 (Định nghĩa đơn vị Newton): Trong hệ đơn vị chuẩn quốc tế (SI), "}<Math inline>{"1\\text{ Newton}"}</Math>{" ("}<Math inline>{"1\\text{ N}"}</Math>{") được định nghĩa là độ lớn của lực truyền cho một vật có"}</>}
+  options={[
+    <>{"khối lượng "}<Math inline>{"1\\text{ g}"}</Math>{" gia tốc "}<Math inline>{"1\\text{ m/s}^2"}</Math>{"."}</>,
+    <>{"khối lượng "}<Math inline>{"1\\text{ kg}"}</Math>{" gia tốc "}<Math inline>{"1\\text{ m/s}^2"}</Math>{"."}</>,
+    <>{"khối lượng "}<Math inline>{"1\\text{ kg}"}</Math>{" vận tốc "}<Math inline>{"1\\text{ m/s}"}</Math>{"."}</>,
+    <>{"khối lượng "}<Math inline>{"1\\,\\mathrm t"}</Math>{" gia tốc "}<Math inline>{"1\\text{ m/s}^2"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Theo "}<Math inline>{"F=ma"}</Math>{", "}<Math inline>{"1\\,\\mathrm N=1\\,\\mathrm{kg}\\cdot\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-007"
+  question={<>{"Câu 7 (Lực phát động Chuyển động Ô tô): Khi chiếc xe điện bắt đầu tăng tốc từ trạng thái nghỉ trên đường nhựa nằm ngang, lực nào sau đây đóng vai trò trực tiếp là ngoại lực phát động đẩy toàn bộ chiếc xe tiến về phía trước?"}</>}
+  options={[
+    <>{"Lực kéo của động cơ điện tác dụng vào trục bánh xe."}</>,
+    <>{"Lực ma sát nghỉ do mặt đường tác dụng hướng về phía trước lên mặt tiếp xúc của bánh xe chủ động."}</>,
+    <>{"Lực ma sát trượt do lốp xe trượt lê trên mặt đường."}</>,
+    <>{"Phản lực pháp tuyến của mặt đường hướng vuông góc lên bánh xe."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Bánh chủ động đẩy mặt đường về sau; mặt đường đẩy bánh về trước bằng ma sát nghỉ khi bánh lăn không trượt. Mômen động cơ không phải một ngoại lực bổ sung trên toàn xe."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-008"
+  question={<>{"Câu 8 (Đặc điểm Cặp lực - Phản lực theo Định luật 3): Hai vật "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{" tương tác với nhau. Lực do "}<Math inline>{"A"}</Math>{" tác dụng lên "}<Math inline>{"B"}</Math>{" là "}<Math inline>{"\\vec F_{A\\to B}"}</Math>{", lực do "}<Math inline>{"B"}</Math>{" tác dụng lên "}<Math inline>{"A"}</Math>{" là "}<Math inline>{"\\vec F_{B\\to A}"}</Math>{". Phát biểu nào sau đây SAI?"}</>}
+  options={[
+    <><Math inline>{"\\vec F_{A\\to B}"}</Math>{" và "}<Math inline>{"\\vec F_{B\\to A}"}</Math>{" luôn có cùng độ lớn "}<Math inline>{"|\\vec F_{A\\to B}| = |\\vec F_{B\\to A}|"}</Math>{"."}</>,
+    <><Math inline>{"\\vec F_{A\\to B}"}</Math>{" và "}<Math inline>{"\\vec F_{B\\to A}"}</Math>{" ngược hướng nhau: "}<Math inline>{"\\vec F_{A\\to B} = -\\vec F_{B\\to A}"}</Math>{"."}</>,
+    <><Math inline>{"\\vec F_{A\\to B}"}</Math>{" và "}<Math inline>{"\\vec F_{B\\to A}"}</Math>{" cùng đặt vào một vật duy nhất nên triệt tiêu lẫn nhau."}</>,
+    <><Math inline>{"\\vec F_{A\\to B}"}</Math>{" và "}<Math inline>{"\\vec F_{B\\to A}"}</Math>{" xuất hiện và mất đi hoàn toàn đồng thời."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Hai lực của cặp lực–phản lực đặt lên hai vật khác nhau. Chúng chỉ triệt tiêu trong tổng nội lực khi xét cả hệ hai vật, không cân bằng trên riêng một vật."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-009"
+  question={<>{"Câu 9 (Bẫy triệt tiêu Lực và Phản lực): Một học sinh thắc mắc: \"Nếu lực và phản lực theo Định luật 3 Newton luôn bằng nhau về độ lớn và ngược chiều nhau thì tại sao khi quả bóng đá bị cầu thủ đá, quả bóng lại bay đi mà không đứng yên do hai lực triệt tiêu?\" Lời giải thích nào sau đây là chính xác nhất?"}</>}
+  options={[
+    <>{"Lực do chân tác dụng lên bóng có độ lớn lớn hơn phản lực do bóng tác dụng lên chân."}</>,
+    <>{"Lực và phản lực đặt lên hai vật khác nhau, nên không cân bằng nhau trên riêng quả bóng."}</>,
+    <>{"Phản lực chỉ xuất hiện sau khi quả bóng đã rời khỏi chân cầu thủ."}</>,
+    <>{"Lực ma sát của mặt sân đã làm triệt tiêu phản lực do bóng tác dụng lại chân."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Chọn riêng quả bóng: lực chân lên bóng được tính trong tổng lực của bóng; lực bóng lên chân không thuộc tổng đó."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-010"
+  question={<>{"Câu 10 (Phản lực của Trọng lực): Quả cầu sắt khối lượng "}<Math inline>{"2{,}0\\text{ kg}"}</Math>{" nằm yên trên mặt bàn nằm ngang. Trọng lực tác dụng lên quả cầu là "}<Math inline>{"\\vec{P}"}</Math>{", pháp lực do mặt bàn nâng quả cầu là "}<Math inline>{"\\vec{N}"}</Math>{". Phản lực thực sự của trọng lực "}<Math inline>{"\\vec{P}"}</Math>{" theo Định luật 3 Newton là"}</>}
+  options={[
+    <>{"pháp lực "}<Math inline>{"\\vec{N}"}</Math>{" do mặt bàn tác dụng hướng lên quả cầu."}</>,
+    <>{"Lực hút do quả cầu tác dụng lên Trái Đất, hướng về phía quả cầu."}</>,
+    <>{"lực áp do quả cầu nén xuống mặt bàn."}</>,
+    <>{"lực ma sát nghỉ giữa quả cầu và mặt bàn."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Phản lực của lực Trái Đất hút quả cầu là lực quả cầu hút Trái Đất. Pháp lực của bàn cũng đặt lên quả cầu nên không phải phản lực của trọng lực."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-011"
+  question={<>{"Câu 11. Xe tải khối lượng "}<Math inline>{"30\\,\\mathrm t"}</Math>{" va chạm trực diện với ô tô con khối lượng "}<Math inline>{"1{,}5\\,\\mathrm t"}</Math>{". Bỏ qua các ngoại lực khác theo phương va chạm. Gọi "}<Math inline>{"F_1,a_1"}</Math>{" và "}<Math inline>{"F_2,a_2"}</Math>{" lần lượt là độ lớn lực va chạm và gia tốc khối tâm của xe tải, xe con tại cùng thời điểm. Kết luận nào đúng?"}</>}
+  options={[
+    <><Math inline>{"F_1 > F_2"}</Math>{" và "}<Math inline>{"a_1 > a_2"}</Math>{"."}</>,
+    <><Math inline>{"F_1 = F_2"}</Math>{" và "}<Math inline>{"a_1 = a_2"}</Math>{"."}</>,
+    <><Math inline>{"F_1 = F_2"}</Math>{" và "}<Math inline>{"a_2 = 20 a_1"}</Math>{"."}</>,
+    <><Math inline>{"F_1 < F_2"}</Math>{" và "}<Math inline>{"a_1 < a_2"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"F_1=F_2"}</Math>{"; theo "}<Math inline>{"a=F/m"}</Math>{", "}<Math inline>{"a_2/a_1=30/1{,}5=20"}</Math>{". Đây là gia tốc khối tâm theo mô hình, không phải “gia tốc biến dạng”."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-012"
+  question={<>{"Câu 12. Khi dùng dạng động lượng của định luật II Newton, "}<Math inline>{"\\sum\\vec F_{\\mathrm{ext}}=d\\vec p/dt"}</Math>{", nhận định nào đúng?"}</>}
+  options={[
+    <>{"Chỉ cần thay khối lượng bằng m(t) là có thể áp dụng trực tiếp cho riêng tên lửa đang mất khí."}</>,
+    <>{"Với hệ gồm tập hợp vật chất xác định, ngoại lực làm biến đổi động lượng hệ; xét riêng tên lửa phải tính động lượng khí đi qua ranh giới hệ."}</>,
+    <>{"Không cần chọn hệ vật trước khi viết tổng ngoại lực."}</>,
+    <>{"Công thức chỉ đúng khi vật chịu lực ma sát."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Phải xác định ranh giới hệ và dòng động lượng của vật chất vào/ra. Không áp dụng máy móc đạo hàm m(t)v(t) cho riêng tên lửa mở mà bỏ qua khí phụt."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-013"
+  question={<>{"Câu 13. Tựa đầu của ghế ô tô hạn chế đầu bị ngả ra sau so với thân rõ nhất trong tình huống nào?"}</>}
+  options={[
+    <>{"Xe đang chạy tốc độ cao thì phanh gấp."}</>,
+    <>{"Xe đang dừng bị một xe khác đâm từ phía sau, khiến ghế và thân người bị đẩy về trước."}</>,
+    <>{"Xe bị trượt ngang khi đi trên đường đóng băng."}</>,
+    <>{"Xe bị lật nghiêng khi ôm cua phanh gấp."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Khi xe bị đẩy tới từ phía sau, ghế đẩy thân người tới, còn đầu có xu hướng giữ trạng thái cũ. Tựa đầu tạo lực đỡ, hạn chế chuyển động tương đối này."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-014"
+  question={<>{"Câu 14 (Chuyển động Rơi có Lực cản - Tốc độ tới hạn): Một người nhảy dù có khối lượng tổng cộng "}<Math inline>{"m = 80\\text{ kg}"}</Math>{" rơi trong không khí. Khi lực cản không khí tăng đến độ lớn "}<Math inline>{"F_c = 784\\text{ N}"}</Math>{" (lấy "}<Math inline>{"g = 9{,}8\\text{ m/s}^2"}</Math>{"), gia tốc rơi "}<Math inline>{"a"}</Math>{" của người nhảy dù lúc này bằng"}</>}
+  options={[
+    <><Math inline>{"9{,}8\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"4{,}9\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"0{,}0\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"19{,}6\\text{ m/s}^2"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"mg=80\\times9{,}8=784\\,\\mathrm N=F_c"}</Math>{", nên hợp lực bằng 0 và "}<Math inline>{"a=0"}</Math>{". Vận tốc rơi lúc đó không bằng 0."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-015"
+  question={<>{"Câu 15. Trong mô hình bắn đạn, khí thuốc tương tác với đạn và thân súng làm đạn tiến tới, súng giật lùi. Hiện tượng này gắn với định luật nào?"}</>}
+  options={[
+    <>{"Định luật 1 Newton về quán tính của vỏ súng."}</>,
+    <>{"Định luật III Newton về các tương tác giữa khí thuốc, đạn và súng."}</>,
+    <>{"Trọng lực của Trái Đất giảm đột ngột khi bắn đạn."}</>,
+    <>{"Lực ma sát giữa đạn và nòng súng kéo súng lùi lại."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Khí thuốc đẩy đạn về trước và tác dụng lên súng làm súng giật lùi. Mỗi lực có phản lực đặt lên vật tương tác tương ứng; không nên coi lực khí lên đạn và khí lên súng là một cặp trực tiếp của định luật III."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-016"
+  question={<>{"Câu 16 (Lực nén Thang máy): Một người khối lượng "}<Math inline>{"60\\text{ kg}"}</Math>{" đứng trên cân bàn đặt trong cabin thang máy Lotte Center Hà Nội. Khi thang máy đi lên nhanh dần đều với gia tốc "}<Math inline>{"a = 2{,}0\\text{ m/s}^2"}</Math>{" (lấy "}<Math inline>{"g = 9{,}8\\text{ m/s}^2"}</Math>{"), số chỉ của cân được hiệu chuẩn theo đơn vị lực bằng"}</>}
+  options={[
+    <><Math inline>{"588\\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"468\\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"708\\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"120\\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Chọn chiều dương lên trên: "}<Math inline>{"N-mg=ma"}</Math>{", nên "}<Math inline>{"N=60(9{,}8+2)=708\\,\\mathrm N"}</Math>{". Lực người ép cân có cùng độ lớn."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-017"
+  question={<>{"Câu 17. Thí nghiệm tưởng tượng nào minh họa lập luận của Galileo về chuyển động khi bỏ qua ma sát?"}</>}
+  options={[
+    <>{"Tiến hành đo đạc chính xác bằng đồng hồ nguyên tử."}</>,
+    <>{"Xét vật trượt trên hai mặt phẳng nghiêng đối nhau, rồi hạ dốc thứ hai thành mặt phẳng ngang lý tưởng."}</>,
+    <>{"Đo lực hấp dẫn của Trái Đất bằng con lắc đơn."}</>,
+    <>{"Quan sát chuyển động của các hành tinh qua kính thiên văn."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Trong mô hình lý tưởng, hạ dốc thứ hai đến nằm ngang cho thấy vật có thể tiếp tục chuyển động thẳng đều khi không còn hợp lực ngang."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-018"
+  question={<>{"Câu 18 (Gia tốc Hệ hai vật nối dây): Hai kiện hàng "}<Math inline>{"m_1 = 2{,}0\\text{ kg}"}</Math>{" và "}<Math inline>{"m_2 = 3{,}0\\text{ kg}"}</Math>{" nối với nhau bằng một sợi dây nhẹ không dãn, đặt trên mặt phẳng ngang không ma sát. Tác dụng lực kéo "}<Math inline>{"F = 15\\text{ N}"}</Math>{" nằm ngang vào vật "}<Math inline>{"m_2"}</Math>{". Gia tốc của hệ hai vật bằng"}</>}
+  options={[
+    <><Math inline>{"3{,}0\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"5{,}0\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"7{,}5\\text{ m/s}^2"}</Math>{"."}</>,
+    <><Math inline>{"15\\text{ m/s}^2"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Xét cả hệ: "}<Math inline>{"a=15/(2+3)=3\\,\\mathrm{m/s^2}"}</Math>{". Lực căng dây là nội lực."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-019"
+  question={<>{"Câu 19 (Suy luận từ Đồ thị v - t): Một chất điểm khối lượng "}<Math inline>{"m = 2{,}0\\text{ kg}"}</Math>{" chuyển động trên đường thẳng. Đồ thị vận tốc – thời gian ("}<Math inline>{"v - t"}</Math>{") của chất điểm là một đường thẳng đi qua hai điểm "}<Math inline>{"(t_1 = 0\\text{ s}, v_1 = 2{,}0\\text{ m/s})"}</Math>{" và "}<Math inline>{"(t_2 = 4{,}0\\text{ s}, v_2 = 10{,}0\\text{ m/s})"}</Math>{". Độ lớn hợp lực tác dụng lên vật bằng"}</>}
+  options={[
+    <><Math inline>{"2{,}0\\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"4{,}0\\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"8{,}0\\text{ N}"}</Math>{"."}</>,
+    <><Math inline>{"16{,}0\\text{ N}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"a=(10-2)/4=2\\,\\mathrm{m/s^2}"}</Math>{"; "}<Math inline>{"F=ma=2\\times2=4\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-6-sbt-020"
+  question={<>{"Câu 20 (Chèo thuyền trên sông): Người chèo thuyền dùng mái chèo đạp nước về phía sau, chiếc thuyền tiến về phía trước. Lực trực tiếp làm chiếc thuyền tiến lên là"}</>}
+  options={[
+    <>{"lực do tay người đẩy mái chèo về phía sau."}</>,
+    <>{"lực do mái chèo tác dụng vào nước."}</>,
+    <>{"phản lực do nước tác dụng vào mái chèo hướng về phía trước."}</>,
+    <>{"lực ma sát giữa đáy thuyền và mặt nước."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Mái chèo đẩy nước về sau, nước tác dụng lực lên mái chèo về trước và truyền tác dụng tới thuyền. Lực mái chèo lên nước đặt lên nước, không đặt lên hệ thuyền."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="edit">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để tự đối chiếu.
+
+<QuizTF
+  id="bai-6-sbt-021"
+  question={<>{"Câu 21. Xét một ô tô điện khối lượng không đổi "}<Math inline>{"m=2600\\,\\mathrm{kg}"}</Math>{" trên đường thẳng nằm ngang. Các số liệu là giả định của bài toán."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khi xe chạy thẳng đều ở "}<Math inline>{"108\\,\\mathrm{km/h}"}</Math>{", tổng vectơ tất cả ngoại lực tác dụng lên xe bằng "}<Math inline>{"\\vec0"}</Math>{"."}</>, isTrue: true, explanation: <>{"Thẳng đều nên "}<Math inline>{"\\vec a=\\vec0"}</Math>{", do đó "}<Math inline>{"\\sum\\vec F=\\vec0"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Khi tài xế đạp ga để xe tăng tốc từ "}<Math inline>{"0"}</Math>{" lên "}<Math inline>{"108\\text{ km/h}"}</Math>{" trong "}<Math inline>{"5{,}0\\text{ s}"}</Math>{", gia tốc trung bình của xe là "}<Math inline>{"6{,}0\\text{ m/s}^2"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"108\\,\\mathrm{km/h}=30\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"\\bar a=30/5=6\\,\\mathrm{m/s^2}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Hợp lực trung bình trong giai đoạn tăng tốc ở ý b có độ lớn "}<Math inline>{"15600\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\overline F=m\\bar a=2600\\times6=15600\\,\\mathrm N"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Nếu ngắt hoàn toàn động cơ và bỏ qua mọi ma sát cũng như cản không khí, chiếc xe sẽ dừng lại lập tức do mất lực kéo."}</>, isTrue: false, explanation: <>{"Đã bỏ qua mọi lực cản, xe tiếp tục thẳng đều với vận tốc đang có, không chậm dần hay dừng tức thì."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-022"
+  question={<>{"Câu 22. Thí nghiệm đệm khí: con trượt nối móc treo bằng dây nhẹ không dãn qua ròng rọc nhẹ, không ma sát. Gọi "}<Math inline>{"M"}</Math>{" là tổng khối lượng con trượt, móc và toàn bộ quả nặng; "}<Math inline>{"m_h"}</Math>{" là phần treo, "}<Math inline>{"F=m_hg"}</Math>{" là lực dẫn động cả hệ."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lớp đệm khí làm giảm ma sát giữa con trượt và ray; trong mô hình lý tưởng có thể bỏ qua ma sát này."}</>, isTrue: true, explanation: <>{"Đệm khí giảm mạnh ma sát; “bằng 0” là lý tưởng hóa, không phải khẳng định đo thực tế."}</> },
+    { id: 'b', text: <>{"Giữ "}<Math inline>{"M"}</Math>{" không đổi, chuyển quả nặng từ con trượt sang móc để tăng "}<Math inline>{"F"}</Math>{" thì gia tốc "}<Math inline>{"a"}</Math>{" tỉ lệ thuận với "}<Math inline>{"F"}</Math>{"."}</>, isTrue: true, explanation: <>{"Xét cả hệ theo chuyển động dây: "}<Math inline>{"a=m_hg/M=F/M"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Giữ "}<Math inline>{"F"}</Math>{" không đổi, đồ thị "}<Math inline>{"a"}</Math>{" theo "}<Math inline>{"M"}</Math>{" là đường thẳng đi qua gốc tọa độ."}</>, isTrue: false, explanation: <><Math inline>{"a=F/M"}</Math>{" là quan hệ nghịch đảo; đồ thị "}<Math inline>{"a"}</Math>{" theo "}<Math inline>{"1/M"}</Math>{" mới là đường thẳng qua gốc."}</> },
+    { id: 'd', text: <>{"Khi móc đang gia tốc xuống, lực căng dây kéo riêng con trượt bằng đúng "}<Math inline>{"m_hg"}</Math>{"."}</>, isTrue: false, explanation: <>{"Với móc: "}<Math inline>{"m_hg-T=m_ha"}</Math>{", nên "}<Math inline>{"T=m_h(g-a)<m_hg"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-023"
+  question={<>{"Câu 23: Hai khối gỗ "}<Math inline>{"m_1 = 3{,}0\\text{ kg}"}</Math>{" và "}<Math inline>{"m_2 = 2{,}0\\text{ kg}"}</Math>{" đặt tiếp xúc nhau trên mặt sàn nằm ngang không ma sát. Tác dụng một lực đẩy nằm ngang "}<Math inline>{"F = 15\\text{ N}"}</Math>{" hướng vào khối "}<Math inline>{"m_1"}</Math>{". Ban đầu m₁ ở bên trái m₂, lực đẩy hướng sang phải. Ở ý c, d, đảo phía tác dụng lực để hai vật vẫn ép vào nhau."}</>}
+  statements={[
+    { id: 'a', text: <>{"Gia tốc chuyển động của hệ hai khối gỗ bằng "}<Math inline>{"3{,}0\\text{ m/s}^2"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"a=15/(3+2)=3\\,\\mathrm{m/s^2}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Độ lớn lực tương tác (lực nén) giữa hai khối gỗ tại mặt tiếp xúc bằng "}<Math inline>{"6{,}0\\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Khối 2 chỉ chịu lực ngang tiếp xúc: "}<Math inline>{"N_{12}=m_2a=2\\times3=6\\,\\mathrm N"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Nếu đẩy m₂ sang trái bằng lực 15 N thì độ lớn gia tốc của hệ giảm vì m₁ lớn hơn m₂."}</>, isTrue: false, explanation: <>{"Độ lớn gia tốc vẫn "}<Math inline>{"15/5=3\\,\\mathrm{m/s^2}"}</Math>{", nhưng hướng sang trái."}</> },
+    { id: 'd', text: <>{"Khi tác dụng lực "}<Math inline>{"F"}</Math>{" vào "}<Math inline>{"m_2"}</Math>{", độ lớn lực tương tác giữa hai khối gỗ lúc này tăng lên thành "}<Math inline>{"9{,}0\\text{ N}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Khối 1 được đẩy bởi tiếp xúc: "}<Math inline>{"N_{21}=3\\times3=9\\,\\mathrm N"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-024"
+  question={<>{"Câu 24. Ngựa kéo xe qua bộ nối nhẹ; xét chuyển động thẳng trên đường ngang. Gọi "}<Math inline>{"T"}</Math>{" là độ lớn lực kéo giữa hai vật, "}<Math inline>{"f"}</Math>{" là lực ma sát nghỉ của đất lên ngựa, "}<Math inline>{"R"}</Math>{" là tổng lực cản xe; bỏ qua lực cản khác."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lực ngựa kéo xe và lực xe kéo ngựa có độ lớn bằng nhau, ngược chiều."}</>, isTrue: true, explanation: <>{"Đây là cặp lực tương tác giữa ngựa và xe trong mô hình bộ nối nhẹ."}</> },
+    { id: 'b', text: <>{"Xe gia tốc về phía trước khi "}<Math inline>{"T>R"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"T-R=m_Xa"}</Math>{", nên "}<Math inline>{"a>0"}</Math>{" khi "}<Math inline>{"T>R"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Cả hệ ngựa–xe gia tốc về phía trước khi "}<Math inline>{"f>R"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cộng phương trình hai vật: "}<Math inline>{"f-R=(m_N+m_X)a"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Vì lực kéo và phản lực bằng nhau nên hệ chắc chắn đứng yên, không thể có gia tốc."}</>, isTrue: false, explanation: <>{"Hai lực kéo đặt lên hai vật khác nhau; ngoại lực f và R mới quyết định gia tốc của cả hệ."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-025"
+  question={<>{"Câu 25. Vali "}<Math inline>{"15\\,\\mathrm{kg}"}</Math>{" ban đầu đứng yên so với toa tàu đang đi thẳng về phía đầu toa. Tàu phanh với gia tốc hướng về đuôi; sàn ngang nhẵn, bỏ qua ma sát. Hệ toa chỉ tịnh tiến, không quay."}</>}
+  statements={[
+    { id: 'a', text: <>{"Trong hệ mặt đất, vali giữ vận tốc ban đầu; vì toa giảm tốc nên vali trượt về phía đầu toa so với tàu."}</>, isTrue: true, explanation: <>{"Hợp lực ngang lên vali bằng 0 trong mô hình; “trượt về trước” là chuyển động tương đối với toa."}</> },
+    { id: 'b', text: <>{"Trong hệ gắn với toa, có thể dùng lực quán tính "}<Math inline>{"\\vec F_{\\mathrm{qt}}=-m\\vec a_{\\mathrm{toa}}"}</Math>{" hướng về đầu toa để viết phương trình chuyển động."}</>, isTrue: true, explanation: <>{"Hệ toa phanh là phi quán tính. Lực quán tính hướng ngược gia tốc toa, giúp biểu diễn gia tốc tương đối của vali."}</> },
+    { id: 'c', text: <>{"Lực quán tính là lực tương tác thật giữa vali và một vật khác xác định."}</>, isTrue: false, explanation: <>{"Không có vật nào gây lực tương tác này; nó xuất hiện do cách chọn hệ quy chiếu."}</> },
+    { id: 'd', text: <>{"Các phương trình Newton giữ nguyên dạng của hệ quán tính trong hệ toa đang phanh mà không cần thêm lực quán tính."}</>, isTrue: false, explanation: <>{"Trong hệ tịnh tiến có gia tốc, phải thêm lực quán tính để dùng phương trình động lực học theo dạng đã nêu."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-026"
+  question={<>{"Câu 26. Xét lập luận về lực, chuyển động và hệ quy chiếu."}</>}
+  statements={[
+    { id: 'a', text: <>{"Quan niệm cho rằng phải có lực kéo liên tục mới duy trì được mọi chuyển động là quan niệm thường gắn với Aristotle trong cách trình bày lịch sử cơ học."}</>, isTrue: true, explanation: <>{"Đây là quan niệm lịch sử được đơn giản hóa; lực cản trong thực tế dễ tạo ra trực giác ấy."}</> },
+    { id: 'b', text: <>{"Thí nghiệm tưởng tượng kiểu Galileo minh họa rằng trên đoạn ngang không ma sát, vật có thể tiếp tục chuyển động thẳng đều khi hợp lực bằng không."}</>, isTrue: true, explanation: <>{"Điều kiện là hợp lực bằng 0. Trọng lực và lực đỡ vẫn có thể tồn tại và cân bằng."}</> },
+    { id: 'c', text: <>{"Các định luật Newton mô tả hợp lực là nguyên nhân làm biến đổi vận tốc, chứ không phải điều kiện để vật có vận tốc khác không."}</>, isTrue: true, explanation: <>{"Hợp lực gây gia tốc; vận tốc khác 0 không đòi hỏi hợp lực khác 0."}</> },
+    { id: 'd', text: <>{"Định luật I hoàn toàn thừa vì chỉ cần thay hợp lực bằng 0 trong định luật II mà không cần quan tâm hệ quy chiếu."}</>, isTrue: false, explanation: <>{"Định luật I xác định lớp hệ quy chiếu quán tính để sử dụng định luật II ở dạng thông thường."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-027"
+  question={<>{"Câu 27. Quả bóng "}<Math inline>{"m=0{,}45\\,\\mathrm{kg}"}</Math>{" ban đầu đứng yên. Chân cầu thủ tác dụng lực trung bình theo phương sút "}<Math inline>{"540\\,\\mathrm N"}</Math>{" trong "}<Math inline>{"0{,}020\\,\\mathrm s"}</Math>{". Bỏ qua tác dụng của các lực khác trong thời gian tiếp xúc."}</>}
+  statements={[
+    { id: 'a', text: <>{"Gia tốc trung bình của bóng bằng "}<Math inline>{"1200\\,\\mathrm{m/s^2}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\bar a=540/0{,}45=1200\\,\\mathrm{m/s^2}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Vận tốc quả bóng rời khỏi chân cầu thủ bằng "}<Math inline>{"24\\text{ m/s}"}</Math>{" ("}<Math inline>{"86{,}4\\text{ km/h}"}</Math>{")."}</>, isTrue: true, explanation: <><Math inline>{"v=\\bar a\\Delta t=1200\\times0{,}020=24\\,\\mathrm{m/s}=86{,}4\\,\\mathrm{km/h}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Độ lớn lực trung bình bóng tác dụng lên chân nhỏ hơn "}<Math inline>{"540\\,\\mathrm N"}</Math>{" vì chân nặng hơn bóng."}</>, isTrue: false, explanation: <>{"Hai lực tương tác bằng nhau tại từng thời điểm, nên độ lớn lực trung bình trên cùng khoảng tiếp xúc cũng bằng 540 N."}</> },
+    { id: 'd', text: <>{"Lực bóng tác dụng lên chân ngược hướng chân đẩy bóng; riêng tác dụng này cản chuyển động sút về trước của chân."}</>, isTrue: true, explanation: <>{"Đây là tác dụng riêng của lực bóng lên chân; gia tốc toàn bộ chân còn phụ thuộc các lực khác, không suy ra chỉ từ lực này."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-028"
+  question={<>{"Câu 28: Xe tải chở một kiện hàng container khối lượng "}<Math inline>{"M = 2000\\text{ kg}"}</Math>{" nằm yên trên sàn phẳng nằm ngang. Hệ số ma sát nghỉ giữa kiện hàng và sàn xe là "}<Math inline>{"\\mu_n = 0{,}35"}</Math>{" (lấy "}<Math inline>{"g = 9{,}8\\text{ m/s}^2"}</Math>{"). Kiện hàng không chằng buộc, không chạm thành xe; bỏ qua lực cản không khí lên hàng. Xét phanh thẳng trên đường ngang."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khi hàng chưa trượt, lực ngang làm hàng giảm tốc cùng xe là ma sát nghỉ do sàn tác dụng lên hàng."}</>, isTrue: true, explanation: <>{"Trọng lực và pháp lực cân bằng theo phương đứng; chỉ ma sát nghỉ làm hàng giảm tốc ngang trước khi trượt."}</> },
+    { id: 'b', text: <>{"Gia tốc hãm phanh cực đại của xe tải để kiện hàng không bị trượt xô về phía cabin là "}<Math inline>{"a_{\\max} = 3{,}43\\text{ m/s}^2"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"Ma\\le\\mu_n Mg"}</Math>{", nên "}<Math inline>{"a_{\\max}=0{,}35\\times9{,}8=3{,}43\\,\\mathrm{m/s^2}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Nếu độ lớn gia tốc hãm xe là "}<Math inline>{"5{,}0\\,\\mathrm{m/s^2}>a_{\\max}"}</Math>{" thì hàng không thể tiếp tục đứng yên so với sàn và có xu hướng trượt về phía cabin."}</>, isTrue: true, explanation: <>{"Ma sát nghỉ tối đa không đủ giữ hàng đi cùng xe. Chưa đủ dữ kiện để kết luận hàng sẽ va vào hay phá hỏng cabin."}</> },
+    { id: 'd', text: <>{"Quãng đường phanh ngắn nhất của xe tải từ vận tốc "}<Math inline>{"72\\text{ km/h}"}</Math>{" để kiện hàng vẫn an toàn không trượt là "}<Math inline>{"58{,}3\\text{ m}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Với hãm đều ở ngưỡng không trượt: "}<Math inline>{"s_{\\min}=20^2/(2\\times3{,}43)\\approx58{,}3\\,\\mathrm m"}</Math>{". Chưa tính quãng đường phản ứng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-029"
+  question={<>{"Câu 29. Mô hình người nhảy dù bắt đầu rơi thẳng đứng từ nghỉ so với không khí đứng yên; lực cản tuyến tính "}<Math inline>{"F_c=kv"}</Math>{" với "}<Math inline>{"k"}</Math>{" không đổi, trọng lực "}<Math inline>{"mg"}</Math>{" không đổi. Bỏ qua lực đẩy nổi."}</>}
+  statements={[
+    { id: 'a', text: <>{"Ban đầu khi mới nhảy ra khỏi máy bay ("}<Math inline>{"v = 0"}</Math>{"), lực cản "}<Math inline>{"F_c = 0"}</Math>{", gia tốc rơi của người đúng bằng gia tốc trọng trường "}<Math inline>{"g"}</Math>{"."}</>, isTrue: true, explanation: <>{"Lúc đầu "}<Math inline>{"v=0"}</Math>{" nên "}<Math inline>{"F_c=kv=0"}</Math>{", do đó "}<Math inline>{"a=g"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Khi vận tốc rơi "}<Math inline>{"v"}</Math>{" tăng dần, lực cản không khí "}<Math inline>{"F_c"}</Math>{" tăng theo, làm cho gia tốc rơi "}<Math inline>{"a = (mg - F_c)/m"}</Math>{" giảm dần."}</>, isTrue: true, explanation: <><Math inline>{"a=g-kv/m"}</Math>{" giảm khi tốc độ rơi tăng."}</> },
+    { id: 'c', text: <>{"Khi lực cản "}<Math inline>{"F_c = mg"}</Math>{", hợp lực bằng "}<Math inline>{"0"}</Math>{", người nhảy dù dừng lại rơi lơ lửng giữa không trung."}</>, isTrue: false, explanation: <>{"Hợp lực bằng 0 làm gia tốc bằng 0, người vẫn rơi với vận tốc đã có."}</> },
+    { id: 'd', text: <>{"Trạng thái rơi thẳng đều với vận tốc không đổi "}<Math inline>{"v_{\\mathrm{th}} = mg/k"}</Math>{" gọi là trạng thái đạt tốc độ tới hạn (terminal speed)."}</>, isTrue: true, explanation: <>{"Từ "}<Math inline>{"kv_{\\mathrm{th}}=mg"}</Math>{" suy ra "}<Math inline>{"v_{\\mathrm{th}}=mg/k"}</Math>{". Công thức này chỉ dành cho mô hình cản tuyến tính đã nêu."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-6-sbt-030"
+  question={<>{"Câu 30. Tên lửa trong không gian sâu, bỏ qua hấp dẫn và lực cản. Tốc độ khí phụt tương đối "}<Math inline>{"u"}</Math>{" và tốc độ mất khối lượng "}<Math inline>{"\\mu=-dm/dt>0"}</Math>{" không đổi; bỏ qua hiệu chỉnh áp suất miệng phụt."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tên lửa chuyển động về phía trước nhờ lực đẩy do khí phụt tác dụng vào lớp không khí xung quanh khí quyển."}</>, isTrue: false, explanation: <>{"Tên lửa trao đổi động lượng với dòng khí phụt, không cần đẩy vào không khí bên ngoài."}</> },
+    { id: 'b', text: <>{"Trong chân không không gian sâu (không có không khí), tên lửa vẫn tăng tốc được nhờ phản lực do dòng khí phụt nóng tác dụng ngược lại vào thân tên lửa theo Định luật 3 Newton."}</>, isTrue: true, explanation: <>{"Tương tác khí–tên lửa vẫn tồn tại trong chân không."}</> },
+    { id: 'c', text: <>{"Với lực đẩy không đổi, "}<Math inline>{"a=F_{\\mathrm{th}}/m(t)"}</Math>{" tăng khi khối lượng giảm."}</>, isTrue: true, explanation: <>{"Với "}<Math inline>{"u,\\mu"}</Math>{" không đổi, "}<Math inline>{"F_{\\mathrm{th}}=u\\mu"}</Math>{" không đổi và "}<Math inline>{"a=F_{\\mathrm{th}}/m"}</Math>{" tăng khi "}<Math inline>{"m"}</Math>{" giảm."}</> },
+    { id: 'd', text: <>{"Độ lớn lực đẩy là "}<Math inline>{"F_{\\mathrm{th}}=u\\mu=-u\\,dm/dt"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"dm/dt"}</Math>{" của tên lửa âm; dùng "}<Math inline>{"\\mu=-dm/dt>0"}</Math>{" để lực đẩy có độ lớn dương."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả rồi mở lời giải để so sánh; chú ý đơn vị và quy tắc làm tròn.
+
+<QuizShort
+  id="bai-6-sbt-031"
+  question={<>{"Câu 31. Trong một bài toán giả định, ô tô điện có "}<Math inline>{"m=2600\\,\\mathrm{kg}"}</Math>{" tăng tốc thẳng từ nghỉ lên "}<Math inline>{"100\\,\\mathrm{km/h}"}</Math>{" trong "}<Math inline>{"4{,}50\\,\\mathrm s"}</Math>{". Tính độ lớn hợp lực trung bình, làm tròn đến đơn vị newton. Đổi vận tốc từ km/h, không làm tròn giá trị trung gian."}</>}
+  answer="16049 N"
+  explanation={<>{"Đổi chính xác "}<Math inline>{"v=100/3{,}6\\,\\mathrm{m/s}"}</Math>{". Hợp lực trung bình "}<Math inline>{"\\overline F=2600(100/3{,}6)/4{,}50=16049{,}3827\\ldots\\,\\mathrm N"}</Math>{", làm tròn được 16049 N."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-032"
+  question={<>{"Câu 32: Tác dụng một hợp lực "}<Math inline>{"F = 360\\text{ N}"}</Math>{" vào một chiếc xe máy điện có khối lượng tổng cộng (cả xe và người) "}<Math inline>{"m = 120\\text{ kg}"}</Math>{". Gia tốc tăng tốc của xe máy bằng bao nhiêu "}<Math inline>{"\\text{m/s}^2"}</Math>{"?"}</>}
+  answer="3,0 m/s²"
+  explanation={<><Math inline>{"a=F/m=360/120=3{,}0\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-033"
+  question={<>{"Câu 33: Hai khối gỗ "}<Math inline>{"m_1 = 2{,}0\\text{ kg}"}</Math>{" và "}<Math inline>{"m_2 = 3{,}0\\text{ kg}"}</Math>{" đặt tiếp xúc nhau trên mặt phẳng ngang không ma sát. Tác dụng lực đẩy nằm ngang "}<Math inline>{"F = 15{,}0\\text{ N}"}</Math>{" vào khối "}<Math inline>{"m_1"}</Math>{". Độ lớn lực nén tương tác giữa hai khối gỗ tại mặt tiếp xúc bằng bao nhiêu Newton?"}</>}
+  answer="9,0 N"
+  explanation={<><Math inline>{"a=15/(2+3)=3\\,\\mathrm{m/s^2}"}</Math>{". Xét riêng khối 2: "}<Math inline>{"N_{12}=m_2a=3\\times3=9\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-034"
+  question={<>{"Câu 34. Mô hình lý tưởng hệ súng–đạn gồm súng khối lượng "}<Math inline>{"4{,}0\\,\\mathrm{kg}"}</Math>{" và đạn khối lượng "}<Math inline>{"10\\,\\mathrm g"}</Math>{". Tại thời điểm đạn có gia tốc "}<Math inline>{"200000\\,\\mathrm{m/s^2}"}</Math>{" về phía trước, bỏ qua ngoại lực ngang, ma sát nòng và động lượng tích lũy của khí thuốc để coi hai lực đẩy hiệu dụng có cùng độ lớn. Tính độ lớn gia tốc lùi của súng (m/s²)."}</>}
+  answer="500 m/s²"
+  explanation={<>{"Theo các giả thiết của mô hình: "}<Math inline>{"F=0{,}010\\times200000=2000\\,\\mathrm N"}</Math>{"; "}<Math inline>{"|a_s|=F/4=500\\,\\mathrm{m/s^2}"}</Math>{". Súng gia tốc ngược chiều đạn. Đây không phải mô hình đầy đủ của khí thuốc trong súng thực."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-035"
+  question={<>{"Câu 35: Cho đồ thị vận tốc – thời gian ("}<Math inline>{"v - t"}</Math>{") của hai vật "}<Math inline>{"A"}</Math>{" và "}<Math inline>{"B"}</Math>{" chịu tác dụng của cùng một hợp lực "}<Math inline>{"F"}</Math>{" không đổi. Đường đồ thị của vật "}<Math inline>{"A"}</Math>{" có hệ số góc gấp "}<Math inline>{"3"}</Math>{" lần hệ số góc đường đồ thị của vật "}<Math inline>{"B"}</Math>{". Tỉ số khối lượng "}<Math inline>{"m_A / m_B"}</Math>{" giữa vật "}<Math inline>{"A"}</Math>{" và vật "}<Math inline>{"B"}</Math>{" bằng bao nhiêu? (Nhập kết quả dưới dạng số thập phân làm tròn đến 2 chữ số sau dấu phẩy)."}</>}
+  answer="0,33"
+  explanation={<>{"Độ dốc đồ thị là gia tốc. Cùng "}<Math inline>{"F"}</Math>{", ta có "}<Math inline>{"m_A/m_B=a_B/a_A=1/3\\approx0{,}33"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-036"
+  question={<>{"Câu 36: Một chiếc xe ô tô khối lượng "}<Math inline>{"1500\\text{ kg}"}</Math>{" đang di chuyển trên đường ngang với tốc độ "}<Math inline>{"72\\text{ km/h}"}</Math>{" ("}<Math inline>{"20\\text{ m/s}"}</Math>{") thì đạp phanh. Lực phanh hãm tổng cộng là "}<Math inline>{"6000\\text{ N}"}</Math>{". Thời gian từ lúc đạp phanh đến khi xe dừng hẳn bằng bao nhiêu giây? Coi lực hãm là hợp lực ngang không đổi."}</>}
+  answer="5,0 s"
+  explanation={<>{"Chọn chiều dương theo chiều xe đi: "}<Math inline>{"a=-6000/1500=-4\\,\\mathrm{m/s^2}"}</Math>{". "}<Math inline>{"t=(0-20)/(-4)=5\\,\\mathrm s"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-037"
+  question={<>{"Câu 37: Trong hệ máy Atwood gồm hai vật "}<Math inline>{"m_1 = 3{,}0\\text{ kg}"}</Math>{" và "}<Math inline>{"m_2 = 5{,}0\\text{ kg}"}</Math>{" nối qua ròng rọc nhẹ không ma sát. Lấy "}<Math inline>{"g = 9{,}80\\text{ m/s}^2"}</Math>{". Gia tốc chuyển động của hệ hai vật bằng bao nhiêu "}<Math inline>{"\\text{m/s}^2"}</Math>{"? (Làm tròn đến 2 chữ số sau dấu phẩy). Dây nhẹ không dãn; hỏi độ lớn gia tốc."}</>}
+  answer="2,45 m/s²"
+  explanation={<><Math inline>{"T-m_1g=m_1a"}</Math>{" và "}<Math inline>{"m_2g-T=m_2a"}</Math>{". Cộng hai phương trình: "}<Math inline>{"a=(5-3)9{,}8/(3+5)=2{,}45\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-038"
+  question={<>{"Câu 38. Trong mô hình cú sút, bóng "}<Math inline>{"0{,}40\\,\\mathrm{kg}"}</Math>{" từ nghỉ đạt vận tốc "}<Math inline>{"25{,}0\\,\\mathrm{m/s}"}</Math>{" sau "}<Math inline>{"0{,}020\\,\\mathrm s"}</Math>{" tiếp xúc với chân. Bỏ qua tác dụng các lực khác trong thời gian này. Tính độ lớn lực trung bình của chân lên bóng (N)."}</>}
+  answer="500 N"
+  explanation={<><Math inline>{"\\overline F=m\\Delta v/\\Delta t=0{,}40\\times25/0{,}020=500\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-039"
+  question={<>{"Câu 39: Một người khối lượng "}<Math inline>{"m = 60\\text{ kg}"}</Math>{" đứng trên cân bàn đặt trong cabin thang máy. Khi thang máy đi lên nhanh dần đều với gia tốc "}<Math inline>{"a = 2{,}0\\text{ m/s}^2"}</Math>{" (lấy "}<Math inline>{"g = 9{,}8\\text{ m/s}^2"}</Math>{"), số chỉ lực nén của chân người lên mặt cân bằng bao nhiêu Newton?"}</>}
+  answer="708 N"
+  explanation={<><Math inline>{"N-mg=ma"}</Math>{", nên "}<Math inline>{"N=60(9{,}8+2)=708\\,\\mathrm N"}</Math>{". Lực người nén cân bằng N về độ lớn theo định luật III."}</>}
+/>
+
+<QuizShort
+  id="bai-6-sbt-040"
+  question={<>{"Câu 40: Một quả bóng khối lượng "}<Math inline>{"m = 0{,}50\\text{ kg}"}</Math>{" bay vuông góc vào tường gạch với tốc độ "}<Math inline>{"v_1 = 12{,}0\\text{ m/s}"}</Math>{" và bật ngược trở lại theo phương cũ với tốc độ "}<Math inline>{"v_2 = 8{,}0\\text{ m/s}"}</Math>{". Thời gian va chạm giữa bóng và tường là "}<Math inline>{"\\Delta t = 0{,}050\\text{ s}"}</Math>{". Độ lớn lực trung bình do tường tác dụng lên quả bóng bằng bao nhiêu Newton? Chỉ xét theo phương vuông góc tường, bỏ qua lực cản không khí."}</>}
+  answer="200 N"
+  explanation={<>{"Chọn chiều dương hướng ra khỏi tường: "}<Math inline>{"v_1=-12"}</Math>{", "}<Math inline>{"v_2=8\\,\\mathrm{m/s}"}</Math>{". "}<Math inline>{"\\overline F=0{,}50[8-(-12)]/0{,}050=200\\,\\mathrm N"}</Math>{". Không lấy hiệu hai tốc độ 12−8."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-6-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Phanh xe trong mô hình bánh bị khóa
+
+Ô tô có $m=2600\,\mathrm{kg}$, ban đầu chạy $108\,\mathrm{km/h}$ trên đường ngang. Khi phanh, **bánh xe bị khóa và trượt lê**; coi hệ số ma sát trượt không đổi $\mu_t=0{,}60$. Bỏ qua lực cản khác, lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính lực ma sát và gia tốc hãm xe.
+2. Tính thời gian, quãng đường kể từ lúc bắt đầu phanh đến khi dừng.
+3. Nếu $\mu_t$ giảm còn $0{,}30$, quãng đường phanh thay đổi thế nào? Nêu giới hạn khi dùng kết quả này để đánh giá khoảng cách dừng thực tế.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**Chọn vật và chiều:** Xét toàn xe, chiều dương theo vận tốc ban đầu. Theo phương đứng $N=mg$; lực ma sát hướng ngược chuyển động.
+
+$$
+F_{\mathrm{ms}}=\mu_tmg=0{,}60\times2600\times9{,}8=15288\,\mathrm N.
+$$
+
+$$
+a=-\mu_tg=-5{,}88\,\mathrm{m/s^2}.
+$$
+
+Đổi $v_0=108/3{,}6=30\,\mathrm{m/s}$. Gia tốc không đổi cho:
+
+$$
+s=\frac{0^2-30^2}{2(-5{,}88)}\approx76{,}53\,\mathrm m,
+\qquad t=\frac{0-30}{-5{,}88}\approx5{,}10\,\mathrm s.
+$$
+
+Khi $\mu_t'=0{,}30$, $a'=-2{,}94\,\mathrm{m/s^2}$, nên:
+
+$$
+s'=\frac{30^2}{2\times2{,}94}\approx153{,}06\,\mathrm m=2s.
+$$
+
+**Nhận xét:** Trong đúng mô hình này, giảm một nửa hệ số ma sát làm quãng đường phanh tăng gấp đôi. Khoảng cách dừng thực tế còn có quãng đường trong thời gian phản ứng, tình trạng lốp, mặt đường và cơ chế phanh. Không suy ra một quy tắc khoảng cách an toàn “luôn gấp đôi” cho mọi tình huống. Mô hình bánh trượt lê cũng không mô tả trực tiếp quá trình phanh ABS.
+
+</details>
+</div>
+
+<div data-question-id="bai-6-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Ngựa kéo xe và cách chọn hệ
+
+Ngựa và xe nối bằng bộ nối nhẹ, chuyển động thẳng trên đường ngang. Gọi $f$ là lực ma sát nghỉ của đất lên ngựa, $R$ là lực cản hiệu dụng của đất lên xe; bỏ qua lực cản không khí. Gọi $T$ là độ lớn tương tác kéo giữa ngựa và xe. Chuyển động đứng được coi cân bằng.
+
+1. Vẽ sơ đồ lực cho ngựa, xe và các lực mà hai vật tác dụng lên Trái Đất; chỉ rõ các cặp lực–phản lực.
+2. Viết phương trình động lực học theo phương ngang cho ngựa và xe.
+3. Tìm điều kiện để hệ có gia tốc hướng về trước và giải thích vì sao định luật III không ngăn cản chuyển động đó.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+<HorseForces />
+
+**Các lực trên từng vật:** Xe chịu $P_X,N_X,T,R$; ngựa chịu $P_N,N_N,f,T$. Trọng lực hướng xuống, pháp lực hướng lên. Ngựa kéo xe về trước, xe kéo ngựa về sau; hai lực này đặt lên hai vật khác nhau.
+
+Đối với Trái Đất, ngựa đẩy đất về sau bằng lực $f$, xe đẩy đất về trước bằng lực $R$ theo mô hình lực cản đã chọn. Ngựa và xe ép đất xuống bằng các phản lực của $N_N,N_X$; đồng thời hút Trái Đất về phía chúng bằng các phản lực của $P_N,P_X$. Chỉ xét tương tác với ngựa và xe, bỏ qua các tương tác thiên thể khác.
+
+**Phương trình ngang**, chiều dương về trước:
+
+$$
+T-R=m_Xa,\qquad f-T=m_Na.
+$$
+
+Cộng hai phương trình:
+
+$$
+f-R=(m_N+m_X)a.
+$$
+
+Với khối lượng dương, điều kiện $a>0$ tương đương $f>R$, trong phạm vi mô hình và khả năng bám của chân ngựa. Hai lực $T$ là nội lực của hệ ngựa–xe nên triệt tiêu khi cộng, còn ngoại lực $f$ và $R$ không nhất thiết cân bằng.
+
+Nếu $f=R$, hệ có gia tốc bằng 0 nhưng vẫn có thể đang chuyển động thẳng đều. “Chuyển động tới” và “gia tốc tới” là hai kết luận khác nhau.
+
+</details>
+</div>
+
+<div data-question-id="bai-6-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Máy Atwood và lực tác dụng lên trục
+
+Hai vật $m_1=3{,}0\,\mathrm{kg}$, $m_2=5{,}0\,\mathrm{kg}$ nối bằng dây nhẹ, không dãn qua ròng rọc cố định có khối lượng và mômen quán tính không đáng kể, trục không ma sát. Hai nhánh dây thẳng đứng. Thả hệ từ nghỉ, lấy $g=9{,}80\,\mathrm{m/s^2}$.
+
+1. Vẽ lực tác dụng lên từng vật và ròng rọc.
+2. Tính gia tốc hai vật và lực căng dây.
+3. Tính lực do ròng rọc tác dụng lên trục, bỏ qua trọng lượng ròng rọc.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+<AtwoodForces />
+
+Vật 1 chịu lực căng $T$ lên và trọng lực $m_1g$ xuống; vật 2 cũng chịu hai lực tương ứng. Ròng rọc chịu hai lực căng hướng xuống và lực đỡ $R$ của trục hướng lên. Vì dây nhẹ và ròng rọc lý tưởng, lực căng hai nhánh bằng nhau.
+
+Chọn chiều dương lên cho vật 1, xuống cho vật 2. Dây không dãn nên hai vật có cùng độ lớn gia tốc:
+
+$$
+T-m_1g=m_1a,\qquad m_2g-T=m_2a.
+$$
+
+$$
+a=\frac{m_2-m_1}{m_1+m_2}g
+=\frac{5-3}{3+5}\times9{,}80=2{,}45\,\mathrm{m/s^2}.
+$$
+
+$$
+T=m_1(g+a)=3(9{,}80+2{,}45)=36{,}75\,\mathrm N.
+$$
+
+Vật 1 gia tốc lên, vật 2 gia tốc xuống. Ròng rọc cố định nên lực đỡ trục cân bằng hai lực căng:
+
+$$
+R=2T=73{,}50\,\mathrm N.
+$$
+
+Lực ròng rọc tác dụng lên trục ngược chiều lực trục đỡ ròng rọc: **hướng xuống, độ lớn 73,50 N**. Đây là lực truyền qua ròng rọc tới trục, không phải dây tiếp xúc trực tiếp với trục. Nếu tính trọng lượng ròng rọc thì phải bổ sung nó vào cân bằng lực.
+
+</details>
+</div>
+
+<div data-question-id="bai-6-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Đệm khí và xử lý kết quả đo
+
+Con trượt $M=0{,}400\,\mathrm{kg}$ nối móc treo $m_h=0{,}050\,\mathrm{kg}$ qua dây nhẹ, không dãn và ròng rọc lý tưởng. Ray ngang; lấy $g=9{,}81\,\mathrm{m/s^2}$. Mỗi lần thả hệ **từ nghỉ tại cùng vị trí**, đo thời gian đi hết $s=0{,}500\,\mathrm m$:
+
+<CompareTable title="Năm lần đo thời gian" columns={['Lần đo', '1', '2', '3', '4', '5']} rows={[
+ ['t (s)', '0,955', '0,960', '0,950', '0,965', '0,950']
+]} />
+
+1. Tính gia tốc lý thuyết của hệ.
+2. Tính thời gian trung bình, rồi ước lượng gia tốc bằng $a_{\mathrm{tn}}=2s/\bar t^2$.
+3. **Cho thêm** độ không đảm bảo tuyệt đối $\Delta a=0{,}015\,\mathrm{m/s^2}$. Viết kết quả theo dạng $a=(a_{\mathrm{tn}}\pm\Delta a)$ và tính độ không đảm bảo tương đối.
+4. So sánh thực nghiệm với lý thuyết. Ma sát còn dư và mômen quán tính ròng rọc ảnh hưởng thế nào? Chúng có giải thích riêng được dấu chênh lệch của bộ số liệu này không?
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**Lý thuyết:** Con trượt chịu lực căng $T=Ma$; móc treo thỏa mãn $m_hg-T=m_ha$. Do đó:
+
+$$
+a_{\mathrm{lt}}=\frac{m_hg}{M+m_h}
+=\frac{0{,}050\times9{,}81}{0{,}450}=1{,}090\,\mathrm{m/s^2}.
+$$
+
+**Xử lý thời gian:**
+
+$$
+\bar t=\frac{0{,}955+0{,}960+0{,}950+0{,}965+0{,}950}{5}=0{,}956\,\mathrm s.
+$$
+
+$$
+a_{\mathrm{tn}}=\frac{2\times0{,}500}{(0{,}956)^2}
+=1{,}0941685\ldots\,\mathrm{m/s^2}.
+$$
+
+Đây là **ước lượng từ thời gian trung bình** theo yêu cầu. Nếu tính gia tốc từng lần rồi lấy trung bình, thu được khoảng $1{,}0942903\,\mathrm{m/s^2}$; hai cách không hoàn toàn giống nhau vì công thức phụ thuộc phi tuyến vào thời gian.
+
+**Biểu diễn kết quả với độ không đảm bảo đã cho:**
+
+$$
+a=(1{,}094\pm0{,}015)\,\mathrm{m/s^2},\qquad
+\delta a=\frac{0{,}015}{1{,}0941685\ldots}\times100\%\approx1{,}37\%.
+$$
+
+Khoảng kết quả khoảng $[1{,}079;1{,}109]\,\mathrm{m/s^2}$ chứa $1{,}090\,\mathrm{m/s^2}$, nên kết quả phù hợp với lý thuyết trong độ không đảm bảo đã cho.
+
+**Phân tích:** Ma sát còn dư hoặc quán tính quay ròng rọc có xu hướng làm gia tốc nhỏ hơn giá trị lý tưởng. Nhưng bộ số liệu này cho $a_{\mathrm{tn}}>a_{\mathrm{lt}}$, nên hai nguyên nhân đó không tự giải thích dấu chênh lệch; còn có sai lệch đo thời gian, quãng đường, độ nghiêng ray hoặc vận tốc ban đầu chưa đúng 0. Không đủ thông tin để quy một nguyên nhân cụ thể. Giá trị $0{,}015$ là dữ kiện bổ sung, không được tự suy ra từ năm thời gian khi thiếu thông tin dụng cụ và phương pháp đánh giá sai số.
+
+</details>
+</div>
+
+<div data-question-id="bai-6-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Tên lửa có đủ lực để rời bệ không?
+
+Tên lửa ban đầu đứng trên bệ ngang, khối lượng $M_0=100000\,\mathrm{kg}$. Khí phụt xuống với tốc độ tương đối $u=2500\,\mathrm{m/s}$; tốc độ mất khối lượng $\mu=-dM/dt=120\,\mathrm{kg/s}$ không đổi. Lấy $g=9{,}80\,\mathrm{m/s^2}$, bỏ qua lực cản và hiệu chỉnh áp suất miệng phụt; giả sử có đủ nhiên liệu trong thời gian xét.
+
+1. Thiết lập và tính lực đẩy $F_{\mathrm{th}}=u\mu$.
+2. Kiểm tra tên lửa có rời bệ ở thời điểm đầu không. Xác định gia tốc thực và lực đỡ của bệ khi còn tiếp xúc.
+3. Sau $100\,\mathrm s$, tính khối lượng còn lại và kiểm tra lại khả năng rời bệ.
+4. **Trường hợp mở rộng riêng:** Nếu thay $\mu=120$ bằng $\mu=500\,\mathrm{kg/s}$ ngay từ đầu, tính gia tốc lúc rời bệ và sau $100\,\mathrm s$. Giữ các giả thiết khác.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**Dòng động lượng:** Trong thời gian ngắn $dt$, lượng khí có khối lượng $\mu\,dt$ được phụt về sau với tốc độ tương đối $u$. Cân bằng động lượng cho hệ vật chất gồm tên lửa và phần khí đó cho lực đẩy hướng lên có độ lớn $u\mu$. Với riêng tên lửa, phải tính dòng động lượng ra khỏi hệ; không dùng trực tiếp $d(Mv)/dt$ rồi bỏ qua dòng khí.
+
+**Giữ nguyên dữ kiện chính $\mu=120\,\mathrm{kg/s}$:**
+
+$$
+F_{\mathrm{th}}=2500\times120=300000\,\mathrm N.
+$$
+
+Lúc đầu $M_0g=980000\,\mathrm N>F_{\mathrm{th}}$, nên **không rời bệ**. Khi còn nằm trên bệ, tên lửa có $a_0=0$, lực đỡ bệ là:
+
+$$
+N_0=M_0g-F_{\mathrm{th}}=680000\,\mathrm N.
+$$
+
+Giá trị $(F_{\mathrm{th}}-M_0g)/M_0=-6{,}8\,\mathrm{m/s^2}$ chỉ là gia tốc tính khi giả sử không còn bệ đỡ; không phải gia tốc thực của tên lửa đang đứng trên bệ.
+
+Sau $100\,\mathrm s$:
+
+$$
+M=100000-120\times100=88000\,\mathrm{kg},\qquad Mg=862400\,\mathrm N.
+$$
+
+Vẫn có $F_{\mathrm{th}}<Mg$, nên $a_{100}=0$ và $N_{100}=862400-300000=562400\,\mathrm N$. Trong 100 giây đầu khối lượng giảm đều nhưng chưa bao giờ đủ để rời bệ theo mô hình.
+
+**Trường hợp mở rộng $\mu=500\,\mathrm{kg/s}$:** Đây là bộ dữ kiện khác, không thay ngầm cho đề chính.
+
+$$
+F'_{\mathrm{th}}=2500\times500=1250000\,\mathrm N>980000\,\mathrm N.
+$$
+
+Tên lửa rời bệ; khi đó lực đỡ bằng 0:
+
+$$
+a'_0=\frac{1250000-980000}{100000}=2{,}70\,\mathrm{m/s^2}.
+$$
+
+$$
+M'_{100}=100000-500\times100=50000\,\mathrm{kg}.
+$$
+
+$$
+a'_{100}=\frac{1250000}{50000}-9{,}80=15{,}20\,\mathrm{m/s^2}.
+$$
+
+Gia tốc tăng vì khối lượng giảm trong khi lực đẩy không đổi. Kết quả chỉ thuộc mô hình đã giả định $g$ không đổi, đủ nhiên liệu và bỏ qua lực cản.
+
+</details>
+</div>
+
+</Section>
+
+</div>

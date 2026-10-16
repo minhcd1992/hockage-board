@@ -1,0 +1,54 @@
+@media (max-width: 639px) {
+  /* Stack each true/false statement while preserving its radio group and labels. */
+  .workbook :global([data-question-id].flex > .overflow-x-auto table),
+  .workbook :global([data-question-id].flex > .overflow-x-auto tbody) {
+    display: block;
+    width: 100%;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto thead) {
+    display: none;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto tr) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto td) {
+    display: block;
+    width: auto;
+    padding: 0;
+    text-align: left;
+    min-width: 0;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto td:last-child > div) {
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 0.25rem;
+    font-size: 0.875rem;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto td:last-child > div)::before {
+    content: 'Đúng';
+    order: 1;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto td:last-child > div)::after {
+    content: 'Sai';
+    order: 3;
+    margin-left: 1rem;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto input:first-child) {
+    order: 2;
+  }
+  .workbook :global([data-question-id].flex > .overflow-x-auto input:last-child) {
+    order: 4;
+  }
+  .workbook :global([data-question-id='bai-6-sbt-044'] table) {
+    min-width: 0;
+    font-size: 0.75rem;
+  }
+  .workbook :global([data-question-id='bai-6-sbt-044'] th),
+  .workbook :global([data-question-id='bai-6-sbt-044'] td) {
+    padding: 0.5rem 0.25rem;
+  }
+}

@@ -1,0 +1,289 @@
+import { BusBraking, BoatJump, AirTrack, CarForces, ForceSensors, GalileoRamps } from './components/Lesson6Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Giải thích quán tính và nhận biết hệ quy chiếu quán tính.
+- Vận dụng $\sum\vec F=m\vec a$ để liên hệ lực, khối lượng và gia tốc.
+- Phân biệt cặp lực–phản lực với hai lực cân bằng.
+- Chọn đúng vật hoặc hệ vật, vẽ lực và giải bài toán động lực học.
+
+</InfoBox>
+
+<Section title="A. Từ những hiện tượng quen thuộc" icon="rocket">
+
+**Xe buýt phanh gấp:** Một xe buýt đang đi thẳng thì phanh để tránh chướng ngại vật. Hành khách có xu hướng chồm về phía trước so với xe. Có nhất thiết phải có một lực đẩy người về phía trước không?
+
+<BusBraking />
+
+**Ô tô điện tăng tốc:** Một ô tô điện khối lượng 2,6 tấn tăng tốc trên đường thẳng. Động cơ làm bánh xe quay, nhưng ngoại lực nào trực tiếp đẩy cả xe tiến lên? Ta sẽ thay đổi lực và khối lượng trong mô phỏng ở phần định luật II.
+
+**Nhảy từ xuồng lên bờ:** Khi một người đạp xuồng để nhảy về phía bến, xuồng có xu hướng lùi ra xa bờ. Hai lực tương tác bằng nhau có khiến người và xuồng cùng đứng yên không?
+
+<BoatJump />
+
+<InfoBox type="info" title="Câu hỏi dẫn dắt">
+
+1. Vì sao ngừng tác dụng lực đẩy chưa chắc làm vật dừng lại?
+2. Cùng một hợp lực, vật nhẹ hay vật nặng thay đổi vận tốc nhanh hơn?
+3. Vì sao ngựa kéo được xe dù xe kéo ngược lại ngựa một lực bằng nhau?
+
+</InfoBox>
+
+</Section>
+
+<Section title="B. Định luật I Newton — Quán tính" icon="book">
+
+**Quán tính** là tính chất của vật có xu hướng giữ nguyên vận tốc, cả độ lớn lẫn hướng. Đứng yên là trường hợp vận tốc bằng không. Quán tính không phải một lực tác dụng lên vật.
+
+**Phát biểu định luật I:** Nếu một vật không chịu lực nào hoặc chịu các lực có hợp lực bằng không, vật đang đứng yên tiếp tục đứng yên; vật đang chuyển động tiếp tục chuyển động thẳng đều.
+
+$$
+\sum\vec F=\vec0\quad\Rightarrow\quad\vec a=\vec0,\quad\vec v=\mathrm{const}.
+$$
+
+**Khối lượng đo mức quán tính:** Với cùng hợp lực, khối lượng càng lớn thì gia tốc càng nhỏ. Chẳng hạn, để xe container và xe máy có cùng gia tốc, xe container cần hợp lực lớn hơn. Không thể chỉ dựa vào khối lượng để kết luận quãng đường phanh thực tế; còn phải xét vận tốc ban đầu và lực phanh.
+
+**Hệ quy chiếu quán tính** là hệ trong đó định luật I được thỏa mãn. Hệ chuyển động tịnh tiến thẳng đều so với một hệ quán tính cũng là hệ quán tính. Trong các bài toán gần mặt đất ở quy mô thông thường, có thể coi hệ gắn với mặt đất là gần đúng quán tính. Hệ gắn với xe đang phanh có gia tốc, nên không phải hệ quán tính.
+
+<AirTrack />
+
+**Cách quan sát:** Chọn tốc độ ban đầu, bấm **Chạy** và theo dõi con trượt đi qua A, B. Trên đồ thị tọa độ–thời gian, đường thẳng có độ dốc $v$. Đổi tốc độ để so sánh độ dốc; không cần lực đẩy ngang liên tục để duy trì chuyển động khi lực cản được bỏ qua.
+
+<InfoBox type="warning" title="Hợp lực bằng 0 không có nghĩa là không có lực">
+
+Con trượt vẫn chịu trọng lực và lực nâng của đệm khí. Hai lực cân bằng theo phương đứng; theo phương ngang, lực cản được coi bằng không. Vì thế $\sum\vec F=\vec0$ dù từng lực có thể khác không.
+
+</InfoBox>
+
+</Section>
+
+<Section title="C. Định luật II Newton — Lực gây gia tốc" icon="book">
+
+Trong hệ quy chiếu quán tính, với vật có khối lượng không đổi, gia tốc cùng hướng với hợp lực, có độ lớn tỉ lệ thuận với hợp lực và tỉ lệ nghịch với khối lượng:
+
+$$
+\sum\vec F=m\vec a,\qquad \vec a=\frac{\sum\vec F}{m}.
+$$
+
+- $\sum\vec F$: tổng vectơ **tất cả ngoại lực** tác dụng lên vật đang xét, đơn vị $\mathrm N$.
+- $m$: khối lượng, đơn vị $\mathrm{kg}$; $\vec a$: gia tốc, đơn vị $\mathrm{m/s^2}$.
+- Theo các trục đã chọn: $\sum F_x=ma_x$, $\sum F_y=ma_y$.
+- $1\,\mathrm N=1\,\mathrm{kg}\cdot\mathrm{m/s^2}$.
+
+Gia tốc cùng hướng với **hợp lực**, không nhất thiết cùng hướng với vận tốc. Xe đang đi tới nhưng hợp lực hướng về sau thì xe chậm dần.
+
+<CarForces />
+
+**Thử ba tình huống:** Giữ $m$ cố định và tăng lực kéo; giữ hợp lực cố định rồi tăng $m$; cuối cùng đặt lực kéo bằng lực cản. Quan sát gia tốc thay đổi, đặc biệt khi hợp lực bằng không.
+
+<InfoBox type="info" title="Lực nào đẩy ô tô?">
+
+Trong mô hình xe chạy trên đường ngang, bánh chủ động đẩy mặt đường về phía sau, mặt đường tác dụng lực ma sát nghỉ lên bánh về phía trước. Động cơ cung cấp mômen quay; không cộng thêm một “lực động cơ” độc lập vào sơ đồ ngoại lực của toàn xe. Lực kéo hiệu dụng $F_k$ trong bài toán đại diện cho tác dụng phát động từ mặt đường, còn $F_c$ gộp các tác dụng cản theo mô hình đã cho.
+
+</InfoBox>
+
+<details>
+<summary className="cursor-pointer font-semibold text-blue-800">Mở rộng: động lượng và giới hạn của công thức</summary>
+
+Ký hiệu “ext” chỉ ngoại lực. Với một hệ gồm tập hợp vật chất xác định, tổng ngoại lực bằng tốc độ biến thiên động lượng: $\sum\vec F_{\mathrm{ext}}=d\vec p/dt$. Với chất điểm khối lượng không đổi, $\vec p=m\vec v$ nên thu được $\sum\vec F=m\vec a$.
+
+Nếu xét riêng tên lửa đang phụt khí, vật chất đi qua ranh giới hệ; phải tính cả động lượng do khí mang đi. Không chỉ thay $m$ bằng $m(t)$ trong $\vec F=d(m\vec v)/dt$ rồi coi đó là phương trình cho riêng tên lửa. Xem [bài giảng về hệ biến khối lượng của MIT OpenCourseWare](https://ocw.mit.edu/courses/16-07-dynamics-fall-2009/resources/mit16_07f09_lec14/).
+
+</details>
+
+</Section>
+
+<Section title="D. Định luật III Newton — Lực và phản lực" icon="book">
+
+Khi vật A tác dụng lực lên vật B, vật B đồng thời tác dụng lực lên vật A. Hai lực cùng phương, ngược chiều và cùng độ lớn:
+
+$$
+\vec F_{A\to B}=-\vec F_{B\to A}.
+$$
+
+Ký hiệu $\vec F_{A\to B}$ chỉ rõ **A gây lực, B chịu lực**. Tên “phản lực” không có nghĩa là lực này xuất hiện muộn hơn lực kia.
+
+- Hai lực xuất hiện và mất đi cùng với tương tác đang xét.
+- Chúng cùng bản chất: hấp dẫn, đàn hồi, ma sát…
+- Chúng đặt lên **hai vật khác nhau**, nên không cân bằng nhau trên riêng một vật.
+- Khi xét hệ gồm cả A và B, chúng là nội lực và có tổng vectơ bằng không trong phương trình động lượng của cả hệ.
+
+<ForceSensors />
+
+**Cách quan sát:** Chạy một chu trình kéo–giữ–nhả. Đọc hai lực theo cùng chiều dương sang phải: hai đường đồ thị đối xứng qua trục thời gian. Đây là mô hình tương tác lý tưởng; cảm biến thật có sai số và độ trễ đo.
+
+<CompareTable
+  title="Phân biệt hai loại cặp lực"
+  columns={['Tiêu chí', 'Lực–phản lực', 'Hai lực cân bằng']}
+  rows={[
+    ['Vật chịu lực', 'Hai vật khác nhau', 'Cùng một vật'],
+    ['Quan hệ', 'Bằng nhau, ngược chiều do cùng một tương tác', 'Tổng vectơ bằng 0 trên vật đang xét'],
+    ['Bản chất', 'Cùng bản chất', 'Có thể khác bản chất'],
+    ['Ví dụ', 'Trái Đất hút sách; sách hút Trái Đất', 'Trọng lực và lực đỡ trên quyển sách nằm yên'],
+  ]}
+/>
+
+<InfoBox type="warning" title="Trọng lực và pháp lực không phải cặp lực–phản lực">
+
+Với sách trên bàn, trọng lực do Trái Đất tác dụng lên sách, còn pháp lực do bàn tác dụng lên sách. Cả hai cùng đặt lên sách. Phản lực của lực bàn đỡ sách là lực sách ép bàn; phản lực của trọng lực là lực sách hút Trái Đất.
+
+</InfoBox>
+
+</Section>
+
+<Section title="E. Vận dụng để giải thích" icon="idea">
+
+### 1. Thí nghiệm tưởng tượng kiểu Galileo
+
+Vì ma sát thường làm vật chậm lại, ta dễ tưởng rằng luôn phải có lực để duy trì chuyển động. Hãy xét vật nhỏ trượt từ cùng độ cao $h$ xuống một dốc rồi lên dốc đối diện, bỏ qua ma sát và hao phí:
+
+<GalileoRamps />
+
+- Dốc bên phải càng thoải, vật càng đi xa trước khi lên lại độ cao $h$ và dừng tức thời.
+- Nếu phía phải nằm ngang, vật không tăng độ cao và tiếp tục chuyển động thẳng đều trên đoạn ngang lý tưởng kéo dài.
+- Hợp lực làm **thay đổi vận tốc**; không cần hợp lực khác không để duy trì vận tốc không đổi.
+
+### 2. Vì sao ngựa kéo được xe?
+
+Chọn chiều dương về phía trước. Gọi $T$ là độ lớn lực kéo giữa ngựa và xe qua bộ nối nhẹ, $f$ là lực mặt đất đẩy ngựa về trước, $R$ là tổng lực cản xe. Bỏ qua các lực cản khác, cả hai cùng gia tốc $a$. Với xe:
+
+$$
+ T-R=m_{\mathrm x}a.
+$$
+
+Với ngựa:
+
+$$
+ f-T=m_{\mathrm n}a.
+$$
+
+Xét cả hệ ngựa–xe, hai lực kéo nội bộ triệt tiêu khi cộng hai phương trình:
+
+$$
+f-R=(m_{\mathrm n}+m_{\mathrm x})a.
+$$
+
+Hệ **tăng tốc về trước** nếu $f>R$. Nếu $f=R$, hệ vẫn có thể chuyển động thẳng đều. Định luật III luôn đúng; muốn kết luận chuyển động phải xét tổng ngoại lực trên vật hoặc hệ đã chọn.
+
+</Section>
+
+<Section title="F. Hai ví dụ giải theo bốn bước" icon="edit">
+
+### Ví dụ 1. Ô tô điện tăng tốc
+
+Một ô tô điện có $m=2600\,\mathrm{kg}$, bắt đầu từ trạng thái đứng yên trên đường ngang. Lực kéo hiệu dụng $F_k=18200\,\mathrm N$ và tổng lực cản $F_c=2600\,\mathrm N$ được coi không đổi. Tính gia tốc, thời gian và quãng đường để đạt $108\,\mathrm{km/h}$.
+
+1. **Tóm tắt và phân tích:** $v_0=0$, $v=108/3{,}6=30\,\mathrm{m/s}$. Chọn chiều dương theo chiều xe đi. Theo phương đứng, $N=P$; theo phương ngang, hợp lực là $F_k-F_c$.
+2. **Lập luận vật lý:** $F_k-F_c=ma$. Các lực và khối lượng không đổi nên gia tốc không đổi; dùng $v=v_0+at$ và $v^2-v_0^2=2as$.
+3. **Tính toán:**
+
+$$
+a=\frac{18200-2600}{2600}=6{,}0\,\mathrm{m/s^2}.
+$$
+
+$$
+t=\frac{30}{6}=5{,}0\,\mathrm s,\qquad s=\frac{30^2}{2\cdot6}=75\,\mathrm m.
+$$
+
+4. **Nhận xét:** Đây là bộ số liệu giả định để luyện mô hình lực không đổi, không phải thông số thử nghiệm hay cam kết tăng tốc của một mẫu xe thương mại. Trong thực tế, lực kéo và lực cản thay đổi theo tốc độ.
+
+### Ví dụ 2. Hai xe va chạm
+
+Xe tải khối lượng $M=30000\,\mathrm{kg}$ va chạm trực diện với ô tô con khối lượng $m=1500\,\mathrm{kg}$. Trong khoảng $\Delta t=0{,}05\,\mathrm s$, độ lớn **lực va chạm trung bình** là $150000\,\mathrm N$. Bỏ qua xung lượng của các ngoại lực khác theo phương va chạm trong khoảng thời gian này. Tìm lực xe con tác dụng lên xe tải và so sánh gia tốc trung bình của hai xe.
+
+1. **Tóm tắt và phân tích:** Chọn chiều dương theo hướng chuyển động ban đầu của xe tải. Lực xe tải tác dụng lên xe con hướng dương; lực xe con tác dụng lên xe tải hướng âm.
+2. **Lập luận vật lý:** Định luật III cho hai lực bằng nhau về độ lớn tại mỗi thời điểm và cả khi lấy trung bình trên cùng khoảng thời gian. Với mỗi xe, $a_{\mathrm{tb}}=F_{\mathrm{tb}}/m$ theo mô hình trên.
+3. **Tính toán:**
+
+$$
+\overline F_{\mathrm{con}\to\mathrm{tai}}=-150000\,\mathrm N.
+$$
+
+$$
+\overline a_{\mathrm{con}}=\frac{150000}{1500}=100\,\mathrm{m/s^2},\qquad
+\overline a_{\mathrm{tai}}=-\frac{150000}{30000}=-5{,}0\,\mathrm{m/s^2}.
+$$
+
+$$
+\frac{|\overline a_{\mathrm{con}}|}{|\overline a_{\mathrm{tai}}|}=20.
+$$
+
+Có thể kiểm tra thêm: $\Delta v_{\mathrm{con}}=5\,\mathrm{m/s}$, $\Delta v_{\mathrm{tai}}=-0{,}25\,\mathrm{m/s}$.
+
+4. **Nhận xét:** Cùng độ lớn lực tương tác, xe nhẹ có độ lớn gia tốc lớn hơn. Không thể chỉ từ tỉ số khối lượng này suy ra mức biến dạng hay chấn thương; còn phụ thuộc cấu trúc, thời gian va chạm và nhiều yếu tố khác.
+
+</Section>
+
+<Section title="G. Ghi nhớ và tự luyện" icon="check">
+
+1. Chọn vật hoặc hệ vật và hệ quy chiếu trước khi liệt kê lực.
+2. Chỉ cộng các lực đặt lên vật đang xét; với cả hệ, chỉ tổng ngoại lực làm biến đổi động lượng toàn hệ.
+3. Hợp lực quyết định gia tốc, không trực tiếp quyết định vận tốc hiện có.
+4. Hai lực tương tác bằng nhau không có nghĩa là hai vật có gia tốc bằng nhau.
+
+Bốn câu nền tảng nằm ngay dưới phần ghi nhớ. Phần **Bài tập** có thêm 45 câu phân hóa, kèm đáp án và lời giải.
+
+<details>
+<summary className="cursor-pointer text-sm font-semibold text-slate-600">Tài liệu đối chiếu</summary>
+
+Phần định luật và cách chọn hệ được đối chiếu với [University Physics, chương 5 — OpenStax](https://openstax.org/books/university-physics-volume-1/pages/5-summary). Lưu ý hệ biến khối lượng tham khảo bài giảng MIT liên kết ở phần mở rộng.
+
+</details>
+
+</Section>
+
+<Section title="H. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<div data-question-id="bai-6-exercises-001" className="rounded-xl border border-slate-200 bg-white p-4">
+
+**Câu 1. Vali trên tàu:** Một vali ban đầu nằm yên so với sàn toa tàu phẳng, nhẵn. Bất ngờ vali trượt về phía đầu toa. Giải thích và cho biết có thể kết luận gì về chuyển động của tàu. Giả sử tàu chỉ chuyển động dọc đường ray thẳng, bỏ qua ma sát ngang lên vali.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải</summary>
+
+Trong hệ mặt đất gần đúng quán tính, vali tiếp tục giữ vận tốc ban đầu vì hợp lực ngang gần bằng không. So với toa, vali dịch về trước vì toa có gia tốc hướng về phía đuôi trong giai đoạn bắt đầu trượt.
+
+Nếu tàu **đang chạy về phía đầu toa**, tàu đang giảm tốc. Chỉ riêng hiện tượng này không đủ xác định chiều vận tốc của tàu: tàu cũng có thể bắt đầu tăng tốc lùi. Không cần một lực thật đẩy vali về trước để giải thích trong hệ mặt đất.
+
+</details>
+</div>
+
+<QuizShort
+  id="bai-6-exercises-002"
+  question="Câu 2. Bóng khối lượng 0,40 kg đang bay với tốc độ 15 m/s thì bị thủ môn đấm cho bay ngược lại với tốc độ 25 m/s. Thời gian tiếp xúc là 0,020 s. Tính độ lớn lực trung bình của tay lên bóng theo phương chuyển động. Bỏ qua tác dụng của các lực khác trong khoảng tiếp xúc."
+  answer="800 N"
+  explanation={<><p>Chọn chiều dương theo vận tốc ban đầu: v₁ = +15 m/s, v₂ = −25 m/s. Độ biến thiên vận tốc là −40 m/s, không phải 10 m/s.</p><Math>{"\\overline a=\\frac{-25-15}{0{,}020}=-2000\\,\\mathrm{m/s^2}."}</Math><Math>{"\\overline F=0{,}40\\cdot(-2000)=-800\\,\\mathrm N."}</Math><p>Lực trung bình có độ lớn 800 N và hướng ngược chiều vận tốc ban đầu của bóng. Nếu không bỏ qua các lực khác, công thức mΔv/Δt cho hợp lực trung bình, không tự động bằng lực riêng của tay.</p></>}
+/>
+
+<div data-question-id="bai-6-exercises-003" className="rounded-xl border border-slate-200 bg-white p-4">
+
+**Câu 3. Muỗi va vào kính:** Một con muỗi va vào kính chắn gió của xe khách. Lực kính tác dụng lên muỗi hay lực muỗi tác dụng lên kính lớn hơn? Vì sao kết quả đối với hai vật rất khác nhau?
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải</summary>
+
+Theo định luật III, hai lực tương tác luôn **bằng nhau về độ lớn, ngược chiều**, đặt lên hai vật khác nhau. Muỗi có khối lượng rất nhỏ nên cùng độ lớn lực gây độ lớn gia tốc lớn hơn nhiều.
+
+Mức biến dạng còn phụ thuộc cấu trúc, độ bền và cách lực phân bố. Muỗi dễ bị tổn hại, trong khi kính thường ít thay đổi nhìn thấy được; không thể giải thích rằng kính tác dụng lực lớn hơn muỗi.
+
+Gọi A là kính, B là muỗi:
+
+$$
+\vec F_{A\to B}=-\vec F_{B\to A}.
+$$
+
+</details>
+</div>
+
+<QuizShort
+  id="bai-6-exercises-004"
+  question="Câu 4. Cùng hợp lực F không đổi làm vật A có gia tốc 4,0 m/s², vật B có gia tốc 2,0 m/s². Ghép hai vật bằng dây nhẹ không dãn để cùng gia tốc; tổng ngoại lực lên cả hệ vẫn là F. Tìm gia tốc của hệ."
+  answer="4/3 m/s² ≈ 1,33 m/s²"
+  explanation={<><Math>{"m_A=\\frac F4,\\qquad m_B=\\frac F2."}</Math><Math>{"a=\\frac{F}{m_A+m_B}=\\frac{1}{1/4+1/2}=\\frac43\\,\\mathrm{m/s^2}."}</Math><p>Gia tốc nhỏ hơn gia tốc của từng vật khi chịu cùng hợp lực F, vì tổng khối lượng lớn hơn. Lực căng giữa hai vật là nội lực; không cộng thêm nó vào tổng ngoại lực F của hệ.</p></>}
+/>
+
+</Section>
+
+</div>
