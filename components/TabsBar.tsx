@@ -8,7 +8,7 @@ import { FileUp, X, PenTool, FileText, Code, BookOpen } from 'lucide-react';
 import { lessons, lessonUrl, lessonTabTitle } from '@/lib/lessons';
 
 export function TabsBar() {
-  const { tabs, activeTabId, setActiveTab, removeTab, addTab } = useBoardStore();
+  const { tabs, activeTabId, setActiveTab, removeTab, addTab, openLessonTab } = useBoardStore();
   const [showLessonModal, setShowLessonModal] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -224,14 +224,7 @@ export function TabsBar() {
                 <div
                   key={lesson.slug}
                   onClick={() => {
-                    const newId = crypto.randomUUID();
-                    addTab({
-                      id: newId,
-                      type: 'lesson',
-                      title: lessonTabTitle(lesson),
-                      url: lessonUrl(lesson)
-                    });
-                    setActiveTab(newId);
+                    openLessonTab(lessonUrl(lesson), lessonTabTitle(lesson));
                     setShowLessonModal(false);
                   }}
                   style={{
@@ -259,7 +252,7 @@ export function TabsBar() {
                   }}
                 >
                   <span className="text-xs font-semibold text-blue-700">{lesson.subject} · Lớp {lesson.grade} · {lesson.chapter}</span>
-                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#1f2937' }}>{lesson.title}</h3><p style={{ margin: 0, fontSize: '14px', color: '#6b7280', lineHeight: 1.5, flex: 1 }}>{lesson.description}</p><div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lessonTabTitle(lesson), url: lessonUrl(lesson) }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><BookOpen size={16} /> Lý thuyết</button><button onClick={(e) => { e.stopPropagation(); const newId = crypto.randomUUID(); addTab({ id: newId, type: 'lesson', title: lessonTabTitle(lesson, 'exercises'), url: lessonUrl(lesson, 'exercises') }); setActiveTab(newId); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(79, 70, 229, 0.1)', color: '#4f46e5', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><PenTool size={16} /> Bài tập</button></div></div>
+                  <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold', color: '#1f2937' }}>{lesson.title}</h3><p style={{ margin: 0, fontSize: '14px', color: '#6b7280', lineHeight: 1.5, flex: 1 }}>{lesson.description}</p><div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}><button onClick={(e) => { e.stopPropagation(); openLessonTab(lessonUrl(lesson), lessonTabTitle(lesson)); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><BookOpen size={16} /> Lý thuyết</button><button onClick={(e) => { e.stopPropagation(); openLessonTab(lessonUrl(lesson, 'exercises'), lessonTabTitle(lesson, 'exercises')); setShowLessonModal(false); }} style={{ flex: 1, padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', background: 'rgba(79, 70, 229, 0.1)', color: '#4f46e5', border: 'none', borderRadius: '8px', cursor: 'default', fontWeight: 500, fontSize: '14px' }}><PenTool size={16} /> Bài tập</button></div></div>
               ))}
             </div>
           </div>

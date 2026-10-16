@@ -51,6 +51,7 @@ interface BoardState extends ToolProperties {
   addTab: (tab: BoardTab) => void;
   removeTab: (id: string) => void;
   setActiveTab: (id: string) => void;
+  openLessonTab: (url: string, title: string) => void;
 
   activeEngineRef: React.MutableRefObject<any> | null;
   setActiveEngineRef: (ref: React.MutableRefObject<any> | null) => void;
@@ -178,6 +179,66 @@ export const useBoardStore = create<BoardState>((set) => {
       gridEnabled: targetTab.gridEnabled !== undefined ? targetTab.gridEnabled : true,
       viewMode: targetTab.viewMode || 'continuous',
       theme: targetTab.theme || 'green',
+      editingObjectId: null
+    };
+  }),
+  openLessonTab: (url, title) => set((state) => {
+    const cleanUrl = url.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/';
+    const savedTabs = state.tabs.map(tab => {
+      if (tab.id === state.activeTabId) {
+        return {
+          ...tab,
+          zoom: state.zoom,
+          panX: state.panX,
+          panY: state.panY,
+          gridEnabled: state.gridEnabled,
+          viewMode: state.viewMode,
+          theme: state.theme
+        };
+      }
+      return tab;
+    });
+
+    const existingTab = savedTabs.find(
+      t => t.type === 'lesson' && (t.url?.split('?')[0].split('#')[0].replace(/\/+$/, '') || '/') === cleanUrl
+    );
+    if (existingTab) {
+      return {
+        tabs: savedTabs,
+        activeTabId: existingTab.id,
+        zoom: existingTab.zoom !== undefined ? existingTab.zoom : 1,
+        panX: existingTab.panX !== undefined ? existingTab.panX : 0,
+        panY: existingTab.panY !== undefined ? existingTab.panY : 0,
+        gridEnabled: existingTab.gridEnabled !== undefined ? existingTab.gridEnabled : true,
+        viewMode: existingTab.viewMode || 'continuous',
+        theme: existingTab.theme || 'green',
+        editingObjectId: null
+      };
+    }
+
+    const id = 'lesson-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+    const newTab: BoardTab = {
+      id,
+      type: 'lesson',
+      title,
+      url: cleanUrl,
+      zoom: 1,
+      panX: 0,
+      panY: 0,
+      gridEnabled: true,
+      viewMode: 'continuous',
+      theme: 'green'
+    };
+
+    return {
+      tabs: [...savedTabs, newTab],
+      activeTabId: id,
+      zoom: 1,
+      panX: 0,
+      panY: 0,
+      gridEnabled: true,
+      viewMode: 'continuous',
+      theme: 'green',
       editingObjectId: null
     };
   }),

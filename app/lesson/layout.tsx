@@ -30,14 +30,32 @@ export default function LessonLayout({ children }: { children: React.ReactNode }
       boardPaused = event.data.paused;
       sync();
     };
+    const onClick = (event: MouseEvent) => {
+      if (window.parent === window || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const anchor = (event.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+      try {
+        const targetUrl = new URL(anchor.href, window.location.origin);
+        if (targetUrl.origin === window.location.origin && targetUrl.pathname.startsWith('/lesson/')) {
+          event.preventDefault();
+          window.parent.postMessage({ type: 'board-lesson-navigate', url: targetUrl.pathname }, window.location.origin);
+        }
+      } catch {
+        // Ignore malformed URLs
+      }
+    };
     window.addEventListener('message', onMessage);
     document.addEventListener('visibilitychange', sync);
+    document.addEventListener('click', onClick);
     document.documentElement.setAttribute('data-board-ready', '');
     sync();
-    if (window.parent !== window) window.parent.postMessage({ type: 'board-lesson-ready' }, window.location.origin);
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: 'board-lesson-ready', url: window.location.pathname }, window.location.origin);
+    }
     return () => {
       window.removeEventListener('message', onMessage);
       document.removeEventListener('visibilitychange', sync);
+      document.removeEventListener('click', onClick);
       setLessonPaused(false);
       document.documentElement.removeAttribute('data-board-paused');
       document.documentElement.removeAttribute('data-board-ready');

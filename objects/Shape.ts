@@ -1,4 +1,4 @@
-import { BoardObject, Point, Rect, ArrowHeadType } from '../types';
+import { BoardObject, Point, Rect, ArrowHeadType, pointInRect, rectsIntersect, segmentIntersectsRect } from '../types';
 
 export class Shape extends BoardObject {
   start: Point;
@@ -221,7 +221,6 @@ export class Shape extends BoardObject {
       
       const amplitude = this.sineAmplitude ?? 20;
       const wavelength = this.sineWavelength ?? 50;
-      const periods = dist / wavelength;
       
       ctx.moveTo(0, 0);
       for (let x = 0; x <= dist; x += 2) {
@@ -245,8 +244,85 @@ export class Shape extends BoardObject {
     // Reset dash for other drawings
     ctx.setLineDash([]);
     ctx.restore();
+  }
 
+  private static normAngle(a: number): number {
+    return ((a % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+  }
 
+  private isAngleOnArc(angle: number, startAngle: number, endAngle: number): boolean {
+    const sweep = Shape.normAngle(startAngle - endAngle);
+    const dist = Shape.normAngle(startAngle - angle);
+    return dist <= sweep + 1e-9;
+  }
+
+  private getArcGeometry() {
+    const cx = this.start.x;
+    const cy = this.start.y;
+    const dx1 = this.end.x - cx;
+    const dy1 = this.end.y - cy;
+    const r = Math.hypot(dx1, dy1);
+    const startAngle = Math.atan2(dy1, dx1);
+    const dx2 = this.controlPoint.x - cx;
+    const dy2 = this.controlPoint.y - cy;
+    const endAngle = Math.atan2(dy2, dx2);
+    const p1 = { x: cx + r * Math.cos(startAngle), y: cy + r * Math.sin(startAngle) };
+    const p2 = { x: cx + r * Math.cos(endAngle), y: cy + r * Math.sin(endAngle) };
+    return { cx, cy, r, startAngle, endAngle, p1, p2 };
+  }
+
+  private getArrowHeadSegments(): [Point, Point][] {
+    if (this.shapeType !== 'arrow') return [];
+    const dx = this.end.x - this.start.x;
+    const dy = this.end.y - this.start.y;
+    if (Math.abs(dx) <= 1 && Math.abs(dy) <= 1) return [];
+    const angle = Math.atan2(dy, dx);
+    const headLen = Math.max(10, this.size * 3);
+    const segs: [Point, Point][] = [];
+    const addHead = (x: number, y: number, dirAngle: number) => {
+      const tip = { x, y };
+      segs.push(
+        [tip, { x: x - headLen * Math.cos(dirAngle - Math.PI / 6), y: y - headLen * Math.sin(dirAngle - Math.PI / 6) }],
+        [tip, { x: x - headLen * Math.cos(dirAngle + Math.PI / 6), y: y - headLen * Math.sin(dirAngle + Math.PI / 6) }],
+      );
+    };
+    if (this.arrowStart === 'arrow') addHead(this.start.x, this.start.y, angle + Math.PI);
+    else if (this.arrowStart === 'inverted') addHead(this.start.x, this.start.y, angle);
+    if (this.arrowEnd === 'arrow') addHead(this.end.x, this.end.y, angle);
+    else if (this.arrowEnd === 'inverted') addHead(this.end.x, this.end.y, angle + Math.PI);
+    if (this.middleArrow) {
+      addHead((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2, angle);
+    }
+    return segs;
+  }
+
+  private evalBezier(t: number): Point {
+    const mt = 1 - t;
+    return {
+      x: mt * mt * this.start.x + 2 * mt * t * this.controlPoint.x + t * t * this.end.x,
+      y: mt * mt * this.start.y + 2 * mt * t * this.controlPoint.y + t * t * this.end.y,
+    };
+  }
+
+  private getBezierSamples(steps = 32): Point[] {
+    const pts: Point[] = [];
+    for (let i = 0; i <= steps; i++) {
+      pts.push(this.evalBezier(i / steps));
+    }
+    return pts;
+  }
+
+  private getArcSamples(steps = 36): Point[] {
+    const { cx, cy, r, startAngle, endAngle } = this.getArcGeometry();
+    if (r < 1e-6) return [{ x: cx, y: cy }];
+    const sweep = Shape.normAngle(startAngle - endAngle);
+    const count = Math.max(4, Math.ceil((sweep / (Math.PI * 2)) * steps));
+    const pts: Point[] = [];
+    for (let i = 0; i <= count; i++) {
+      const theta = startAngle - (sweep * i) / count;
+      pts.push({ x: cx + r * Math.cos(theta), y: cy + r * Math.sin(theta) });
+    }
+    return pts;
   }
 
   _getBoundingBox(): Rect {
@@ -255,23 +331,57 @@ export class Shape extends BoardObject {
     const w = Math.abs(this.end.x - this.start.x);
     const h = Math.abs(this.end.y - this.start.y);
     
-    const padding = Math.max(10, this.size * 3);
+    const padding = this.size / 2 + 4;
     
     if (this.shapeType === 'bezier') {
-      const x = Math.min(this.start.x, this.end.x, this.controlPoint.x);
-      const y = Math.min(this.start.y, this.end.y, this.controlPoint.y);
-      const w = Math.max(this.start.x, this.end.x, this.controlPoint.x) - x;
-      const h = Math.max(this.start.y, this.end.y, this.controlPoint.y) - y;
-      return { x: x - padding, y: y - padding, w: w + padding * 2, h: h + padding * 2 };
+      const p0 = this.start;
+      const p1 = this.controlPoint;
+      const p2 = this.end;
+      const pts: Point[] = [p0, p2];
+      const denomX = p0.x - 2 * p1.x + p2.x;
+      if (Math.abs(denomX) > 1e-9) {
+        const tx = (p0.x - p1.x) / denomX;
+        if (tx > 0 && tx < 1) pts.push(this.evalBezier(tx));
+      }
+      const denomY = p0.y - 2 * p1.y + p2.y;
+      if (Math.abs(denomY) > 1e-9) {
+        const ty = (p0.y - p1.y) / denomY;
+        if (ty > 0 && ty < 1) pts.push(this.evalBezier(ty));
+      }
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const pt of pts) {
+        if (pt.x < minX) minX = pt.x;
+        if (pt.y < minY) minY = pt.y;
+        if (pt.x > maxX) maxX = pt.x;
+        if (pt.y > maxY) maxY = pt.y;
+      }
+      return { x: minX - padding, y: minY - padding, w: (maxX - minX) + padding * 2, h: (maxY - minY) + padding * 2 };
     }
     
     if (this.shapeType === 'arc') {
-      const r = Math.sqrt((this.end.x - this.start.x)**2 + (this.end.y - this.start.y)**2);
+      const { cx, cy, r, startAngle, endAngle, p1, p2 } = this.getArcGeometry();
+      if (r < 1e-6) {
+        return { x: cx - padding, y: cy - padding, w: padding * 2, h: padding * 2 };
+      }
+      const pts: Point[] = [p1, p2];
+      const cardinals = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
+      for (const theta of cardinals) {
+        if (this.isAngleOnArc(theta, startAngle, endAngle)) {
+          pts.push({ x: cx + r * Math.cos(theta), y: cy + r * Math.sin(theta) });
+        }
+      }
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const pt of pts) {
+        if (pt.x < minX) minX = pt.x;
+        if (pt.y < minY) minY = pt.y;
+        if (pt.x > maxX) maxX = pt.x;
+        if (pt.y > maxY) maxY = pt.y;
+      }
       return {
-        x: this.start.x - r - padding,
-        y: this.start.y - r - padding,
-        w: r * 2 + padding * 2,
-        h: r * 2 + padding * 2
+        x: minX - padding,
+        y: minY - padding,
+        w: (maxX - minX) + padding * 2,
+        h: (maxY - minY) + padding * 2
       };
     }
     
@@ -310,6 +420,16 @@ export class Shape extends BoardObject {
         h: maxY - minY + padding * 2
       };
     }
+
+    if (this.shapeType === 'arrow') {
+      const arrowPad = Math.max(padding, Math.max(10, this.size * 3) * 0.5 + 2);
+      return {
+        x: x - arrowPad,
+        y: y - arrowPad,
+        w: w + arrowPad * 2,
+        h: h + arrowPad * 2
+      };
+    }
     
     return {
       x: x - padding,
@@ -320,16 +440,32 @@ export class Shape extends BoardObject {
   }
 
   _hitTest(p: Point): boolean {
-    const thresholdSq = Math.pow(this.size / 2 + 5, 2);
+    const threshold = Math.max(this.size / 2 + 6, 8);
+    const thresholdSq = threshold * threshold;
     
-    if (this.shapeType === 'line' || this.shapeType === 'arrow') {
+    if (this.shapeType === 'line') {
       return this.distToSegmentSquared(p, this.start, this.end) <= thresholdSq;
+    } else if (this.shapeType === 'arrow') {
+      if (this.distToSegmentSquared(p, this.start, this.end) <= thresholdSq) return true;
+      for (const [a, b] of this.getArrowHeadSegments()) {
+        if (this.distToSegmentSquared(p, a, b) <= thresholdSq) return true;
+      }
+      return false;
     } else if (this.shapeType === 'rect') {
       const x = Math.min(this.start.x, this.end.x);
       const y = Math.min(this.start.y, this.end.y);
       const w = Math.abs(this.end.x - this.start.x);
       const h = Math.abs(this.end.y - this.start.y);
       
+      if (this.isFilled || this.isEraser) {
+        return (
+          p.x >= x - threshold &&
+          p.x <= x + w + threshold &&
+          p.y >= y - threshold &&
+          p.y <= y + h + threshold
+        );
+      }
+
       const pts = [
         { x, y }, { x: x + w, y },
         { x: x + w, y: y + h }, { x, y: y + h }
@@ -348,19 +484,209 @@ export class Shape extends BoardObject {
       const cx = x + rx;
       const cy = y + ry;
       
-      if (rx === 0 || ry === 0) return false;
+      if (rx < 1 || ry < 1) {
+        return this.distToSegmentSquared(p, this.start, this.end) <= thresholdSq;
+      }
       
       const dx = p.x - cx;
       const dy = p.y - cy;
-      const val = (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry);
-      return val >= 0.7 && val <= 1.3;
-    } else if (this.shapeType === 'arc' || this.shapeType === 'sine' || this.shapeType === 'bezier') {
-      // Approximation for hit test on curves
-      const box = this._getBoundingBox();
-      return p.x >= box.x && p.x <= box.x + box.w && p.y >= box.y && p.y <= box.y + box.h;
+      const outerRx = rx + threshold;
+      const outerRy = ry + threshold;
+      if ((dx * dx) / (outerRx * outerRx) + (dy * dy) / (outerRy * outerRy) > 1) {
+        return false;
+      }
+      if (this.isFilled) return true;
+
+      const innerRx = Math.max(0, rx - threshold);
+      const innerRy = Math.max(0, ry - threshold);
+      if (innerRx === 0 || innerRy === 0) return true;
+      return (dx * dx) / (innerRx * innerRx) + (dy * dy) / (innerRy * innerRy) >= 1;
+    } else if (this.shapeType === 'arc') {
+      const { cx, cy, r, startAngle, endAngle, p1, p2 } = this.getArcGeometry();
+      if (r < 1e-6) {
+        return (p.x - cx) ** 2 + (p.y - cy) ** 2 <= thresholdSq;
+      }
+      const dx = p.x - cx;
+      const dy = p.y - cy;
+      const d = Math.hypot(dx, dy);
+      const theta = Math.atan2(dy, dx);
+      if (this.isAngleOnArc(theta, startAngle, endAngle)) {
+        if (Math.abs(d - r) <= threshold) return true;
+        if (this.isFilled && d <= r) {
+          const sweep = Shape.normAngle(startAngle - endAngle);
+          const midAngle = startAngle - sweep / 2;
+          const midPt = { x: cx + r * Math.cos(midAngle), y: cy + r * Math.sin(midAngle) };
+          const crossP = (p2.x - p1.x) * (p.y - p1.y) - (p2.y - p1.y) * (p.x - p1.x);
+          const crossMid = (p2.x - p1.x) * (midPt.y - p1.y) - (p2.y - p1.y) * (midPt.x - p1.x);
+          if (crossP * crossMid >= 0) return true;
+        }
+        return false;
+      }
+      const d1Sq = (p.x - p1.x) ** 2 + (p.y - p1.y) ** 2;
+      const d2Sq = (p.x - p2.x) ** 2 + (p.y - p2.y) ** 2;
+      return Math.min(d1Sq, d2Sq) <= thresholdSq;
+    } else if (this.shapeType === 'bezier') {
+      const pts = this.getBezierSamples(32);
+      for (let i = 0; i < pts.length - 1; i++) {
+        if (this.distToSegmentSquared(p, pts[i], pts[i + 1]) <= thresholdSq) return true;
+      }
+      if (this.isFilled && this.pointInPolygon(p, pts)) return true;
+      return false;
+    } else if (this.shapeType === 'sine') {
+      const dx = this.end.x - this.start.x;
+      const dy = this.end.y - this.start.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 1e-6) {
+        return (p.x - this.start.x) ** 2 + (p.y - this.start.y) ** 2 <= thresholdSq;
+      }
+      const angle = Math.atan2(dy, dx);
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      const px = p.x - this.start.x;
+      const py = p.y - this.start.y;
+      const lx = px * cos + py * sin;
+      const ly = -px * sin + py * cos;
+
+      const amplitude = this.sineAmplitude ?? 20;
+      const wavelength = Math.max(1, this.sineWavelength ?? 50);
+      if (lx < -threshold || lx > dist + threshold || Math.abs(ly) > Math.abs(amplitude) + threshold) {
+        return false;
+      }
+      const localP = { x: lx, y: ly };
+      const startX = Math.max(0, Math.floor((lx - threshold - 4) / 2) * 2);
+      const endX = Math.min(dist, Math.ceil((lx + threshold + 4) / 2) * 2);
+      let prev: Point = {
+        x: startX,
+        y: Math.sin((startX / wavelength) * Math.PI * 2) * amplitude,
+      };
+      for (let x = startX + 2; x <= endX + 1.999; x += 2) {
+        const clampedX = Math.min(x, dist);
+        const curr: Point = {
+          x: clampedX,
+          y: Math.sin((clampedX / wavelength) * Math.PI * 2) * amplitude,
+        };
+        if (this.distToSegmentSquared(localP, prev, curr) <= thresholdSq) return true;
+        prev = curr;
+        if (clampedX >= dist) break;
+      }
+      return false;
     }
     
     return false;
+  }
+
+  override intersectsRect(rect: Rect): boolean {
+    if (!rectsIntersect(this.getBoundingBox(), rect)) return false;
+    const scale = Math.max(Math.abs(this.scaleX), Math.abs(this.scaleY));
+    const pad = (this.size / 2 + 2) * scale;
+    const expanded: Rect = {
+      x: rect.x - pad,
+      y: rect.y - pad,
+      w: rect.w + pad * 2,
+      h: rect.h + pad * 2,
+    };
+
+    const checkSegments = (segs: [Point, Point][]) => {
+      for (const [a, b] of segs) {
+        if (segmentIntersectsRect(this.transformPoint(a), this.transformPoint(b), expanded)) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    const checkPolyline = (pts: Point[]) => {
+      if (pts.length === 1) return pointInRect(this.transformPoint(pts[0]), expanded);
+      for (let i = 0; i < pts.length - 1; i++) {
+        if (segmentIntersectsRect(this.transformPoint(pts[i]), this.transformPoint(pts[i + 1]), expanded)) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    if (this.shapeType === 'line') {
+      return checkSegments([[this.start, this.end]]);
+    } else if (this.shapeType === 'arrow') {
+      return checkSegments([[this.start, this.end], ...this.getArrowHeadSegments()]);
+    } else if (this.shapeType === 'rect') {
+      const x = Math.min(this.start.x, this.end.x);
+      const y = Math.min(this.start.y, this.end.y);
+      const w = Math.abs(this.end.x - this.start.x);
+      const h = Math.abs(this.end.y - this.start.y);
+      const pts = [
+        { x, y }, { x: x + w, y },
+        { x: x + w, y: y + h }, { x, y: y + h }, { x, y }
+      ];
+      if (checkPolyline(pts)) return true;
+      if (this.isFilled || this.isEraser) {
+        return this.hitTest({ x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 });
+      }
+      return false;
+    } else if (this.shapeType === 'ellipse') {
+      const x = Math.min(this.start.x, this.end.x);
+      const y = Math.min(this.start.y, this.end.y);
+      const rx = Math.abs(this.end.x - this.start.x) / 2;
+      const ry = Math.abs(this.end.y - this.start.y) / 2;
+      const cx = x + rx;
+      const cy = y + ry;
+      const pts: Point[] = [];
+      const steps = 36;
+      for (let i = 0; i <= steps; i++) {
+        const t = (i / steps) * Math.PI * 2;
+        pts.push({ x: cx + rx * Math.cos(t), y: cy + ry * Math.sin(t) });
+      }
+      if (checkPolyline(pts)) return true;
+      if (this.isFilled) {
+        return this.hitTest({ x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 });
+      }
+      return false;
+    } else if (this.shapeType === 'arc') {
+      if (checkPolyline(this.getArcSamples(36))) return true;
+      if (this.isFilled) {
+        return this.hitTest({ x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 });
+      }
+      return false;
+    } else if (this.shapeType === 'bezier') {
+      if (checkPolyline(this.getBezierSamples(32))) return true;
+      if (this.isFilled) {
+        return this.hitTest({ x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 });
+      }
+      return false;
+    } else if (this.shapeType === 'sine') {
+      const dx = this.end.x - this.start.x;
+      const dy = this.end.y - this.start.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 1e-6) return pointInRect(this.transformPoint(this.start), expanded);
+      const angle = Math.atan2(dy, dx);
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+      const amplitude = this.sineAmplitude ?? 20;
+      const wavelength = Math.max(1, this.sineWavelength ?? 50);
+      const pts: Point[] = [];
+      for (let x = 0; x <= dist; x += 2) {
+        const y = Math.sin((x / wavelength) * Math.PI * 2) * amplitude;
+        pts.push({
+          x: this.start.x + x * cos - y * sin,
+          y: this.start.y + x * sin + y * cos,
+        });
+      }
+      return checkPolyline(pts);
+    }
+
+    return false;
+  }
+
+  private pointInPolygon(p: Point, vs: Point[]): boolean {
+    let inside = false;
+    for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+      const xi = vs[i].x, yi = vs[i].y;
+      const xj = vs[j].x, yj = vs[j].y;
+      const intersect = ((yi > p.y) !== (yj > p.y)) &&
+        (p.x < ((xj - xi) * (p.y - yi)) / (yj - yi + 1e-12) + xi);
+      if (intersect) inside = !inside;
+    }
+    return inside;
   }
 
   _translate(dx: number, dy: number): void {

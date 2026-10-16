@@ -6,10 +6,10 @@ import { TopMenu } from '../components/TopMenu';
 import { TabsBar } from '../components/TabsBar';
 import { PropertiesBar } from '../components/PropertiesBar';
 import { useBoardStore } from '../store/useBoardStore';
-import { resolveLessonUrl, lessonTabTitle } from '@/lib/lessons';
+import { resolveLessonUrl, lessonUrl, lessonTabTitle } from '@/lib/lessons';
 
 export default function BoardPage() {
-  const { tabs, activeTabId, addTab, setActiveTab } = useBoardStore();
+  const { tabs, activeTabId, openLessonTab } = useBoardStore();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -17,19 +17,29 @@ export default function BoardPage() {
       const openLesson = urlParams.get('openLesson');
       const resolved = openLesson ? resolveLessonUrl(openLesson) : undefined;
       if (openLesson && resolved) {
-        const existingTab = tabs.find(t => t.url === openLesson);
-        if (existingTab) {
-          setActiveTab(existingTab.id);
-        } else {
-          const id = 'lesson-' + Date.now();
-          const title = lessonTabTitle(resolved.lesson, resolved.part);
-          addTab({ id, type: 'lesson', title, url: openLesson });
-          setActiveTab(id);
-        }
+        const cleanUrl = lessonUrl(resolved.lesson, resolved.part);
+        const title = lessonTabTitle(resolved.lesson, resolved.part);
+        openLessonTab(cleanUrl, title);
         window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
-  }, [tabs, addTab, setActiveTab]);
+  }, [openLessonTab]);
+
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) return;
+      if (event.data?.type === 'board-lesson-navigate' && typeof event.data.url === 'string') {
+        const resolved = resolveLessonUrl(event.data.url);
+        if (resolved) {
+          const cleanUrl = lessonUrl(resolved.lesson, resolved.part);
+          const title = lessonTabTitle(resolved.lesson, resolved.part);
+          useBoardStore.getState().openLessonTab(cleanUrl, title);
+        }
+      }
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>

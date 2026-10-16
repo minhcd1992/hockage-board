@@ -35,10 +35,16 @@ export function lessonTabTitle(lesson: LessonMeta, part: LessonPart = 'theory') 
   return `Lớp ${lesson.grade} · Bài ${lesson.order}${part === 'exercises' ? ' · BT' : ''}`;
 }
 
+export function normalizeLessonUrl(url: string) {
+  const clean = url.split('?')[0].split('#')[0].replace(/\/+$/, '');
+  return clean || '/';
+}
+
 export function resolveLessonUrl(url: string) {
+  const cleanUrl = normalizeLessonUrl(url);
   for (const lesson of lessons) {
     for (const part of ['theory', 'exercises'] as const) {
-      if (url === lessonUrl(lesson, part)) return { lesson, part };
+      if (cleanUrl === lessonUrl(lesson, part)) return { lesson, part };
     }
   }
   return undefined;

@@ -1,4 +1,4 @@
-import { BoardObject, Point, Rect } from '../types';
+import { BoardObject, Point, Rect, pointInRect, rectsIntersect, segmentIntersectsRect } from '../types';
 import { inkPath, inkSamples } from '../engine/InkGeometry';
 import { INK_LOOKAHEAD, stabilizeInkPoint } from '../engine/InkStabilizer';
 
@@ -110,13 +110,45 @@ export class Stroke extends BoardObject {
     };
   }
 
+  override getBoundingBox(): Rect {
+    if (this.rotation === 0 && this.scaleX === 1 && this.scaleY === 1) {
+      return this._getBoundingBox();
+    }
+    if (this.points.length === 0) {
+      return { x: 0, y: 0, w: 0, h: 0 };
+    }
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    const scale = Math.max(Math.abs(this.scaleX), Math.abs(this.scaleY));
+    const pad = ((this.isHighlighter ? this.size * 2 : this.size * 0.6) + 2) * scale;
+    for (const p of this.centerline()) {
+      const gp = this.transformPoint(p);
+      if (gp.x < minX) minX = gp.x;
+      if (gp.y < minY) minY = gp.y;
+      if (gp.x > maxX) maxX = gp.x;
+      if (gp.y > maxY) maxY = gp.y;
+    }
+    return {
+      x: minX - pad,
+      y: minY - pad,
+      w: (maxX - minX) + pad * 2,
+      h: (maxY - minY) + pad * 2
+    };
+  }
+
   _hitTest(p: Point): boolean {
+    if (this.points.length === 0) return false;
     const box = this._getBoundingBox();
-    if (p.x < box.x || p.x > box.x + box.w || p.y < box.y || p.y > box.y + box.h) {
+    const extraTolerance = 6;
+    if (
+      p.x < box.x - extraTolerance ||
+      p.x > box.x + box.w + extraTolerance ||
+      p.y < box.y - extraTolerance ||
+      p.y > box.y + box.h + extraTolerance
+    ) {
       return false;
     }
     
-    const thresholdSq = Math.pow((this.isHighlighter ? this.size * 2 : this.size * 0.6) + 5, 2); // 5px tolerance
+    const thresholdSq = Math.pow((this.isHighlighter ? this.size * 2 : this.size * 0.6) + extraTolerance, 2);
 
     if (this.points.length === 1) {
       const dx = this.points[0].x - p.x;
@@ -148,6 +180,29 @@ export class Stroke extends BoardObject {
       }
     }
     
+    return false;
+  }
+
+  override intersectsRect(rect: Rect): boolean {
+    if (this.points.length === 0) return false;
+    if (!rectsIntersect(this.getBoundingBox(), rect)) return false;
+    const scale = Math.max(Math.abs(this.scaleX), Math.abs(this.scaleY));
+    const pad = ((this.isHighlighter ? this.size * 2 : this.size * 0.6) + 2) * scale;
+    const expanded: Rect = {
+      x: rect.x - pad,
+      y: rect.y - pad,
+      w: rect.w + pad * 2,
+      h: rect.h + pad * 2,
+    };
+    const samples = this.centerline();
+    if (samples.length === 1) {
+      return pointInRect(this.transformPoint(samples[0]), expanded);
+    }
+    for (let i = 0; i < samples.length - 1; i++) {
+      const p1 = this.transformPoint(samples[i]);
+      const p2 = this.transformPoint(samples[i + 1]);
+      if (segmentIntersectsRect(p1, p2, expanded)) return true;
+    }
     return false;
   }
 

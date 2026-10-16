@@ -51,6 +51,58 @@ export interface Workspace {
   objects: BoardObject[];
 }
 
+export function pointInRect(p: Point, r: Rect): boolean {
+  return p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h;
+}
+
+export function rectsIntersect(a: Rect, b: Rect): boolean {
+  return !(a.x > b.x + b.w || a.x + a.w < b.x || a.y > b.y + b.h || a.y + a.h < b.y);
+}
+
+function ccw(a: Point, b: Point, c: Point): number {
+  return (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+}
+
+export function segmentsIntersect(a: Point, b: Point, c: Point, d: Point): boolean {
+  const d1 = ccw(a, b, c);
+  const d2 = ccw(a, b, d);
+  const d3 = ccw(c, d, a);
+  const d4 = ccw(c, d, b);
+  if (((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) && ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0))) {
+    return true;
+  }
+  const onSeg = (p: Point, q: Point, r: Point) =>
+    r.x >= Math.min(p.x, q.x) - 1e-9 && r.x <= Math.max(p.x, q.x) + 1e-9 &&
+    r.y >= Math.min(p.y, q.y) - 1e-9 && r.y <= Math.max(p.y, q.y) + 1e-9;
+  if (Math.abs(d1) <= 1e-9 && onSeg(a, b, c)) return true;
+  if (Math.abs(d2) <= 1e-9 && onSeg(a, b, d)) return true;
+  if (Math.abs(d3) <= 1e-9 && onSeg(c, d, a)) return true;
+  if (Math.abs(d4) <= 1e-9 && onSeg(c, d, b)) return true;
+  return false;
+}
+
+export function segmentIntersectsRect(p1: Point, p2: Point, r: Rect): boolean {
+  if (pointInRect(p1, r) || pointInRect(p2, r)) return true;
+  if (
+    Math.max(p1.x, p2.x) < r.x ||
+    Math.min(p1.x, p2.x) > r.x + r.w ||
+    Math.max(p1.y, p2.y) < r.y ||
+    Math.min(p1.y, p2.y) > r.y + r.h
+  ) {
+    return false;
+  }
+  const tl = { x: r.x, y: r.y };
+  const tr = { x: r.x + r.w, y: r.y };
+  const br = { x: r.x + r.w, y: r.y + r.h };
+  const bl = { x: r.x, y: r.y + r.h };
+  return (
+    segmentsIntersect(p1, p2, tl, tr) ||
+    segmentsIntersect(p1, p2, tr, br) ||
+    segmentsIntersect(p1, p2, br, bl) ||
+    segmentsIntersect(p1, p2, bl, tl)
+  );
+}
+
 export abstract class BoardObject {
   id: string;
   type: string;
@@ -85,6 +137,10 @@ export abstract class BoardObject {
   hitTest(p: Point): boolean {
     const localP = this.inverseTransformPoint(p);
     return this._hitTest(localP);
+  }
+
+  intersectsRect(rect: Rect): boolean {
+    return rectsIntersect(this.getBoundingBox(), rect);
   }
 
   getBoundingBox(): Rect {

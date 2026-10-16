@@ -10,7 +10,7 @@ import { resolveLessonUrl, lessonUrl, lessonTabTitle } from '@/lib/lessons';
 
 
 export function TopMenu() {
-  const { tool, setTool, currentShapeTool, tabs, activeTabId, activeEngineRef, addTab, setActiveTab } = useBoardStore();
+  const { tool, setTool, currentShapeTool, tabs, activeTabId, openLessonTab } = useBoardStore();
   const activeTab = tabs.find(t => t.id === activeTabId);
   const activeLesson = activeTab?.type === 'lesson' && activeTab.url ? resolveLessonUrl(activeTab.url) : undefined;
   const [showShapeDropdown, setShowShapeDropdown] = useState(false);
@@ -35,16 +35,8 @@ export function TopMenu() {
     if (!activeLesson) return;
     const targetPart = activeLesson.part === 'exercises' ? 'theory' : 'exercises';
     const targetUrl = lessonUrl(activeLesson.lesson, targetPart);
-    
-    const existingTab = tabs.find(t => t.url === targetUrl);
-    if (existingTab) {
-      setActiveTab(existingTab.id);
-    } else {
-      const id = 'lesson-' + Date.now();
-      const title = lessonTabTitle(activeLesson.lesson, targetPart);
-      addTab({ id, type: 'lesson', title, url: targetUrl });
-      setActiveTab(id);
-    }
+    const title = lessonTabTitle(activeLesson.lesson, targetPart);
+    openLessonTab(targetUrl, title);
   };
 
   const isShapeActive = ['line', 'arrow', 'rect', 'ellipse', 'arc', 'sine', 'bezier'].includes(tool);

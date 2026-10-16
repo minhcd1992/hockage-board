@@ -18,6 +18,19 @@ import { useBoardStore } from '../store/useBoardStore';
 import { ChevronUp, ChevronDown, ZoomIn, ZoomOut, Maximize, Eye, EyeOff } from 'lucide-react';
 
 import { loadPDFToScene } from '../lib/pdfLoader';
+import { normalizeLessonUrl } from '../lib/lessons';
+
+const lessonScenesByUrl = new Map<string, Scene>();
+
+function getOrCreateLessonScene(lessonUrl: string): Scene {
+  const key = normalizeLessonUrl(lessonUrl);
+  let scene = lessonScenesByUrl.get(key);
+  if (!scene) {
+    scene = new Scene();
+    lessonScenesByUrl.set(key, scene);
+  }
+  return scene;
+}
 
 export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fileType?: string, url?: string, isActive: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,6 +53,14 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       return () => URL.revokeObjectURL(blobUrl);
     } else if (fileType === 'lesson' && url) {
       setHtmlUrl(url);
+      if (engineRef.current) {
+        const nextScene = getOrCreateLessonScene(url);
+        if (engineRef.current.scene !== nextScene) {
+          engineRef.current.scene = nextScene;
+          engineRef.current.renderer.scene = nextScene;
+          engineRef.current.renderer.renderMain();
+        }
+      }
       return;
     }
     setHtmlUrl(null);
@@ -91,11 +112,26 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   useEffect(() => {
     const ready = (event: MessageEvent) => {
       const frame = htmlLayerRef.current?.querySelector('iframe');
-      if (event.origin === window.location.origin && event.source === frame?.contentWindow && event.data?.type === 'board-lesson-ready') syncLessonActivity();
+      if (event.origin === window.location.origin && event.source === frame?.contentWindow && event.data?.type === 'board-lesson-ready') {
+        try {
+          const framePath = frame?.contentWindow?.location?.pathname;
+          if (fileType === 'lesson' && framePath && engineRef.current) {
+            const nextScene = getOrCreateLessonScene(framePath);
+            if (engineRef.current.scene !== nextScene) {
+              engineRef.current.scene = nextScene;
+              engineRef.current.renderer.scene = nextScene;
+              engineRef.current.renderer.renderMain();
+            }
+          }
+        } catch {
+          // Ignore cross-origin errors if any
+        }
+        syncLessonActivity();
+      }
     };
     window.addEventListener('message', ready);
     return () => window.removeEventListener('message', ready);
-  }, [syncLessonActivity]);
+  }, [fileType, syncLessonActivity]);
 
   useEffect(() => {
     if (!new URLSearchParams(window.location.search).has('inkDebug')) return;
@@ -533,7 +569,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     const { panX, panY, zoom } = useBoardStore.getState();
 
     // Initialize Engine
-    const scene = new Scene();
+    const scene = fileType === 'lesson' && url ? getOrCreateLessonScene(url) : new Scene();
     const camera = new Camera(panX, panY, zoom);
     const renderer = new CanvasRenderer(
       bgCanvasRef.current,
@@ -1101,37 +1137,44 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           }
         }
 
-        // Hit test to see if we clicked on a selected object (for dragging)
-        const selected = engine.scene.getSelectedObjects();
-        let clickedOnSelected = false;
-        
-        if (selected.length > 0) {
-          const bounds = engine.scene.getSelectionBounds();
-          if (bounds && worldP.x >= bounds.x && worldP.x <= bounds.x + bounds.w &&
-              worldP.y >= bounds.y && worldP.y <= bounds.y + bounds.h) {
-            clickedOnSelected = true;
+        // Find top-most unlocked object that actually passes hitTest at worldP
+        let hitObj: BoardObject | null = null;
+        for (let i = engine.scene.objects.length - 1; i >= 0; i--) {
+          const el = engine.scene.objects[i];
+          if (!el.locked && el.hitTest(worldP)) {
+            hitObj = el;
+            break;
           }
         }
-        
-        if (!clickedOnSelected) {
-          for (const obj of selected) {
+
+        // If no top-most object hit, also check if any currently selected object hits
+        if (!hitObj) {
+          for (const obj of engine.scene.getSelectedObjects()) {
             if (!obj.locked && obj.hitTest(worldP)) {
-              clickedOnSelected = true;
+              hitObj = obj;
               break;
             }
           }
         }
 
-        if (clickedOnSelected) {
-          // See if it intercepts the pointer down internally
-          let consumed = false;
-          const topSelected = engine.scene.getSelectedObjects()[0];
-          if (topSelected && topSelected.onPointerDown) {
-            consumed = topSelected.onPointerDown(worldP);
+        if (hitObj) {
+          if (!hitObj.selected) {
+            engine.scene.toggleSelection(hitObj.id, e.shiftKey);
+            engine.renderer.renderMain();
+          } else if (e.shiftKey && engine.scene.getSelectedObjects().length > 1) {
+            hitObj.selected = false;
+            engine.renderer.renderMain();
+            return;
           }
-          
-          if (consumed) {
-            activeInternalDragObj = topSelected;
+
+          let consumed = false;
+          const activeTarget = hitObj.onPointerDown ? hitObj : engine.scene.getSelectedObjects()[0];
+          if (activeTarget && activeTarget.onPointerDown) {
+            consumed = activeTarget.onPointerDown(worldP);
+          }
+
+          if (consumed && activeTarget) {
+            activeInternalDragObj = activeTarget;
             engine.renderer.renderMain();
             return; // Don't drag the whole selection
           }
@@ -1140,43 +1183,13 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           selectionDragStartPoint = worldP;
           hasMovedSelection = false;
           return;
-        } else {
-          // Check if clicked unselected object to select it singlely
-          let hitId: string | null = null;
-          for (let i = engine.scene.objects.length - 1; i >= 0; i--) {
-            const el = engine.scene.objects[i];
-            if (!el.locked && el.hitTest(worldP)) {
-              hitId = el.id;
-              break;
-            }
-          }
-          if (hitId) {
-            engine.scene.toggleSelection(hitId, false);
-            engine.renderer.renderMain();
-            
-            let consumed = false;
-            const newlySelected = engine.scene.objects.find(o => o.id === hitId);
-            if (newlySelected && newlySelected.onPointerDown) {
-              consumed = newlySelected.onPointerDown(worldP);
-            }
-            
-            if (consumed) {
-              activeInternalDragObj = newlySelected!;
-              engine.renderer.renderMain();
-              return;
-            }
-
-            isDraggingSelection = true;
-            selectionDragStartPoint = worldP;
-            hasMovedSelection = false;
-            return;
-          }
         }
         
         isDraggingSelection = false;
         engine.selectionRect = { start: worldP, end: worldP };
-        if (state.tool === 'select-object') {
+        if (state.tool === 'select-object' && !e.shiftKey) {
           engine.scene.clearSelection();
+          state.setEditingObjectId(null);
           engine.renderer.renderMain();
         }
         draftNeedsUpdate = true;
@@ -1418,10 +1431,9 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           } else {
              const bounds = engine.scene.getSelectionBounds();
              const anchors = editAnchors(engine.scene.getSelectedObjects());
-             if (anchors.length) {
-               cursor = anchors.some(a => Math.hypot(worldP.x - a.point.x, worldP.y - a.point.y) <= 12 / engine.camera.zoom)
-                 ? 'crosshair' : engine.scene.getSelectedObjects().some(o => o.hitTest(worldP)) ? 'move' : 'default';
-             } else if (bounds) {
+             if (anchors.length && anchors.some(a => Math.hypot(worldP.x - a.point.x, worldP.y - a.point.y) <= 12 / engine.camera.zoom)) {
+               cursor = 'crosshair';
+             } else if (bounds && !anchors.length) {
                const hs = 12 / engine.camera.zoom;
                const { x, y, w, h } = bounds;
                const hitTestHandle = (px: number, py: number, hx: number, hy: number) => {
@@ -1433,15 +1445,14 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
                else if (hitTestHandle(worldP.x, worldP.y, x + w, y) || hitTestHandle(worldP.x, worldP.y, x, y + h)) cursor = 'nesw-resize';
                else if (hitTestHandle(worldP.x, worldP.y, x + w/2, y) || hitTestHandle(worldP.x, worldP.y, x + w/2, y + h)) cursor = 'ns-resize';
                else if (hitTestHandle(worldP.x, worldP.y, x, y + h/2) || hitTestHandle(worldP.x, worldP.y, x + w, y + h/2)) cursor = 'ew-resize';
-               else {
-                 let hitObject = false;
-                 for (const obj of engine.scene.getSelectedObjects()) {
-                   if (!obj.locked && obj.hitTest(worldP)) {
-                     hitObject = true;
-                     break;
-                   }
+             }
+             if (cursor === 'default') {
+               for (let i = engine.scene.objects.length - 1; i >= 0; i--) {
+                 const el = engine.scene.objects[i];
+                 if (!el.locked && el.hitTest(worldP)) {
+                   cursor = el.selected ? 'move' : 'pointer';
+                   break;
                  }
-                 if (hitObject) cursor = 'move';
                }
              }
           }
@@ -1598,16 +1609,16 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         const y2 = Math.max(start.y, end.y);
         const w = x2 - x1;
         const h = y2 - y1;
+        const minDrag = 3 / engine.camera.zoom;
         
-        // Box selection
-        for (const el of engine.scene.objects) {
-          if (el.locked) continue;
-          const box = el.getBoundingBox();
-          const elX2 = box.x + box.w;
-          const elY2 = box.y + box.h;
-          // Check if element box intersects selection rect
-          if (!(box.x > x2 || elX2 < x1 || box.y > y2 || elY2 < y1)) {
-            engine.scene.toggleSelection(el.id, true);
+        // Only perform marquee box selection if the pointer actually dragged a box
+        if (w >= minDrag || h >= minDrag) {
+          const selectionBox = { x: x1, y: y1, w, h };
+          for (const el of engine.scene.objects) {
+            if (el.locked) continue;
+            if (el.intersectsRect(selectionBox)) {
+              engine.scene.toggleSelection(el.id, true);
+            }
           }
         }
         
@@ -2047,6 +2058,15 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
                   const doc = iframe.contentDocument;
                   const win = iframe.contentWindow;
                   if (!doc || !win) return;
+
+                  if (fileType === 'lesson' && win.location?.pathname && engineRef.current) {
+                    const nextScene = getOrCreateLessonScene(win.location.pathname);
+                    if (engineRef.current.scene !== nextScene) {
+                      engineRef.current.scene = nextScene;
+                      engineRef.current.renderer.scene = nextScene;
+                      engineRef.current.renderer.renderMain();
+                    }
+                  }
                   
                   const style = doc.createElement('style');
                   style.textContent = 'html, body { height: auto !important; min-height: 100% !important; overflow: hidden !important; margin: 0; padding: 0; }';
@@ -2280,6 +2300,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
                   const maxWidth = (e.target.clientWidth - 8) / engine.camera.zoom;
                   const worldP = engine.camera.screenToWorld(textInput.x + 4, textInput.y + 4);
                   const textObj = new Text(worldP as Point, textInput.text, strokeColor, fontFamily, fontSize, maxWidth);
+                  textObj.updateCenter();
                   engine.scene.addObject(textObj);
                   engine.renderer.renderMain();
                 }
