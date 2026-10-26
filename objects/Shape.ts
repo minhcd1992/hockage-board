@@ -6,7 +6,7 @@ export class Shape extends BoardObject {
   controlPoint: Point;
   color: string;
   size: number;
-  shapeType: 'line' | 'arrow' | 'rect' | 'ellipse' | 'arc' | 'sine' | 'bezier';
+  shapeType: 'line' | 'arrow' | 'rect' | 'ellipse' | 'arc' | 'sine' | 'bezier' | 'angle' | 'right-angle' | 'equal-segment';
   strokeStyleType: 'solid' | 'dashed' | 'dotted';
   isFilled: boolean;
   isEraser: boolean;
@@ -17,10 +17,17 @@ export class Shape extends BoardObject {
   arrowEnd: ArrowHeadType;
   middleArrow: boolean;
 
-
+  // Geometric symbols properties
+  angleType: 'single' | 'double' | 'triple' | 'tick' | 'fill';
+  angleRadius: number;
+  rightAngleType: 'square' | 'dot';
+  rightAngleSize: number;
+  equalSegmentMark: 'single' | 'double' | 'triple' | 'cross' | 'circle';
+  equalSegmentDrawLine: boolean;
+  equalSegmentMarkSize: number;
 
   constructor(
-    type: 'line' | 'arrow' | 'rect' | 'ellipse' | 'arc' | 'sine' | 'bezier', 
+    type: 'line' | 'arrow' | 'rect' | 'ellipse' | 'arc' | 'sine' | 'bezier' | 'angle' | 'right-angle' | 'equal-segment', 
     start: Point, 
     color: string, 
     size: number,
@@ -31,7 +38,14 @@ export class Shape extends BoardObject {
     sineAmplitude: number = 20,
     arrowStart: ArrowHeadType = 'none',
     arrowEnd: ArrowHeadType = 'arrow',
-    middleArrow: boolean = false
+    middleArrow: boolean = false,
+    angleType: 'single' | 'double' | 'triple' | 'tick' | 'fill' = 'single',
+    angleRadius: number = 28,
+    rightAngleType: 'square' | 'dot' = 'square',
+    rightAngleSize: number = 18,
+    equalSegmentMark: 'single' | 'double' | 'triple' | 'cross' | 'circle' = 'double',
+    equalSegmentDrawLine: boolean = false,
+    equalSegmentMarkSize: number = 14
   ) {
     super();
     this.type = 'shape';
@@ -46,6 +60,13 @@ export class Shape extends BoardObject {
     this.isEraser = isEraser;
     this.sineWavelength = sineWavelength;
     this.sineAmplitude = sineAmplitude;
+    this.angleType = angleType;
+    this.angleRadius = angleRadius;
+    this.rightAngleType = rightAngleType;
+    this.rightAngleSize = rightAngleSize;
+    this.equalSegmentMark = equalSegmentMark;
+    this.equalSegmentDrawLine = equalSegmentDrawLine;
+    this.equalSegmentMarkSize = equalSegmentMarkSize;
     
     // Default config for arrows
     if (type === 'arrow') {
@@ -239,6 +260,166 @@ export class Shape extends BoardObject {
         ctx.restore();
       }
       ctx.stroke();
+    } else if (this.shapeType === 'angle') {
+      const geom = this.getAngleGeometry();
+      const { V, P1, P2, theta1, sweep, r, len1, len2 } = geom;
+
+      if (this.drawingState === 'ray1') {
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(V.x, V.y);
+        ctx.lineTo(P1.x, P1.y);
+        ctx.stroke();
+        ctx.restore();
+      } else if (this.drawingState === 'ray2') {
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(V.x, V.y);
+        ctx.lineTo(P1.x, P1.y);
+        ctx.moveTo(V.x, V.y);
+        ctx.lineTo(P2.x, P2.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      if (len1 >= 2 && len2 >= 2 && Math.abs(sweep) > 0.01) {
+        const anticlockwise = sweep < 0;
+        const endTheta = theta1 + sweep;
+
+        if (this.isFilled || this.angleType === 'fill') {
+          ctx.save();
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = 0.25;
+          ctx.beginPath();
+          ctx.moveTo(V.x, V.y);
+          ctx.arc(V.x, V.y, r, theta1, endTheta, anticlockwise);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        ctx.beginPath();
+        if (this.angleType === 'double') {
+          ctx.arc(V.x, V.y, r, theta1, endTheta, anticlockwise);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(V.x, V.y, r + 6, theta1, endTheta, anticlockwise);
+          ctx.stroke();
+        } else if (this.angleType === 'triple') {
+          ctx.arc(V.x, V.y, Math.max(12, r - 5), theta1, endTheta, anticlockwise);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(V.x, V.y, r, theta1, endTheta, anticlockwise);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(V.x, V.y, r + 5, theta1, endTheta, anticlockwise);
+          ctx.stroke();
+        } else {
+          ctx.arc(V.x, V.y, r, theta1, endTheta, anticlockwise);
+          ctx.stroke();
+
+          if (this.angleType === 'tick') {
+            const midTheta = theta1 + sweep / 2;
+            const t1 = Math.max(8, r - 6);
+            const t2 = r + 6;
+            ctx.beginPath();
+            ctx.moveTo(V.x + t1 * Math.cos(midTheta), V.y + t1 * Math.sin(midTheta));
+            ctx.lineTo(V.x + t2 * Math.cos(midTheta), V.y + t2 * Math.sin(midTheta));
+            ctx.stroke();
+          }
+        }
+      }
+    } else if (this.shapeType === 'right-angle') {
+      const geom = this.getRightAngleGeometry();
+      
+      if (this.drawingState === 'ray1') {
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(this.start.x, this.start.y);
+        ctx.lineTo(this.end.x, this.end.y);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      if (geom) {
+        const { V, pA, pB, pC, center } = geom;
+
+        if (this.isFilled) {
+          ctx.save();
+          ctx.fillStyle = this.color;
+          ctx.globalAlpha = 0.25;
+          ctx.beginPath();
+          ctx.moveTo(V.x, V.y);
+          ctx.lineTo(pA.x, pA.y);
+          ctx.lineTo(pB.x, pB.y);
+          ctx.lineTo(pC.x, pC.y);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(pA.x, pA.y);
+        ctx.lineTo(pB.x, pB.y);
+        ctx.lineTo(pC.x, pC.y);
+        ctx.stroke();
+
+        if (this.rightAngleType === 'dot') {
+          ctx.beginPath();
+          ctx.arc(center.x, center.y, Math.max(2, this.size * 0.8), 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+    } else if (this.shapeType === 'equal-segment') {
+      const geom = this.getEqualSegmentGeometry();
+      if (geom) {
+        const { A, B, u, n, mid, h, sp } = geom;
+
+        if (this.equalSegmentDrawLine) {
+          ctx.beginPath();
+          ctx.moveTo(A.x, A.y);
+          ctx.lineTo(B.x, B.y);
+          ctx.stroke();
+        }
+
+        const mark = this.equalSegmentMark ?? 'double';
+
+        const drawTick = (centerPt: Point) => {
+          ctx.beginPath();
+          ctx.moveTo(centerPt.x - h * n.x, centerPt.y - h * n.y);
+          ctx.lineTo(centerPt.x + h * n.x, centerPt.y + h * n.y);
+          ctx.stroke();
+        };
+
+        if (mark === 'single') {
+          drawTick(mid);
+        } else if (mark === 'double') {
+          drawTick({ x: mid.x - (sp / 2) * u.x, y: mid.y - (sp / 2) * u.y });
+          drawTick({ x: mid.x + (sp / 2) * u.x, y: mid.y + (sp / 2) * u.y });
+        } else if (mark === 'triple') {
+          drawTick({ x: mid.x - sp * u.x, y: mid.y - sp * u.y });
+          drawTick(mid);
+          drawTick({ x: mid.x + sp * u.x, y: mid.y + sp * u.y });
+        } else if (mark === 'cross') {
+          const d = h * 0.75;
+          ctx.beginPath();
+          ctx.moveTo(mid.x - d * (u.x + n.x), mid.y - d * (u.y + n.y));
+          ctx.lineTo(mid.x + d * (u.x + n.x), mid.y + d * (u.y + n.y));
+          ctx.moveTo(mid.x - d * (u.x - n.x), mid.y - d * (u.y - n.y));
+          ctx.lineTo(mid.x + d * (u.x - n.x), mid.y + d * (u.y - n.y));
+          ctx.stroke();
+        } else if (mark === 'circle') {
+          ctx.beginPath();
+          ctx.arc(mid.x, mid.y, Math.max(2.5, this.size * 1.2), 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.stroke();
+        }
+      }
     }
 
     // Reset dash for other drawings
@@ -254,6 +435,90 @@ export class Shape extends BoardObject {
     const sweep = Shape.normAngle(startAngle - endAngle);
     const dist = Shape.normAngle(startAngle - angle);
     return dist <= sweep + 1e-9;
+  }
+
+  getAngleGeometry() {
+    const V = this.start;
+    const P1 = this.end;
+    const P2 = this.controlPoint;
+    const dx1 = P1.x - V.x;
+    const dy1 = P1.y - V.y;
+    const len1 = Math.hypot(dx1, dy1);
+    const theta1 = Math.atan2(dy1, dx1);
+
+    const dx2 = P2.x - V.x;
+    const dy2 = P2.y - V.y;
+    const len2 = Math.hypot(dx2, dy2);
+    const theta2 = Math.atan2(dy2, dx2);
+
+    let diff = theta2 - theta1;
+    let sweep = ((diff % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+
+    let r = this.angleRadius ?? 28;
+    if (len1 > 2 && len2 > 2) {
+      r = Math.min(r, Math.max(16, Math.min(len1, len2) * 0.7));
+    }
+    return { V, P1, P2, theta1, theta2, sweep, r, len1, len2 };
+  }
+
+  getRightAngleGeometry() {
+    const V = this.start;
+    const P1 = this.end;
+    const P2 = this.controlPoint;
+    const dx1 = P1.x - V.x;
+    const dy1 = P1.y - V.y;
+    const len1 = Math.hypot(dx1, dy1);
+    if (len1 < 1e-4) {
+      return null;
+    }
+    const u1 = { x: dx1 / len1, y: dy1 / len1 };
+    const perpA = { x: -u1.y, y: u1.x };
+    const perpB = { x: u1.y, y: -u1.x };
+
+    const toCtrl = { x: P2.x - V.x, y: P2.y - V.y };
+    const dotA = toCtrl.x * perpA.x + toCtrl.y * perpA.y;
+    const dotB = toCtrl.x * perpB.x + toCtrl.y * perpB.y;
+    const u2 = dotA >= dotB ? perpA : perpB;
+
+    let s = this.rightAngleSize ?? 18;
+    if (len1 > 2 && len1 < s * 1.5) {
+      s = Math.max(10, len1 * 0.8);
+    }
+
+    const pA = { x: V.x + s * u1.x, y: V.y + s * u1.y };
+    const pB = { x: V.x + s * (u1.x + u2.x), y: V.y + s * (u1.y + u2.y) };
+    const pC = { x: V.x + s * u2.x, y: V.y + s * u2.y };
+    const center = { x: V.x + 0.5 * s * (u1.x + u2.x), y: V.y + 0.5 * s * (u1.y + u2.y) };
+
+    return { V, P1, P2, u1, u2, s, pA, pB, pC, center, len1 };
+  }
+
+  getEqualSegmentGeometry() {
+    const A = this.start;
+    const B = this.end;
+    const dx = B.x - A.x;
+    const dy = B.y - A.y;
+    const len = Math.hypot(dx, dy);
+    if (len < 1e-4) return null;
+
+    const u = { x: dx / len, y: dy / len };
+    const n = { x: -u.y, y: u.x };
+    const mid = { x: (A.x + B.x) / 2, y: (A.y + B.y) / 2 };
+    const h = (this.equalSegmentMarkSize ?? 14) / 2;
+    const sp = 4;
+    return { A, B, len, u, n, mid, h, sp };
+  }
+
+  private getAngleSamples(steps = 24): Point[] {
+    const geom = this.getAngleGeometry();
+    if (geom.len1 < 2 || geom.len2 < 2 || Math.abs(geom.sweep) < 0.01) return [this.start];
+    const { V, theta1, sweep, r } = geom;
+    const pts: Point[] = [];
+    for (let i = 0; i <= steps; i++) {
+      const a = theta1 + (sweep * i) / steps;
+      pts.push({ x: V.x + r * Math.cos(a), y: V.y + r * Math.sin(a) });
+    }
+    return pts;
   }
 
   private getArcGeometry() {
@@ -431,6 +696,67 @@ export class Shape extends BoardObject {
       };
     }
     
+    if (this.shapeType === 'angle') {
+      const geom = this.getAngleGeometry();
+      const pts: Point[] = [this.start];
+      if (geom.len1 >= 2 && geom.len2 >= 2 && Math.abs(geom.sweep) > 0.01) {
+        const { V, theta1, sweep, r } = geom;
+        const steps = 16;
+        for (let i = 0; i <= steps; i++) {
+          const a = theta1 + (sweep * i) / steps;
+          pts.push({ x: V.x + r * Math.cos(a), y: V.y + r * Math.sin(a) });
+          if (this.angleType === 'double' || this.angleType === 'triple') {
+            pts.push({ x: V.x + (r + 6) * Math.cos(a), y: V.y + (r + 6) * Math.sin(a) });
+          }
+        }
+      }
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const pt of pts) {
+        if (pt.x < minX) minX = pt.x;
+        if (pt.y < minY) minY = pt.y;
+        if (pt.x > maxX) maxX = pt.x;
+        if (pt.y > maxY) maxY = pt.y;
+      }
+      return { x: minX - padding, y: minY - padding, w: maxX - minX + padding * 2, h: maxY - minY + padding * 2 };
+    }
+
+    if (this.shapeType === 'right-angle') {
+      const geom = this.getRightAngleGeometry();
+      if (!geom) {
+        return { x: this.start.x - padding, y: this.start.y - padding, w: padding * 2, h: padding * 2 };
+      }
+      const pts: Point[] = [geom.V, geom.pA, geom.pB, geom.pC];
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const pt of pts) {
+        if (pt.x < minX) minX = pt.x;
+        if (pt.y < minY) minY = pt.y;
+        if (pt.x > maxX) maxX = pt.x;
+        if (pt.y > maxY) maxY = pt.y;
+      }
+      return { x: minX - padding, y: minY - padding, w: maxX - minX + padding * 2, h: maxY - minY + padding * 2 };
+    }
+
+    if (this.shapeType === 'equal-segment') {
+      const geom = this.getEqualSegmentGeometry();
+      if (!geom) {
+        return { x: this.start.x - padding, y: this.start.y - padding, w: padding * 2, h: padding * 2 };
+      }
+      const { A, B, mid, n, h } = geom;
+      const pts: Point[] = [
+        A, B,
+        { x: mid.x - h * n.x, y: mid.y - h * n.y },
+        { x: mid.x + h * n.x, y: mid.y + h * n.y }
+      ];
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const pt of pts) {
+        if (pt.x < minX) minX = pt.x;
+        if (pt.y < minY) minY = pt.y;
+        if (pt.x > maxX) maxX = pt.x;
+        if (pt.y > maxY) maxY = pt.y;
+      }
+      return { x: minX - padding, y: minY - padding, w: maxX - minX + padding * 2, h: maxY - minY + padding * 2 };
+    }
+    
     return {
       x: x - padding,
       y: y - padding,
@@ -570,6 +896,58 @@ export class Shape extends BoardObject {
         if (clampedX >= dist) break;
       }
       return false;
+    } else if (this.shapeType === 'equal-segment') {
+      if (this.equalSegmentDrawLine && this.distToSegmentSquared(p, this.start, this.end) <= thresholdSq) return true;
+      const geom = this.getEqualSegmentGeometry();
+      if (geom) {
+        const { mid, n, h, u, sp } = geom;
+        const mark = this.equalSegmentMark ?? 'double';
+        const hitTick = (center: Point) => {
+          const tA = { x: center.x - h * n.x, y: center.y - h * n.y };
+          const tB = { x: center.x + h * n.x, y: center.y + h * n.y };
+          return this.distToSegmentSquared(p, tA, tB) <= thresholdSq;
+        };
+        if (mark === 'single' && hitTick(mid)) return true;
+        if (mark === 'double') {
+          if (hitTick({ x: mid.x - (sp / 2) * u.x, y: mid.y - (sp / 2) * u.y })) return true;
+          if (hitTick({ x: mid.x + (sp / 2) * u.x, y: mid.y + (sp / 2) * u.y })) return true;
+        }
+        if (mark === 'triple') {
+          if (hitTick({ x: mid.x - sp * u.x, y: mid.y - sp * u.y })) return true;
+          if (hitTick(mid)) return true;
+          if (hitTick({ x: mid.x + sp * u.x, y: mid.y + sp * u.y })) return true;
+        }
+        if (mark === 'cross' || mark === 'circle') {
+          if (Math.hypot(p.x - mid.x, p.y - mid.y) <= Math.max(h + 4, threshold)) return true;
+        }
+        if (this.distToSegmentSquared(p, this.start, this.end) <= thresholdSq) return true;
+      }
+      return false;
+    } else if (this.shapeType === 'right-angle') {
+      const geom = this.getRightAngleGeometry();
+      if (!geom) return false;
+      const { V, pA, pB, pC } = geom;
+      if (this.distToSegmentSquared(p, pA, pB) <= thresholdSq) return true;
+      if (this.distToSegmentSquared(p, pB, pC) <= thresholdSq) return true;
+      if (this.isFilled) {
+        if (this.pointInPolygon(p, [V, pA, pB, pC])) return true;
+      }
+      return false;
+    } else if (this.shapeType === 'angle') {
+      const geom = this.getAngleGeometry();
+      if (geom.len1 < 2 || geom.len2 < 2) return false;
+      const { V, theta1, sweep, r } = geom;
+      const dist = Math.hypot(p.x - V.x, p.y - V.y);
+      const angle = Math.atan2(p.y - V.y, p.x - V.x);
+      let angleDiff = angle - theta1;
+      let normSweep = ((angleDiff % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+      const onSweep = sweep > 0 ? (normSweep >= -0.15 && normSweep <= sweep + 0.15) : (normSweep <= 0.15 && normSweep >= sweep - 0.15);
+      if (onSweep) {
+        if (Math.abs(dist - r) <= threshold + 4) return true;
+        if ((this.angleType === 'double' || this.angleType === 'triple') && Math.abs(dist - (r + 6)) <= threshold + 4) return true;
+        if ((this.isFilled || this.angleType === 'fill') && dist <= r) return true;
+      }
+      return false;
     }
     
     return false;
@@ -672,6 +1050,54 @@ export class Shape extends BoardObject {
         });
       }
       return checkPolyline(pts);
+    } else if (this.shapeType === 'equal-segment') {
+      const geom = this.getEqualSegmentGeometry();
+      if (!geom) return false;
+      const { A, B, mid, n, h, u, sp } = geom;
+      const segs: [Point, Point][] = [];
+      if (this.equalSegmentDrawLine) segs.push([A, B]);
+      const mark = this.equalSegmentMark ?? 'double';
+      const addTick = (center: Point) => {
+        segs.push([{ x: center.x - h * n.x, y: center.y - h * n.y }, { x: center.x + h * n.x, y: center.y + h * n.y }]);
+      };
+      if (mark === 'single') addTick(mid);
+      else if (mark === 'double') {
+        addTick({ x: mid.x - (sp / 2) * u.x, y: mid.y - (sp / 2) * u.y });
+        addTick({ x: mid.x + (sp / 2) * u.x, y: mid.y + (sp / 2) * u.y });
+      } else if (mark === 'triple') {
+        addTick({ x: mid.x - sp * u.x, y: mid.y - sp * u.y });
+        addTick(mid);
+        addTick({ x: mid.x + sp * u.x, y: mid.y + sp * u.y });
+      } else if (mark === 'cross') {
+        const d = h * 0.75;
+        segs.push([
+          { x: mid.x - d * (u.x + n.x), y: mid.y - d * (u.y + n.y) },
+          { x: mid.x + d * (u.x + n.x), y: mid.y + d * (u.y + n.y) }
+        ], [
+          { x: mid.x - d * (u.x - n.x), y: mid.y - d * (u.y - n.y) },
+          { x: mid.x + d * (u.x - n.x), y: mid.y + d * (u.y - n.y) }
+        ]);
+      } else if (mark === 'circle') {
+        if (pointInRect(this.transformPoint(mid), expanded)) return true;
+      }
+      segs.push([A, B]);
+      return checkSegments(segs);
+    } else if (this.shapeType === 'right-angle') {
+      const geom = this.getRightAngleGeometry();
+      if (!geom) return false;
+      const { pA, pB, pC } = geom;
+      if (checkSegments([[pA, pB], [pB, pC]])) return true;
+      if (this.isFilled) {
+        return this.hitTest({ x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 });
+      }
+      return false;
+    } else if (this.shapeType === 'angle') {
+      const samples = this.getAngleSamples(24);
+      if (checkPolyline(samples)) return true;
+      if (this.isFilled || this.angleType === 'fill') {
+        return this.hitTest({ x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 });
+      }
+      return false;
     }
 
     return false;
@@ -705,7 +1131,12 @@ export class Shape extends BoardObject {
   }
 
   clone(): BoardObject {
-    const s = new Shape(this.shapeType, this.start, this.color, this.size, this.strokeStyleType, this.isFilled, this.isEraser, this.sineWavelength, this.sineAmplitude, this.arrowStart, this.arrowEnd, this.middleArrow);
+    const s = new Shape(
+      this.shapeType, this.start, this.color, this.size, this.strokeStyleType, this.isFilled, this.isEraser,
+      this.sineWavelength, this.sineAmplitude, this.arrowStart, this.arrowEnd, this.middleArrow,
+      this.angleType, this.angleRadius, this.rightAngleType, this.rightAngleSize,
+      this.equalSegmentMark, this.equalSegmentDrawLine, this.equalSegmentMarkSize
+    );
     s.start = { ...this.start };
     s.end = { ...this.end };
     s.controlPoint = { ...this.controlPoint };

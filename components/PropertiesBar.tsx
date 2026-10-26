@@ -12,6 +12,7 @@ const toolNames: Record<ToolType, string> = {
   pen: 'Bút vẽ', highlighter: 'Bút nhớ', laser: 'Bút laser',
   line: 'Đường thẳng', arrow: 'Mũi tên', rect: 'Hình chữ nhật',
   ellipse: 'Hình ellipse', arc: 'Cung tròn', sine: 'Sóng sin', bezier: 'Đường cong Bézier',
+  angle: 'Ký hiệu góc', 'right-angle': 'Góc vuông', 'equal-segment': 'Đoạn bằng nhau',
   text: 'Chữ', hand: 'Di chuyển', 'select-object': 'Chọn đối tượng',
   'eraser-object': 'Tẩy đối tượng', 'eraser-stroke': 'Tẩy nét', snip: 'Chụp vùng',
 };
@@ -35,7 +36,8 @@ function objectPropertiesSnapshot() {
   );
   if (!obj) return '';
   const fields = ['type', 'shapeType', 'color', 'size', 'strokeStyleType', 'isFilled',
-    'arrowStart', 'arrowEnd', 'middleArrow', 'sineWavelength', 'sineAmplitude', 'fontFamily', 'fontSize'];
+    'arrowStart', 'arrowEnd', 'middleArrow', 'sineWavelength', 'sineAmplitude', 'fontFamily', 'fontSize',
+    'angleType', 'angleRadius', 'rightAngleType', 'rightAngleSize', 'equalSegmentMark', 'equalSegmentDrawLine', 'equalSegmentMarkSize'];
   return JSON.stringify(Object.fromEntries(fields.map(field => [field, obj[field]])));
 }
 
@@ -72,6 +74,9 @@ export function PropertiesBar() {
   let showSineParams = false;
   let showTextParams = false;
   let showPhysics = false;
+  let showAngleParams = false;
+  let showRightAngleParams = false;
+  let showEqualSegmentParams = false;
   
   let activeColor = state.strokeColor;
   let activeSize = state.strokeSize;
@@ -92,6 +97,13 @@ export function PropertiesBar() {
   let middleArrow = state.middleArrow;
   let sineW = state.sineWavelength;
   let sineA = state.sineAmplitude;
+  let angleType = state.angleType;
+  let angleRadius = state.angleRadius;
+  let rightAngleType = state.rightAngleType;
+  let rightAngleSize = state.rightAngleSize;
+  let equalSegmentMark = state.equalSegmentMark;
+  let equalSegmentDrawLine = state.equalSegmentDrawLine;
+  let equalSegmentMarkSize = state.equalSegmentMarkSize;
 
   if (obj) {
     isEditingObject = true;
@@ -105,7 +117,7 @@ export function PropertiesBar() {
       showColor = true;
       showSize = true;
       showStrokeStyle = true;
-      showFill = true;
+      showFill = obj.shapeType !== 'equal-segment';
       activeSize = obj.size;
       activeStrokeStyle = obj.strokeStyleType || 'solid';
       activeIsFilled = obj.isFilled || false;
@@ -119,6 +131,19 @@ export function PropertiesBar() {
         showSineParams = true;
         sineW = obj.sineWavelength || 50;
         sineA = obj.sineAmplitude || 20;
+      } else if (obj.shapeType === 'angle') {
+        showAngleParams = true;
+        angleType = obj.angleType || 'single';
+        angleRadius = obj.angleRadius || 28;
+      } else if (obj.shapeType === 'right-angle') {
+        showRightAngleParams = true;
+        rightAngleType = obj.rightAngleType || 'square';
+        rightAngleSize = obj.rightAngleSize || 18;
+      } else if (obj.shapeType === 'equal-segment') {
+        showEqualSegmentParams = true;
+        equalSegmentMark = obj.equalSegmentMark || 'double';
+        equalSegmentDrawLine = obj.equalSegmentDrawLine || false;
+        equalSegmentMarkSize = obj.equalSegmentMarkSize || 14;
       }
     } else if (obj.type === 'text' || 'fontFamily' in obj) {
       showColor = true;
@@ -129,15 +154,18 @@ export function PropertiesBar() {
   } else {
     // Show based on selected tool
     const t = state.tool;
-    if (t === 'pen' || t === 'highlighter' || t === 'line' || t === 'arrow' || t === 'rect' || t === 'ellipse' || t === 'arc' || t === 'sine' || t === 'bezier') {
+    if (t === 'pen' || t === 'highlighter' || t === 'line' || t === 'arrow' || t === 'rect' || t === 'ellipse' || t === 'arc' || t === 'sine' || t === 'bezier' || t === 'angle' || t === 'right-angle' || t === 'equal-segment') {
       showColor = true;
       showSize = true;
       if (t !== 'pen' && t !== 'highlighter') {
         showStrokeStyle = true;
-        showFill = t === 'rect' || t === 'ellipse';
+        showFill = t === 'rect' || t === 'ellipse' || t === 'angle' || t === 'right-angle';
       }
       if (t === 'sine') showSineParams = true;
       if (t === 'arrow') showArrows = true;
+      if (t === 'angle') showAngleParams = true;
+      if (t === 'right-angle') showRightAngleParams = true;
+      if (t === 'equal-segment') showEqualSegmentParams = true;
     } else if (t === 'text') {
       showColor = true;
       showTextParams = true;
@@ -177,6 +205,28 @@ export function PropertiesBar() {
     else {
       state.setFontFamily(font);
       state.setFontSize(size);
+    }
+  };
+  const handleAngleChange = (updates: { angleType?: any; angleRadius?: number }) => {
+    if (isEditingObject) updateActiveObject(updates);
+    else {
+      if (updates.angleType !== undefined) state.setAngleType(updates.angleType);
+      if (updates.angleRadius !== undefined) state.setAngleRadius(updates.angleRadius);
+    }
+  };
+  const handleRightAngleChange = (updates: { rightAngleType?: any; rightAngleSize?: number }) => {
+    if (isEditingObject) updateActiveObject(updates);
+    else {
+      if (updates.rightAngleType !== undefined) state.setRightAngleType(updates.rightAngleType);
+      if (updates.rightAngleSize !== undefined) state.setRightAngleSize(updates.rightAngleSize);
+    }
+  };
+  const handleEqualSegmentChange = (updates: { equalSegmentMark?: any; equalSegmentDrawLine?: boolean; equalSegmentMarkSize?: number }) => {
+    if (isEditingObject) updateActiveObject(updates);
+    else {
+      if (updates.equalSegmentMark !== undefined) state.setEqualSegmentMark(updates.equalSegmentMark);
+      if (updates.equalSegmentDrawLine !== undefined) state.setEqualSegmentDrawLine(updates.equalSegmentDrawLine);
+      if (updates.equalSegmentMarkSize !== undefined) state.setEqualSegmentMarkSize(updates.equalSegmentMarkSize);
     }
   };
 
@@ -329,6 +379,94 @@ export function PropertiesBar() {
            <input type="range" min="10" max="100" value={activeFontSize} onChange={(e) => handleTextChange(activeFontFamily, Number(e.target.value))} style={{ width: '80px' }} />
            <span>{activeFontSize}px</span>
          </div>
+      )}
+
+      {showAngleParams && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ color: '#aaa' }}>Kiểu góc:</span>
+          <select 
+            value={angleType} 
+            onChange={(e) => handleAngleChange({ angleType: e.target.value as any })}
+            style={{ background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', padding: '2px 4px' }}
+          >
+            <option value="single">1 Cung</option>
+            <option value="double">2 Cung</option>
+            <option value="triple">3 Cung</option>
+            <option value="tick">Cung có vạch</option>
+            <option value="fill">Tô mờ góc</option>
+          </select>
+          <span style={{ color: '#aaa' }}>Bán kính:</span>
+          <input 
+            type="range" 
+            min="15" 
+            max="60" 
+            step="1" 
+            value={angleRadius} 
+            onChange={(e) => handleAngleChange({ angleRadius: Number(e.target.value) })} 
+            style={{ width: '60px' }} 
+          />
+          <span>{angleRadius}px</span>
+        </div>
+      )}
+
+      {showRightAngleParams && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ color: '#aaa' }}>Kiểu góc vuông:</span>
+          <select 
+            value={rightAngleType} 
+            onChange={(e) => handleRightAngleChange({ rightAngleType: e.target.value as any })}
+            style={{ background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', padding: '2px 4px' }}
+          >
+            <option value="square">Vuông chuẩn</option>
+            <option value="dot">Vuông có chấm</option>
+          </select>
+          <span style={{ color: '#aaa' }}>Cỡ ký hiệu:</span>
+          <input 
+            type="range" 
+            min="10" 
+            max="40" 
+            step="1" 
+            value={rightAngleSize} 
+            onChange={(e) => handleRightAngleChange({ rightAngleSize: Number(e.target.value) })} 
+            style={{ width: '60px' }} 
+          />
+          <span>{rightAngleSize}px</span>
+        </div>
+      )}
+
+      {showEqualSegmentParams && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ color: '#aaa' }}>Ký hiệu bằng nhau:</span>
+          <select 
+            value={equalSegmentMark} 
+            onChange={(e) => handleEqualSegmentChange({ equalSegmentMark: e.target.value as any })}
+            style={{ background: '#333', color: '#fff', border: '1px solid #555', borderRadius: '4px', padding: '2px 4px' }}
+          >
+            <option value="double">2 Vạch (||)</option>
+            <option value="single">1 Vạch (|)</option>
+            <option value="triple">3 Vạch (|||)</option>
+            <option value="cross">Dấu nhân (×)</option>
+            <option value="circle">Chấm tròn (•)</option>
+          </select>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#aaa', cursor: 'pointer' }}>
+            <input 
+              type="checkbox" 
+              checked={equalSegmentDrawLine} 
+              onChange={(e) => handleEqualSegmentChange({ equalSegmentDrawLine: e.target.checked })} 
+            /> 
+            Vẽ đoạn thẳng
+          </label>
+          <span style={{ color: '#aaa' }}>Cỡ vạch:</span>
+          <input 
+            type="range" 
+            min="8" 
+            max="30" 
+            step="1" 
+            value={equalSegmentMarkSize} 
+            onChange={(e) => handleEqualSegmentChange({ equalSegmentMarkSize: Number(e.target.value) })} 
+            style={{ width: '50px' }} 
+          />
+        </div>
       )}
 
       {showPhysics && isEditingObject && (

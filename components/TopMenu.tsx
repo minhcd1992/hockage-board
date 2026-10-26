@@ -39,7 +39,7 @@ export function TopMenu() {
     openLessonTab(targetUrl, title);
   };
 
-  const isShapeActive = ['line', 'arrow', 'rect', 'ellipse', 'arc', 'sine', 'bezier'].includes(tool);
+  const isShapeActive = ['line', 'arrow', 'rect', 'ellipse', 'arc', 'sine', 'bezier', 'angle', 'right-angle', 'equal-segment'].includes(tool);
 
   const getShapeIcon = (shapeType: ToolType) => {
     switch (shapeType) {
@@ -50,6 +50,25 @@ export function TopMenu() {
       case 'arc': return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 A 9 9 0 0 1 21 12" /></svg>;
       case 'sine': return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 Q 7 3 12 12 T 21 12" /></svg>;
       case 'bezier': return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 Q 12 3 21 12 M 12 3 L 12 3" /></svg>;
+      case 'angle': return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M 21 20 L 4 20 L 16 4" />
+          <path d="M 9 20 A 6 6 0 0 1 12 15" />
+        </svg>
+      );
+      case 'right-angle': return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M 20 20 L 4 20 L 4 4" />
+          <path d="M 4 12 L 12 12 L 12 20" />
+        </svg>
+      );
+      case 'equal-segment': return (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="10" y1="7" x2="10" y2="17" />
+          <line x1="14" y1="7" x2="14" y2="17" />
+        </svg>
+      );
       default: return <Square size={20} />;
     }
   };
@@ -146,25 +165,46 @@ export function TopMenu() {
             border: '1px solid var(--border-color)',
             borderRadius: '8px',
             padding: '8px',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '4px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-            zIndex: 100
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+            zIndex: 100,
+            minWidth: '220px'
           }}>
-            <button className={`tool-btn ${currentShapeTool === 'line' ? 'active' : ''}`} onClick={() => handleShapeSelect('line')} title="Đường thẳng"><Minus size={20} /></button>
-            <button className={`tool-btn ${currentShapeTool === 'arrow' ? 'active' : ''}`} onClick={() => handleShapeSelect('arrow')} title="Mũi tên"><ArrowRight size={20} /></button>
-            <button className={`tool-btn ${currentShapeTool === 'rect' ? 'active' : ''}`} onClick={() => handleShapeSelect('rect')} title="Hình chữ nhật"><Square size={20} /></button>
-            <button className={`tool-btn ${currentShapeTool === 'ellipse' ? 'active' : ''}`} onClick={() => handleShapeSelect('ellipse')} title="Hình Elip/Tròn"><Circle size={20} /></button>
-            <button className={`tool-btn ${currentShapeTool === 'arc' ? 'active' : ''}`} onClick={() => handleShapeSelect('arc')} title="Cung tròn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 A 9 9 0 0 1 21 12" /></svg>
-            </button>
-            <button className={`tool-btn ${currentShapeTool === 'sine' ? 'active' : ''}`} onClick={() => handleShapeSelect('sine')} title="Sóng Sin">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 Q 7 3 12 12 T 21 12" /></svg>
-            </button>
-            <button className={`tool-btn ${currentShapeTool === 'bezier' ? 'active' : ''}`} onClick={() => handleShapeSelect('bezier')} title="Đường cong Bezier">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 Q 12 3 21 12 M 12 3 L 12 3" /></svg>
-            </button>
+            <div>
+              <div style={{ fontSize: '11px', color: '#888', fontWeight: 600, padding: '2px 4px 4px 4px' }}>HÌNH CƠ BẢN</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px' }}>
+                <button className={`tool-btn ${currentShapeTool === 'line' ? 'active' : ''}`} onClick={() => handleShapeSelect('line')} title="Đường thẳng"><Minus size={20} /></button>
+                <button className={`tool-btn ${currentShapeTool === 'arrow' ? 'active' : ''}`} onClick={() => handleShapeSelect('arrow')} title="Mũi tên"><ArrowRight size={20} /></button>
+                <button className={`tool-btn ${currentShapeTool === 'rect' ? 'active' : ''}`} onClick={() => handleShapeSelect('rect')} title="Hình chữ nhật"><Square size={20} /></button>
+                <button className={`tool-btn ${currentShapeTool === 'ellipse' ? 'active' : ''}`} onClick={() => handleShapeSelect('ellipse')} title="Hình Elip/Tròn"><Circle size={20} /></button>
+                <button className={`tool-btn ${currentShapeTool === 'arc' ? 'active' : ''}`} onClick={() => handleShapeSelect('arc')} title="Cung tròn">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 A 9 9 0 0 1 21 12" /></svg>
+                </button>
+                <button className={`tool-btn ${currentShapeTool === 'sine' ? 'active' : ''}`} onClick={() => handleShapeSelect('sine')} title="Sóng Sin">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 Q 7 3 12 12 T 21 12" /></svg>
+                </button>
+                <button className={`tool-btn ${currentShapeTool === 'bezier' ? 'active' : ''}`} onClick={() => handleShapeSelect('bezier')} title="Đường cong Bezier">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M 3 12 Q 12 3 21 12 M 12 3 L 12 3" /></svg>
+                </button>
+              </div>
+            </div>
+
+            <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '6px' }}>
+              <div style={{ fontSize: '11px', color: '#888', fontWeight: 600, padding: '2px 4px 4px 4px' }}>KÝ HIỆU HÌNH HỌC</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '4px' }}>
+                <button className={`tool-btn ${currentShapeTool === 'angle' ? 'active' : ''}`} onClick={() => handleShapeSelect('angle')} title="Ký hiệu góc">
+                  {getShapeIcon('angle')}
+                </button>
+                <button className={`tool-btn ${currentShapeTool === 'right-angle' ? 'active' : ''}`} onClick={() => handleShapeSelect('right-angle')} title="Ký hiệu góc vuông">
+                  {getShapeIcon('right-angle')}
+                </button>
+                <button className={`tool-btn ${currentShapeTool === 'equal-segment' ? 'active' : ''}`} onClick={() => handleShapeSelect('equal-segment')} title="Ký hiệu đoạn bằng nhau">
+                  {getShapeIcon('equal-segment')}
+                </button>
+              </div>
+            </div>
           </div>,
           document.body
         )}

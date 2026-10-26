@@ -99,7 +99,7 @@ export class CanvasRenderer {
     if (isPDF) {
       this.bgCtx.fillStyle = '#323639'; // Standard Chrome PDF viewer background
     } else {
-      this.bgCtx.fillStyle = theme === 'white' ? '#e5e7eb' : '#1e1e1e'; // Backdrop color
+      this.bgCtx.fillStyle = theme === 'white' ? '#ffffff' : '#1e1e1e'; // Backdrop color
     }
     this.bgCtx.fillRect(0, 0, this.bgCanvas.width, this.bgCanvas.height);
     this.bgCtx.restore();
@@ -132,7 +132,11 @@ export class CanvasRenderer {
       this.bgCtx.translate(0, pageY);
 
       if (theme === 'white') {
-        this.bgCtx.fillStyle = '#f8f9fa';
+        this.bgCtx.fillStyle = '#ffffff';
+        this.bgCtx.shadowColor = 'transparent';
+        this.bgCtx.shadowBlur = 0;
+        this.bgCtx.shadowOffsetX = 0;
+        this.bgCtx.shadowOffsetY = 0;
       } else {
         const centerX = pageWorldWidth / 2;
         const centerY = pageWorldHeight / 2;
@@ -145,13 +149,13 @@ export class CanvasRenderer {
         gradient.addColorStop(0, 'rgb(21,96,44)');
         gradient.addColorStop(1, 'rgb(22,49,34)');
         this.bgCtx.fillStyle = gradient;
+
+        // Page Drop Shadow (optional, looks nice when zoomed out on chalkboard)
+        this.bgCtx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+        this.bgCtx.shadowBlur = 10;
+        this.bgCtx.shadowOffsetX = 0;
+        this.bgCtx.shadowOffsetY = 4;
       }
-      
-      // Page Drop Shadow (optional, looks nice when zoomed out)
-      this.bgCtx.shadowColor = 'rgba(0, 0, 0, 0.2)';
-      this.bgCtx.shadowBlur = 10;
-      this.bgCtx.shadowOffsetX = 0;
-      this.bgCtx.shadowOffsetY = 4;
       
       this.bgCtx.fillRect(0, 0, pageWorldWidth, pageWorldHeight);
       this.bgCtx.restore();

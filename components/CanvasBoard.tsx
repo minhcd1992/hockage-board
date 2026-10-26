@@ -78,6 +78,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   const zoom = useBoardStore(s => s.zoom);
   const fontFamily = useBoardStore(s => s.fontFamily);
   const fontSize = useBoardStore(s => s.fontSize);
+  const theme = useBoardStore(s => s.theme);
 
   useEffect(() => {
     setZoomInputValue(Math.round(zoom * 100).toString());
@@ -800,6 +801,14 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     let arcState: 'idle' | 'setting-start' | 'setting-end' = 'idle';
     let currentArcShape: Shape | null = null;
 
+    // Angle state
+    let angleState: 'idle' | 'setting-ray1' | 'setting-ray2' = 'idle';
+    let currentAngleShape: Shape | null = null;
+
+    // Right angle state
+    let rightAngleState: 'idle' | 'setting-ray1' | 'setting-ray2' = 'idle';
+    let currentRightAngleShape: Shape | null = null;
+
     const renderPendingInk = (event?: PointerEvent) => {
       const engine = engineRef.current!;
       const stroke = engine.currentStroke;
@@ -924,10 +933,30 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
                
                const rad = Math.round(Math.sqrt(dx1*dx1 + dy1*dy1));
                hudLines.push(`Radius: ${rad}px`, `Angle: ${Math.round(diff)}°`);
+            } else if (shape.shapeType === 'equal-segment') {
+               hudLines.push(`Đoạn thẳng: ${length}px`, `Góc: ${angleDeg}°`);
+            } else if (shape.shapeType === 'angle') {
+               const geom = shape.getAngleGeometry();
+               const deg = Math.round(Math.abs(geom.sweep) * 180 / Math.PI);
+               if (angleState === 'setting-ray1') {
+                 hudLines.push('Ký hiệu góc: Kéo/nhấp chọn tia 1');
+               } else {
+                 hudLines.push(`Góc: ${deg}°`, `Bán kính: ${geom.r}px`);
+               }
+            } else if (shape.shapeType === 'right-angle') {
+               if (rightAngleState === 'setting-ray1') {
+                 hudLines.push('Góc vuông: Kéo/nhấp hướng cạnh 1');
+               } else {
+                 hudLines.push('Góc vuông: 90°', `Cỡ: ${shape.rightAngleSize}px`);
+               }
             }
             
             if (hudLines.length > 0) {
-              const activePoint = (shape.shapeType === 'arc' && arcState === 'setting-end') || (shape.shapeType === 'bezier' && bezierState === 'setting-control') ? shape.controlPoint : shape.start;
+              const activePoint = (shape.shapeType === 'arc' && arcState === 'setting-end') ||
+                (shape.shapeType === 'bezier' && bezierState === 'setting-control') ||
+                (shape.shapeType === 'angle' && angleState === 'setting-ray2') ||
+                (shape.shapeType === 'right-angle' && rightAngleState === 'setting-ray2')
+                ? shape.controlPoint : shape.start;
               
               ctx.save();
               ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset to screen space
@@ -1048,8 +1077,13 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         }
         engine.renderer.liveInk.begin(engine.currentStroke, e);
         syncLessonActivity();
-      } else if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'rect' || state.tool === 'ellipse' || state.tool === 'sine') {
-        engine.currentShape = new Shape(state.tool, worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false, state.sineWavelength, state.sineAmplitude, state.arrowStart, state.arrowEnd, state.middleArrow);
+      } else if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'rect' || state.tool === 'ellipse' || state.tool === 'sine' || state.tool === 'equal-segment') {
+        engine.currentShape = new Shape(
+          state.tool, worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false,
+          state.sineWavelength, state.sineAmplitude, state.arrowStart, state.arrowEnd, state.middleArrow,
+          state.angleType, state.angleRadius, state.rightAngleType, state.rightAngleSize,
+          state.equalSegmentMark, state.equalSegmentDrawLine, state.equalSegmentMarkSize
+        );
         draftNeedsUpdate = true;
       } else if (state.tool === 'arc') {
         if (arcState === 'idle') {
@@ -1072,6 +1106,72 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           currentArcShape = null;
           arcState = 'idle';
           
+          engine.renderer.renderMain();
+          engine.renderer.clearDraft();
+          draftNeedsUpdate = false;
+        }
+      } else if (state.tool === 'angle') {
+        if (angleState === 'idle') {
+          engine.currentShape = new Shape(
+            'angle', worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false,
+            state.sineWavelength, state.sineAmplitude, state.arrowStart, state.arrowEnd, state.middleArrow,
+            state.angleType, state.angleRadius, state.rightAngleType, state.rightAngleSize,
+            state.equalSegmentMark, state.equalSegmentDrawLine, state.equalSegmentMarkSize
+          );
+          currentAngleShape = engine.currentShape as Shape;
+          currentAngleShape.drawingState = 'ray1';
+          currentAngleShape.end = { x: worldP.x, y: worldP.y };
+          currentAngleShape.controlPoint = { x: worldP.x, y: worldP.y };
+          angleState = 'setting-ray1';
+          draftNeedsUpdate = true;
+        } else if (angleState === 'setting-ray1' && currentAngleShape) {
+          currentAngleShape.end = worldP;
+          currentAngleShape.controlPoint = worldP;
+          currentAngleShape.drawingState = 'ray2';
+          angleState = 'setting-ray2';
+          draftNeedsUpdate = true;
+        } else if (angleState === 'setting-ray2' && currentAngleShape) {
+          currentAngleShape.controlPoint = worldP;
+          currentAngleShape.drawingState = undefined;
+          currentAngleShape.updateCenter();
+          engine.scene.addObject(currentAngleShape);
+          engine.currentShape = null;
+          currentAngleShape = null;
+          angleState = 'idle';
+
+          engine.renderer.renderMain();
+          engine.renderer.clearDraft();
+          draftNeedsUpdate = false;
+        }
+      } else if (state.tool === 'right-angle') {
+        if (rightAngleState === 'idle') {
+          engine.currentShape = new Shape(
+            'right-angle', worldP, state.strokeColor, state.strokeSize, state.strokeStyleType, state.isFilled, false,
+            state.sineWavelength, state.sineAmplitude, state.arrowStart, state.arrowEnd, state.middleArrow,
+            state.angleType, state.angleRadius, state.rightAngleType, state.rightAngleSize,
+            state.equalSegmentMark, state.equalSegmentDrawLine, state.equalSegmentMarkSize
+          );
+          currentRightAngleShape = engine.currentShape as Shape;
+          currentRightAngleShape.drawingState = 'ray1';
+          currentRightAngleShape.end = { x: worldP.x, y: worldP.y };
+          currentRightAngleShape.controlPoint = { x: worldP.x, y: worldP.y };
+          rightAngleState = 'setting-ray1';
+          draftNeedsUpdate = true;
+        } else if (rightAngleState === 'setting-ray1' && currentRightAngleShape) {
+          currentRightAngleShape.end = worldP;
+          currentRightAngleShape.controlPoint = worldP;
+          currentRightAngleShape.drawingState = 'ray2';
+          rightAngleState = 'setting-ray2';
+          draftNeedsUpdate = true;
+        } else if (rightAngleState === 'setting-ray2' && currentRightAngleShape) {
+          currentRightAngleShape.controlPoint = worldP;
+          currentRightAngleShape.drawingState = undefined;
+          currentRightAngleShape.updateCenter();
+          engine.scene.addObject(currentRightAngleShape);
+          engine.currentShape = null;
+          currentRightAngleShape = null;
+          rightAngleState = 'idle';
+
           engine.renderer.renderMain();
           engine.renderer.clearDraft();
           draftNeedsUpdate = false;
@@ -1341,6 +1441,24 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           currentArcShape.controlPoint = worldP;
           draftNeedsUpdate = true;
         }
+      } else if (state.tool === 'angle' && angleState !== 'idle' && currentAngleShape) {
+        if (angleState === 'setting-ray1') {
+          currentAngleShape.end = worldP;
+          currentAngleShape.controlPoint = worldP;
+          draftNeedsUpdate = true;
+        } else if (angleState === 'setting-ray2') {
+          currentAngleShape.controlPoint = worldP;
+          draftNeedsUpdate = true;
+        }
+      } else if (state.tool === 'right-angle' && rightAngleState !== 'idle' && currentRightAngleShape) {
+        if (rightAngleState === 'setting-ray1') {
+          currentRightAngleShape.end = worldP;
+          currentRightAngleShape.controlPoint = worldP;
+          draftNeedsUpdate = true;
+        } else if (rightAngleState === 'setting-ray2') {
+          currentRightAngleShape.controlPoint = worldP;
+          draftNeedsUpdate = true;
+        }
       } else if (engine.currentShape && engine.pointer.isPointerDown) {
         if (state.tool === 'bezier') {
           if (bezierState === 'drawing-line' && currentBezierShape) {
@@ -1360,7 +1478,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             const dx = worldP.x - engine.currentShape.start.x;
             const dy = worldP.y - engine.currentShape.start.y;
             
-            if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'sine') {
+            if (state.tool === 'line' || state.tool === 'arrow' || state.tool === 'sine' || state.tool === 'equal-segment') {
               const angle = Math.atan2(dy, dx);
               const snapAngle = Math.round(angle / (Math.PI / 12)) * (Math.PI / 12);
               const dist = Math.sqrt(dx*dx + dy*dy);
@@ -1515,6 +1633,28 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
          }
       } else if (state.tool === 'arc' && currentArcShape) {
          // Arc state machine is handled in pointerDown, do nothing on pointerUp
+      } else if (state.tool === 'angle' && currentAngleShape) {
+         if (angleState === 'setting-ray1') {
+           const d = Math.hypot(worldP.x - currentAngleShape.start.x, worldP.y - currentAngleShape.start.y);
+           if (d > 8) {
+             currentAngleShape.end = worldP;
+             currentAngleShape.controlPoint = worldP;
+             currentAngleShape.drawingState = 'ray2';
+             angleState = 'setting-ray2';
+             draftNeedsUpdate = true;
+           }
+         }
+      } else if (state.tool === 'right-angle' && currentRightAngleShape) {
+         if (rightAngleState === 'setting-ray1') {
+           const d = Math.hypot(worldP.x - currentRightAngleShape.start.x, worldP.y - currentRightAngleShape.start.y);
+           if (d > 8) {
+             currentRightAngleShape.end = worldP;
+             currentRightAngleShape.controlPoint = worldP;
+             currentRightAngleShape.drawingState = 'ray2';
+             rightAngleState = 'setting-ray2';
+             draftNeedsUpdate = true;
+           }
+         }
       } else if (engine.currentShape) {
         // Shapes
         if (e.shiftKey && state.tool !== 'bezier') {
@@ -2014,7 +2154,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   }, [windowHeight]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden', background: fileType === 'lesson' ? 'white' : 'var(--bg-primary)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', overflow: 'hidden', background: theme === 'white' ? '#ffffff' : (fileType === 'lesson' ? 'white' : 'var(--bg-primary)') }}>
       <div ref={containerRef} style={{ position: 'relative', flex: 1, width: '100%', overflow: 'hidden' }}>
         <canvas ref={bgCanvasRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0, display: fileType === 'lesson' ? 'none' : 'block' }} />
         {(fileType === 'html' || fileType === 'lesson') && htmlUrl && (

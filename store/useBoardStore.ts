@@ -16,6 +16,13 @@ export interface ToolProperties extends ArrowOptions {
   sineAmplitude: number;
   fontFamily: string;
   fontSize: number;
+  angleType: 'single' | 'double' | 'triple' | 'tick' | 'fill';
+  angleRadius: number;
+  rightAngleType: 'square' | 'dot';
+  rightAngleSize: number;
+  equalSegmentMark: 'single' | 'double' | 'triple' | 'cross' | 'circle';
+  equalSegmentDrawLine: boolean;
+  equalSegmentMarkSize: number;
 }
 
 function defaultToolProperties(tool: ToolType): ToolProperties {
@@ -26,6 +33,9 @@ function defaultToolProperties(tool: ToolType): ToolProperties {
     arrowStart: 'none', arrowEnd: 'arrow', middleArrow: false,
     sineWavelength: 150, sineAmplitude: 60,
     fontFamily: 'Arial', fontSize: 24,
+    angleType: 'single', angleRadius: 28,
+    rightAngleType: 'square', rightAngleSize: 18,
+    equalSegmentMark: 'double', equalSegmentDrawLine: false, equalSegmentMarkSize: 14,
   };
 }
 
@@ -94,6 +104,13 @@ interface BoardState extends ToolProperties {
   setEditingObjectId: (id: string | null) => void;
   setFontFamily: (font: string) => void;
   setFontSize: (size: number) => void;
+  setAngleType: (type: 'single' | 'double' | 'triple' | 'tick' | 'fill') => void;
+  setAngleRadius: (radius: number) => void;
+  setRightAngleType: (type: 'square' | 'dot') => void;
+  setRightAngleSize: (size: number) => void;
+  setEqualSegmentMark: (mark: 'single' | 'double' | 'triple' | 'cross' | 'circle') => void;
+  setEqualSegmentDrawLine: (draw: boolean) => void;
+  setEqualSegmentMarkSize: (size: number) => void;
   setTheme: (theme: 'green' | 'white') => void;
 }
 
@@ -249,7 +266,7 @@ export const useBoardStore = create<BoardState>((set) => {
   setTool: (tool) => set(state => ({
     ...(state.toolProperties[tool] ?? defaultToolProperties(tool)),
     tool,
-    currentShapeTool: ['line', 'arrow', 'rect', 'ellipse', 'arc', 'sine', 'bezier'].includes(tool)
+    currentShapeTool: ['line', 'arrow', 'rect', 'ellipse', 'arc', 'sine', 'bezier', 'angle', 'right-angle', 'equal-segment'].includes(tool)
       ? tool : state.currentShapeTool,
     editingObjectId: null,
   })),
@@ -270,6 +287,31 @@ export const useBoardStore = create<BoardState>((set) => {
   setEditingObjectId: (id) => set({ editingObjectId: id }),
   setFontFamily: (font) => updateProperties({ fontFamily: font }),
   setFontSize: (size) => updateProperties({ fontSize: size }),
-  setTheme: (theme) => set({ theme })
+  setAngleType: (angleType) => updateProperties({ angleType }),
+  setAngleRadius: (angleRadius) => updateProperties({ angleRadius }),
+  setRightAngleType: (rightAngleType) => updateProperties({ rightAngleType }),
+  setRightAngleSize: (rightAngleSize) => updateProperties({ rightAngleSize }),
+  setEqualSegmentMark: (equalSegmentMark) => updateProperties({ equalSegmentMark }),
+  setEqualSegmentDrawLine: (equalSegmentDrawLine) => updateProperties({ equalSegmentDrawLine }),
+  setEqualSegmentMarkSize: (equalSegmentMarkSize) => updateProperties({ equalSegmentMarkSize }),
+  setTheme: (theme) => set((state) => {
+    let newStrokeColor = state.strokeColor;
+    if (theme === 'white' && (state.strokeColor === '#ffffff' || state.strokeColor.toLowerCase() === '#fff')) {
+      newStrokeColor = '#000000';
+    } else if (theme === 'green' && (state.strokeColor === '#000000' || state.strokeColor.toLowerCase() === '#000')) {
+      newStrokeColor = '#ffffff';
+    }
+    return {
+      theme,
+      strokeColor: newStrokeColor,
+      toolProperties: {
+        ...state.toolProperties,
+        [state.tool]: {
+          ...(state.toolProperties[state.tool] ?? defaultToolProperties(state.tool)),
+          strokeColor: newStrokeColor,
+        }
+      }
+    };
+  })
   });
 });

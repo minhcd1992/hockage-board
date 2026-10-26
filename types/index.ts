@@ -12,6 +12,9 @@ export type ToolType =
   | 'arc'
   | 'sine'
   | 'bezier'
+  | 'angle'
+  | 'right-angle'
+  | 'equal-segment'
   | 'text'
   | 'laser'
   | 'snip';

@@ -7,8 +7,8 @@ export type AnchorKey = 'start' | 'end' | 'controlPoint';
 export function editAnchors(objects: BoardObject[]): { key: AnchorKey; point: Point }[] {
   const obj = objects[0];
   if (objects.length !== 1 || !(obj instanceof Shape) || obj.locked ||
-      !['line', 'arrow', 'bezier'].includes(obj.shapeType)) return [];
-  const keys: AnchorKey[] = obj.shapeType === 'bezier' ? ['start', 'end', 'controlPoint'] : ['start', 'end'];
+      !['line', 'arrow', 'bezier', 'angle', 'right-angle', 'equal-segment'].includes(obj.shapeType)) return [];
+  const keys: AnchorKey[] = ['bezier', 'angle', 'right-angle'].includes(obj.shapeType) ? ['start', 'end', 'controlPoint'] : ['start', 'end'];
   return keys.map(key => ({ key, point: obj.transformPoint(obj[key]) }));
 }
 
@@ -47,14 +47,14 @@ export function moveAnchor(obj: Shape, key: AnchorKey, point: Point, snapAngle: 
 
 export function keepAspect(objects: BoardObject[]): boolean {
   return objects.some(obj => obj.type === 'image' || obj.type === 'pdf' || obj.type === 'text' ||
-    (obj instanceof Shape && (obj.shapeType === 'arc' || obj.shapeType === 'sine' || Math.abs(obj.rotation) > 1e-8)));
+    (obj instanceof Shape && (obj.shapeType === 'arc' || obj.shapeType === 'sine' || obj.shapeType === 'angle' || obj.shapeType === 'right-angle' || Math.abs(obj.rotation) > 1e-8)));
 }
 
 /** Resize geometry, keeping pen width and arrow decorations independent of length. */
 export function resizeObject(obj: BoardObject, fixed: Point, sx: number, sy: number) {
   if (obj.locked) return;
   const map = (p: Point) => ({ ...p, x: fixed.x + (p.x - fixed.x) * sx, y: fixed.y + (p.y - fixed.y) * sy });
-  if (obj instanceof Stroke || (obj instanceof Shape && ['line', 'arrow', 'bezier'].includes(obj.shapeType))) {
+  if (obj instanceof Stroke || (obj instanceof Shape && ['line', 'arrow', 'bezier', 'angle', 'right-angle', 'equal-segment'].includes(obj.shapeType))) {
     worldGeometry(obj, map);
     return;
   }
