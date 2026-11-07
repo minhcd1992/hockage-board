@@ -112,10 +112,13 @@ export class LiveInk {
    * canvas only updates with the next compositor frame, which leaves a
    * one-frame gap (a visible flash). A CSS change is committed in the same
    * frame as the main canvas, so hide via CSS now and erase pixels later.
+   * Use opacity, not visibility: this canvas is also the pointer target, and a
+   * visibility-hidden element loses hit testing (the cursor would briefly fall
+   * through to the arrow of the layer below).
    */
   handOff() {
     this.stroke = null;
-    this.canvas.style.visibility = 'hidden';
+    this.canvas.style.opacity = '0';
     cancelAnimationFrame(this.releaseFrame);
     this.releaseFrame = requestAnimationFrame(() => {
       this.releaseFrame = requestAnimationFrame(() => {
@@ -155,7 +158,6 @@ export class LiveInk {
       cancelAnimationFrame(this.releaseFrame);
       this.releaseFrame = 0;
     }
-    this.canvas.style.visibility = '';
     this.stroke = null;
     this.renderedRevision = -1;
     this.resetBacking();

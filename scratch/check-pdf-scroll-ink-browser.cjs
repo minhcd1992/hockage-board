@@ -53,9 +53,9 @@ const pdfPath = path.resolve(process.argv[2] || '');
       window.addEventListener('pointerup', () => {
         const ink = (c) => { const d = c.getContext('2d').getImageData(380, 300, 60, 40).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; };
         const probe = window.__inkProbe;
-        probe.atUp = { mainInk: ink(probe.main), draftInk: ink(probe.draft), draftHidden: getComputedStyle(probe.draft).visibility === 'hidden' };
+        probe.atUp = { mainInk: ink(probe.main), draftInk: ink(probe.draft), draftHidden: getComputedStyle(probe.draft).opacity === '0', cursor: getComputedStyle(probe.draft).cursor, hitTarget: document.elementFromPoint(probe.draft.getBoundingClientRect().x + 400, probe.draft.getBoundingClientRect().y + 300) === probe.draft };
         let frames = 0;
-        const tick = () => { probe.samples.push({ hidden: getComputedStyle(probe.draft).visibility === 'hidden', draftInk: ink(probe.draft), mainInk: ink(probe.main) }); if (++frames < 5) requestAnimationFrame(tick); };
+        const tick = () => { probe.samples.push({ hidden: getComputedStyle(probe.draft).opacity === '0', hitTarget: document.elementFromPoint(probe.draft.getBoundingClientRect().x + 400, probe.draft.getBoundingClientRect().y + 300) === probe.draft, draftInk: ink(probe.draft), mainInk: ink(probe.main) }); if (++frames < 5) requestAnimationFrame(tick); };
         requestAnimationFrame(tick);
       }, { once: true });
     })()`);
@@ -69,12 +69,16 @@ const pdfPath = path.resolve(process.argv[2] || '');
     assert.ok(probe.atUp.mainInk > 0, 'main canvas has the stroke in the same task as pen-up');
     assert.ok(probe.atUp.draftHidden, 'live layer hidden via CSS (committed with the main canvas frame)');
     assert.equal(probe.atUp.mainInk, probe.atUp.draftInk, 'committed pixels match the live ink exactly');
+    // The live layer is also the pointer target: it must keep hit testing (and
+    // therefore the pen cursor) throughout the handoff.
+    assert.ok(probe.atUp.hitTarget && probe.samples.every(s => s.hitTarget), 'pointer target never falls through to the layer below');
+    assert.ok(probe.atUp.cursor.includes('data:image/svg+xml'), 'pen cursor kept at pen-up');
     assert.ok(probe.samples[0].draftInk > 0, 'live pixels are not erased before the main canvas frame is presented');
     const last = probe.samples.at(-1);
     assert.ok(!last.hidden && last.draftInk === 0 && last.mainInk > 0, 'live layer is cleared and restored afterwards');
     // A new stroke right after must be visible again.
     await mouse('mousePressed', 300, 500); await mouse('mouseMoved', 400, 520); await sleep(30);
-    assert.equal(await evaluate(`getComputedStyle(window.__inkProbe.draft).visibility`), 'visible', 'next stroke is visible');
+    assert.equal(await evaluate(`getComputedStyle(window.__inkProbe.draft).opacity`), '1', 'next stroke is visible');
     await mouse('mouseReleased', 400, 520, 0);
 
     // ---- Scrollbars for several PDF tabs -------------------------------------
