@@ -264,8 +264,8 @@ export const LimitVelocitySim = () => {
   const handlePointerMove = (e: React.PointerEvent | PointerEvent) => {
     if (!isDragging || !svgRef.current) return;
     const pt = svgRef.current.createSVGPoint();
-    pt.x = (e as any).clientX;
-    pt.y = (e as any).clientY;
+    pt.x = e.clientX;
+    pt.y = e.clientY;
     const cursorPt = pt.matrixTransform(svgRef.current.getScreenCTM()?.inverse());
     setQx(cursorPt.x);
   };

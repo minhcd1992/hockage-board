@@ -12,7 +12,8 @@ export const RelativeVelocitySim = () => {
   const v12Ref = useRef(v12);
   const isRunningRef = useRef(isRunning);
 
-  const globalTimeRef = useRef(0);
+  // Truck position relative to the ground (px), integrated each frame so changing v23 never makes it jump.
+  const truckPosRef = useRef(0);
   const lastTimeRef = useRef<number>(lessonNow());
   const personLocalXRef = useRef(0);
   const reqRef = useRef<number>(0);
@@ -139,33 +140,33 @@ export const RelativeVelocitySim = () => {
       drawScenery(ctx, 0, width, height, false);
       drawObserver(ctx, 50, GROUND_Y - 20, 'ground');
       
-      let absTruckX = (globalTimeRef.current * v23Ref.current * SCALE) % (width + TRUCK_W);
+      let absTruckX = truckPosRef.current % (width + TRUCK_W);
       if (absTruckX < 0) absTruckX += width + TRUCK_W;
       absTruckX -= TRUCK_W/2;
 
-      let absPersonX = absTruckX + personLocalXRef.current;
-      let truckY = GROUND_Y - TRUCK_H - 10;
-      let personY = truckY - PERSON_H;
+      const absPersonX = absTruckX + personLocalXRef.current;
+      const truckY = GROUND_Y - TRUCK_H - 10;
+      const personY = truckY - PERSON_H;
 
       drawTruck(ctx, absTruckX);
       drawPerson(ctx, absPersonX, personY);
 
       drawArrow(ctx, absTruckX, truckY + TRUCK_H/2, v23Ref.current, '#2563eb', `v23 = ${v23Ref.current}`);
-      let v13 = v12Ref.current + v23Ref.current;
+      const v13 = v12Ref.current + v23Ref.current;
       drawArrow(ctx, absPersonX, personY - 20, v13, '#9333ea', `v13 = ${v13}`);
     };
 
     const renderTruckPerspective = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
       ctx.clearRect(0, 0, width, height);
       const centerTruckX = width / 2;
-      let groundOffset = -(globalTimeRef.current * v23Ref.current * SCALE);
+      const groundOffset = -truckPosRef.current;
       
       drawScenery(ctx, groundOffset, width, height, true);
       drawTruck(ctx, centerTruckX);
       drawObserver(ctx, centerTruckX - 60, GROUND_Y - TRUCK_H - 30, 'truck');
 
-      let personY = GROUND_Y - TRUCK_H - 10 - PERSON_H;
-      let absPersonX = centerTruckX + personLocalXRef.current;
+      const personY = GROUND_Y - TRUCK_H - 10 - PERSON_H;
+      const absPersonX = centerTruckX + personLocalXRef.current;
       
       drawPerson(ctx, absPersonX, personY);
       drawArrow(ctx, absPersonX, personY - 20, v12Ref.current, '#dc2626', `v12 = ${v12Ref.current}`);
@@ -175,7 +176,7 @@ export const RelativeVelocitySim = () => {
       if (isRunningRef.current) {
         const dt = (timestamp - lastTimeRef.current) / 1000;
         if (dt < 0.1) {
-          globalTimeRef.current += dt;
+          truckPosRef.current += v23Ref.current * SCALE * dt;
           personLocalXRef.current += (v12Ref.current * SCALE) * dt;
           
           const maxRelMove = TRUCK_W / 2 - PERSON_W / 2 - 15;

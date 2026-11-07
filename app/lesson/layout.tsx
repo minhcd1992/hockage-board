@@ -4,18 +4,20 @@ import React from 'react';
 import { PenTool } from 'lucide-react';
 import { setLessonPaused } from '../../lib/lessonAnimation';
 
+const noopSubscribe = () => () => {};
+
 export default function LessonLayout({ children }: { children: React.ReactNode }) {
+  // Full page load on purpose: the board page reads ?openLesson from window.location on mount.
   const handleOpenBoard = () => {
     window.location.href = '/?openLesson=' + encodeURIComponent(window.location.pathname);
   };
 
-  const [isInIframe, setIsInIframe] = React.useState(false);
-
-  React.useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsInIframe(window.self !== window.top);
-    }
-  }, []);
+  // false on the server, real value on the client (never changes after load).
+  const isInIframe = React.useSyncExternalStore(
+    noopSubscribe,
+    () => window.self !== window.top,
+    () => false,
+  );
 
   React.useEffect(() => {
     let boardPaused = false;

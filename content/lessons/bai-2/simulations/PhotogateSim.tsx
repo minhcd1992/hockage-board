@@ -19,8 +19,10 @@ export const PhotogateSim = () => {
   const GATE_E = 200; // 100mm on the ruler
   const GATE_F = 500; // 250mm on the ruler
   
-  // Acceleration in pixels/s^2 (scaled)
+  // Acceleration in pixels/s^2 (2 px = 1 mm, so 400 px/s² = 0,2 m/s²)
   const ACCELERATION = 400;
+  // Time for the car (left edge starting at 20 px, from rest) to reach position x.
+  const timeToReach = (x: number) => Math.sqrt((2 * (x - 20)) / ACCELERATION);
 
   const animate = (time: number) => {
     if (startAnimTime.current === null) {
@@ -33,29 +35,22 @@ export const PhotogateSim = () => {
     const currentX = 20 + 0.5 * ACCELERATION * tSim * tSim;
     setCarX(currentX);
 
-    // Theoretical time calculations
-    // Mode 'inst': time to cross Gate E (d=20mm)
+    // The timer shows exact (simulated) times, independent of slow motion.
+    // Car left edge starts at x = 20 px, so it has moved (x - 20) px from rest.
     if (mode === 'inst') {
+      // Shield spans [x + 10, x + 50]: the beam is blocked from when its front edge
+      // reaches the gate until its back edge leaves it.
       const shieldFront = currentX + CAR_WIDTH / 2 + SHIELD_WIDTH / 2;
-      const shieldBack = currentX + CAR_WIDTH / 2 - SHIELD_WIDTH / 2;
-      if (shieldFront >= GATE_E && shieldBack <= GATE_E) {
-        const v_gate = Math.sqrt(2 * ACCELERATION * (GATE_E - 20));
-        const dt = (SHIELD_WIDTH/2) / v_gate; // d = 20mm -> 20/v_gate = (40/2)/v_gate
-        setTimerValue(dt);
+      if (shieldFront >= GATE_E) {
+        const xBlocked = GATE_E - CAR_WIDTH / 2 - SHIELD_WIDTH / 2;
+        const xCleared = GATE_E - CAR_WIDTH / 2 + SHIELD_WIDTH / 2;
+        setTimerValue(timeToReach(xCleared) - timeToReach(xBlocked));
       }
-    } 
-    // Mode 'avg': time from Gate E to Gate F
-    else {
-      // We consider the center of the car hitting the gate
+    } else {
+      // Two gates: the car's centre starts the clock at E and stops it at F.
       const center = currentX + CAR_WIDTH / 2;
       if (center >= GATE_F) {
-        // Time at E: t_E = sqrt(2 * (GATE_E - 20) / a)
-        // Time at F: t_F = sqrt(2 * (GATE_F - 20) / a)
-        const t_E = Math.sqrt(2 * (GATE_E - 20) / ACCELERATION);
-        const t_F = Math.sqrt(2 * (GATE_F - 20) / ACCELERATION);
-        setTimerValue(t_F - t_E);
-      } else if (center >= GATE_E && center < GATE_F) {
-        // While between gates, show 0 or running time? Just show --- until F is crossed
+        setTimerValue(timeToReach(GATE_F - CAR_WIDTH / 2) - timeToReach(GATE_E - CAR_WIDTH / 2));
       }
     }
 
@@ -85,10 +80,6 @@ export const PhotogateSim = () => {
   };
 
   useEffect(() => {
-    handleReset();
-  }, [mode, slowMo]);
-
-  useEffect(() => {
     return () => {
       if (requestRef.current) cancelLessonFrame(requestRef.current);
     };
@@ -104,7 +95,7 @@ export const PhotogateSim = () => {
         <div className="flex flex-wrap gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-200">
           <select 
             value={mode} 
-            onChange={e => setMode(e.target.value as any)}
+            onChange={e => { handleReset(); setMode(e.target.value as 'avg' | 'inst'); }}
             disabled={isPlaying}
             className="bg-white border border-slate-300 text-slate-700 text-sm rounded-lg px-3 py-2 outline-none focus:border-blue-500"
           >
@@ -113,7 +104,7 @@ export const PhotogateSim = () => {
           </select>
           
           <label className="flex items-center gap-2 text-sm font-bold text-slate-600 bg-white px-3 py-2 border border-slate-300 rounded-lg cursor-pointer hover:bg-slate-50">
-            <input type="checkbox" checked={slowMo} onChange={() => setSlowMo(!slowMo)} disabled={isPlaying} className="w-4 h-4 accent-blue-600" />
+            <input type="checkbox" checked={slowMo} onChange={() => { handleReset(); setSlowMo(!slowMo); }} disabled={isPlaying} className="w-4 h-4 accent-blue-600" />
             Tua chậm 0.25x
           </label>
 
@@ -145,7 +136,8 @@ export const PhotogateSim = () => {
             <div className="absolute top-2 w-full h-1 bg-slate-500"></div>
             
             {/* Photogate E */}
-            <div className="absolute bottom-8" style={{ left: `${GATE_E + 20}px` }}>
+            {/* Gate box is 40 px wide; its beam centre sits ~19 px from the left edge, on the ruler mark. */}
+            <div className="absolute bottom-8" style={{ left: `${GATE_E - 19}px` }}>
               <div className="text-xs font-bold text-slate-600 mb-1 ml-1 text-center bg-white/80 rounded px-1 w-max absolute -top-6 left-0">Cổng E</div>
               <div className="w-10 h-24 border-[5px] border-b-0 border-yellow-500 rounded-t-xl relative bg-yellow-500/10 shadow-lg">
                 <div className="absolute top-[60px] left-1 w-7 h-[2px] bg-red-500/50 shadow-[0_0_8px_2px_rgba(239,68,68,0.5)]"></div>
@@ -154,7 +146,7 @@ export const PhotogateSim = () => {
 
             {/* Photogate F */}
             {mode === 'avg' && (
-              <div className="absolute bottom-8" style={{ left: `${GATE_F + 20}px` }}>
+              <div className="absolute bottom-8" style={{ left: `${GATE_F - 19}px` }}>
                 <div className="text-xs font-bold text-slate-600 mb-1 ml-1 text-center bg-white/80 rounded px-1 w-max absolute -top-6 left-0">Cổng F</div>
                 <div className="w-10 h-24 border-[5px] border-b-0 border-yellow-500 rounded-t-xl relative bg-yellow-500/10 shadow-lg">
                   <div className="absolute top-[60px] left-1 w-7 h-[2px] bg-red-500/50 shadow-[0_0_8px_2px_rgba(239,68,68,0.5)]"></div>
@@ -165,7 +157,7 @@ export const PhotogateSim = () => {
             {/* Car */}
             <div 
               className="absolute bottom-8 transition-transform z-10 w-[60px]"
-              style={{ left: `${carX + 20}px` }}
+              style={{ left: `${carX}px` }}
             >
               {/* Shield (Bản chắn sáng) - 40px width represents 20mm */}
               {mode === 'inst' && (

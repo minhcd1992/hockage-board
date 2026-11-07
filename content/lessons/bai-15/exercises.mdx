@@ -1,0 +1,573 @@
+import styles from './components/Lesson15Workbook.module.css'
+import { FrustumDiagram } from './components/Lesson15ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 15 — Áp suất chất lưu và ứng dụng">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Coi chất lỏng không nén được và đứng yên, trừ khi đề nói khác. Các ý ghi "mở rộng" vượt chương trình lớp 10.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-15-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Áp suất do áp lực "}<Math inline>{"F"}</Math>{" tác dụng vuông góc lên diện tích "}<Math inline>{"S"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"p=FS"}</Math>{"."}</>,
+    <><Math inline>{"p=F/S"}</Math>{"."}</>,
+    <><Math inline>{"p=S/F"}</Math>{"."}</>,
+    <><Math inline>{"p=FS^2"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Định nghĩa áp suất."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Đơn vị SI của áp suất là"}</>}
+  options={[
+    <>{"niutơn (N)."}</>,
+    <>{"jun (J)."}</>,
+    <>{"paxcan (Pa), tức "}<Math inline>{"\\mathrm{N/m^2}"}</Math>{"."}</>,
+    <>{"oát (W)."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"1\\,\\mathrm{Pa}=1\\,\\mathrm{N/m^2}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-003"
+  question={<>{"Câu 3 (Nhận biết). Áp suất tại độ sâu "}<Math inline>{"h"}</Math>{" trong chất lỏng khối lượng riêng "}<Math inline>{"\\rho"}</Math>{", áp suất ở mặt thoáng "}<Math inline>{"p_0"}</Math>{", là"}</>}
+  options={[
+    <><Math inline>{"p=p_0+\\rho gh"}</Math>{"."}</>,
+    <><Math inline>{"p=p_0-\\rho gh"}</Math>{"."}</>,
+    <><Math inline>{"p=\\rho gh"}</Math>{"."}</>,
+    <><Math inline>{"p=p_0+\\dfrac{\\rho g}{h}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Phương trình cơ bản của chất lỏng đứng yên."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-004"
+  question={<>{"Câu 4 (Nhận biết). Định luật Pascal phát biểu rằng"}</>}
+  options={[
+    <>{"áp suất giảm dần theo khoảng cách truyền trong chất lỏng."}</>,
+    <>{"áp suất bị nén lại tại chỗ tác dụng."}</>,
+    <>{"độ tăng áp suất lên chất lỏng trong bình kín được truyền nguyên vẹn đến mọi điểm của chất lỏng."}</>,
+    <>{"áp suất chất lỏng chỉ truyền theo phương thẳng đứng."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Phát biểu định luật Pascal."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-005"
+  question={<>{"Câu 5 (Nhận biết). Máy nén thủy lực hoạt động dựa trên"}</>}
+  options={[
+    <>{"định luật Hooke."}</>,
+    <>{"định luật Archimedes."}</>,
+    <>{"định luật Pascal."}</>,
+    <>{"định luật bảo toàn động lượng."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Áp suất truyền nguyên vẹn từ pittông nhỏ sang pittông lớn."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-006"
+  question={<>{"Câu 6 (Thông hiểu). Máy nén thủy lực có hai pittông "}<Math inline>{"S_1<S_2"}</Math>{". Liên hệ đúng giữa lực tác dụng "}<Math inline>{"F_1"}</Math>{" và lực nâng "}<Math inline>{"F_2"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"F_2/F_1=S_1/S_2"}</Math>{"."}</>,
+    <><Math inline>{"F_2/F_1=S_2/S_1"}</Math>{"."}</>,
+    <><Math inline>{"F_1F_2=S_1S_2"}</Math>{"."}</>,
+    <><Math inline>{"F_2-F_1=S_2-S_1"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_1/S_1=F_2/S_2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-007"
+  question={<>{"Câu 7 (Nhận biết). Thí nghiệm Torricelli dùng để đo"}</>}
+  options={[
+    <>{"khối lượng riêng của nước."}</>,
+    <>{"áp suất khí quyển."}</>,
+    <>{"lực đẩy Archimedes."}</>,
+    <>{"gia tốc rơi tự do."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Chiều cao cột thủy ngân cho biết áp suất khí quyển."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-008"
+  question={<>{"Câu 8 (Nhận biết). Áp suất khí quyển chuẩn tương ứng với cột thủy ngân cao"}</>}
+  options={[
+    <><Math inline>{"76\\,\\mathrm{mm}"}</Math>{"."}</>,
+    <><Math inline>{"760\\,\\mathrm{mm}"}</Math>{" (khoảng "}<Math inline>{"1{,}013\\times10^5\\,\\mathrm{Pa}"}</Math>{")."}</>,
+    <><Math inline>{"10\\,\\mathrm{mm}"}</Math>{"."}</>,
+    <><Math inline>{"7{,}6\\,\\mathrm m"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"1\\,\\mathrm{atm}=760\\,\\mathrm{mmHg}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-009"
+  question={<>{"Câu 9 (Nhận biết). Lực đẩy Archimedes lên vật nhúng trong chất lỏng có"}</>}
+  options={[
+    <>{"phương thẳng đứng, chiều từ trên xuống."}</>,
+    <>{"phương thẳng đứng, chiều từ dưới lên."}</>,
+    <>{"phương nằm ngang."}</>,
+    <>{"phương vuông góc với thành bình."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Áp suất ở mặt dưới lớn hơn ở mặt trên."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-010"
+  question={<>{"Câu 10 (Nhận biết). Độ lớn lực đẩy Archimedes bằng"}</>}
+  options={[
+    <>{"trọng lượng của vật."}</>,
+    <>{"trọng lượng của phần chất lưu bị vật chiếm chỗ."}</>,
+    <>{"khối lượng chất lỏng trong bình."}</>,
+    <>{"áp lực lên mặt trên của vật."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Định luật Archimedes."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu). Vật đặc đồng chất nổi được một phần trên mặt chất lỏng khi"}</>}
+  options={[
+    <><Math inline>{"\\rho_{\\text{vật}}>\\rho_{\\text{lỏng}}"}</Math>{"."}</>,
+    <><Math inline>{"\\rho_{\\text{vật}}=\\rho_{\\text{lỏng}}"}</Math>{"."}</>,
+    <><Math inline>{"\\rho_{\\text{vật}}<\\rho_{\\text{lỏng}}"}</Math>{"."}</>,
+    <>{"không phụ thuộc khối lượng riêng."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Khi đó lực đẩy lúc vật chìm hoàn toàn lớn hơn trọng lượng."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-012"
+  question={<>{"Câu 12 (Thông hiểu). Khi vật nổi cân bằng trên mặt chất lỏng, lực đẩy Archimedes"}</>}
+  options={[
+    <>{"bằng trọng lượng vật."}</>,
+    <>{"lớn hơn trọng lượng vật."}</>,
+    <>{"nhỏ hơn trọng lượng vật."}</>,
+    <>{"bằng 0."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Vật cân bằng nên hai lực bằng nhau."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-013"
+  question={<>{"Câu 13 (Nhận biết). Áp suất dư tại độ sâu "}<Math inline>{"h"}</Math>{" trong chất lỏng là"}</>}
+  options={[
+    <><Math inline>{"p_0"}</Math>{"."}</>,
+    <><Math inline>{"\\rho gh"}</Math>{"."}</>,
+    <><Math inline>{"p_0+\\rho gh"}</Math>{"."}</>,
+    <><Math inline>{"\\dfrac{p_0}{\\rho gh}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"p_{\\text{dư}}=p-p_0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-014"
+  question={<>{"Câu 14 (Thông hiểu). Để làm việc ở độ sâu hàng trăm mét dưới biển, người ta phải dùng bộ đồ lặn cứng hoặc tàu lặn có vỏ rất chắc, chủ yếu vì"}</>}
+  options={[
+    <>{"nước lạnh."}</>,
+    <>{"áp suất của nước biển ở độ sâu đó rất lớn."}</>,
+    <>{"cần tăng lực đẩy Archimedes."}</>,
+    <>{"cần giảm ma sát với nước."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Cứ sâu thêm khoảng 10 m, áp suất tăng khoảng 1 atm."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-015"
+  question={<>{"Câu 15 (Thông hiểu). Phát biểu nào SAI?"}</>}
+  options={[
+    <>{"Áp suất chất lỏng tác dụng theo mọi hướng lên vật đặt trong nó."}</>,
+    <>{"Các điểm cùng một mặt phẳng ngang trong chất lỏng đứng yên, đồng chất có cùng áp suất."}</>,
+    <>{"Áp suất chất lỏng giảm dần khi xuống sâu."}</>,
+    <>{"Áp suất khí quyển giảm khi lên cao."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Áp suất tăng theo độ sâu."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-016"
+  question={<>{"Câu 16 (Thông hiểu). Ta uống được sữa bằng ống hút là nhờ"}</>}
+  options={[
+    <>{"áp suất trong miệng lớn hơn áp suất khí quyển."}</>,
+    <>{"áp suất khí quyển lên mặt sữa trong hộp lớn hơn áp suất (đã giảm) trong miệng, đẩy sữa lên."}</>,
+    <>{"lưỡi kéo trực tiếp cột sữa."}</>,
+    <>{"lực đẩy Archimedes của không khí."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Miệng chỉ làm giảm áp suất trong ống."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-017"
+  question={<>{"Câu 17 (Thông hiểu). Hai bình trụ có đáy "}<Math inline>{"S_1=2S_2"}</Math>{" chứa nước cùng độ cao "}<Math inline>{"h"}</Math>{". Tỉ số áp suất ở đáy "}<Math inline>{"p_1/p_2"}</Math>{" là"}</>}
+  options={[
+    <>{"2."}</>,
+    <>{"0,5."}</>,
+    <>{"1."}</>,
+    <>{"4."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Áp suất chỉ phụ thuộc độ sâu."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-018"
+  question={<>{"Câu 18 (Thông hiểu). Với hai bình trên, tỉ số áp lực của nước lên đáy "}<Math inline>{"F_1/F_2"}</Math>{" là"}</>}
+  options={[
+    <>{"1."}</>,
+    <>{"2."}</>,
+    <>{"0,5."}</>,
+    <>{"4."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F=pS"}</Math>{", cùng "}<Math inline>{"p"}</Math>{" nên tỉ lệ với "}<Math inline>{"S"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-019"
+  question={<>{"Câu 19 (Thông hiểu). Viên bi sắt và viên bi gỗ có cùng thể tích, cùng bị nhúng chìm hoàn toàn trong nước. Lực đẩy Archimedes lên hai viên"}</>}
+  options={[
+    <>{"lên bi sắt lớn hơn."}</>,
+    <>{"lên bi gỗ lớn hơn."}</>,
+    <>{"bằng nhau."}</>,
+    <>{"không so sánh được."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Cùng thể tích chiếm chỗ."}</>}
+/>
+
+<Quiz
+  id="bai-15-sbt-020"
+  question={<>{"Câu 20 (Thông hiểu). Tàu ngầm đang lặn muốn nổi lên thì"}</>}
+  options={[
+    <>{"bơm thêm nước vào khoang dằn."}</>,
+    <>{"dùng khí nén đẩy nước ra khỏi khoang dằn, làm giảm trọng lượng của tàu."}</>,
+    <>{"tăng công suất chân vịt đẩy tàu xuống."}</>,
+    <>{"thả thêm vật nặng."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lực đẩy không đổi, trọng lượng giảm."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-15-sbt-021"
+  question={<>{"Câu 21. Chất lỏng đồng chất khối lượng riêng "}<Math inline>{"\\rho"}</Math>{" đứng yên trong bình hở, áp suất ở mặt thoáng "}<Math inline>{"p_0"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Áp suất tuyệt đối "}<Math inline>{"p"}</Math>{" tại độ sâu "}<Math inline>{"h"}</Math>{" tỉ lệ thuận với "}<Math inline>{"h"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"p=p_0+\\rho gh"}</Math>{" tăng tuyến tính nhưng không tỉ lệ thuận với "}<Math inline>{"h"}</Math>{" (khi "}<Math inline>{"h=0"}</Math>{" thì "}<Math inline>{"p=p_0\\neq0"}</Math>{"). Chỉ áp suất dư "}<Math inline>{"\\rho gh"}</Math>{" mới tỉ lệ thuận với "}<Math inline>{"h"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Áp suất dư "}<Math inline>{"\\rho gh"}</Math>{" phụ thuộc hình dạng bình chứa."}</>, isTrue: false, explanation: <>{"Chỉ phụ thuộc "}<Math inline>{"\\rho"}</Math>{", "}<Math inline>{"g"}</Math>{", "}<Math inline>{"h"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Áp lực lên đáy phẳng nằm ngang diện tích "}<Math inline>{"S"}</Math>{" là "}<Math inline>{"(p_0+\\rho gh)S"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F=pS"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Mở rộng: đặt bình trong thang máy đang chuyển động nhanh dần đi lên với gia tốc "}<Math inline>{"a"}</Math>{" thì áp suất dư ở độ sâu "}<Math inline>{"h"}</Math>{" là "}<Math inline>{"\\rho(g+a)h"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cột chất lỏng có gia tốc "}<Math inline>{"a"}</Math>{": "}<Math inline>{"pS-p_0S-mg=ma"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-022"
+  question={<>{"Câu 22. Thí nghiệm Torricelli với ống thủy ngân."}</>}
+  statements={[
+    { id: 'a', text: <>{"Chiều cao cột thủy ngân phụ thuộc đường kính trong của ống."}</>, isTrue: false, explanation: <>{"Áp suất chỉ phụ thuộc độ cao thẳng đứng."}</> },
+    { id: 'b', text: <>{"Phía trên cột thủy ngân là chân không (chỉ có rất ít hơi thủy ngân)."}</>, isTrue: true, explanation: <>{"Gọi là chân không Torricelli."}</> },
+    { id: 'c', text: <>{"Nghiêng ống thì cột thủy ngân trong ống dài ra, nhưng độ cao thẳng đứng của nó so với mặt thủy ngân trong chậu không đổi."}</>, isTrue: true, explanation: <><Math inline>{"p_0=\\rho gh"}</Math>{" với "}<Math inline>{"h"}</Math>{" là độ cao thẳng đứng."}</> },
+    { id: 'd', text: <>{"Làm thủng một lỗ nhỏ ở đỉnh ống thì thủy ngân phun ra ngoài qua lỗ."}</>, isTrue: false, explanation: <>{"Không khí lọt vào, áp suất trên cột bằng "}<Math inline>{"p_0"}</Math>{", thủy ngân tụt xuống ngang mặt thủy ngân trong chậu."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-023"
+  question={<>{"Câu 23. Kích thủy lực có "}<Math inline>{"S_2=100S_1"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tác dụng "}<Math inline>{"F_1=250\\,\\mathrm N"}</Math>{" lên pittông nhỏ thì lực nâng là "}<Math inline>{"25\\,000\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F_2=100F_1"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Đoạn dịch chuyển của pittông lớn bằng 1/100 đoạn dịch chuyển của pittông nhỏ."}</>, isTrue: true, explanation: <><Math inline>{"S_1s_1=S_2s_2"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Công của lực "}<Math inline>{"F_1"}</Math>{" lớn hơn công nhận được ở pittông lớn nhờ lực được khuếch đại."}</>, isTrue: false, explanation: <>{"Hai công bằng nhau (bỏ qua ma sát)."}</> },
+    { id: 'd', text: <>{"Kích thủy lực vi phạm định luật bảo toàn năng lượng vì tạo ra lực lớn gấp 100 lần."}</>, isTrue: false, explanation: <>{"Lợi về lực nhưng thiệt về đường đi."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-024"
+  question={<>{"Câu 24. Ba bình cùng diện tích đáy: bình 1 hình trụ, bình 2 loe miệng, bình 3 thu hẹp miệng, cùng chứa nước đến độ cao "}<Math inline>{"h"}</Math>{" (Hình 15.2 ở phần lý thuyết)."}</>}
+  statements={[
+    { id: 'a', text: <>{"Trọng lượng nước trong các bình: "}<Math inline>{"P_2>P_1>P_3"}</Math>{"."}</>, isTrue: true, explanation: <>{"Bình loe chứa nhiều nước nhất."}</> },
+    { id: 'b', text: <>{"Áp suất ở đáy ba bình bằng nhau: "}<Math inline>{"p_0+\\rho gh"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cùng độ sâu."}</> },
+    { id: 'c', text: <>{"Áp lực của nước lên đáy bình 2 lớn hơn lên đáy bình 1 vì bình 2 chứa nhiều nước hơn."}</>, isTrue: false, explanation: <>{"Cùng áp suất, cùng diện tích đáy nên cùng áp lực."}</> },
+    { id: 'd', text: <>{"Hiện tượng áp lực lên đáy bằng nhau dù trọng lượng nước khác nhau gọi là nghịch lý thủy tĩnh."}</>, isTrue: true, explanation: <>{"Thành bình nghiêng đỡ bớt hoặc ép thêm lên nước."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-025"
+  question={<>{"Câu 25. Khối gỗ hình hộp, đáy "}<Math inline>{"A"}</Math>{", cao "}<Math inline>{"H"}</Math>{", khối lượng riêng "}<Math inline>{"\\rho_g"}</Math>{", nổi thẳng đứng trong nước khối lượng riêng "}<Math inline>{"\\rho_n>\\rho_g"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Chiều cao phần chìm là "}<Math inline>{"H\\rho_g/\\rho_n"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\rho_ngAh=\\rho_ggAH"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Khi khối gỗ nổi cân bằng, lực đẩy Archimedes lớn hơn trọng lượng của nó."}</>, isTrue: false, explanation: <>{"Hai lực bằng nhau khi cân bằng."}</> },
+    { id: 'c', text: <>{"Ấn khối gỗ chìm thêm một chút rồi thả ra, nó dao động lên xuống quanh vị trí cân bằng."}</>, isTrue: true, explanation: <>{"Lực đẩy tăng thêm đóng vai trò lực kéo về."}</> },
+    { id: 'd', text: <>{"Đổ một lớp dầu nhẹ phủ kín phần nổi của khối gỗ thì phần chìm trong nước giảm."}</>, isTrue: true, explanation: <>{"Dầu cũng tác dụng lực đẩy lên phần gỗ nằm trong dầu."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-026"
+  question={<>{"Câu 26. Nguồn gốc của lực đẩy Archimedes."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lực đẩy Archimedes là hợp lực của các áp lực chất lưu lên toàn bộ bề mặt vật."}</>, isTrue: true, explanation: <>{"Đúng."}</> },
+    { id: 'b', text: <>{"Lực đẩy Archimedes xuất hiện vì áp suất ở mặt dưới vật lớn hơn ở mặt trên."}</>, isTrue: true, explanation: <>{"Do áp suất tăng theo độ sâu."}</> },
+    { id: 'c', text: <>{"Trong trạng thái không trọng lượng (bình nước và vật cùng rơi tự do), lực đẩy Archimedes bằng 0."}</>, isTrue: true, explanation: <>{"Khi đó áp suất trong chất lỏng không tăng theo độ sâu."}</> },
+    { id: 'd', text: <>{"Lực đẩy Archimedes chỉ có trong chất lỏng, không có trong chất khí."}</>, isTrue: false, explanation: <>{"Khí cầu bay được nhờ lực đẩy của không khí."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-027"
+  question={<>{"Câu 27. Tàu ngầm lặn trong nước biển ("}<Math inline>{"\\rho=1030\\,\\mathrm{kg/m^3}"}</Math>{", "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{")."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tàu lặn càng sâu thì lực đẩy Archimedes càng lớn vì áp suất tăng."}</>, isTrue: false, explanation: <><Math inline>{"F_A=\\rho gV"}</Math>{" không phụ thuộc độ sâu (coi nước không nén được, vỏ tàu không biến dạng)."}</> },
+    { id: 'b', text: <>{"Áp lực của nước lên vỏ tàu vuông góc với bề mặt vỏ tại mọi điểm."}</>, isTrue: true, explanation: <>{"Chất lưu đứng yên chỉ tác dụng lực vuông góc lên bề mặt."}</> },
+    { id: 'c', text: <>{"Áp suất dư ở độ sâu "}<Math inline>{"500\\,\\mathrm m"}</Math>{" khoảng "}<Math inline>{"5{,}05\\,\\mathrm{MPa}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"1030\\times9{,}8\\times500\\approx5{,}05\\times10^6\\,\\mathrm{Pa}"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Xả bớt nước khỏi khoang dằn làm trọng lượng tàu giảm, giúp tàu nổi lên."}</>, isTrue: true, explanation: <>{"Lực đẩy không đổi."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-028"
+  question={<>{"Câu 28. Áp suất của chất khí và chất lỏng."}</>}
+  statements={[
+    { id: 'a', text: <>{"Áp suất khí quyển do trọng lượng của lớp không khí bao quanh Trái Đất gây ra."}</>, isTrue: true, explanation: <>{"Đúng."}</> },
+    { id: 'b', text: <>{"Mở rộng: càng lên cao, áp suất khí quyển giảm gần đúng theo hàm mũ của độ cao."}</>, isTrue: true, explanation: <>{"Vì không khí càng lên cao càng loãng (nếu coi nhiệt độ không đổi thì giảm đúng theo hàm mũ)."}</> },
+    { id: 'c', text: <>{"Chất khí dễ bị nén, còn chất lỏng thường được coi là không nén được."}</>, isTrue: true, explanation: <>{"Thể tích chất lỏng gần như không đổi khi tăng áp suất."}</> },
+    { id: 'd', text: <>{"Khí nén trong lốp ô tô chỉ tác dụng áp suất lên phần lốp tiếp xúc với mặt đường."}</>, isTrue: false, explanation: <>{"Khí tác dụng áp suất như nhau lên toàn bộ mặt trong của lốp."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-029"
+  question={<>{"Câu 29. Quả cầu kim loại rỗng, kín, thả vào chậu nước."}</>}
+  statements={[
+    { id: 'a', text: <>{"Nếu quả cầu lơ lửng trong nước thì khối lượng riêng trung bình của nó bằng khối lượng riêng của nước."}</>, isTrue: true, explanation: <><Math inline>{"m/V=\\rho_n"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Lực đẩy Archimedes lên quả cầu bằng trọng lượng nước có thể tích bằng riêng phần vỏ kim loại (không tính phần rỗng)."}</>, isTrue: false, explanation: <>{"Thể tích chiếm chỗ là toàn bộ thể tích ngoài của quả cầu."}</> },
+    { id: 'c', text: <>{"Nếu khoét lỗ cho nước tràn đầy phần rỗng thì quả cầu chìm xuống đáy."}</>, isTrue: true, explanation: <>{"Khi đó khối lượng riêng trung bình lớn hơn của nước vì kim loại nặng hơn nước."}</> },
+    { id: 'd', text: <>{"Mở rộng: điểm đặt của lực đẩy Archimedes là trọng tâm của phần chất lỏng bị chiếm chỗ (tâm đẩy)."}</>, isTrue: true, explanation: <>{"Với vật đồng chất chìm hoàn toàn, tâm đẩy trùng trọng tâm."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-15-sbt-030"
+  question={<>{"Câu 30. Dùng bơm tiêm (xilanh) hút thuốc từ lọ."}</>}
+  statements={[
+    { id: 'a', text: <>{"Kéo pittông ra làm thể tích khoảng trống trong xilanh tăng nên áp suất ở đó giảm."}</>, isTrue: true, explanation: <>{"Áp suất trong xilanh nhỏ hơn áp suất khí quyển."}</> },
+    { id: 'b', text: <>{"Áp suất khí quyển (truyền qua thuốc trong lọ) đẩy thuốc qua kim vào xilanh."}</>, isTrue: true, explanation: <>{"Chênh lệch áp suất đẩy chất lỏng."}</> },
+    { id: 'c', text: <>{"Bịt đầu kim rồi kéo pittông, ta thấy có lực kéo pittông trở lại; lực đó là \"lực hút của chân không\"."}</>, isTrue: false, explanation: <>{"Chân không không \"hút\". Đó là áp suất khí quyển ép lên mặt ngoài pittông mạnh hơn áp suất bên trong."}</> },
+    { id: 'd', text: <>{"Áp suất máu trong tĩnh mạch luôn nhỏ hơn áp suất khí quyển nên thuốc tự chảy vào khi cắm kim."}</>, isTrue: false, explanation: <>{"Áp suất máu lớn hơn áp suất khí quyển; phải đẩy pittông để bơm thuốc vào."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-15-sbt-031"
+  question={<>{"Câu 31. Ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" đứng trên 4 bánh, mỗi bánh tiếp xúc với mặt đường một diện tích "}<Math inline>{"250\\,\\mathrm{cm^2}"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính áp suất trung bình dưới mỗi bánh (kPa, làm tròn đến hàng đơn vị)."}</>}
+  answer="255"
+  explanation={<>{"Mỗi bánh chịu "}<Math inline>{"6370\\,\\mathrm N"}</Math>{"; "}<Math inline>{"p=\\dfrac{6370}{0{,}025}=254\\,800\\,\\mathrm{Pa}\\approx255\\,\\mathrm{kPa}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-032"
+  question={<>{"Câu 32. Thợ lặn ở độ sâu "}<Math inline>{"40\\,\\mathrm m"}</Math>{" dưới biển; "}<Math inline>{"\\rho=1030\\,\\mathrm{kg/m^3}"}</Math>{", "}<Math inline>{"p_0=1{,}01\\times10^5\\,\\mathrm{Pa}"}</Math>{", "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính áp suất tuyệt đối (kPa, làm tròn đến hàng đơn vị)."}</>}
+  answer="505"
+  explanation={<><Math inline>{"p=101\\,000+403\\,760\\approx505\\,\\mathrm{kPa}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-033"
+  question={<>{"Câu 33. Kích thủy lực có "}<Math inline>{"d_1=3\\,\\mathrm{cm}"}</Math>{", "}<Math inline>{"d_2=30\\,\\mathrm{cm}"}</Math>{"; lực ấn "}<Math inline>{"200\\,\\mathrm N"}</Math>{". Tính lực nâng (kN, làm tròn 1 chữ số thập phân)."}</>}
+  answer="20,0"
+  explanation={<><Math inline>{"S_2/S_1=100"}</Math>{"; "}<Math inline>{"F_2=20\\,000\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-034"
+  question={<>{"Câu 34. Ở nơi áp suất khí quyển ứng với cột thủy ngân "}<Math inline>{"760\\,\\mathrm{mm}"}</Math>{" ("}<Math inline>{"\\rho_{\\text{Hg}}=13\\,600\\,\\mathrm{kg/m^3}"}</Math>{"), nếu thay thủy ngân bằng rượu (cồn) có "}<Math inline>{"\\rho=800\\,\\mathrm{kg/m^3}"}</Math>{" thì cột rượu cao bao nhiêu (m, làm tròn 2 chữ số thập phân)?"}</>}
+  answer="12,92"
+  explanation={<><Math inline>{"h=\\dfrac{13\\,600\\times0{,}76}{800}=12{,}92\\,\\mathrm m"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-035"
+  question={<>{"Câu 35. Khối bê tông lập phương cạnh "}<Math inline>{"0{,}5\\,\\mathrm m"}</Math>{" chìm hoàn toàn trong nước ngọt; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực đẩy Archimedes (N)."}</>}
+  answer="1225"
+  explanation={<><Math inline>{"F_A=1000\\times9{,}8\\times0{,}125=1225\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-036"
+  question={<>{"Câu 36. Phao thể tích "}<Math inline>{"0{,}04\\,\\mathrm{m^3}"}</Math>{", khối lượng "}<Math inline>{"8\\,\\mathrm{kg}"}</Math>{" nổi trên nước. Tính phần trăm thể tích phao bị chìm (%)."}</>}
+  answer="20"
+  explanation={<><Math inline>{"V_{\\text{chìm}}=\\dfrac{m}{\\rho}=0{,}008\\,\\mathrm{m^3}"}</Math>{", tức "}<Math inline>{"20\\%"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-037"
+  question={<>{"Câu 37. Cửa sổ tròn bán kính "}<Math inline>{"15\\,\\mathrm{cm}"}</Math>{" của tàu ngầm ở độ sâu "}<Math inline>{"300\\,\\mathrm m"}</Math>{" ("}<Math inline>{"\\rho=1030\\,\\mathrm{kg/m^3}"}</Math>{", "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{"). Trong tàu có áp suất bằng áp suất khí quyển. Tính lực tổng hợp do chênh lệch áp suất tác dụng lên cửa sổ (kN, "}<Math inline>{"\\pi\\approx3{,}1416"}</Math>{", làm tròn đến hàng đơn vị)."}</>}
+  answer="214"
+  explanation={<><Math inline>{"\\rho gh=3{,}028\\times10^6\\,\\mathrm{Pa}"}</Math>{"; "}<Math inline>{"S\\approx0{,}0707\\,\\mathrm{m^2}"}</Math>{"; "}<Math inline>{"F\\approx214\\,\\mathrm{kN}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-038"
+  question={<>{"Câu 38. Dầu trong một xi-lanh thủy lực có áp suất dư "}<Math inline>{"15\\,\\mathrm{MPa}"}</Math>{" tác dụng lên pittông bán kính "}<Math inline>{"4\\,\\mathrm{cm}"}</Math>{". Tính lực ép của pittông (kN, "}<Math inline>{"\\pi\\approx3{,}1416"}</Math>{", làm tròn đến hàng đơn vị)."}</>}
+  answer="75"
+  explanation={<><Math inline>{"S\\approx5{,}03\\times10^{-3}\\,\\mathrm{m^2}"}</Math>{"; "}<Math inline>{"F\\approx75\\,400\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-039"
+  question={<>{"Câu 39. Sà lan hình hộp dài "}<Math inline>{"20\\,\\mathrm m"}</Math>{", rộng "}<Math inline>{"6\\,\\mathrm m"}</Math>{" trên sông. Chưa chở hàng thì chìm "}<Math inline>{"0{,}8\\,\\mathrm m"}</Math>{"; chở hàng thì chìm "}<Math inline>{"1{,}5\\,\\mathrm m"}</Math>{". Tính khối lượng hàng (tấn)."}</>}
+  answer="84"
+  explanation={<><Math inline>{"\\Delta V=20\\times6\\times0{,}7=84\\,\\mathrm{m^3}"}</Math>{"; "}<Math inline>{"m=\\rho\\Delta V=84\\,000\\,\\mathrm{kg}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-15-sbt-040"
+  question={<>{"Câu 40. Khối hợp kim vàng – bạc có khối lượng "}<Math inline>{"450\\,\\mathrm g"}</Math>{". Treo vào lực kế và nhúng chìm trong nước, lực kế chỉ "}<Math inline>{"4{,}018\\,\\mathrm N"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{"; "}<Math inline>{"\\rho_{\\text{vàng}}=19\\,300"}</Math>{", "}<Math inline>{"\\rho_{\\text{bạc}}=10\\,500\\,\\mathrm{kg/m^3}"}</Math>{". Tính khối lượng vàng trong hợp kim (g, làm tròn đến hàng đơn vị)."}</>}
+  answer="66"
+  explanation={<><Math inline>{"F_A=4{,}41-4{,}018=0{,}392\\,\\mathrm N\\Rightarrow V=4{,}0\\times10^{-5}\\,\\mathrm{m^3}=40\\,\\mathrm{cm^3}"}</Math>{". Khối lượng riêng trung bình "}<Math inline>{"11{,}25\\,\\mathrm{g/cm^3}"}</Math>{", gần với bạc, nên hợp kim chủ yếu là bạc. Giải "}<Math inline>{"\\dfrac{m_V}{19{,}3}+\\dfrac{450-m_V}{10{,}5}=40"}</Math>{" (khối lượng tính bằng g, thể tích bằng "}<Math inline>{"\\mathrm{cm^3}"}</Math>{"): "}<Math inline>{"m_V\\approx66\\,\\mathrm g"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-15-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Cầu nâng thủy lực
+
+Cầu nâng thủy lực nâng ô tô $M=2600\,\mathrm{kg}$. Xi-lanh nhỏ bán kính $1{,}5\,\mathrm{cm}$, xi-lanh lớn bán kính $15\,\mathrm{cm}$; bơm điện đẩy pittông nhỏ. $g=9{,}8\,\mathrm{m/s^2}$; bỏ qua ma sát và khối lượng pittông.
+
+1. Tính lực tối thiểu bơm phải tác dụng lên pittông nhỏ để nâng xe lên đều.
+2. Để nâng xe lên $1{,}8\,\mathrm m$, pittông nhỏ phải thực hiện bao nhiêu hành trình nén, mỗi hành trình đi $10\,\mathrm{cm}$? Tính công tối thiểu của bơm.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $\dfrac{S_2}{S_1}=\left(\dfrac{15}{1{,}5}\right)^2=100$; $F_2=Mg=25\,480\,\mathrm N$ nên $F_1=254{,}8\,\mathrm N$.
+
+**2.** Mỗi hành trình xe lên $0{,}1\,\mathrm{cm}$, nên $N=\dfrac{180}{0{,}1}=1800$ hành trình. Công tối thiểu bằng độ tăng thế năng của xe: $A=MgH=25\,480\times1{,}8\approx45\,900\,\mathrm J$ (cũng bằng $N\,F_1s_1=1800\times254{,}8\times0{,}1$).
+
+</details>
+</div>
+
+<div data-question-id="bai-15-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Khoang dằn của tàu ngầm
+
+Tàu ngầm có thể tích $V=2500\,\mathrm{m^3}$, khối lượng khi khoang dằn rỗng $M_0=2{,}0\times10^6\,\mathrm{kg}$, trong nước biển $\rho=1030\,\mathrm{kg/m^3}$; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Để tàu lơ lửng ở độ sâu $200\,\mathrm m$, khoang dằn phải chứa bao nhiêu mét khối nước biển?
+2. Đang lơ lửng, tàu dùng khí nén xả nhanh $150\,\mathrm{m^3}$ nước. Tính gia tốc nổi lên của tàu ngay lúc đó (bỏ qua lực cản của nước).
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Lơ lửng: $(M_0+m_w)g=\rho gV\Rightarrow m_w=1030\times2500-2{,}0\times10^6=575\,000\,\mathrm{kg}$, tức $V_w=\dfrac{575\,000}{1030}\approx558\,\mathrm{m^3}$. (Kết quả không phụ thuộc độ sâu.)
+
+**2.** Khối lượng nước xả ra $\Delta m=1030\times150=154\,500\,\mathrm{kg}$. Khối lượng tàu còn $M'=2\,575\,000-154\,500=2\,420\,500\,\mathrm{kg}$. Hợp lực hướng lên $F_A-M'g=\Delta m\,g\approx1{,}51\times10^6\,\mathrm N$, nên $a=\dfrac{\Delta m\,g}{M'}\approx0{,}63\,\mathrm{m/s^2}$.
+
+</details>
+</div>
+
+<div data-question-id="bai-15-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Nghịch lý thủy tĩnh trong bình nón cụt
+
+<FrustumDiagram />
+
+Bình hình nón cụt đặt thẳng đứng, bán kính đáy dưới $R_1=20\,\mathrm{cm}$, bán kính miệng $R_2=10\,\mathrm{cm}$, cao $h=40\,\mathrm{cm}$, chứa đầy nước. $p_0=1{,}01\times10^5\,\mathrm{Pa}$; $g=9{,}8\,\mathrm{m/s^2}$; $\pi\approx3{,}1416$.
+
+1. Tính áp suất tuyệt đối ở đáy bình, và áp lực **do nước** gây ra lên đáy (không kể phần do khí quyển).
+2. Tính thể tích $V=\tfrac13\pi h(R_1^2+R_2^2+R_1R_2)$ và trọng lượng nước trong bình. So sánh với kết quả câu 1 và giải thích.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $p=p_0+\rho gh=101\,000+3920=104\,920\,\mathrm{Pa}$. Đáy có $S=\pi R_1^2\approx0{,}1257\,\mathrm{m^2}$. Áp lực do nước: $\rho ghS=3920\times0{,}1257\approx493\,\mathrm N$. (Nếu tính cả khí quyển, $pS\approx13\,200\,\mathrm N$; nhưng phần $p_0S$ cũng có ở mặt dưới của đáy bình nên không dùng để so sánh với trọng lượng nước.)
+
+**2.** $V=\tfrac13\times3{,}1416\times0{,}4\times(0{,}04+0{,}01+0{,}02)\approx0{,}0293\,\mathrm{m^3}$; $P_n=\rho gV\approx287\,\mathrm N$.
+
+Áp lực do nước lên đáy ($493\,\mathrm N$) lớn hơn trọng lượng nước ($287\,\mathrm N$). Áp lực lên đáy bằng trọng lượng một cột nước hình trụ cùng đáy, cùng độ cao. Bình thu hẹp nên thành nghiêng ép xuống khối nước một lực có thành phần thẳng đứng $493-287\approx205\,\mathrm N$, đúng bằng trọng lượng phần nước "thiếu" so với hình trụ: $\rho g(\pi R_1^2h-V)\approx9800\times0{,}0209\approx205\,\mathrm N$. Đó là nghịch lý thủy tĩnh.
+
+</details>
+</div>
+
+<div data-question-id="bai-15-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Vương miện có phải vàng nguyên chất?
+
+Treo vương miện vào lực kế: trong không khí lực kế chỉ $28{,}42\,\mathrm N$; nhúng chìm trong nước chỉ $26{,}46\,\mathrm N$. $g=9{,}8\,\mathrm{m/s^2}$; $\rho_{\text{vàng}}=19\,300$, $\rho_{\text{đồng}}=8900\,\mathrm{kg/m^3}$; coi thể tích vương miện bằng tổng thể tích vàng và đồng.
+
+1. Tính thể tích và khối lượng riêng trung bình của vương miện.
+2. Tính phần trăm khối lượng vàng. Vương miện có phải vàng nguyên chất không?
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $F_A=28{,}42-26{,}46=1{,}96\,\mathrm N\Rightarrow V=\dfrac{F_A}{\rho_ng}=2{,}0\times10^{-4}\,\mathrm{m^3}=200\,\mathrm{cm^3}$. Khối lượng $m=\dfrac{28{,}42}{9{,}8}=2{,}9\,\mathrm{kg}$, nên $\rho_{tb}=14\,500\,\mathrm{kg/m^3}$, nhỏ hơn hẳn của vàng.
+
+**2.** Tính khối lượng theo g, thể tích theo $\mathrm{cm^3}$: $\dfrac{m_V}{19{,}3}+\dfrac{2900-m_V}{8{,}9}=200\Rightarrow m_V\approx2080\,\mathrm g$, tức khoảng $72\%$ khối lượng. Vương miện không phải vàng nguyên chất; nó chứa khoảng $28\%$ đồng.
+
+</details>
+</div>
+
+<div data-question-id="bai-15-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Khí cầu heli
+
+Khí cầu nghiên cứu thời tiết có thể tích $1200\,\mathrm{m^3}$, vỏ và giỏ nặng $300\,\mathrm{kg}$, chứa đầy heli $\rho_{\text{He}}=0{,}18\,\mathrm{kg/m^3}$; không khí bên ngoài $\rho_{\text{kk}}=1{,}29\,\mathrm{kg/m^3}$; $g=9{,}8\,\mathrm{m/s^2}$. Bỏ qua thể tích của vỏ, giỏ và thiết bị.
+
+1. Tính lực đẩy Archimedes của không khí và trọng lượng của khí cầu (vỏ, giỏ, heli).
+2. Tính khối lượng thiết bị lớn nhất mà khí cầu mang được để vẫn cất cánh.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $F_A=1{,}29\times9{,}8\times1200\approx15\,170\,\mathrm N$. Khối lượng heli $216\,\mathrm{kg}$; tổng $516\,\mathrm{kg}$, trọng lượng $\approx5057\,\mathrm N$.
+
+**2.** Cất cánh khi $(516+m)g<F_A$: $m<\dfrac{F_A}{g}-516=1548-516=1032\,\mathrm{kg}$. Vậy mang được tối đa gần $1032\,\mathrm{kg}$ (đúng bằng giá trị này thì khí cầu chỉ lơ lửng).
+
+</details>
+</div>
+
+</Section>
+
+</div>

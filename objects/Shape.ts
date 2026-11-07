@@ -451,8 +451,8 @@ export class Shape extends BoardObject {
     const len2 = Math.hypot(dx2, dy2);
     const theta2 = Math.atan2(dy2, dx2);
 
-    let diff = theta2 - theta1;
-    let sweep = ((diff % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+    const diff = theta2 - theta1;
+    const sweep = ((diff % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
 
     let r = this.angleRadius ?? 28;
     if (len1 > 2 && len2 > 2) {
@@ -939,8 +939,8 @@ export class Shape extends BoardObject {
       const { V, theta1, sweep, r } = geom;
       const dist = Math.hypot(p.x - V.x, p.y - V.y);
       const angle = Math.atan2(p.y - V.y, p.x - V.x);
-      let angleDiff = angle - theta1;
-      let normSweep = ((angleDiff % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
+      const angleDiff = angle - theta1;
+      const normSweep = ((angleDiff % (Math.PI * 2)) + Math.PI * 3) % (Math.PI * 2) - Math.PI;
       const onSweep = sweep > 0 ? (normSweep >= -0.15 && normSweep <= sweep + 0.15) : (normSweep <= 0.15 && normSweep >= sweep - 0.15);
       if (onSweep) {
         if (Math.abs(dist - r) <= threshold + 4) return true;

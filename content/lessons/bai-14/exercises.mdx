@@ -1,0 +1,581 @@
+import styles from './components/Lesson14Workbook.module.css'
+import { MixedSpringDiagram, InclineSpringsDiagram } from './components/Lesson14ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 14 — Biến dạng của vật rắn và định luật Hooke">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Các câu ghi "mở rộng" dùng ứng suất, suất đàn hồi hoặc ghép lò xo, là kiến thức nâng cao so với chương trình lớp 10. Lò xo coi là nhẹ và làm việc trong giới hạn đàn hồi, trừ khi đề nói khác.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-14-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Biến dạng đàn hồi của vật rắn là biến dạng mà"}</>}
+  options={[
+    <>{"khi thôi tác dụng lực, vật trở lại hoàn toàn hình dạng và kích thước ban đầu."}</>,
+    <>{"vật bị móp méo vĩnh viễn."}</>,
+    <>{"chiều dài của vật luôn tăng lên."}</>,
+    <>{"vật bị gãy ngay khi có lực tác dụng."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Định nghĩa biến dạng đàn hồi."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Lực đàn hồi ở hai đầu một lò xo bị biến dạng có chiều"}</>}
+  options={[
+    <>{"cùng chiều biến dạng của lò xo."}</>,
+    <>{"ngược chiều biến dạng của lò xo."}</>,
+    <>{"vuông góc với trục lò xo."}</>,
+    <>{"luôn thẳng đứng hướng lên."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lực đàn hồi chống lại sự biến dạng."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-003"
+  question={<>{"Câu 3 (Nhận biết). Theo định luật Hooke, trong giới hạn đàn hồi, độ lớn lực đàn hồi của lò xo"}</>}
+  options={[
+    <>{"tỉ lệ nghịch với độ biến dạng."}</>,
+    <>{"tỉ lệ thuận với độ biến dạng."}</>,
+    <>{"tỉ lệ thuận với bình phương độ biến dạng."}</>,
+    <>{"không phụ thuộc độ biến dạng."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_{\\text{đh}}=k|\\Delta L|"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-004"
+  question={<>{"Câu 4 (Thông hiểu). Lò xo có "}<Math inline>{"k=100\\,\\mathrm{N/m}"}</Math>{", "}<Math inline>{"L_0=20\\,\\mathrm{cm}"}</Math>{", bị kéo bằng lực "}<Math inline>{"5\\,\\mathrm N"}</Math>{". Chiều dài lò xo là"}</>}
+  options={[
+    <><Math inline>{"25\\,\\mathrm{cm}"}</Math>{"."}</>,
+    <><Math inline>{"15\\,\\mathrm{cm}"}</Math>{"."}</>,
+    <><Math inline>{"5\\,\\mathrm{cm}"}</Math>{"."}</>,
+    <><Math inline>{"30\\,\\mathrm{cm}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\Delta L=5/100=0{,}05\\,\\mathrm m"}</Math>{"; "}<Math inline>{"L=20+5=25\\,\\mathrm{cm}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-005"
+  question={<>{"Câu 5 (Nhận biết). Đơn vị của độ cứng lò xo trong hệ SI là"}</>}
+  options={[
+    <><Math inline>{"\\mathrm{N\\cdot m}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{Pa}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"k=F/|\\Delta L|"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-006"
+  question={<>{"Câu 6 (Thông hiểu). Treo vật "}<Math inline>{"200\\,\\mathrm g"}</Math>{" vào lò xo thẳng đứng thì lò xo dãn "}<Math inline>{"2\\,\\mathrm{cm}"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Độ cứng của lò xo là"}</>}
+  options={[
+    <><Math inline>{"10\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"100\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"1000\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"50\\,\\mathrm{N/m}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"k=\\dfrac{mg}{\\Delta L}=\\dfrac{2}{0{,}02}=100\\,\\mathrm{N/m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-007"
+  question={<>{"Câu 7 (Nhận biết). Giới hạn đàn hồi của một lò xo là"}</>}
+  options={[
+    <>{"chiều dài lớn nhất lò xo có thể đạt được."}</>,
+    <>{"giới hạn của lực (hay độ biến dạng) mà trong đó lò xo còn giữ được tính đàn hồi."}</>,
+    <>{"lực làm lò xo đứt ngay lập tức."}</>,
+    <>{"tốc độ biến dạng lớn nhất."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Vượt giới hạn này lò xo bị biến dạng dẻo."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-008"
+  question={<>{"Câu 8 (Thông hiểu). Lò xo bị nén "}<Math inline>{"3\\,\\mathrm{cm}"}</Math>{" thì lực đàn hồi là "}<Math inline>{"6\\,\\mathrm N"}</Math>{". Nén "}<Math inline>{"5\\,\\mathrm{cm}"}</Math>{" (trong giới hạn đàn hồi) thì lực đàn hồi là"}</>}
+  options={[
+    <><Math inline>{"10\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"3{,}6\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"15\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"2\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"k=200\\,\\mathrm{N/m}"}</Math>{"; "}<Math inline>{"F=200\\times0{,}05=10\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Trong giới hạn đàn hồi, đồ thị "}<Math inline>{"F_{\\text{đh}}"}</Math>{" theo "}<Math inline>{"|\\Delta L|"}</Math>{" là"}</>}
+  options={[
+    <>{"đường parabol qua gốc tọa độ."}</>,
+    <>{"đường thẳng qua gốc tọa độ."}</>,
+    <>{"đường thẳng song song trục hoành."}</>,
+    <>{"đường hypebol."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Hai đại lượng tỉ lệ thuận."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-010"
+  question={<>{"Câu 10 (Thông hiểu, mở rộng). Hai lò xo "}<Math inline>{"k_1=60\\,\\mathrm{N/m}"}</Math>{", "}<Math inline>{"k_2=40\\,\\mathrm{N/m}"}</Math>{" ghép song song. Độ cứng tương đương là"}</>}
+  options={[
+    <><Math inline>{"24\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"100\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"20\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"50\\,\\mathrm{N/m}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"k_{\\text{tđ}}=k_1+k_2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu, mở rộng). Hai lò xo trên ghép nối tiếp. Độ cứng tương đương là"}</>}
+  options={[
+    <><Math inline>{"24\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"100\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"20\\,\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"50\\,\\mathrm{N/m}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\dfrac{60\\times40}{100}=24\\,\\mathrm{N/m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-012"
+  question={<>{"Câu 12 (Nhận biết, mở rộng). Ứng suất kéo của một thanh được tính bằng"}</>}
+  options={[
+    <><Math inline>{"\\sigma=FS"}</Math>{"."}</>,
+    <><Math inline>{"\\sigma=F/S"}</Math>{"."}</>,
+    <><Math inline>{"\\sigma=S/F"}</Math>{"."}</>,
+    <><Math inline>{"\\sigma=ES"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lực trên một đơn vị diện tích tiết diện."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-013"
+  question={<>{"Câu 13 (Nhận biết, mở rộng). Đơn vị của suất đàn hồi (môđun Young) là"}</>}
+  options={[
+    <><Math inline>{"\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{N/m^2}"}</Math>{" (Pa)."}</>,
+    <><Math inline>{"\\mathrm J"}</Math>{"."}</>,
+    <>{"không có đơn vị."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"E=\\sigma/\\varepsilon"}</Math>{", mà "}<Math inline>{"\\varepsilon"}</Math>{" không có đơn vị."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-014"
+  question={<>{"Câu 14 (Thông hiểu, mở rộng). Thanh thép dài "}<Math inline>{"2\\,\\mathrm m"}</Math>{" bị kéo dãn thêm "}<Math inline>{"1\\,\\mathrm{mm}"}</Math>{". Biến dạng tỉ đối là"}</>}
+  options={[
+    <><Math inline>{"5\\times10^{-4}"}</Math>{"."}</>,
+    <><Math inline>{"2\\times10^{-3}"}</Math>{"."}</>,
+    <><Math inline>{"5\\times10^{-3}"}</Math>{"."}</>,
+    <>{"0,5."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\varepsilon=10^{-3}/2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-015"
+  question={<>{"Câu 15 (Thông hiểu). Cắt lò xo độ cứng "}<Math inline>{"k"}</Math>{" thành hai nửa bằng nhau. Độ cứng của mỗi nửa là"}</>}
+  options={[
+    <><Math inline>{"k/2"}</Math>{"."}</>,
+    <><Math inline>{"2k"}</Math>{"."}</>,
+    <><Math inline>{"k"}</Math>{"."}</>,
+    <><Math inline>{"4k"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"kL_0=\\text{hằng số}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-016"
+  question={<>{"Câu 16 (Thông hiểu). Treo vật "}<Math inline>{"100\\,\\mathrm g"}</Math>{" thì lò xo dãn "}<Math inline>{"2\\,\\mathrm{cm}"}</Math>{". Để lò xo dãn "}<Math inline>{"5\\,\\mathrm{cm}"}</Math>{" phải treo vật có khối lượng"}</>}
+  options={[
+    <><Math inline>{"250\\,\\mathrm g"}</Math>{"."}</>,
+    <><Math inline>{"200\\,\\mathrm g"}</Math>{"."}</>,
+    <><Math inline>{"500\\,\\mathrm g"}</Math>{"."}</>,
+    <><Math inline>{"150\\,\\mathrm g"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Độ dãn tỉ lệ với khối lượng vật treo."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-017"
+  question={<>{"Câu 17 (Nhận biết). Ở cấp độ phân tử, lực đàn hồi của vật rắn có nguồn gốc từ"}</>}
+  options={[
+    <>{"lực hấp dẫn giữa các nguyên tử."}</>,
+    <>{"lực tương tác (hút và đẩy, có bản chất điện) giữa các phân tử, chống lại sự thay đổi khoảng cách cân bằng."}</>,
+    <>{"lực hạt nhân."}</>,
+    <>{"lực ma sát giữa các lớp phân tử."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lực hấp dẫn giữa các nguyên tử nhỏ không đáng kể."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-018"
+  question={<>{"Câu 18 (Thông hiểu). Lò xo giảm xóc của ô tô bị nén lại khi xe qua gờ giảm tốc. Đó là"}</>}
+  options={[
+    <>{"biến dạng kéo đàn hồi."}</>,
+    <>{"biến dạng nén đàn hồi."}</>,
+    <>{"biến dạng dẻo."}</>,
+    <>{"biến dạng xoắn không phục hồi."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lò xo ngắn lại và sau đó trở về như cũ."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-019"
+  question={<>{"Câu 19 (Thông hiểu). Hai tay kéo hai đầu một lực kế về hai phía, mỗi tay một lực "}<Math inline>{"20\\,\\mathrm N"}</Math>{". Lực kế chỉ"}</>}
+  options={[
+    <><Math inline>{"0\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"20\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"40\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"10\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Một tay đóng vai trò giá đỡ cố định; lực kế chỉ lực kéo ở một đầu."}</>}
+/>
+
+<Quiz
+  id="bai-14-sbt-020"
+  question={<>{"Câu 20 (Thông hiểu, mở rộng). Độ cứng của một thanh đồng chất tỉ lệ thuận với"}</>}
+  options={[
+    <>{"chiều dài "}<Math inline>{"L_0"}</Math>{" của thanh."}</>,
+    <>{"diện tích tiết diện "}<Math inline>{"S"}</Math>{" của thanh."}</>,
+    <>{"lực kéo tác dụng vào thanh."}</>,
+    <>{"độ dãn của thanh."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"k=ES/L_0"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-14-sbt-021"
+  question={<>{"Câu 21. Một học sinh kéo dãn một lò xo thép nhỏ."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lực đàn hồi luôn cùng chiều với chiều biến dạng của lò xo."}</>, isTrue: false, explanation: <>{"Lực đàn hồi ngược chiều biến dạng."}</> },
+    { id: 'b', text: <>{"Nếu kéo quá giới hạn đàn hồi, khi thôi kéo lò xo không trở về chiều dài tự nhiên ban đầu."}</>, isTrue: true, explanation: <>{"Lò xo bị biến dạng dẻo."}</> },
+    { id: 'c', text: <>{"Độ cứng "}<Math inline>{"k"}</Math>{" của lò xo phụ thuộc độ lớn lực kéo."}</>, isTrue: false, explanation: <><Math inline>{"k"}</Math>{" chỉ phụ thuộc cấu tạo lò xo."}</> },
+    { id: 'd', text: <>{"Khi lò xo bị nén, lực đàn hồi tác dụng lên vật tiếp xúc hướng ra phía ngoài lò xo."}</>, isTrue: true, explanation: <>{"Lò xo bị nén đẩy vật ra."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-022"
+  question={<>{"Câu 22. Bốn lò xo giảm xóc ở bốn bánh cùng đỡ thân một ô tô."}</>}
+  statements={[
+    { id: 'a', text: <>{"Ô tô chở thêm người thì các lò xo bị nén nhiều hơn."}</>, isTrue: true, explanation: <>{"Lực nén tăng."}</> },
+    { id: 'b', text: <>{"Lò xo giảm xóc được làm có độ cứng "}<Math inline>{"k"}</Math>{" rất nhỏ để dễ biến dạng."}</>, isTrue: false, explanation: <>{"Độ cứng phải rất lớn để đỡ được tải hàng tấn."}</> },
+    { id: 'c', text: <>{"Bốn lò xo cùng đỡ thân xe tương đương các lò xo ghép song song, làm tăng độ cứng của hệ treo."}</>, isTrue: true, explanation: <><Math inline>{"k_{\\text{tđ}}=k_1+k_2+k_3+k_4"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Khi xe chạy bình thường, lò xo giảm xóc biến dạng đàn hồi."}</>, isTrue: true, explanation: <>{"Nếu bị biến dạng dẻo, lò xo sẽ lún dần và hỏng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-023"
+  question={<>{"Câu 23 (mở rộng). Dây cáp thép của cầu treo chịu lực kéo rất lớn."}</>}
+  statements={[
+    { id: 'a', text: <>{"Ứng suất kéo "}<Math inline>{"\\sigma"}</Math>{" tỉ lệ thuận với tiết diện "}<Math inline>{"S"}</Math>{" của cáp."}</>, isTrue: false, explanation: <><Math inline>{"\\sigma=F/S"}</Math>{" tỉ lệ nghịch với "}<Math inline>{"S"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Suất đàn hồi "}<Math inline>{"E"}</Math>{" đặc trưng cho vật liệu, không phụ thuộc chiều dài hay tiết diện của cáp."}</>, isTrue: true, explanation: <>{"Đó là hằng số của vật liệu."}</> },
+    { id: 'c', text: <>{"Đường kính cáp tăng gấp đôi thì với cùng lực kéo, ứng suất giảm 4 lần."}</>, isTrue: true, explanation: <><Math inline>{"S=\\pi d^2/4"}</Math>{" tăng 4 lần."}</> },
+    { id: 'd', text: <>{"Biến dạng tỉ đối "}<Math inline>{"\\varepsilon"}</Math>{" có đơn vị là mét."}</>, isTrue: false, explanation: <>{"Là tỉ số hai độ dài nên không có đơn vị."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-024"
+  question={<>{"Câu 24. Một lò xo có chiều dài tự nhiên "}<Math inline>{"L_0"}</Math>{", độ cứng "}<Math inline>{"k=100\\,\\mathrm{N/m}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Cắt thành 4 đoạn bằng nhau thì mỗi đoạn có độ cứng "}<Math inline>{"400\\,\\mathrm{N/m}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"k^{\\prime}=4k"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Đoạn lò xo càng ngắn thì độ cứng càng nhỏ."}</>, isTrue: false, explanation: <>{"Càng ngắn càng cứng."}</> },
+    { id: 'c', text: <>{"Ghép nối tiếp 2 đoạn "}<Math inline>{"400\\,\\mathrm{N/m}"}</Math>{" được hệ có độ cứng "}<Math inline>{"200\\,\\mathrm{N/m}"}</Math>{" (mở rộng)."}</>, isTrue: true, explanation: <><Math inline>{"\\dfrac{400\\times400}{800}=200\\,\\mathrm{N/m}"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Với các đoạn cắt từ cùng một lò xo, tích "}<Math inline>{"kL_0"}</Math>{" là hằng số."}</>, isTrue: true, explanation: <>{"Độ cứng tỉ lệ nghịch với chiều dài."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-025"
+  question={<>{"Câu 25. Mô hình phân tử của tính đàn hồi chất rắn."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khi vật không biến dạng, các nguyên tử nằm ở vị trí mà hợp lực tương tác lên mỗi nguyên tử bằng 0."}</>, isTrue: true, explanation: <>{"Đó là vị trí cân bằng."}</> },
+    { id: 'b', text: <>{"Khi vật bị kéo dãn, khoảng cách giữa các nguyên tử tăng, lực hút giữa chúng chiếm ưu thế."}</>, isTrue: true, explanation: <>{"Lực hút chống lại sự kéo dãn."}</> },
+    { id: 'c', text: <>{"Lực đàn hồi của lò xo là tổng hợp của các lực tương tác giữa các phân tử."}</>, isTrue: true, explanation: <>{"Đúng theo mô hình."}</> },
+    { id: 'd', text: <>{"Mở rộng: khi vượt quá giới hạn đàn hồi, một số lớp nguyên tử trượt sang các vị trí cân bằng mới, nên thôi lực vật không trở lại hình dạng cũ."}</>, isTrue: true, explanation: <>{"Đây là cơ chế của biến dạng dẻo ở kim loại."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-026"
+  question={<>{"Câu 26. Lực kế lò xo."}</>}
+  statements={[
+    { id: 'a', text: <>{"Vạch chia của lực kế lò xo cách đều nhau vì lực đàn hồi tỉ lệ bậc nhất với độ dãn."}</>, isTrue: true, explanation: <>{"Định luật Hooke."}</> },
+    { id: 'b', text: <>{"Lò xo lực kế bị kéo quá giới hạn đàn hồi thì lực kế vẫn đo đúng."}</>, isTrue: false, explanation: <>{"Lò xo bị dãn vĩnh viễn, vạch 0 và độ cứng đều thay đổi."}</> },
+    { id: 'c', text: <>{"Dùng lực kế kéo theo phương ngang để vật trượt thẳng đều trên sàn ngang thì số chỉ lực kế bằng độ lớn lực ma sát trượt."}</>, isTrue: true, explanation: <>{"Vật chuyển động đều nên hợp lực bằng 0."}</> },
+    { id: 'd', text: <>{"Trên Mặt Trăng (gia tốc rơi tự do khoảng g/6), treo cùng một vật thì độ dãn của lò xo lực kế nhỏ hơn khoảng 6 lần so với trên Trái Đất."}</>, isTrue: true, explanation: <><Math inline>{"k\\Delta L=mg_{\\text{MT}}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-027"
+  question={<>{"Câu 27 (mở rộng). Hai lò xo "}<Math inline>{"k_1=100\\,\\mathrm{N/m}"}</Math>{", "}<Math inline>{"k_2=150\\,\\mathrm{N/m}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khi ghép song song, hai lò xo có cùng độ biến dạng."}</>, isTrue: true, explanation: <>{"Hai đầu được nối chung."}</> },
+    { id: 'b', text: <>{"Độ cứng tương đương khi ghép song song là "}<Math inline>{"250\\,\\mathrm{N/m}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"k_1+k_2"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Khi ghép nối tiếp, lò xo có độ cứng nhỏ hơn dãn nhiều hơn."}</>, isTrue: true, explanation: <>{"Cùng lực: "}<Math inline>{"\\Delta L_i=F/k_i"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Độ cứng tương đương khi ghép nối tiếp là "}<Math inline>{"60\\,\\mathrm{N/m}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\dfrac{100\\times150}{250}=60\\,\\mathrm{N/m}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-028"
+  question={<>{"Câu 28. Vật nhỏ "}<Math inline>{"m"}</Math>{" gắn vào đầu lò xo độ cứng "}<Math inline>{"k"}</Math>{", đầu kia gắn vào trục quay thẳng đứng; vật quay tròn đều trên mặt bàn nằm ngang nhẵn."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lực đàn hồi của lò xo đóng vai trò lực hướng tâm."}</>, isTrue: true, explanation: <>{"Trọng lực và phản lực cân bằng nhau."}</> },
+    { id: 'b', text: <>{"Khi tốc độ góc "}<Math inline>{"\\omega"}</Math>{" tăng, lò xo dãn thêm."}</>, isTrue: true, explanation: <><Math inline>{"k\\Delta L=m\\omega^2(L_0+\\Delta L)"}</Math>{" tăng theo "}<Math inline>{"\\omega"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Khi vật quay tròn đều, lực đàn hồi có độ lớn không đổi."}</>, isTrue: true, explanation: <>{"Bán kính và tốc độ không đổi."}</> },
+    { id: 'd', text: <>{"Lực đàn hồi sinh công dương làm tăng động năng của vật."}</>, isTrue: false, explanation: <>{"Lực hướng tâm vuông góc với vận tốc nên không sinh công."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-029"
+  question={<>{"Câu 29. Cột bê tông cốt thép của nhà cao tầng chịu lực nén từ các tầng phía trên."}</>}
+  statements={[
+    { id: 'a', text: <>{"Cột bị biến dạng nén, chiều dài giảm đi."}</>, isTrue: true, explanation: <>{"Rất ít, nhưng có thật."}</> },
+    { id: 'b', text: <>{"Muốn cột chịu được tải lớn hơn và bị nén ít hơn, có thể tăng diện tích tiết diện của cột."}</>, isTrue: true, explanation: <>{"Mở rộng: "}<Math inline>{"\\Delta L=\\dfrac{FL_0}{ES}"}</Math>{", "}<Math inline>{"\\sigma=F/S"}</Math>{" đều giảm."}</> },
+    { id: 'c', text: <>{"Mở rộng: ứng suất nén trong cột không phụ thuộc chiều cao ban đầu của cột."}</>, isTrue: true, explanation: <><Math inline>{"\\sigma=F/S"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Mở rộng: vật liệu có suất đàn hồi "}<Math inline>{"E"}</Math>{" càng lớn thì càng dễ bị nén."}</>, isTrue: false, explanation: <><Math inline>{"E"}</Math>{" càng lớn càng khó biến dạng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-14-sbt-030"
+  question={<>{"Câu 30. Biến dạng của khung xe trong va chạm."}</>}
+  statements={[
+    { id: 'a', text: <>{"Vùng hấp thụ va chạm ở đầu xe được thiết kế để bị biến dạng dẻo khi va chạm mạnh."}</>, isTrue: true, explanation: <>{"Đó là mục đích thiết kế."}</> },
+    { id: 'b', text: <>{"Biến dạng dẻo của đầu xe tiêu hao động năng và kéo dài thời gian va chạm, làm giảm lực tác dụng lên khoang hành khách."}</>, isTrue: true, explanation: <><Math inline>{"F=\\Delta p/\\Delta t"}</Math>{" giảm khi "}<Math inline>{"\\Delta t"}</Math>{" tăng."}</> },
+    { id: 'c', text: <>{"Khung xe móp sau va chạm không tự trở lại được vì lực va chạm đã vượt quá giới hạn đàn hồi của vật liệu."}</>, isTrue: true, explanation: <>{"Biến dạng dẻo."}</> },
+    { id: 'd', text: <>{"Nếu đầu xe cứng tuyệt đối, không biến dạng, va chạm sẽ an toàn hơn cho người ngồi trong xe."}</>, isTrue: false, explanation: <>{"Thời gian va chạm rất ngắn, gia tốc hãm và lực lên người cực lớn."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-14-sbt-031"
+  question={<>{"Câu 31. Lò xo dài tự nhiên "}<Math inline>{"15\\,\\mathrm{cm}"}</Math>{"; treo vật "}<Math inline>{"400\\,\\mathrm g"}</Math>{" thì dài "}<Math inline>{"19\\,\\mathrm{cm}"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tính độ cứng của lò xo (N/m)."}</>}
+  answer="100"
+  explanation={<><Math inline>{"k=\\dfrac{4}{0{,}04}=100\\,\\mathrm{N/m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-032"
+  question={<>{"Câu 32. Lò xo giảm xóc có "}<Math inline>{"k=90\\,000\\,\\mathrm{N/m}"}</Math>{", khi xe qua gờ giảm tốc bị nén thêm "}<Math inline>{"4\\,\\mathrm{cm}"}</Math>{". Tính lực đàn hồi tăng thêm (N)."}</>}
+  answer="3600"
+  explanation={<><Math inline>{"90\\,000\\times0{,}04=3600\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-033"
+  question={<>{"Câu 33 (mở rộng). Cáp thép dài "}<Math inline>{"40\\,\\mathrm m"}</Math>{", "}<Math inline>{"S=2{,}0\\times10^{-3}\\,\\mathrm{m^2}"}</Math>{", "}<Math inline>{"E=2{,}0\\times10^{11}\\,\\mathrm{Pa}"}</Math>{", chịu lực kéo "}<Math inline>{"5{,}0\\times10^5\\,\\mathrm N"}</Math>{". Tính độ dãn của cáp (cm)."}</>}
+  answer="5"
+  explanation={<><Math inline>{"\\Delta L=\\dfrac{5\\times10^5\\times40}{2\\times10^{11}\\times2\\times10^{-3}}=0{,}05\\,\\mathrm m"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-034"
+  question={<>{"Câu 34. Lò xo dài "}<Math inline>{"80\\,\\mathrm{cm}"}</Math>{", "}<Math inline>{"k=50\\,\\mathrm{N/m}"}</Math>{". Cắt ra một đoạn dài "}<Math inline>{"20\\,\\mathrm{cm}"}</Math>{". Tính độ cứng của đoạn này (N/m)."}</>}
+  answer="200"
+  explanation={<><Math inline>{"k_1=50\\times\\dfrac{80}{20}=200\\,\\mathrm{N/m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-035"
+  question={<>{"Câu 35 (mở rộng). Hai lò xo giống nhau, mỗi lò xo "}<Math inline>{"200\\,\\mathrm{N/m}"}</Math>{", ghép song song. Tính lực kéo để hệ dãn "}<Math inline>{"3\\,\\mathrm{cm}"}</Math>{" (N)."}</>}
+  answer="12"
+  explanation={<><Math inline>{"k_{\\text{tđ}}=400\\,\\mathrm{N/m}"}</Math>{"; "}<Math inline>{"F=400\\times0{,}03=12\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-036"
+  question={<>{"Câu 36 (mở rộng). Thanh kim loại tiết diện tròn bán kính "}<Math inline>{"1\\,\\mathrm{cm}"}</Math>{" chịu lực kéo "}<Math inline>{"62\\,832\\,\\mathrm N"}</Math>{". Tính ứng suất kéo (MPa, làm tròn đến số nguyên; "}<Math inline>{"\\pi\\approx3{,}1416"}</Math>{")."}</>}
+  answer="200"
+  explanation={<><Math inline>{"S=3{,}1416\\times10^{-4}\\,\\mathrm{m^2}"}</Math>{"; "}<Math inline>{"\\sigma=2{,}0\\times10^8\\,\\mathrm{Pa}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-037"
+  question={<>{"Câu 37. Treo vật vào lò xo "}<Math inline>{"k=100\\,\\mathrm{N/m}"}</Math>{" thì lò xo dãn "}<Math inline>{"5\\,\\mathrm{cm}"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính khối lượng vật (kg, làm tròn 2 chữ số thập phân)."}</>}
+  answer="0,51"
+  explanation={<><Math inline>{"m=\\dfrac{k\\Delta L}{g}=\\dfrac{5}{9{,}8}\\approx0{,}51\\,\\mathrm{kg}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-038"
+  question={<>{"Câu 38 (mở rộng). Hai lò xo "}<Math inline>{"k_1=300\\,\\mathrm{N/m}"}</Math>{", "}<Math inline>{"k_2=600\\,\\mathrm{N/m}"}</Math>{" ghép nối tiếp, chịu lực nén "}<Math inline>{"20\\,\\mathrm N"}</Math>{". Tính độ nén tổng cộng của hệ (cm)."}</>}
+  answer="10"
+  explanation={<><Math inline>{"k_{\\text{tđ}}=200\\,\\mathrm{N/m}"}</Math>{"; "}<Math inline>{"\\Delta L=20/200=0{,}10\\,\\mathrm m"}</Math>{" (lò xo 1 nén "}<Math inline>{"6{,}7\\,\\mathrm{cm}"}</Math>{", lò xo 2 nén "}<Math inline>{"3{,}3\\,\\mathrm{cm}"}</Math>{")."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-039"
+  question={<>{"Câu 39. Vật "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" gắn vào lò xo "}<Math inline>{"k=200\\,\\mathrm{N/m}"}</Math>{" nằm ngang trên mặt bàn nhẵn. Kéo vật khỏi vị trí lò xo không biến dạng "}<Math inline>{"6\\,\\mathrm{cm}"}</Math>{" rồi thả nhẹ. Tính độ lớn gia tốc của vật ngay lúc thả ("}<Math inline>{"\\mathrm{m/s^2}"}</Math>{")."}</>}
+  answer="24"
+  explanation={<><Math inline>{"F=200\\times0{,}06=12\\,\\mathrm N"}</Math>{"; "}<Math inline>{"a=12/0{,}5=24\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-14-sbt-040"
+  question={<>{"Câu 40 (mở rộng). Dây thép dài "}<Math inline>{"3\\,\\mathrm m"}</Math>{" chịu ứng suất kéo "}<Math inline>{"1{,}5\\times10^8\\,\\mathrm{Pa}"}</Math>{"; "}<Math inline>{"E=2{,}0\\times10^{11}\\,\\mathrm{Pa}"}</Math>{". Tính độ dãn của dây (mm)."}</>}
+  answer="2,25"
+  explanation={<><Math inline>{"\\varepsilon=7{,}5\\times10^{-4}"}</Math>{"; "}<Math inline>{"\\Delta L=3\\times7{,}5\\times10^{-4}\\,\\mathrm m=2{,}25\\,\\mathrm{mm}"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-14-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Hệ treo bốn lò xo của ô tô
+
+Thân ô tô $M=2600\,\mathrm{kg}$ được đỡ bởi 4 lò xo giống nhau (coi như ghép song song, tải chia đều); $g=9{,}8\,\mathrm{m/s^2}$. Bỏ qua khối lượng của bánh xe và các bộ phận không đặt trên lò xo.
+
+1. Khi xe không chở hàng, mỗi lò xo bị nén $7\,\mathrm{cm}$. Tính độ cứng mỗi lò xo và độ cứng tương đương của hệ.
+2. Xe chở thêm người và hành lý tổng cộng $400\,\mathrm{kg}$. Tính độ nén tăng thêm và chiều dài mới của mỗi lò xo, biết chiều dài tự nhiên là $38\,\mathrm{cm}$.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Mỗi lò xo chịu $F_1=\dfrac{Mg}{4}=\dfrac{2600\times9{,}8}{4}=6370\,\mathrm N$, nên $k=\dfrac{6370}{0{,}07}=91\,000\,\mathrm{N/m}$; $k_{\text{tđ}}=4k=364\,000\,\mathrm{N/m}$.
+
+**2.** Trọng lượng tăng thêm $3920\,\mathrm N$: $\Delta L'=\dfrac{3920}{364\,000}\approx0{,}0108\,\mathrm m\approx1{,}08\,\mathrm{cm}$. Tổng độ nén $8{,}08\,\mathrm{cm}$, chiều dài mới $L=38-8{,}08\approx29{,}9\,\mathrm{cm}$.
+
+</details>
+</div>
+
+<div data-question-id="bai-14-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Lò xo quay tròn
+
+Lò xo nhẹ $k=100\,\mathrm{N/m}$, $L_0=20\,\mathrm{cm}$; một đầu gắn vào trục quay thẳng đứng, đầu kia gắn vật $m=200\,\mathrm g$ nằm trên mặt bàn ngang nhẵn. Hệ quay đều với $\omega=10\,\mathrm{rad/s}$.
+
+1. Viết phương trình liên hệ lực đàn hồi với gia tốc hướng tâm.
+2. Tính độ dãn và chiều dài của lò xo.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Lực đàn hồi đóng vai trò lực hướng tâm, bán kính quỹ đạo là chiều dài lò xo $L_0+\Delta L$:
+
+$$
+k\,\Delta L=m\omega^2(L_0+\Delta L).
+$$
+
+**2.** $\Delta L=\dfrac{m\omega^2L_0}{k-m\omega^2}=\dfrac{20\times0{,}20}{100-20}=0{,}05\,\mathrm m=5\,\mathrm{cm}$; $L=25\,\mathrm{cm}$.
+
+**Nhận xét.** Công thức chỉ dùng được khi $k>m\omega^2$; khi $\omega$ tiến tới $\sqrt{k/m}\approx22\,\mathrm{rad/s}$, độ dãn tăng rất nhanh và lò xo sẽ vượt giới hạn đàn hồi.
+
+</details>
+</div>
+
+<div data-question-id="bai-14-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Cáp thép và hệ số an toàn (mở rộng)
+
+Sợi cáp thép dài $L_0=100\,\mathrm m$, tiết diện tròn bán kính $3\,\mathrm{cm}$, $E=2{,}1\times10^{11}\,\mathrm{Pa}$, giới hạn bền $\sigma_{\text{b}}=6{,}0\times10^8\,\mathrm{Pa}$; $\pi\approx3{,}1416$.
+
+1. Tính tiết diện $S$ và độ cứng $k$ của cáp.
+2. Với hệ số an toàn $n=3$ (ứng suất cho phép $\sigma_{\max}=\sigma_{\text{b}}/n$), tính lực kéo lớn nhất cho phép và độ dãn tương ứng.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $S=\pi r^2\approx2{,}83\times10^{-3}\,\mathrm{m^2}$; $k=\dfrac{ES}{L_0}\approx5{,}94\times10^6\,\mathrm{N/m}$.
+
+**2.** $\sigma_{\max}=2{,}0\times10^8\,\mathrm{Pa}$; $F_{\max}=\sigma_{\max}S\approx5{,}65\times10^5\,\mathrm N$; $\Delta L_{\max}=\dfrac{\sigma_{\max}L_0}{E}\approx0{,}095\,\mathrm m\approx9{,}5\,\mathrm{cm}$.
+
+</details>
+</div>
+
+<div data-question-id="bai-14-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Hệ ba lò xo ghép hỗn hợp (mở rộng)
+
+<MixedSpringDiagram />
+
+Lò xo $k_1=k_2=100\,\mathrm{N/m}$ ghép song song; cụm này nối tiếp với lò xo $k_3=200\,\mathrm{N/m}$. Hệ treo thẳng đứng, đầu dưới treo vật $1{,}0\,\mathrm{kg}$; $g=10\,\mathrm{m/s^2}$.
+
+1. Tính độ cứng tương đương của hệ.
+2. Tính độ dãn tổng cộng và độ dãn của từng lò xo khi vật cân bằng.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $k_{12}=200\,\mathrm{N/m}$; $k_{\text{tđ}}=\dfrac{200\times200}{400}=100\,\mathrm{N/m}$.
+
+**2.** $\Delta L=\dfrac{10}{100}=10\,\mathrm{cm}$. Lò xo 3 chịu cả $10\,\mathrm N$: $\Delta L_3=5\,\mathrm{cm}$. Lò xo 1 và 2 mỗi lò xo chịu $5\,\mathrm N$: $\Delta L_1=\Delta L_2=5\,\mathrm{cm}$. Kiểm tra: $5+5=10\,\mathrm{cm}$.
+
+</details>
+</div>
+
+<div data-question-id="bai-14-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Cắt lò xo và vật trên mặt phẳng nghiêng
+
+<InclineSpringsDiagram />
+
+Lò xo $L_0=60\,\mathrm{cm}$, $k_0=120\,\mathrm{N/m}$ được cắt thành hai đoạn $20\,\mathrm{cm}$ (lò xo 1) và $40\,\mathrm{cm}$ (lò xo 2).
+
+1. Tính độ cứng của hai đoạn.
+2. Vật $0{,}5\,\mathrm{kg}$ đặt trên mặt phẳng nghiêng $30^\circ$ không ma sát. Đầu trên lò xo 1 gắn cố định ở đỉnh dốc, đầu dưới gắn vào vật; lò xo 2 nối vật với đầu dưới, đầu này được kéo bằng lực $F=5\,\mathrm N$ song song mặt dốc, hướng xuống. Tính độ dãn của mỗi lò xo khi hệ cân bằng; $g=10\,\mathrm{m/s^2}$.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $k_1=120\times\dfrac{60}{20}=360\,\mathrm{N/m}$; $k_2=120\times\dfrac{60}{40}=180\,\mathrm{N/m}$.
+
+**2.** Lò xo 2 nhẹ nên lực đàn hồi của nó kéo vật xuống dốc bằng $F=5\,\mathrm N$: $\Delta L_2=\dfrac{5}{180}\approx2{,}78\,\mathrm{cm}$.
+
+Theo phương dọc dốc, vật cân bằng: $F_{\text{đh}1}=mg\sin30^\circ+F=2{,}5+5=7{,}5\,\mathrm N$, nên $\Delta L_1=\dfrac{7{,}5}{360}\approx2{,}08\,\mathrm{cm}$.
+
+</details>
+</div>
+
+</Section>
+
+</div>

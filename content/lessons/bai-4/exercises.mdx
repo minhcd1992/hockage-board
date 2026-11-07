@@ -222,7 +222,7 @@ Chọn một phương án đúng nhất, sau đó bấm **Kiểm tra**.
 
 <Quiz
   id="bai-4-exercises-017"
-  question={<>{"Câu 17 (Vận dụng): Đồ thị biểu diễn sự phụ thuộc của độ dịch chuyển thẳng đứng "}<Math inline>{"y"}</Math>{" theo thời gian "}<Math inline>{"t"}</Math>{" của một vật rơi tự do không vận tốc đầu có dạng là Chọn gốc tọa độ tại điểm thả, chiều dương hướng xuống và gốc thời gian lúc thả."}</>}
+  question={<>{"Câu 17 (Vận dụng): Chọn gốc tọa độ tại điểm thả, chiều dương hướng xuống và gốc thời gian lúc thả. Đồ thị biểu diễn sự phụ thuộc của độ dịch chuyển thẳng đứng "}<Math inline>{"y"}</Math>{" theo thời gian "}<Math inline>{"t"}</Math>{" của một vật rơi tự do không vận tốc đầu có dạng là"}</>}
   options={[
     <>{"đường thẳng đi qua gốc tọa độ "}<Math inline>{"O"}</Math>{"."}</>,
     <>{"một nhánh parabol có đỉnh tại gốc tọa độ "}<Math inline>{"O"}</Math>{"."}</>,
@@ -335,7 +335,7 @@ Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chi
 
 <QuizTF
   id="bai-4-exercises-026"
-  question={<>{"Câu 26 (Nghịch lý Halliday - Thợ săn và Con khỉ): Một người thợ săn ngắm bắn thẳng vào một con khỉ đang treo mình trên cành cây ở độ cao "}<Math inline>{"h"}</Math>{". Ngay tại thời điểm viên đạn rời khỏi nòng súng với vận tốc "}<Math inline>{"v_0"}</Math>{", con khỉ buông tay rơi tự do xuống dưới. Bỏ qua lực cản không khí."}</>}
+  question={<>{"Câu 26 (Thí nghiệm tưởng tượng: Thợ săn và con khỉ): Một người thợ săn ngắm bắn thẳng vào một con khỉ đang treo mình trên cành cây ở độ cao "}<Math inline>{"h"}</Math>{". Ngay tại thời điểm viên đạn rời khỏi nòng súng với vận tốc "}<Math inline>{"v_0"}</Math>{", con khỉ buông tay rơi tự do xuống dưới. Bỏ qua lực cản không khí."}</>}
   statements={[
     { id: "a", text: <>{"Viên đạn sẽ bay phía trên đầu con khỉ vì con khỉ đã rơi xuống thấp hơn."}</>, isTrue: false, explanation: <>{"Hai vật cùng hạ thấp "}<Math inline>{"gt^2/2"}</Math>{" so với vị trí tương ứng nếu không có trọng lực. Chúng gặp nhau nếu chuyển động gặp còn diễn ra trước khi chạm đất; không thể kết luận đạn luôn bay phía trên."}</> },
     { id: "b", text: <>{"Trong suốt quá trình bay, độ hạ thấp do trọng trường gây ra của viên đạn và con khỉ so với đường ngắm ban đầu là hoàn toàn bằng nhau tại mọi thời điểm "}<Math inline>{"t"}</Math>{" ("}<Math inline>{"\\Delta y = \\frac{1}{2}gt^2"}</Math>{")."}</>, isTrue: true, explanation: <>{"Độ rơi tự do của cả hai so với đường ngắm ban đầu đều là "}<Math inline>{"\\Delta y = \\frac{1}{2}gt^2"}</Math>{"."}</> },
@@ -381,7 +381,7 @@ Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chi
   id="bai-4-exercises-030"
   question={<>{"Câu 30: Phân tích thực hành đo gia tốc trọng trường "}<Math inline>{"g"}</Math>{" bằng bộ dụng cụ rơi tự do cổng quang điện kết hợp đồng hồ đo thời gian hiện số."}</>}
   statements={[
-    { id: "a", text: <>{"Bộ dụng cụ gồm: nam điện từ giữ vật, cổng quang điện, thước đo độ cao "}<Math inline>{"h"}</Math>{" và đồng hồ hiện số."}</>, isTrue: true, explanation: <>{"Bộ dụng cụ chuẩn gồm nam điện từ, cổng quang, thước và đồng hồ hiện số."}</> },
+    { id: "a", text: <>{"Bộ dụng cụ gồm: nam châm điện giữ vật, cổng quang điện, thước đo độ cao "}<Math inline>{"h"}</Math>{" và đồng hồ hiện số."}</>, isTrue: true, explanation: <>{"Bộ dụng cụ chuẩn gồm nam châm điện, cổng quang, thước và đồng hồ hiện số."}</> },
     { id: "b", text: <>{"Để giảm sai số, cần đo thời gian rơi "}<Math inline>{"t"}</Math>{" ở cùng một độ cao "}<Math inline>{"h"}</Math>{" nhiều lần (thường 5 lần) để tính giá trị trung bình "}<Math inline>{"\\bar{t}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Đo nhiều lần để giảm sai số ngẫu nhiên."}</> },
     { id: "c", text: <>{"Gia tốc trọng trường trung bình được tính theo công thức "}<Math inline>{"\\bar{g} = \\frac{2\\bar{h}}{\\bar{t}^2}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Từ "}<Math inline>{"h = \\frac{1}{2}gt^2 \\Rightarrow \\bar{g} = \\frac{2\\bar{h}}{\\bar{t}^2}"}</Math>{"."}</> },
     { id: "d", text: <>{"Lực cản của không khí và sai số đọc độ cao trên thước là những nguyên nhân có thể gây ra sai số phép đo."}</>, isTrue: true, explanation: <>{"Lực cản, sai số đo độ cao, độ trễ nhả vật, căn chỉnh cổng quang và sai số đồng hồ đều có thể ảnh hưởng kết quả. Đo lặp giúp đánh giá phần ngẫu nhiên nhưng không loại bỏ hết sai số hệ thống."}</> }
@@ -459,9 +459,9 @@ Nhập kết quả dạng số theo đơn vị và cách làm tròn trong đề;
 
 <QuizShort
   id="bai-4-exercises-040"
-  question={<>{"Câu 40: Trong bài thực hành đo gia tốc trọng trường "}<Math inline>{"g"}</Math>{" bằng hệ thống cổng quang điện kép: Tấm chắn sáng có bề rộng "}<Math inline>{"d = 2\\text{ cm} = 0,02\\text{ m}"}</Math>{" rơi đi qua cổng quang điện 1 với thời gian chắn sáng "}<Math inline>{"\\Delta t_1 = 0,020\\text{ s}"}</Math>{" và qua cổng quang điện 2 với thời gian "}<Math inline>{"\\Delta t_2 = 0,010\\text{ s}"}</Math>{". Khoảng cách giữa hai cổng quang điện là "}<Math inline>{"s = 0,375\\text{ m}"}</Math>{". Tính gia tốc trọng trường "}<Math inline>{"g"}</Math>{" đo được từ thí nghiệm (đơn vị: "}<Math inline>{"\\text{m/s}^2"}</Math>{"). Dùng xấp xỉ tốc độ tại mỗi cổng "}<Math inline>{"v_i \\approx d/\\Delta t_i"}</Math>{"."}</>}
-  answer={"4,0"}
-  explanation={<><Math inline>{"v_1\\approx0{,}02/0{,}020=1\\,\\mathrm{m/s}"}</Math>{" và "}<Math inline>{"v_2\\approx0{,}02/0{,}010=2\\,\\mathrm{m/s}"}</Math>{". Theo xấp xỉ của đề, "}<Math inline>{"g\\approx(v_2^2-v_1^2)/(2s)=(4-1)/(2\\cdot0{,}375)=4{,}0\\,\\mathrm{m/s^2}"}</Math>{". Đây là kết quả từ số liệu đã cho, không phải "}<Math inline>{"9{,}6\\,\\mathrm{m/s^2}"}</Math>{". Giá trị lệch nhiều so với gia tốc trọng trường gần mặt đất, nên cần kiểm tra lại số liệu và thiết lập thí nghiệm trước khi chấp nhận phép đo."}</>}
+  question={<>{"Câu 40: Trong bài thực hành đo gia tốc trọng trường "}<Math inline>{"g"}</Math>{" bằng hệ thống cổng quang điện kép: Tấm chắn sáng có bề rộng "}<Math inline>{"d = 2\\text{ cm} = 0,02\\text{ m}"}</Math>{" rơi đi qua cổng quang điện 1 với thời gian chắn sáng "}<Math inline>{"\\Delta t_1 = 0,010\\text{ s}"}</Math>{" và qua cổng quang điện 2 với thời gian "}<Math inline>{"\\Delta t_2 = 0,005\\text{ s}"}</Math>{". Khoảng cách giữa hai cổng quang điện là "}<Math inline>{"s = 0,625\\text{ m}"}</Math>{". Tính gia tốc trọng trường "}<Math inline>{"g"}</Math>{" đo được từ thí nghiệm (đơn vị: "}<Math inline>{"\\text{m/s}^2"}</Math>{"). Dùng xấp xỉ tốc độ tại mỗi cổng "}<Math inline>{"v_i \\approx d/\\Delta t_i"}</Math>{"."}</>}
+  answer={"9,6"}
+  explanation={<><Math inline>{"v_1\\approx0{,}02/0{,}010=2\\,\\mathrm{m/s}"}</Math>{" và "}<Math inline>{"v_2\\approx0{,}02/0{,}005=4\\,\\mathrm{m/s}"}</Math>{". Từ "}<Math inline>{"v_2^2-v_1^2=2gs"}</Math>{": "}<Math inline>{"g\\approx\\frac{4^2-2^2}{2\\cdot0{,}625}=\\frac{12}{1{,}25}=9{,}6\\,\\mathrm{m/s^2}"}</Math>{". Kết quả hơi nhỏ hơn 9,8 m/s² do sai số đo và lực cản không khí."}</>}
 />
 
 </Section>

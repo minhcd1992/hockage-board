@@ -1,0 +1,656 @@
+import styles from './components/Lesson8Workbook.module.css'
+import { BracketDiagram } from './components/Lesson8Figures'
+import { CurbWheelDiagram, PulleyInclineDiagram, BrakingLoadDiagram, BoxInclineDiagram } from './components/Lesson8ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 8 — Momen lực và cân bằng của vật rắn">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Trừ khi đề nêu khác, dây và thanh "nhẹ" có khối lượng không đáng kể. Câu 29b và Câu 43 dùng kiến thức mở rộng về chuyển động quay.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-8-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Momen lực đối với một trục quay là đại lượng đặc trưng cho"}</>}
+  options={[
+    <>{"tác dụng làm vật chuyển động tịnh tiến của lực."}</>,
+    <>{"tác dụng làm quay của lực quanh trục đó."}</>,
+    <>{"khả năng làm biến dạng vật của lực."}</>,
+    <>{"năng lượng truyền cho vật khi lực thực hiện công."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Theo định nghĩa, momen lực đặc trưng cho tác dụng làm quay của lực."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Đơn vị của momen lực trong hệ SI là"}</>}
+  options={[
+    <>{"jun ("}<Math inline>{"\\mathrm J"}</Math>{")."}</>,
+    <>{"niutơn trên mét ("}<Math inline>{"\\mathrm{N/m}"}</Math>{")."}</>,
+    <>{"niutơn mét ("}<Math inline>{"\\mathrm{N\\cdot m}"}</Math>{")."}</>,
+    <>{"kilôgam mét trên giây ("}<Math inline>{"\\mathrm{kg\\cdot m/s}"}</Math>{")."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"M=Fd"}</Math>{" nên đơn vị là "}<Math inline>{"\\mathrm{N\\cdot m}"}</Math>{". Không viết là jun để tránh nhầm với công."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-003"
+  question={<>{"Câu 3 (Nhận biết). Cánh tay đòn của lực "}<Math inline>{"\\vec F"}</Math>{" đối với một trục quay là"}</>}
+  options={[
+    <>{"khoảng cách từ trục quay đến điểm đặt của lực."}</>,
+    <>{"khoảng cách vuông góc từ trục quay đến giá của lực."}</>,
+    <>{"độ dài đoạn nối trục quay với ngọn của vectơ lực."}</>,
+    <>{"đường kính quỹ đạo của điểm đặt lực."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Cánh tay đòn là khoảng cách vuông góc từ trục quay đến giá của lực."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-004"
+  question={<>{"Câu 4 (Thông hiểu). Momen của một lực đối với một trục quay bằng 0 khi"}</>}
+  options={[
+    <>{"giá của lực song song với mặt phẳng quay."}</>,
+    <>{"giá của lực đi qua trục quay hoặc song song với trục quay."}</>,
+    <>{"điểm đặt lực ở xa trục quay nhất."}</>,
+    <>{"lực có độ lớn rất nhỏ."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Giá của lực cắt trục quay thì "}<Math inline>{"d=0"}</Math>{"; lực song song với trục quay cũng không làm vật quay quanh trục đó."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-005"
+  question={<>{"Câu 5 (Nhận biết). Nội dung của quy tắc momen lực với vật có trục quay cố định nằm cân bằng là"}</>}
+  options={[
+    <>{"hợp lực tác dụng lên vật bằng 0."}</>,
+    <>{"tổng các momen lực làm vật quay theo một chiều bằng tổng các momen lực làm vật quay theo chiều ngược lại."}</>,
+    <>{"momen của mọi lực tác dụng lên vật đều bằng nhau."}</>,
+    <>{"tích của lực và khoảng cách từ trục quay đến điểm đặt lực không đổi."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Đó là phát biểu của quy tắc momen lực."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-006"
+  question={<>{"Câu 6 (Nhận biết). Phát biểu nào sau đây đúng về ngẫu lực?"}</>}
+  options={[
+    <>{"Ngẫu lực là hai lực cùng phương, cùng chiều, cùng độ lớn."}</>,
+    <>{"Hợp lực của ngẫu lực bằng tổng độ lớn hai lực."}</>,
+    <>{"Ngẫu lực là hệ hai lực song song, ngược chiều, có cùng độ lớn và cùng tác dụng vào một vật."}</>,
+    <>{"Momen của ngẫu lực phụ thuộc vị trí trục quay."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Đó là định nghĩa ngẫu lực; hợp lực bằng 0 và momen không phụ thuộc vị trí trục quay."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-007"
+  question={<>{"Câu 7 (Thông hiểu). Momen của ngẫu lực gồm hai lực có độ lớn "}<Math inline>{"F"}</Math>{" được tính bằng"}</>}
+  options={[
+    <><Math inline>{"M=Fd"}</Math>{", với "}<Math inline>{"d"}</Math>{" là khoảng cách giữa hai giá của hai lực."}</>,
+    <><Math inline>{"M=2Fd"}</Math>{"."}</>,
+    <><Math inline>{"M=\\tfrac12Fd"}</Math>{"."}</>,
+    <><Math inline>{"M=F_1d_1-F_2d_2"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"M=Fd_1+Fd_2=F(d_1+d_2)=Fd"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-008"
+  question={<>{"Câu 8 (Nhận biết). Điều kiện cân bằng của một vật rắn là"}</>}
+  options={[
+    <>{"chỉ cần tổng các lực bằng 0."}</>,
+    <>{"chỉ cần tổng momen đối với một trục bất kỳ bằng 0."}</>,
+    <>{"tổng các lực bằng 0 và tổng momen đối với một trục bất kỳ bằng 0."}</>,
+    <>{"vật không chịu ma sát."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Cần cả cân bằng lực (không tịnh tiến) và cân bằng momen (không quay)."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Khi giải bài toán cân bằng, ta thường chọn trục quay tại điểm có nhiều lực chưa biết đi qua nhằm"}</>}
+  options={[
+    <>{"làm cho hợp lực bằng 0."}</>,
+    <>{"loại momen của các lực chưa biết đó (vì "}<Math inline>{"d=0"}</Math>{"), giảm số ẩn trong phương trình momen."}</>,
+    <>{"làm cho các lực còn lại vuông góc với nhau."}</>,
+    <>{"giúp vật không bị trượt."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Các lực đi qua trục quay có cánh tay đòn bằng 0 nên không xuất hiện trong phương trình momen."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-010"
+  question={<>{"Câu 10 (Thông hiểu). Lực "}<Math inline>{"F"}</Math>{" đặt tại điểm cách trục quay một khoảng "}<Math inline>{"r"}</Math>{"; góc giữa đoạn nối trục quay với điểm đặt lực và vectơ lực là "}<Math inline>{"\\varphi"}</Math>{". Momen của lực là"}</>}
+  options={[
+    <><Math inline>{"M=Fr\\cos\\varphi"}</Math>{"."}</>,
+    <><Math inline>{"M=Fr\\sin\\varphi"}</Math>{"."}</>,
+    <><Math inline>{"M=\\dfrac{Fr}{\\sin\\varphi}"}</Math>{"."}</>,
+    <><Math inline>{"M=Fr\\tan\\varphi"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Cánh tay đòn "}<Math inline>{"d=r\\sin\\varphi"}</Math>{" nên "}<Math inline>{"M=Fr\\sin\\varphi"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-011"
+  question={<>{"Câu 11 (Vận dụng). Tác dụng lực "}<Math inline>{"40\\,\\mathrm N"}</Math>{" vuông góc với cán cờ-lê tại điểm cách tâm ốc "}<Math inline>{"25\\,\\mathrm{cm}"}</Math>{". Momen lực làm xoay ốc là"}</>}
+  options={[
+    <><Math inline>{"10\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>,
+    <><Math inline>{"100\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>,
+    <><Math inline>{"1{,}6\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>,
+    <><Math inline>{"160\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"M=40\\times0{,}25=10\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-012"
+  question={<>{"Câu 12 (Vận dụng). Hai bạn ngồi trên bập bênh nằm cân bằng (bỏ qua khối lượng tấm ván). Bạn A nặng "}<Math inline>{"40\\,\\mathrm{kg}"}</Math>{" ngồi cách trục "}<Math inline>{"1{,}5\\,\\mathrm m"}</Math>{"; bạn B ngồi cách trục "}<Math inline>{"2{,}0\\,\\mathrm m"}</Math>{" ở phía bên kia. Khối lượng của bạn B là"}</>}
+  options={[
+    <><Math inline>{"30\\,\\mathrm{kg}"}</Math>{"."}</>,
+    <><Math inline>{"53{,}3\\,\\mathrm{kg}"}</Math>{"."}</>,
+    <><Math inline>{"25\\,\\mathrm{kg}"}</Math>{"."}</>,
+    <><Math inline>{"45\\,\\mathrm{kg}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"m_Agd_A=m_Bgd_B\\Rightarrow m_B=\\dfrac{40\\times1{,}5}{2{,}0}=30\\,\\mathrm{kg}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-013"
+  question={<>{"Câu 13 (Thông hiểu). Hai tay tác dụng ngẫu lực, mỗi lực "}<Math inline>{"20\\,\\mathrm N"}</Math>{", tại hai đầu một đường kính của vô-lăng có đường kính "}<Math inline>{"40\\,\\mathrm{cm}"}</Math>{", lực vuông góc với đường kính đó. Momen ngẫu lực là"}</>}
+  options={[
+    <><Math inline>{"8\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>,
+    <><Math inline>{"16\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>,
+    <><Math inline>{"4\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>,
+    <><Math inline>{"800\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Khoảng cách giữa hai giá bằng đường kính: "}<Math inline>{"M=20\\times0{,}4=8\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-014"
+  question={<>{"Câu 14 (Thông hiểu). Một thanh gỗ đồng chất, tiết diện đều, dài "}<Math inline>{"L"}</Math>{" có trọng tâm"}</>}
+  options={[
+    <>{"ở đầu thanh chịu lực lớn hơn."}</>,
+    <>{"ở chính giữa thanh."}</>,
+    <>{"cách một đầu thanh "}<Math inline>{"L/3"}</Math>{"."}</>,
+    <>{"tại điểm tựa bên ngoài."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Thanh đồng chất, tiết diện đều có trọng tâm tại trung điểm."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-015"
+  question={<>{"Câu 15 (Thông hiểu). Một vật rắn cân bằng dưới tác dụng của ba lực không song song. Phát biểu nào sau đây sai?"}</>}
+  options={[
+    <>{"Ba lực đồng phẳng."}</>,
+    <>{"Ba lực đồng quy."}</>,
+    <>{"Hợp lực của hai lực bất kỳ cân bằng với lực thứ ba."}</>,
+    <>{"Ba lực có độ lớn bằng nhau."}</>
+  ]}
+  correctIndex={3}
+  explanation={<>{"Ba lực không song song cân bằng thì đồng phẳng, đồng quy và hợp lực hai lực cân bằng lực thứ ba; độ lớn không nhất thiết bằng nhau."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-016"
+  question={<>{"Câu 16 (Thông hiểu). Nghệ sĩ đi trên dây thường cầm một cây sào dài chủ yếu để"}</>}
+  options={[
+    <>{"tăng khối lượng để ép chặt vào dây."}</>,
+    <>{"dễ điều chỉnh vị trí trọng tâm của hệ để giữ trọng tâm ở ngay trên dây, đồng thời làm người nghiêng chậm hơn."}</>,
+    <>{"tạo lực cản không khí đẩy người lên."}</>,
+    <>{"giảm ma sát giữa chân và dây."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Dịch sào sang một bên làm trọng tâm hệ dịch theo. Sào dài phân bố khối lượng xa trục nên hệ khó quay nhanh hơn (mở rộng: momen quán tính lớn), người có thêm thời gian điều chỉnh."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-017"
+  question={<>{"Câu 17 (Vận dụng). Dầm đồng chất nặng "}<Math inline>{"600\\,\\mathrm N"}</Math>{" đặt trên hai gối tựa A, B ở hai đầu. Vật nặng "}<Math inline>{"300\\,\\mathrm N"}</Math>{" đặt tại C cách A một đoạn bằng "}<Math inline>{"\\tfrac13"}</Math>{" chiều dài dầm. Phản lực của gối A lên dầm là"}</>}
+  options={[
+    <><Math inline>{"500\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"400\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"450\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"300\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Momen đối với B: "}<Math inline>{"N_A L=600\\cdot\\tfrac L2+300\\cdot\\tfrac{2L}3\\Rightarrow N_A=300+200=500\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-018"
+  question={<>{"Câu 18 (Thông hiểu). Một hộp chữ nhật đặt trên mặt phẳng nghiêng (không trượt), tăng dần góc nghiêng. Hộp bắt đầu bị lật khi"}</>}
+  options={[
+    <>{"góc nghiêng bằng "}<Math inline>{"45^\\circ"}</Math>{"."}</>,
+    <>{"ma sát nghỉ đạt giá trị cực đại."}</>,
+    <>{"giá của trọng lực đi ra ngoài mặt chân đế của hộp."}</>,
+    <>{"phản lực của mặt nghiêng bằng 0."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Khi giá của trọng lực ra ngoài mặt chân đế, trọng lực tạo momen làm hộp quay quanh mép dưới."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-019"
+  question={<>{"Câu 19 (Thông hiểu). Trong quy trình 6 bước, bước vẽ sơ đồ lực có nhiệm vụ"}</>}
+  options={[
+    <>{"tính ngay gia tốc của vật."}</>,
+    <>{"biểu diễn tất cả các lực do vật khác tác dụng lên vật đã chọn."}</>,
+    <>{"biểu diễn các lực do vật tác dụng lên môi trường."}</>,
+    <>{"chọn chiều dương cho trục "}<Math inline>{"Ox"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Sơ đồ lực chỉ gồm các lực đặt lên vật đang khảo sát."}</>}
+/>
+
+<Quiz
+  id="bai-8-sbt-020"
+  question={<>{"Câu 20 (Thông hiểu). Dùng xà beng bẩy hòn đá nặng là ứng dụng của"}</>}
+  options={[
+    <>{"định luật bảo toàn động lượng."}</>,
+    <>{"đòn bẩy, dựa trên quy tắc momen lực."}</>,
+    <>{"hiện tượng tăng trọng lượng biểu kiến."}</>,
+    <>{"lực cản của chất lưu."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Đặt tay xa điểm tựa (cánh tay đòn lớn) thì lực nhỏ cũng tạo momen đủ thắng momen của trọng lực hòn đá."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-8-sbt-021"
+  question={<>{"Câu 21. Nhận định về momen lực và cánh tay đòn."}</>}
+  statements={[
+    { id: 'a', text: <>{"Cánh tay đòn "}<Math inline>{"d"}</Math>{" luôn bằng khoảng cách "}<Math inline>{"r"}</Math>{" từ trục quay đến điểm đặt lực."}</>, isTrue: false, explanation: <><Math inline>{"d=r\\sin\\varphi"}</Math>{" chỉ bằng "}<Math inline>{"r"}</Math>{" khi lực vuông góc với đoạn nối ("}<Math inline>{"\\varphi=90^\\circ"}</Math>{")."}</> },
+    { id: 'b', text: <>{"Khi giá của lực đi qua trục quay, "}<Math inline>{"d=0"}</Math>{" nên lực không có tác dụng làm quay."}</>, isTrue: true, explanation: <><Math inline>{"M=F\\cdot0=0"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Hai lực có cùng độ lớn, đặt tại cùng một điểm của vật luôn có momen bằng nhau."}</>, isTrue: false, explanation: <>{"Momen còn phụ thuộc hướng của lực (góc "}<Math inline>{"\\varphi"}</Math>{")."}</> },
+    { id: 'd', text: <>{"Đơn vị "}<Math inline>{"\\mathrm{N\\cdot m}"}</Math>{" của momen lực có cùng thứ nguyên với jun nhưng ý nghĩa vật lý khác."}</>, isTrue: true, explanation: <>{"Momen lực đặc trưng cho tác dụng làm quay, công đặc trưng cho năng lượng được truyền."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-022"
+  question={<>{"Câu 22. Thang đồng chất dài "}<Math inline>{"L"}</Math>{", khối lượng "}<Math inline>{"m"}</Math>{" tựa vào tường thẳng đứng nhẵn, chân thang trên sàn ngang có hệ số ma sát nghỉ "}<Math inline>{"\\mu_n"}</Math>{", thang hợp với sàn góc "}<Math inline>{"\\alpha"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Phản lực của tường nhẵn lên đầu trên của thang vuông góc với tường, tức nằm ngang."}</>, isTrue: true, explanation: <>{"Tường nhẵn không có ma sát nên chỉ có phản lực vuông góc."}</> },
+    { id: 'b', text: <>{"Ma sát nghỉ ở chân thang hướng về phía tường."}</>, isTrue: true, explanation: <>{"Chân thang có xu hướng trượt ra xa tường nên ma sát hướng vào tường."}</> },
+    { id: 'c', text: <>{"Chọn trục quay tại chân thang loại được momen của cả phản lực "}<Math inline>{"N"}</Math>{" và ma sát nghỉ của sàn."}</>, isTrue: true, explanation: <>{"Cả hai lực đều đặt tại chân thang, cánh tay đòn bằng 0."}</> },
+    { id: 'd', text: <>{"Khi giảm góc "}<Math inline>{"\\alpha"}</Math>{" (thang thoải hơn), ma sát nghỉ cần thiết ở chân thang giảm."}</>, isTrue: false, explanation: <><Math inline>{"F_{msn}=F_t=\\dfrac{mg}{2\\tan\\alpha}"}</Math>{" tăng khi "}<Math inline>{"\\alpha"}</Math>{" giảm, thang dễ trượt hơn."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-023"
+  question={<>{"Câu 23. Xét một ngẫu lực tác dụng lên vật rắn."}</>}
+  statements={[
+    { id: 'a', text: <>{"Ngẫu lực làm vật vừa tịnh tiến vừa quay."}</>, isTrue: false, explanation: <>{"Hợp lực bằng 0 nên ngẫu lực không gây chuyển động tịnh tiến."}</> },
+    { id: 'b', text: <>{"Hợp lực của ngẫu lực bằng 0, nhưng momen của nó đối với mọi trục vuông góc với mặt phẳng ngẫu lực đều bằng "}<Math inline>{"Fd"}</Math>{"."}</>, isTrue: true, explanation: <>{"Momen ngẫu lực không phụ thuộc trục quay."}</> },
+    { id: 'c', text: <>{"Momen của ngẫu lực phụ thuộc vị trí trục quay."}</>, isTrue: false, explanation: <><Math inline>{"M=F(d_1+d_2)=Fd"}</Math>{" với mọi vị trí trục."}</> },
+    { id: 'd', text: <>{"Xoay vô-lăng bằng hai tay (ngẫu lực) làm vô-lăng quay mà không tạo hợp lực đẩy ngang lên trục vô-lăng."}</>, isTrue: true, explanation: <>{"Hai lực ngược chiều triệt tiêu nhau về mặt tịnh tiến."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-024"
+  question={<>{"Câu 24. Nhận định về điều kiện cân bằng và trọng tâm."}</>}
+  statements={[
+    { id: 'a', text: <>{"Vật rắn cân bằng thì tổng momen của các lực đối với mọi trục quay đều bằng 0."}</>, isTrue: true, explanation: <>{"Khi "}<Math inline>{"\\sum\\vec F=\\vec0"}</Math>{", tổng momen không phụ thuộc điểm chọn."}</> },
+    { id: 'b', text: <>{"Trọng tâm của vật đồng chất luôn nằm trên phần vật chất của vật."}</>, isTrue: false, explanation: <>{"Trọng tâm của chiếc nhẫn tròn ở tâm vòng, nơi không có vật chất."}</> },
+    { id: 'c', text: <>{"Treo vật bằng một sợi dây, khi vật đứng yên thì đường thẳng chứa dây đi qua trọng tâm."}</>, isTrue: true, explanation: <>{"Chỉ khi đó momen của trọng lực đối với điểm treo bằng 0."}</> },
+    { id: 'd', text: <>{"Momen của trọng lực đối với trục đi qua trọng tâm của vật bằng 0."}</>, isTrue: true, explanation: <>{"Giá của trọng lực đi qua trục nên cánh tay đòn bằng 0."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-025"
+  question={<>{"Câu 25. Dầm thép đồng chất nặng "}<Math inline>{"P_0"}</Math>{", dài "}<Math inline>{"L"}</Math>{" đặt trên hai gối tựa A, B ở hai đầu. Một ô tô nặng "}<Math inline>{"P_1"}</Math>{" chạy trên dầm từ A sang B."}</>}
+  statements={[
+    { id: 'a', text: <>{"Phản lực của gối A luôn bằng "}<Math inline>{"(P_0+P_1)/2"}</Math>{"."}</>, isTrue: false, explanation: <>{"Phản lực phụ thuộc vị trí ô tô trên dầm."}</> },
+    { id: 'b', text: <>{"Khi ô tô đi từ A lại gần B, áp lực của dầm lên gối A giảm còn lên gối B tăng."}</>, isTrue: true, explanation: <>{"Momen đối với A: "}<Math inline>{"N_BL=P_0\\tfrac L2+P_1x"}</Math>{" tăng khi "}<Math inline>{"x"}</Math>{" tăng; "}<Math inline>{"N_A=P_0+P_1-N_B"}</Math>{" giảm."}</> },
+    { id: 'c', text: <>{"Lấy momen đối với B cho phép tính trực tiếp phản lực tại A mà không cần biết phản lực tại B."}</>, isTrue: true, explanation: <>{"Phản lực tại B có cánh tay đòn bằng 0 đối với B."}</> },
+    { id: 'd', text: <>{"Tổng phản lực của hai gối luôn bằng "}<Math inline>{"P_0+P_1"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cân bằng lực theo phương đứng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-026"
+  question={<>{"Câu 26. Cần cẩu tháp có đối trọng ở phía sau và tải trọng ở phía trước (mô hình đơn giản, đối trọng có thể dịch chuyển)."}</>}
+  statements={[
+    { id: 'a', text: <>{"Đối trọng tạo momen chống lại momen do tải trọng gây ra."}</>, isTrue: true, explanation: <>{"Hai momen ngược chiều đối với trục tháp."}</> },
+    { id: 'b', text: <>{"Khi xe con đưa tải ra xa thân tháp, momen của trọng lượng tải đối với trục tháp tăng."}</>, isTrue: true, explanation: <>{"Cánh tay đòn tăng."}</> },
+    { id: 'c', text: <>{"Để nâng tải nặng hơn ở xa hơn mà không lật, có thể dịch đối trọng ra xa thân tháp hơn."}</>, isTrue: true, explanation: <>{"Cánh tay đòn của đối trọng tăng làm momen của nó tăng."}</> },
+    { id: 'd', text: <>{"Khi cần cẩu không nâng hàng, momen của đối trọng đối với trục tháp bằng 0."}</>, isTrue: false, explanation: <>{"Đối trọng vẫn có trọng lượng và cánh tay đòn; thân tháp và móng phải chịu momen này."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-027"
+  question={<>{"Câu 27. Đánh giá các bước trong quy trình 6 bước."}</>}
+  statements={[
+    { id: 'a', text: <>{"Ở bước vẽ sơ đồ lực, cần vẽ cả lực do vật khảo sát tác dụng lên các vật xung quanh."}</>, isTrue: false, explanation: <>{"Chỉ vẽ các lực tác dụng lên vật khảo sát."}</> },
+    { id: 'b', text: <>{"Chọn trục "}<Math inline>{"Ox"}</Math>{" theo hướng chuyển động hoặc hướng gia tốc thường làm phương trình chiếu đơn giản hơn."}</>, isTrue: true, explanation: <>{"Khi đó gia tốc chỉ có một thành phần."}</> },
+    { id: 'c', text: <>{"Với bài toán cân bằng, vật không tịnh tiến và không quay nên "}<Math inline>{"\\vec a=\\vec0"}</Math>{" và "}<Math inline>{"\\sum M=0"}</Math>{"."}</>, isTrue: true, explanation: <>{"Đó là hai điều kiện cân bằng."}</> },
+    { id: 'd', text: <>{"Chọn hệ tọa độ khác nhau sẽ cho độ lớn của lực cần tìm khác nhau."}</>, isTrue: false, explanation: <>{"Độ lớn lực là đại lượng vật lý, không phụ thuộc cách chọn hệ trục."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-028"
+  question={<>{"Câu 28. Thanh ngang nhẹ AB gắn bản lề vào tường tại A. Biển quảng cáo treo tại đầu B; thanh được giữ nằm ngang nhờ dây BC hợp với thanh góc "}<Math inline>{"\\theta"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lực căng dây phụ thuộc góc "}<Math inline>{"\\theta"}</Math>{"."}</>, isTrue: true, explanation: <>{"Momen đối với A: "}<Math inline>{"T\\cdot L\\sin\\theta=PL\\Rightarrow T=\\dfrac P{\\sin\\theta}"}</Math>{"."}</> },
+    { id: 'b', text: <><Math inline>{"\\theta"}</Math>{" càng nhỏ thì lực căng dây càng lớn."}</>, isTrue: true, explanation: <><Math inline>{"\\sin\\theta"}</Math>{" giảm nên "}<Math inline>{"T"}</Math>{" tăng."}</> },
+    { id: 'c', text: <>{"Phản lực của bản lề A lên thanh nằm dọc theo thanh (nằm ngang)."}</>, isTrue: true, explanation: <>{"Thanh nhẹ và mọi lực khác ("}<Math inline>{"\\vec P"}</Math>{", "}<Math inline>{"\\vec T"}</Math>{") đều đặt tại B. Lấy momen đối với B: momen của "}<Math inline>{"\\vec R_A"}</Math>{" phải bằng 0, nên giá của "}<Math inline>{"\\vec R_A"}</Math>{" đi qua B, tức nằm dọc thanh. Nếu thanh có trọng lượng hoặc vật treo không ở B thì "}<Math inline>{"\\vec R_A"}</Math>{" có thêm thành phần thẳng đứng."}</> },
+    { id: 'd', text: <>{"Nếu dây BC thẳng đứng ("}<Math inline>{"\\theta=90^\\circ"}</Math>{") thì lực căng dây bằng trọng lượng biển."}</>, isTrue: true, explanation: <><Math inline>{"T=P/\\sin90^\\circ=P"}</Math>{"; khi đó bản lề không phải chịu lực."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-029"
+  question={<>{"Câu 29. Phân tích kỹ thuật đi trên dây của nghệ sĩ xiếc."}</>}
+  statements={[
+    { id: 'a', text: <>{"Cân bằng của người đi trên dây là cân bằng bền."}</>, isTrue: false, explanation: <>{"Mặt chân đế rất hẹp, trọng tâm ở cao: chỉ hơi lệch là có momen làm nghiêng thêm, đó là cân bằng không bền."}</> },
+    { id: 'b', text: <>{"(Mở rộng) Cây sào dài làm hệ khó quay nhanh hơn quanh trục dọc theo dây, nên người nghiêng chậm hơn và có thời gian điều chỉnh."}</>, isTrue: true, explanation: <>{"Khối lượng phân bố xa trục quay làm momen quán tính của hệ lớn."}</> },
+    { id: 'c', text: <>{"Sào cong xuống hai đầu giúp hạ thấp trọng tâm của hệ người và sào."}</>, isTrue: true, explanation: <>{"Trọng tâm thấp hơn thì momen làm nghiêng nhỏ hơn với cùng góc lệch."}</> },
+    { id: 'd', text: <>{"Khi người bị nghiêng sang phải, họ đưa sào sang phải để lấy lại cân bằng."}</>, isTrue: false, explanation: <>{"Phải đưa sào sang trái để kéo trọng tâm chung về phía trên dây."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-8-sbt-030"
+  question={<>{"Câu 30. Xét phản lực của mặt đường lên các bánh của ô tô khi tăng tốc và khi phanh trên đường ngang."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khi xe tăng tốc mạnh về phía trước, phản lực lên các bánh sau tăng lên."}</>, isTrue: true, explanation: <>{"Lực phát động ở mặt đường, thấp hơn trọng tâm, tạo momen làm đầu xe có xu hướng ngóc lên; bánh sau chịu tải nhiều hơn."}</> },
+    { id: 'b', text: <>{"Khi xe phanh gấp, tải dồn về bánh trước làm đầu xe chúc xuống."}</>, isTrue: true, explanation: <>{"Ma sát hãm ở mặt đường hướng ra sau, gây momen chúc đầu đối với trọng tâm."}</> },
+    { id: 'c', text: <>{"Phản lực lên bánh trước tăng khi phanh gấp làm ma sát nghỉ cực đại ở bánh trước tăng, giúp bánh trước hãm hiệu quả hơn."}</>, isTrue: true, explanation: <><Math inline>{"F_{msn,\\max}=\\mu_nN"}</Math>{" tăng khi "}<Math inline>{"N"}</Math>{" tăng."}</> },
+    { id: 'd', text: <>{"Phản lực lên mỗi bánh xe luôn bằng một phần tư trọng lượng xe trong mọi trạng thái chuyển động."}</>, isTrue: false, explanation: <>{"Phản lực phụ thuộc vị trí trọng tâm và gia tốc của xe."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-8-sbt-031"
+  question={<>{"Câu 31. Siết ốc bằng cờ-lê: lực "}<Math inline>{"80\\,\\mathrm N"}</Math>{" hợp với cán cờ-lê góc "}<Math inline>{"60^\\circ"}</Math>{", đặt tại điểm cách tâm ốc "}<Math inline>{"0{,}30\\,\\mathrm m"}</Math>{". Tính momen lực ("}<Math inline>{"\\mathrm{N\\cdot m}"}</Math>{", làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="20,78"
+  explanation={<><Math inline>{"M=Fr\\sin60^\\circ=80\\times0{,}30\\times\\dfrac{\\sqrt3}2\\approx20{,}78\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-032"
+  question={<>{"Câu 32. Đòn bẩy nhẹ dài "}<Math inline>{"1{,}5\\,\\mathrm m"}</Math>{", điểm tựa O cách đầu A "}<Math inline>{"0{,}3\\,\\mathrm m"}</Math>{". Đầu A đặt vật "}<Math inline>{"60\\,\\mathrm{kg}"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực nhỏ nhất đặt vuông góc với đòn tại đầu B để nâng được vật (N)."}</>}
+  answer="147"
+  explanation={<><Math inline>{"OB=1{,}5-0{,}3=1{,}2\\,\\mathrm m"}</Math>{". Momen đối với O: "}<Math inline>{"F\\cdot1{,}2=588\\times0{,}3\\Rightarrow F=147\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-033"
+  question={<>{"Câu 33. Cần cẩu nâng dầm "}<Math inline>{"2000\\,\\mathrm{kg}"}</Math>{" ở cách trục tháp "}<Math inline>{"30\\,\\mathrm m"}</Math>{"; đối trọng "}<Math inline>{"5000\\,\\mathrm{kg}"}</Math>{" ở phía bên kia. Bỏ qua trọng lượng cánh tay cẩu. Tính khoảng cách từ trục tháp đến đối trọng để cần cẩu cân bằng (m)."}</>}
+  answer="12"
+  explanation={<><Math inline>{"2000\\cdot30=5000\\cdot x\\Rightarrow x=12\\,\\mathrm m"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-034"
+  question={<>{"Câu 34. Thang đồng chất "}<Math inline>{"20\\,\\mathrm{kg}"}</Math>{", dài "}<Math inline>{"5\\,\\mathrm m"}</Math>{" tựa vào tường nhẵn, hợp với sàn góc "}<Math inline>{"60^\\circ"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính phản lực của tường lên thang (N, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="56,58"
+  explanation={<>{"Momen đối với chân thang: "}<Math inline>{"F_t\\cdot5\\sin60^\\circ=196\\times2{,}5\\cos60^\\circ=245\\Rightarrow F_t\\approx56{,}58\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-035"
+  question={<>{"Câu 35. Hai người khiêng một dầm gỗ đồng chất dài "}<Math inline>{"3{,}0\\,\\mathrm m"}</Math>{", khối lượng "}<Math inline>{"60\\,\\mathrm{kg}"}</Math>{", mỗi người đỡ ở một đầu, dầm nằm ngang; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực đỡ của người thứ nhất (N)."}</>}
+  answer="294"
+  explanation={<>{"Trọng tâm ở chính giữa nên hai người đỡ như nhau: "}<Math inline>{"F_A=\\dfrac{mg}2=294\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-036"
+  question={<>{"Câu 36. Biển hiệu "}<Math inline>{"15\\,\\mathrm{kg}"}</Math>{" treo ở đầu B của thanh nhẹ AB dài "}<Math inline>{"1{,}2\\,\\mathrm m"}</Math>{" nằm ngang, gắn bản lề tại A; dây BC hợp với thanh góc "}<Math inline>{"30^\\circ"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực căng dây (N)."}</>}
+  answer="294"
+  explanation={<>{"Momen đối với A: "}<Math inline>{"T\\cdot L\\sin30^\\circ=PL\\Rightarrow T=\\dfrac{147}{0{,}5}=294\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<CurbWheelDiagram />
+
+<QuizShort
+  id="bai-8-sbt-037"
+  question={<>{"Câu 37. Bánh xe bán kính "}<Math inline>{"0{,}4\\,\\mathrm m"}</Math>{", khối lượng "}<Math inline>{"20\\,\\mathrm{kg}"}</Math>{" cần vượt qua gờ cao "}<Math inline>{"0{,}1\\,\\mathrm m"}</Math>{". Lực kéo nằm ngang đặt vào trục bánh xe; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực nhỏ nhất để bánh xe bắt đầu vượt gờ (N, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="172,86"
+  explanation={<>{"Lấy momen đối với mép gờ O (xem Hình 8.8): "}<Math inline>{"d_F=R-h=0{,}3\\,\\mathrm m"}</Math>{", "}<Math inline>{"d_P=\\sqrt{0{,}4^2-0{,}3^2}\\approx0{,}2646\\,\\mathrm m"}</Math>{". "}<Math inline>{"F\\cdot0{,}3=196\\times0{,}2646\\Rightarrow F\\approx172{,}86\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-038"
+  question={<>{"Câu 38. Cổng rộng "}<Math inline>{"2{,}0\\,\\mathrm m"}</Math>{", nặng "}<Math inline>{"40\\,\\mathrm{kg}"}</Math>{", trọng tâm ở giữa cổng, gắn vào tường bằng hai bản lề A (trên) và B (dưới) cách nhau "}<Math inline>{"1{,}5\\,\\mathrm m"}</Math>{" theo phương thẳng đứng. Giả sử bản lề B đỡ toàn bộ trọng lượng; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính độ lớn lực nằm ngang của bản lề A lên cổng (N, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="261,33"
+  explanation={<>{"Momen đối với B: "}<Math inline>{"F_A\\cdot1{,}5=392\\times1{,}0\\Rightarrow F_A\\approx261{,}33\\,\\mathrm N"}</Math>{". Lực này kéo mép trên của cổng về phía tường; bản lề B đẩy cổng ra khỏi tường một lực nằm ngang có cùng độ lớn."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-039"
+  question={<>{"Câu 39. Ô tô khối lượng "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{", khoảng cách hai trục bánh "}<Math inline>{"2{,}95\\,\\mathrm m"}</Math>{", trọng tâm cách trục trước "}<Math inline>{"1{,}40\\,\\mathrm m"}</Math>{", đứng yên trên đường ngang; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính tổng phản lực của mặt đường lên hai bánh trước (N, làm tròn đến 1 chữ số thập phân)."}</>}
+  answer="13387,8"
+  explanation={<>{"Momen đối với trục sau: "}<Math inline>{"N_1\\cdot2{,}95=25480\\times(2{,}95-1{,}40)\\Rightarrow N_1\\approx13387{,}8\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-8-sbt-040"
+  question={<>{"Câu 40. Thanh kim loại đồng chất AB dài "}<Math inline>{"2{,}0\\,\\mathrm m"}</Math>{", trọng lượng "}<Math inline>{"100\\,\\mathrm N"}</Math>{", đặt trên giá đỡ tại C cách A "}<Math inline>{"0{,}5\\,\\mathrm m"}</Math>{". Đầu A treo vật "}<Math inline>{"147\\,\\mathrm N"}</Math>{". Tính trọng lượng vật cần treo ở đầu B để thanh nằm ngang cân bằng (N, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="15,67"
+  explanation={<>{"Momen đối với C: "}<Math inline>{"147\\times0{,}5=100\\times(1{,}0-0{,}5)+P_2\\times1{,}5\\Rightarrow P_2=\\dfrac{73{,}5-50}{1{,}5}\\approx15{,}67\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-8-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Người trèo thang tựa tường
+
+Thang đồng chất khối lượng $m_1=20\,\mathrm{kg}$, dài $L=6{,}0\,\mathrm m$ tựa vào tường thẳng đứng nhẵn; chân thang trên sàn ngang có $\mu_n=0{,}45$; thang hợp với sàn góc $\alpha=60^\circ$. Một người khối lượng $m_2=60\,\mathrm{kg}$ trèo chậm lên thang từ chân A. Lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Lập phương trình cân bằng lực và phương trình momen đối với chân thang A khi người ở cách A một đoạn $x$ dọc theo thang.
+2. Tính $x_{\max}$ mà người trèo được trước khi thang bắt đầu trượt.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $P_1=196\,\mathrm N$, $P_2=588\,\mathrm N$. Thang chịu $P_1$ tại trung điểm, $P_2$ tại vị trí người, phản lực tường $F_t$ (nằm ngang), phản lực sàn $N$ và ma sát nghỉ $F_{msn}$ tại A.
+
+$$
+N=P_1+P_2=784\,\mathrm N,\qquad F_{msn}=F_t,
+$$
+
+$$
+F_t\cdot L\sin\alpha=P_1\cdot\frac L2\cos\alpha+P_2\cdot x\cos\alpha.
+$$
+
+**2.** Thang sắp trượt khi $F_{msn}=\mu_nN=0{,}45\times784=352{,}8\,\mathrm N$, tức $F_t=352{,}8\,\mathrm N$:
+
+$$
+352{,}8\times6{,}0\sin60^\circ=196\times3{,}0\times0{,}5+588\times0{,}5\,x_{\max}
+$$
+
+$$
+1833{,}2=294+294\,x_{\max}\quad\Rightarrow\quad x_{\max}\approx5{,}24\,\mathrm m.
+$$
+
+**Nhận xét:** Người trèo càng cao, momen của trọng lượng người đối với A càng lớn, tường phải đẩy mạnh hơn và ma sát cần thiết tăng. Người chỉ trèo được khoảng 5,24 m trên thang dài 6 m; muốn lên tới đỉnh phải dựng thang dốc hơn hoặc chèn chân thang.
+
+</details>
+</div>
+
+<div data-question-id="bai-8-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Giá treo biển quảng cáo
+
+Thanh nhôm đồng chất AB khối lượng $m_1=10\,\mathrm{kg}$, dài $L=2{,}4\,\mathrm m$ gắn bản lề vào tường tại A. Đầu B được giữ nằm ngang nhờ dây BC hợp với thanh góc $\theta=30^\circ$. Biển quảng cáo $m_2=30\,\mathrm{kg}$ treo tại D cách A một đoạn $1{,}8\,\mathrm m$. Lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính lực căng $T$ của dây BC.
+2. Tính độ lớn phản lực của bản lề A lên thanh và góc của nó so với phương ngang.
+
+<BracketDiagram id="8.12" title="Hình 8.12 · Giá treo biển quảng cáo (Câu 42)" AB={2.4} AD={1.8} loadLabel="P₂" barWeight caption="Thanh đồng chất có trọng lượng P₁ đặt tại trung điểm; biển có trọng lượng P₂ treo tại D. Lấy momen đối với bản lề A để loại phản lực R_A." />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $P_1=98\,\mathrm N$, $P_2=294\,\mathrm N$. Momen đối với A (cánh tay đòn của $T$ là $L\sin30^\circ=1{,}2\,\mathrm m$):
+
+$$
+T\cdot1{,}2=98\times1{,}2+294\times1{,}8=646{,}8\quad\Rightarrow\quad T=539\,\mathrm N.
+$$
+
+**2.** Chọn $Ox$ từ A sang B, $Oy$ lên:
+
+$$
+R_{Ax}=T\cos30^\circ\approx466{,}8\,\mathrm N,\qquad R_{Ay}=P_1+P_2-T\sin30^\circ=392-269{,}5=122{,}5\,\mathrm N.
+$$
+
+$$
+R_A=\sqrt{466{,}8^2+122{,}5^2}\approx482{,}6\,\mathrm N,\qquad\tan\varphi=\frac{122{,}5}{466{,}8}\Rightarrow\varphi\approx14{,}7^\circ.
+$$
+
+Phản lực của bản lề hướng ra xa tường, chếch lên $14{,}7^\circ$ so với phương ngang. Vì thanh có trọng lượng và biển không treo ở B nên $\vec R_A$ không nằm dọc thanh (so sánh với Câu 28).
+
+</details>
+</div>
+
+<div data-question-id="bai-8-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43 (Mở rộng — ròng rọc có khối lượng). Hai vật nối dây qua ròng rọc
+
+Vật $m_1=3{,}0\,\mathrm{kg}$ nằm trên mặt phẳng nghiêng góc $\beta=30^\circ$, hệ số ma sát trượt $\mu_t=0{,}10$; vật $m_2=2{,}0\,\mathrm{kg}$ treo thẳng đứng. Hai vật nối bằng dây nhẹ, không giãn vắt qua ròng rọc là đĩa tròn đồng chất $M=2{,}0\,\mathrm{kg}$, bán kính $R=0{,}10\,\mathrm m$. Dây không trượt trên ròng rọc, bỏ qua ma sát ở trục. Biết: với ròng rọc dạng đĩa, $(T_2-T_1)R=\tfrac12MR^2\cdot\dfrac aR$, tức $T_2-T_1=\tfrac12Ma$. Lấy $g=9{,}8\,\mathrm{m/s^2}$; hệ được thả và chuyển động.
+
+1. Áp dụng quy trình 6 bước, lập phương trình cho từng vật và cho ròng rọc.
+2. Tính gia tốc và lực căng $T_1$ (phía $m_1$), $T_2$ (phía $m_2$).
+
+<PulleyInclineDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**Bước 1–2.** Ba vật: $m_1$ (trọng lực, phản lực, ma sát, lực căng $T_1$), $m_2$ (trọng lực, lực căng $T_2$), ròng rọc (hai lực căng, lực đỡ của trục).
+
+**Bước 3 — Chiều chuyển động.** So sánh: $m_2g=19{,}6\,\mathrm N$ lớn hơn $m_1g\sin30^\circ=14{,}7\,\mathrm N$ cộng ma sát $\mu_tm_1g\cos30^\circ\approx2{,}55\,\mathrm N$, nên $m_2$ đi xuống, $m_1$ đi lên dốc. Chọn chiều dương theo chiều chuyển động này cho mỗi vật.
+
+**Bước 4 — Phương trình.**
+
+$$
+m_1:\ T_1-m_1g\sin\beta-\mu_tm_1g\cos\beta=m_1a;\qquad m_2:\ m_2g-T_2=m_2a;\qquad \text{ròng rọc: } T_2-T_1=\tfrac12Ma.
+$$
+
+**Bước 5 — Giải.** Cộng ba phương trình:
+
+$$
+a=\frac{m_2g-m_1g\sin\beta-\mu_tm_1g\cos\beta}{m_1+m_2+\tfrac12M}=\frac{19{,}6-14{,}7-2{,}546}{6{,}0}\approx0{,}392\,\mathrm{m/s^2}.
+$$
+
+$$
+T_1=14{,}7+2{,}546+3{,}0\times0{,}392\approx18{,}42\,\mathrm N,\qquad T_2=19{,}6-2{,}0\times0{,}392\approx18{,}82\,\mathrm N.
+$$
+
+**Bước 6 — Kiểm tra.** $T_2-T_1\approx0{,}39\,\mathrm N=\tfrac12Ma$ ✓. Nếu bỏ qua khối lượng ròng rọc ($M=0$), hai lực căng bằng nhau và gia tốc lớn hơn ($\approx0{,}471\,\mathrm{m/s^2}$): một phần hợp lực đã dùng để làm ròng rọc quay nhanh dần.
+
+</details>
+</div>
+
+<div data-question-id="bai-8-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Phân bố tải lên các bánh xe khi phanh gấp
+
+Ô tô khối lượng $m=2600\,\mathrm{kg}$, khoảng cách hai trục bánh $L=2{,}95\,\mathrm m$, trọng tâm G cách trục trước $d_1=1{,}40\,\mathrm m$ và cao $h=0{,}60\,\mathrm m$ so với mặt đường. Xe đang chạy $20\,\mathrm{m/s}$ trên đường ngang thì phanh, chuyển động chậm dần đều với gia tốc có độ lớn $6{,}0\,\mathrm{m/s^2}$. Lấy $g=9{,}8\,\mathrm{m/s^2}$; bỏ qua lực cản không khí.
+
+1. Lập phương trình chuyển động tịnh tiến và phương trình momen **đối với trọng tâm G** (xe không quay), từ đó tính tổng phản lực lên hai bánh trước $N_{tr}$ và hai bánh sau $N_s$ khi phanh.
+2. So sánh với khi xe đứng yên và giải thích hiện tượng chúc đầu xe. Nêu ý nghĩa của hệ thống phân phối lực phanh điện tử (EBD).
+
+<BrakingLoadDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Các lực: trọng lực $P=25480\,\mathrm N$ tại G; phản lực $N_{tr}$, $N_s$; tổng lực ma sát hãm $F=F_{tr}+F_s$ ở mặt đường, hướng về sau.
+
+Phương ngang: $F=m|a|=2600\times6{,}0=15600\,\mathrm N$. Phương đứng: $N_{tr}+N_s=P$.
+
+Xe đang có gia tốc nên phương trình momen phải lấy đối với G. Các lực ma sát nằm thấp hơn G một khoảng $h$, gây momen chúc đầu; $N_{tr}$ chống lại, $N_s$ cùng chiều chúc đầu:
+
+$$
+N_{tr}\,d_1=N_s\,(L-d_1)+F\,h.
+$$
+
+Giải hệ:
+
+$$
+N_{tr}=\frac{P(L-d_1)+Fh}{L}=\frac{25480\times1{,}55+15600\times0{,}60}{2{,}95}\approx16560{,}7\,\mathrm N,\qquad N_s=P-N_{tr}\approx8919{,}3\,\mathrm N.
+$$
+
+**2.** Khi đứng yên: $N_{tr}=\dfrac{P(L-d_1)}L\approx13387{,}8\,\mathrm N$, $N_s\approx12092{,}2\,\mathrm N$. Khi phanh, phản lực bánh trước tăng thêm $\dfrac{Fh}L\approx3172{,}9\,\mathrm N$, bánh sau giảm đúng chừng đó.
+
+Lực hãm đặt ở mặt đường, thấp hơn trọng tâm, nên tạo momen làm xe có xu hướng chúc đầu: hệ treo trước bị nén, đầu xe hạ xuống. Bánh sau bị giảm tải nên ma sát cực đại của nó giảm, dễ bị bó cứng nếu lực phanh chia đều. Hệ thống EBD điều chỉnh lực phanh từng bánh theo tải thực tế (tăng ở bánh trước, giảm ở bánh sau) để tận dụng bám đường và tránh bánh sau bị khóa.
+
+</details>
+</div>
+
+<div data-question-id="bai-8-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Khối hộp trên mặt phẳng nghiêng: trượt hay lật trước?
+
+Khối hộp chữ nhật đồng chất cao $H=0{,}80\,\mathrm m$, đáy rộng $W=0{,}40\,\mathrm m$ (theo phương dốc) đặt trên mặt phẳng nghiêng góc $\alpha$ có thể tăng dần từ $0$. Hệ số ma sát nghỉ $\mu_n=0{,}60$.
+
+1. Tìm điều kiện để hộp trượt trước khi lật.
+2. Với số liệu trên, khi tăng dần $\alpha$, hộp trượt trước hay lật trước? Ở góc nào?
+
+<BoxInclineDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**Điều kiện trượt.** Hộp đứng yên khi $mg\sin\alpha\le\mu_nmg\cos\alpha$, tức $\tan\alpha\le\mu_n$. Hộp bắt đầu trượt khi $\tan\alpha_{tr}=\mu_n$.
+
+**Điều kiện lật.** Hộp quay quanh mép dưới A khi giá của trọng lực đi ra ngoài mặt chân đế. Trọng tâm ở độ cao $H/2$ trên mặt đáy, cách mép A theo phương dốc một đoạn $W/2$. Giá của trọng lực đi qua A khi
+
+$$
+\tan\alpha_{l}=\frac{W/2}{H/2}=\frac WH.
+$$
+
+**1.** Hộp trượt trước khi lật nếu $\alpha_{tr}<\alpha_l$, tức $\mu_n<\dfrac WH$.
+
+**2.** $\dfrac WH=0{,}5<\mu_n=0{,}6$. Khi tăng góc, điều kiện lật đạt trước: $\alpha_l=\arctan0{,}5\approx26{,}6^\circ$, còn $\alpha_{tr}=\arctan0{,}6\approx31{,}0^\circ$. Ở $26{,}6^\circ$, ma sát nghỉ vẫn giữ được hộp ($\tan\alpha=0{,}5<0{,}6$) nên hộp **lật trước**, ở góc khoảng $26{,}6^\circ$.
+
+**Nhận xét:** Vật cao, đáy hẹp (W/H nhỏ) đặt trên mặt nhám dễ bị lật; vật thấp, đáy rộng trên mặt trơn thì trượt trước.
+
+</details>
+</div>
+
+</Section>
+
+</div>

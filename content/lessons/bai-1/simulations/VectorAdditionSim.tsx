@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 export const VectorAdditionSim = () => {
   const [points, setPoints] = useState({
@@ -47,30 +47,30 @@ export const VectorAdditionSim = () => {
             onPointerUp={handlePointerUp}
           >
             <defs>
-              <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <marker id="vecAddArrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
               </marker>
-              <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <marker id="vecAddArrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981" />
               </marker>
-              <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <marker id="vecAddArrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
               </marker>
             </defs>
 
             {/* Grid */}
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <pattern id="vecAddGrid" width="40" height="40" patternUnits="userSpaceOnUse">
               <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="1" />
             </pattern>
-            <rect width="400" height="300" fill="url(#grid)" />
+            <rect width="400" height="300" fill="url(#vecAddGrid)" />
 
             {/* Vectors */}
             {/* A -> B */}
-            <line x1={points.A.x} y1={points.A.y} x2={points.B.x} y2={points.B.y} stroke="#3b82f6" strokeWidth="4" markerEnd="url(#arrowBlue)" />
+            <line x1={points.A.x} y1={points.A.y} x2={points.B.x} y2={points.B.y} stroke="#3b82f6" strokeWidth="4" markerEnd="url(#vecAddArrowBlue)" />
             {/* B -> C */}
-            <line x1={points.B.x} y1={points.B.y} x2={points.C.x} y2={points.C.y} stroke="#10b981" strokeWidth="4" markerEnd="url(#arrowGreen)" />
+            <line x1={points.B.x} y1={points.B.y} x2={points.C.x} y2={points.C.y} stroke="#10b981" strokeWidth="4" markerEnd="url(#vecAddArrowGreen)" />
             {/* A -> C (Resultant) */}
-            <line x1={points.A.x} y1={points.A.y} x2={points.C.x} y2={points.C.y} stroke="#ef4444" strokeWidth="4" strokeDasharray="6,4" markerEnd="url(#arrowRed)" />
+            <line x1={points.A.x} y1={points.A.y} x2={points.C.x} y2={points.C.y} stroke="#ef4444" strokeWidth="4" strokeDasharray="6,4" markerEnd="url(#vecAddArrowRed)" />
 
             {/* Labels */}
             <text x={(points.A.x + points.B.x)/2 - 10} y={(points.A.y + points.B.y)/2 - 10} fill="#3b82f6" fontWeight="bold">d₁</text>

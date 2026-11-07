@@ -11,6 +11,7 @@ import { Stroke } from '../objects/Stroke';
 import { Shape } from '../objects/Shape';
 
 import { ImageObject } from '../objects/ImageObject';
+import { PdfObject } from '../objects/PdfObject';
 import { Text } from '../objects/Text';
 import { Point, BoardObject } from '../types';
 import { useBoardStore } from '../store/useBoardStore';
@@ -40,19 +41,39 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   const interactionLayerRef = useRef<HTMLCanvasElement>(null);
   const htmlLayerRef = useRef<HTMLDivElement>(null);
 
+  // Engine refs
+  const engineRef = useRef<{
+    renderer: CanvasRenderer;
+    scene: Scene;
+    camera: Camera;
+    loop: RenderLoop;
+    pointer: PointerManager;
+    currentStroke: Stroke | null;
+    currentShape: Shape | null;
+    selectionRect: { start: Point; end: Point } | null;
+    snipRect: { start: Point; end: Point } | null;
+  } | null>(null);
+
   const [textInput, setTextInput] = React.useState<{ x: number, y: number, text: string, width?: number } | null>(null);
   const [isNavVisible, setIsNavVisible] = React.useState(false);
   const textInputRef = useRef<{ x: number, y: number, text: string, width?: number } | null>(null);
-  const [zoomInputValue, setZoomInputValue] = React.useState('');
-  const [htmlUrl, setHtmlUrl] = React.useState<string | null>(null);
+  // null = not editing; the input then shows the live zoom value.
+  const [zoomDraft, setZoomDraft] = React.useState<string | null>(null);
+  const [htmlBlob, setHtmlBlob] = React.useState<{ file: File; url: string } | null>(null);
+  const [pdfPages, setPdfPages] = React.useState<PdfObject[]>([]);
+  const htmlUrl =
+    fileType === 'lesson' ? (url ?? null)
+    : fileType === 'html' && file && htmlBlob?.file === file ? htmlBlob.url
+    : null;
 
   useEffect(() => {
     if (fileType === 'html' && file) {
       const blobUrl = URL.createObjectURL(file);
-      setHtmlUrl(blobUrl);
+      // Syncing an external resource (object URL) whose lifetime is tied to this effect.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHtmlBlob({ file, url: blobUrl });
       return () => URL.revokeObjectURL(blobUrl);
     } else if (fileType === 'lesson' && url) {
-      setHtmlUrl(url);
       if (engineRef.current) {
         const nextScene = getOrCreateLessonScene(url);
         if (engineRef.current.scene !== nextScene) {
@@ -61,9 +82,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           engineRef.current.renderer.renderMain();
         }
       }
-      return;
     }
-    setHtmlUrl(null);
   }, [file, fileType, url]);
   
   useEffect(() => {
@@ -80,22 +99,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   const fontSize = useBoardStore(s => s.fontSize);
   const theme = useBoardStore(s => s.theme);
 
-  useEffect(() => {
-    setZoomInputValue(Math.round(zoom * 100).toString());
-  }, [zoom]);
 
-  // Engine refs
-  const engineRef = useRef<{
-    renderer: CanvasRenderer;
-    scene: Scene;
-    camera: Camera;
-    loop: RenderLoop;
-    pointer: PointerManager;
-    currentStroke: Stroke | null;
-    currentShape: Shape | null;
-    selectionRect: { start: Point; end: Point } | null;
-    snipRect: { start: Point; end: Point } | null;
-  } | null>(null);
   
   const isActiveRef = useRef(isActive);
   const laserPointsRef = useRef<{x: number, y: number, time: number}[]>([]);
@@ -722,7 +726,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           };
 
           let newPanY = state.panY - dampen(dy);
-          let newPanX = state.panX;
+          const newPanX = state.panX;
           
           if ((fileType === 'html' || fileType === 'lesson') && htmlLayerRef.current) {
             const maxScrollTop = Math.max(0, htmlLayerRef.current.scrollHeight - htmlLayerRef.current.clientHeight);
@@ -894,7 +898,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             
             // HUD Overlay for dimensions
             const shape = engine.currentShape;
-            let hudLines: string[] = [];
+            const hudLines: string[] = [];
             const dx = shape.end.x - shape.start.x;
             const dy = shape.end.y - shape.start.y;
             const length = Math.round(Math.sqrt(dx*dx + dy*dy));
@@ -924,8 +928,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
                const dy2 = -(shape.controlPoint.y - shape.start.y);
                const dx2 = shape.controlPoint.x - shape.start.x;
 
-               let startAngle = Math.atan2(dy1, dx1) * 180 / Math.PI;
-               let endAngle = Math.atan2(dy2, dx2) * 180 / Math.PI;
+               const startAngle = Math.atan2(dy1, dx1) * 180 / Math.PI;
+               const endAngle = Math.atan2(dy2, dx2) * 180 / Math.PI;
                
                let diff = endAngle - startAngle;
                while (diff < 0) diff += 360;
@@ -1420,7 +1424,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       // Middle mouse panning
       if (isPanning && panStartScreen && initialPan) {
         const dy = (e.clientY - panStartScreen.y);
-        let newPanX = state.panX;
+        const newPanX = state.panX;
         let newPanY = initialPan.y + dy;
         if (newPanY > 0) newPanY = 0;
         
@@ -1473,7 +1477,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             draftNeedsUpdate = true;
           }
         } else {
-          let constrainedP = { ...worldP };
+          const constrainedP = { ...worldP };
           if (e.shiftKey) {
             const dx = worldP.x - engine.currentShape.start.x;
             const dy = worldP.y - engine.currentShape.start.y;
@@ -1858,7 +1862,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       let newZoom = oldZoom * scaleDelta;
       newZoom = Math.min(Math.max(newZoom, minZoom), maxZoom);
       
-      let newPanX = center.x - worldX * newZoom; // Keep zoom centered but no horizontal pan drag
+      const newPanX = center.x - worldX * newZoom; // Keep zoom centered but no horizontal pan drag
       let newPanY = center.y - worldY * newZoom + panDeltaY;
       
       if (newPanY > 0) newPanY = 0;
@@ -1888,7 +1892,10 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
   useEffect(() => {
     if (fileType === 'pdf' && file && engineRef.current) {
-      loadPDFToScene(file, engineRef.current.scene, engineRef.current.renderer, engineRef.current.camera);
+      let cancelled = false;
+      loadPDFToScene(file, engineRef.current.scene, engineRef.current.renderer, engineRef.current.camera)
+        .then(pages => { if (!cancelled) setPdfPages(pages); });
+      return () => { cancelled = true; };
     }
   }, [file, fileType]);
 
@@ -1980,30 +1987,23 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   }, []);
   // Calculate current page and total pages based on PDF pages
   let currentPage = 1;
-  let totalPages = 1;
-  let pdfPages: any[] = [];
-  
-  if (engineRef.current) {
-    pdfPages = engineRef.current.scene.objects.filter((o: any) => o.pageIndex !== undefined).sort((a: any, b: any) => a.pageIndex - b.pageIndex);
-    totalPages = pdfPages.length || 1;
+  const totalPages = pdfPages.length || 1;
+  if (pdfPages.length > 0) {
+    const viewportCenterY = (-panY + windowHeight / 2) / zoom;
+    let minDistance = Infinity;
     
-    if (pdfPages.length > 0) {
-      const viewportCenterY = (-panY + windowHeight / 2) / zoom;
-      let minDistance = Infinity;
-      
-      pdfPages.forEach(p => {
-        const pageCenterY = p.y + p.height / 2;
-        const dist = Math.abs(pageCenterY - viewportCenterY);
-        if (dist < minDistance) {
-          minDistance = dist;
-          currentPage = p.pageIndex;
-        }
-      });
-    } else {
-      // Fallback for whiteboard
-      const scaledPageHeight = windowHeight * zoom;
-      currentPage = scaledPageHeight ? Math.round(-panY / scaledPageHeight) + 1 : 1;
-    }
+    pdfPages.forEach(p => {
+      const pageCenterY = p.y + p.height / 2;
+      const dist = Math.abs(pageCenterY - viewportCenterY);
+      if (dist < minDistance) {
+        minDistance = dist;
+        currentPage = p.pageIndex;
+      }
+    });
+  } else {
+    // Fallback for whiteboard
+    const scaledPageHeight = windowHeight * zoom;
+    currentPage = scaledPageHeight ? Math.round(-panY / scaledPageHeight) + 1 : 1;
   }
 
   const goToPage = (page: number) => {
@@ -2308,19 +2308,18 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="text"
-                  value={zoomInputValue}
-                  onChange={(e) => setZoomInputValue(e.target.value)}
+                  value={zoomDraft ?? Math.round(zoom * 100).toString()}
+                  onChange={(e) => setZoomDraft(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.currentTarget.blur();
                     }
                   }}
                   onBlur={() => {
-                    const val = parseInt(zoomInputValue.replace('%', ''));
+                    const val = zoomDraft === null ? NaN : parseInt(zoomDraft.replace('%', ''));
+                    setZoomDraft(null);
                     if (!isNaN(val) && val > 0) {
                       handleZoom(val / 100);
-                    } else {
-                      setZoomInputValue(Math.round(zoom * 100).toString());
                     }
                   }}
                   style={{ fontSize: '13px', fontWeight: '500', width: '30px', textAlign: 'center', background: 'transparent', border: 'none', outline: 'none', color: 'inherit' }}

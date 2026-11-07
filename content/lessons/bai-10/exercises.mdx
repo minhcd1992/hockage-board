@@ -1,0 +1,607 @@
+import styles from './components/Lesson10Workbook.module.css'
+import { LoopDiagram } from './components/Lesson10ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 10 — Động năng, thế năng, bảo toàn cơ năng">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Ký hiệu: $W$ là cơ năng, $A$ là công. Câu 41 dùng gia tốc hướng tâm (mở rộng). Số liệu phương tiện là giả định.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-10-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Động năng của vật khối lượng "}<Math inline>{"m"}</Math>{" chuyển động với tốc độ "}<Math inline>{"v"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"W_{\\text{đ}}=\\tfrac12mv"}</Math>{"."}</>,
+    <><Math inline>{"W_{\\text{đ}}=mv^2"}</Math>{"."}</>,
+    <><Math inline>{"W_{\\text{đ}}=\\tfrac12mv^2"}</Math>{"."}</>,
+    <><Math inline>{"W_{\\text{đ}}=2mv^2"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Theo định nghĩa."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Động năng là đại lượng"}</>}
+  options={[
+    <>{"vectơ, có thể dương, âm hoặc bằng 0."}</>,
+    <>{"vô hướng, luôn lớn hơn hoặc bằng 0."}</>,
+    <>{"vectơ, cùng hướng với vận tốc."}</>,
+    <>{"vô hướng, luôn âm."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\tfrac12mv^2\\ge0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-003"
+  question={<>{"Câu 3 (Nhận biết). Thế năng trọng trường của vật khối lượng "}<Math inline>{"m"}</Math>{" ở độ cao "}<Math inline>{"z"}</Math>{" so với mốc thế năng là"}</>}
+  options={[
+    <><Math inline>{"W_t=\\tfrac12mgz"}</Math>{"."}</>,
+    <><Math inline>{"W_t=mgz"}</Math>{"."}</>,
+    <><Math inline>{"W_t=mgz^2"}</Math>{"."}</>,
+    <><Math inline>{"W_t=\\tfrac12mgz^2"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Theo định nghĩa."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-004"
+  question={<>{"Câu 4 (Thông hiểu). Giá trị thế năng trọng trường của một vật tại một vị trí phụ thuộc trực tiếp vào"}</>}
+  options={[
+    <>{"vận tốc của vật."}</>,
+    <>{"hình dạng, kích thước của vật."}</>,
+    <>{"việc chọn mốc thế năng."}</>,
+    <>{"vật đến vị trí đó nhanh hay chậm."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"z"}</Math>{" đo từ mốc thế năng."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-005"
+  question={<>{"Câu 5 (Thông hiểu). Công của trọng lực khi vật đi từ vị trí 1 đến vị trí 2 bằng"}</>}
+  options={[
+    <><Math inline>{"W_{t2}-W_{t1}"}</Math>{"."}</>,
+    <><Math inline>{"W_{t1}-W_{t2}"}</Math>{"."}</>,
+    <><Math inline>{"W_{t1}+W_{t2}"}</Math>{"."}</>,
+    <><Math inline>{"\\tfrac12(W_{t1}-W_{t2})"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Công của trọng lực bằng độ giảm thế năng."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-006"
+  question={<>{"Câu 6 (Thông hiểu). Trọng lực là lực thế vì công của nó khi vật đi giữa hai điểm"}</>}
+  options={[
+    <>{"phụ thuộc hình dạng đường đi."}</>,
+    <>{"chỉ phụ thuộc vị trí điểm đầu và điểm cuối."}</>,
+    <>{"luôn bằng 0."}</>,
+    <>{"phụ thuộc thời gian đi."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"A_P=mg(z_1-z_2)"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-007"
+  question={<>{"Câu 7 (Nhận biết). Cơ năng của vật chuyển động trong trọng trường là"}</>}
+  options={[
+    <>{"tích động năng và thế năng."}</>,
+    <>{"thương động năng và thế năng."}</>,
+    <>{"tổng động năng và thế năng trọng trường."}</>,
+    <>{"hiệu động năng và thế năng."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"W=W_{\\text{đ}}+W_t"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-008"
+  question={<>{"Câu 8 (Thông hiểu). Cơ năng của vật chuyển động trong trọng trường được bảo toàn khi"}</>}
+  options={[
+    <>{"vật chỉ chịu tác dụng của trọng lực (các lực khác, nếu có, không sinh công)."}</>,
+    <>{"vật chuyển động thẳng đều."}</>,
+    <>{"vật chịu ma sát lớn."}</>,
+    <>{"vật chuyển động trong chất lưu có lực cản lớn."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Chỉ trọng lực sinh công thì cơ năng bảo toàn. Chuyển động thẳng đều không đủ: ví dụ vật đi xuống đều thì thế năng giảm mà động năng không đổi."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Vật rơi tự do không vận tốc đầu (bỏ qua lực cản). Trong quá trình rơi"}</>}
+  options={[
+    <>{"động năng giảm, thế năng tăng, cơ năng giảm."}</>,
+    <>{"thế năng chuyển thành động năng, cơ năng không đổi."}</>,
+    <>{"động năng chuyển thành thế năng, cơ năng tăng."}</>,
+    <>{"động năng và thế năng cùng tăng."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Chỉ có trọng lực sinh công."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-010"
+  question={<>{"Câu 10 (Thông hiểu). Vật được ném thẳng đứng lên từ mặt đất (mốc thế năng ở mặt đất). Tại độ cao cực đại"}</>}
+  options={[
+    <>{"động năng cực đại, thế năng bằng 0."}</>,
+    <>{"động năng bằng 0, thế năng cực đại."}</>,
+    <>{"động năng và thế năng đều bằng 0."}</>,
+    <>{"gia tốc của vật bằng 0."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Vật dừng lại tức thời; gia tốc vẫn bằng "}<Math inline>{"g"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu). Tốc độ của vật tăng gấp 3 lần thì động năng"}</>}
+  options={[
+    <>{"tăng 3 lần."}</>,
+    <>{"tăng 6 lần."}</>,
+    <>{"tăng 9 lần."}</>,
+    <>{"giảm 3 lần."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"W_{\\text{đ}}\\propto v^2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-012"
+  question={<>{"Câu 12 (Thông hiểu). Theo định lý động năng, độ biến thiên động năng của vật bằng"}</>}
+  options={[
+    <>{"công của ma sát nghỉ."}</>,
+    <>{"công của hợp lực tác dụng lên vật."}</>,
+    <>{"công của riêng trọng lực."}</>,
+    <>{"công suất trung bình của động cơ."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\Delta W_{\\text{đ}}=A_{\\text{hợp lực}}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-013"
+  question={<>{"Câu 13 (Thông hiểu). Khi có ma sát trượt, cơ năng của vật"}</>}
+  options={[
+    <>{"tăng thêm một lượng bằng công của ma sát."}</>,
+    <>{"được bảo toàn."}</>,
+    <>{"giảm; phần giảm chuyển thành nhiệt năng."}</>,
+    <>{"chuyển hết thành thế năng."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"W_2-W_1=A_{ms}<0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-014"
+  question={<>{"Câu 14 (Vận dụng). Vật "}<Math inline>{"2\\,\\mathrm{kg}"}</Math>{" chuyển động với tốc độ "}<Math inline>{"4\\,\\mathrm{m/s}"}</Math>{" có động năng"}</>}
+  options={[
+    <><Math inline>{"8\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"16\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"32\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"4\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\tfrac12\\times2\\times4^2=16\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-015"
+  question={<>{"Câu 15 (Vận dụng). Mốc thế năng ở mặt đất. Vật "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" ở độ cao "}<Math inline>{"8\\,\\mathrm m"}</Math>{", "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{", có thế năng"}</>}
+  options={[
+    <><Math inline>{"39{,}2\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"19{,}6\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"78{,}4\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"4{,}0\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"0{,}5\\times9{,}8\\times8=39{,}2\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-016"
+  question={<>{"Câu 16 (Vận dụng). Ô tô "}<Math inline>{"1000\\,\\mathrm{kg}"}</Math>{" giảm tốc từ "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{" xuống "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{". Độ biến thiên động năng là"}</>}
+  options={[
+    <><Math inline>{"-150000\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"+150000\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"-300000\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"-50000\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\tfrac12\\times1000\\times(10^2-20^2)=-150000\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-017"
+  question={<>{"Câu 17 (Vận dụng). Thả rơi hòn đá "}<Math inline>{"0{,}1\\,\\mathrm{kg}"}</Math>{" từ độ cao "}<Math inline>{"20\\,\\mathrm m"}</Math>{", "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{", bỏ qua lực cản, mốc thế năng ở mặt đất. Cơ năng của hòn đá là"}</>}
+  options={[
+    <><Math inline>{"10\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"20\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"200\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"40\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"W=mgh=20\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-018"
+  question={<>{"Câu 18 (Vận dụng). Mốc thế năng ở mặt đất. Một vật rơi tự do có động năng "}<Math inline>{"180\\,\\mathrm J"}</Math>{" ngay khi chạm đất. Tại điểm M trên đường rơi, thế năng của vật là "}<Math inline>{"60\\,\\mathrm J"}</Math>{". Động năng tại M là"}</>}
+  options={[
+    <><Math inline>{"240\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"120\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"60\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"30\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Cơ năng "}<Math inline>{"W=180\\,\\mathrm J"}</Math>{" (tại mặt đất "}<Math inline>{"W_t=0"}</Math>{"). Tại M: "}<Math inline>{"W_{\\text{đ}}=180-60=120\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-019"
+  question={<>{"Câu 19 (Vận dụng). Vật trượt từ đỉnh xuống chân dốc; cơ năng tại đỉnh "}<Math inline>{"500\\,\\mathrm J"}</Math>{", tại chân dốc "}<Math inline>{"420\\,\\mathrm J"}</Math>{". Công của ma sát trên cả dốc là"}</>}
+  options={[
+    <><Math inline>{"+80\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"-80\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"-920\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"+420\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"A_{ms}=W_2-W_1=-80\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-10-sbt-020"
+  question={<>{"Câu 20 (Nhận biết). Đơn vị nào sau đây KHÔNG phải đơn vị năng lượng?"}</>}
+  options={[
+    <>{"jun ("}<Math inline>{"\\mathrm J"}</Math>{")."}</>,
+    <>{"kilôoát giờ ("}<Math inline>{"\\mathrm{kWh}"}</Math>{")."}</>,
+    <>{"niutơn mét ("}<Math inline>{"\\mathrm{N\\cdot m}"}</Math>{")."}</>,
+    <>{"oát trên giây ("}<Math inline>{"\\mathrm{W/s}"}</Math>{")."}</>
+  ]}
+  correctIndex={3}
+  explanation={<>{"J, N·m và kWh là đơn vị năng lượng."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-10-sbt-021"
+  question={<>{"Câu 21. Hành khách "}<Math inline>{"60\\,\\mathrm{kg}"}</Math>{" ngồi yên trên tàu điện đang chạy thẳng đều "}<Math inline>{"15\\,\\mathrm{m/s}"}</Math>{" so với mặt đất."}</>}
+  statements={[
+    { id: 'a', text: <>{"Động năng là đại lượng vô hướng, không âm."}</>, isTrue: true, explanation: <><Math inline>{"W_{\\text{đ}}=\\tfrac12mv^2\\ge0"}</Math>{"."}</> },
+    { id: 'b', text: <>{"So với toa tàu, động năng của hành khách bằng 0."}</>, isTrue: true, explanation: <>{"So với toa tàu, "}<Math inline>{"v=0"}</Math>{"."}</> },
+    { id: 'c', text: <>{"So với người đứng trên sân ga, động năng của hành khách là "}<Math inline>{"6750\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\tfrac12\\times60\\times15^2=6750\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Khi tàu hãm phanh, động năng của hành khách so với toa tàu có giá trị âm."}</>, isTrue: false, explanation: <>{"Động năng không bao giờ âm."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-022"
+  question={<>{"Câu 22. Hòn đá "}<Math inline>{"2\\,\\mathrm{kg}"}</Math>{" đi từ A ở độ cao "}<Math inline>{"10\\,\\mathrm m"}</Math>{" xuống B ở độ cao "}<Math inline>{"2\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Công của trọng lực chỉ phụ thuộc độ cao của A và B, không phụ thuộc đường đi."}</>, isTrue: true, explanation: <>{"Trọng lực là lực thế."}</> },
+    { id: 'b', text: <>{"Công của trọng lực từ A đến B là "}<Math inline>{"+156{,}8\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"2\\times9{,}8\\times8=156{,}8\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Độ biến thiên thế năng "}<Math inline>{"W_{tB}-W_{tA}=-156{,}8\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\Delta W_t=-A_P"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Nếu hòn đá đi ngược từ B lên A, trọng lực sinh công dương."}</>, isTrue: false, explanation: <>{"Khi đi lên, "}<Math inline>{"A_P=mg(z_B-z_A)<0"}</Math>{": công cản."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-023"
+  question={<>{"Câu 23. Viên bi "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" nằm yên trên mặt bàn cao "}<Math inline>{"1{,}2\\,\\mathrm m"}</Math>{" so với sàn nhà; sàn nhà cao hơn sân trường "}<Math inline>{"3{,}0\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Chọn mốc ở mặt bàn thì thế năng của bi bằng 0."}</>, isTrue: true, explanation: <><Math inline>{"z=0"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Chọn mốc ở sàn nhà thì thế năng của bi là "}<Math inline>{"6{,}0\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}5\\times10\\times1{,}2"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Chọn mốc ở sân trường thì thế năng của bi là "}<Math inline>{"21{,}0\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"z=4{,}2\\,\\mathrm m"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Khi bi rơi từ mặt bàn xuống sàn nhà, độ giảm thế năng phụ thuộc mốc thế năng."}</>, isTrue: false, explanation: <>{"Độ giảm thế năng "}<Math inline>{"mg\\Delta z=6\\,\\mathrm J"}</Math>{" với mọi mốc."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-024"
+  question={<>{"Câu 24. Thả rơi vật "}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{" không vận tốc đầu từ độ cao "}<Math inline>{"45\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; bỏ qua lực cản; mốc thế năng ở mặt đất."}</>}
+  statements={[
+    { id: 'a', text: <>{"Cơ năng của vật được bảo toàn vì vật chỉ chịu trọng lực."}</>, isTrue: true, explanation: <>{"Chỉ trọng lực sinh công."}</> },
+    { id: 'b', text: <>{"Cơ năng của vật tại mọi điểm bằng "}<Math inline>{"90\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"mgh=0{,}2\\times10\\times45"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Tốc độ khi chạm đất là "}<Math inline>{"30\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\sqrt{2gh}=30\\,\\mathrm{m/s}"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Ở độ cao "}<Math inline>{"22{,}5\\,\\mathrm m"}</Math>{", động năng bằng thế năng."}</>, isTrue: true, explanation: <><Math inline>{"W_t=45\\,\\mathrm J=W/2"}</Math>{" nên "}<Math inline>{"W_{\\text{đ}}=45\\,\\mathrm J"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-025"
+  question={<>{"Câu 25. Một xe "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" tắt máy lăn từ đỉnh một đoạn dốc thử nghiệm dài "}<Math inline>{"50\\,\\mathrm m"}</Math>{", nghiêng "}<Math inline>{"30^\\circ"}</Math>{", không vận tốc đầu; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{"; tổng lực cản không đổi "}<Math inline>{"1500\\,\\mathrm N"}</Math>{"; mốc thế năng ở chân dốc."}</>}
+  statements={[
+    { id: 'a', text: <>{"Đỉnh dốc cao hơn chân dốc "}<Math inline>{"25\\,\\mathrm m"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"50\\sin30^\\circ=25\\,\\mathrm m"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Cơ năng ban đầu là "}<Math inline>{"637000\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"2600\\times9{,}8\\times25"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Công của lực cản trên cả dốc là "}<Math inline>{"-75000\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"-1500\\times50"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Cơ năng ở chân dốc lớn hơn ở đỉnh dốc vì xe lao nhanh xuống."}</>, isTrue: false, explanation: <><Math inline>{"W_2=637000-75000=562000\\,\\mathrm J<W_1"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-026"
+  question={<>{"Câu 26. Toa tàu lượn "}<Math inline>{"500\\,\\mathrm{kg}"}</Math>{" xuất phát không vận tốc đầu từ đỉnh A cao "}<Math inline>{"60\\,\\mathrm m"}</Math>{", xuống B ở mặt đất rồi lên C cao "}<Math inline>{"40\\,\\mathrm m"}</Math>{". Bỏ qua ma sát; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; mốc ở mặt đất."}</>}
+  statements={[
+    { id: 'a', text: <>{"Cơ năng của toa tàu là "}<Math inline>{"300000\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"500\\times10\\times60"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Tốc độ tại B là "}<Math inline>{"20\\sqrt3\\approx34{,}6\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\sqrt{2\\times10\\times60}=\\sqrt{1200}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Tốc độ tại C là "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\sqrt{2\\times10\\times20}=20"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Tại C, tỉ số động năng/thế năng là "}<Math inline>{"0{,}5"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"W_{\\text{đ}C}=100000\\,\\mathrm J"}</Math>{", "}<Math inline>{"W_{tC}=200000\\,\\mathrm J"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-027"
+  question={<>{"Câu 27. Con lắc đơn: bi "}<Math inline>{"0{,}1\\,\\mathrm{kg}"}</Math>{", dây nhẹ dài "}<Math inline>{"1{,}0\\,\\mathrm m"}</Math>{", thả nhẹ từ góc "}<Math inline>{"60^\\circ"}</Math>{". Khi bi qua vị trí thấp nhất, dây vướng một chiếc đinh ở dưới điểm treo "}<Math inline>{"0{,}4\\,\\mathrm m"}</Math>{" trên đường thẳng đứng. Bỏ qua lực cản; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tốc độ của bi ở vị trí thấp nhất là "}<Math inline>{"\\sqrt{10}\\approx3{,}16\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"h=L(1-\\cos60^\\circ)=0{,}5\\,\\mathrm m"}</Math>{"; "}<Math inline>{"v=\\sqrt{2gh}=\\sqrt{10}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Sau khi vướng đinh, bi chuyển động trên cung tròn bán kính "}<Math inline>{"0{,}6\\,\\mathrm m"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"r'=1{,}0-0{,}4=0{,}6\\,\\mathrm m"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Sau khi vướng đinh, bi lên cao hơn vị trí thả ban đầu."}</>, isTrue: false, explanation: <>{"Cơ năng bảo toàn nên bi không thể lên cao hơn "}<Math inline>{"h"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Bi lên tới đúng độ cao của vị trí thả ("}<Math inline>{"0{,}5\\,\\mathrm m"}</Math>{" trên điểm thấp nhất)."}</>, isTrue: true, explanation: <>{"Vì "}<Math inline>{"h=0{,}5\\,\\mathrm m\\le r'=0{,}6\\,\\mathrm m"}</Math>{", bi không lên quá mức ngang đinh nên dây luôn căng và bi dừng lại tức thời ở độ cao "}<Math inline>{"h"}</Math>{". (Nếu đinh đặt thấp hơn, ví dụ "}<Math inline>{"r'<h"}</Math>{", dây sẽ chùng trước và bi không đạt độ cao "}<Math inline>{"h"}</Math>{" — xem Mô phỏng 10.3.)"}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-028"
+  question={<>{"Câu 28. Ô tô điện xuống dốc, người lái dùng phanh tái sinh: động cơ điện hoạt động như máy phát, nạp điện cho pin."}</>}
+  statements={[
+    { id: 'a', text: <>{"Phanh tái sinh biến một phần cơ năng giảm đi của xe thành điện năng."}</>, isTrue: true, explanation: <>{"Đúng nguyên lý hoạt động."}</> },
+    { id: 'b', text: <>{"Quá trình này tuân theo định luật bảo toàn năng lượng."}</>, isTrue: true, explanation: <>{"Năng lượng chuyển hóa giữa các dạng."}</> },
+    { id: 'c', text: <>{"Nếu chỉ dùng phanh ma sát, phần cơ năng mất đi chủ yếu chuyển thành nhiệt ở má phanh, đĩa phanh và lốp."}</>, isTrue: true, explanation: <>{"Ma sát tỏa nhiệt."}</> },
+    { id: 'd', text: <>{"Phanh tái sinh thu hồi được 100% cơ năng giảm đi, không có hao phí."}</>, isTrue: false, explanation: <>{"Luôn có hao phí do lực cản, nhiệt trong động cơ, pin…"}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-029"
+  question={<>{"Câu 29. Môn nhảy sào: chạy đà → cắm sào → sào cong → vượt xà."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khi chạy đà, năng lượng hóa học trong cơ thể chuyển thành động năng."}</>, isTrue: true, explanation: <>{"Cơ bắp sinh công."}</> },
+    { id: 'b', text: <>{"Khi sào cong, một phần động năng chuyển thành thế năng đàn hồi của sào."}</>, isTrue: true, explanation: <>{"Sào bị biến dạng đàn hồi."}</> },
+    { id: 'c', text: <>{"Ở điểm cao nhất khi vượt xà, toàn bộ động năng chạy đà đã chuyển hết thành thế năng trọng trường, tốc độ bằng 0."}</>, isTrue: false, explanation: <>{"Vận động viên vẫn còn vận tốc theo phương ngang để vượt qua xà, nên vẫn có động năng; ngoài ra có hao phí."}</> },
+    { id: 'd', text: <>{"Sào có tính đàn hồi tốt giúp tích trữ và trả lại năng lượng hiệu quả."}</>, isTrue: true, explanation: <>{"Sào bung thẳng trả lại phần lớn thế năng đàn hồi."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-10-sbt-030"
+  question={<>{"Câu 30. Thả quả bóng cao su "}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{" từ độ cao "}<Math inline>{"10\\,\\mathrm m"}</Math>{" xuống sàn cứng; bóng nảy lên cao nhất "}<Math inline>{"6{,}4\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; mốc ở mặt sàn."}</>}
+  statements={[
+    { id: 'a', text: <>{"Cơ năng ban đầu là "}<Math inline>{"20\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}2\\times10\\times10"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Cơ năng ở điểm cao nhất sau khi nảy là "}<Math inline>{"12{,}8\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}2\\times10\\times6{,}4"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Cơ năng đã mất do va chạm và lực cản là "}<Math inline>{"7{,}2\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"20-12{,}8"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Phần "}<Math inline>{"7{,}2\\,\\mathrm J"}</Math>{" đã biến mất, trái với định luật bảo toàn năng lượng."}</>, isTrue: false, explanation: <>{"Phần này chuyển thành nhiệt và âm thanh; tổng năng lượng vẫn bảo toàn."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-10-sbt-031"
+  question={<>{"Câu 31. Ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" tăng tốc từ nghỉ lên "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{". Tính động năng của ô tô khi đạt tốc độ này (kJ)."}</>}
+  answer="520"
+  explanation={<><Math inline>{"\\tfrac12\\times2600\\times20^2=520000\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-032"
+  question={<>{"Câu 32. Toa tàu lượn "}<Math inline>{"400\\,\\mathrm{kg}"}</Math>{" trượt không vận tốc đầu từ đỉnh tháp cao "}<Math inline>{"45\\,\\mathrm m"}</Math>{" xuống mặt đất; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; bỏ qua ma sát. Tính tốc độ tại chân tháp (m/s)."}</>}
+  answer="30"
+  explanation={<><Math inline>{"v=\\sqrt{2gh}=\\sqrt{900}=30\\,\\mathrm{m/s}"}</Math>{"; không phụ thuộc khối lượng."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-033"
+  question={<>{"Câu 33. Ném quả bóng thẳng đứng lên từ mặt đất với "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; bỏ qua lực cản. Tính độ cao cực đại (m)."}</>}
+  answer="20"
+  explanation={<><Math inline>{"\\tfrac12mv_0^2=mgh_{\\max}\\Rightarrow h_{\\max}=\\dfrac{v_0^2}{2g}=20\\,\\mathrm m"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-034"
+  question={<>{"Câu 34. Xe máy điện cùng người lái nặng "}<Math inline>{"200\\,\\mathrm{kg}"}</Math>{" đang chạy "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{" thì hãm phanh đến khi dừng hẳn trên đường ngang. Coi lực hãm là hợp lực theo phương ngang. Tính công của lực hãm (kJ)."}</>}
+  answer="-10"
+  explanation={<>{"Định lý động năng: "}<Math inline>{"A=0-\\tfrac12\\times200\\times10^2=-10000\\,\\mathrm J=-10\\,\\mathrm{kJ}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-035"
+  question={<>{"Câu 35. Quả bóng "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" rơi từ độ cao "}<Math inline>{"10\\,\\mathrm m"}</Math>{" xuống sàn rồi nảy lên cao nhất "}<Math inline>{"6\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tính cơ năng đã mất (J)."}</>}
+  answer="20"
+  explanation={<><Math inline>{"mg(h_1-h_2)=0{,}5\\times10\\times4=20\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-036"
+  question={<>{"Câu 36. Con lắc đơn dài "}<Math inline>{"1{,}0\\,\\mathrm m"}</Math>{", quả cầu "}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{", thả nhẹ từ góc "}<Math inline>{"60^\\circ"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{"; bỏ qua lực cản. Tính tốc độ ở vị trí thấp nhất (m/s, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="3,13"
+  explanation={<><Math inline>{"v=\\sqrt{2gL(1-\\cos60^\\circ)}=\\sqrt{9{,}8}\\approx3{,}13\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-037"
+  question={<>{"Câu 37. Vật "}<Math inline>{"2{,}0\\,\\mathrm{kg}"}</Math>{" trượt không vận tốc đầu từ đỉnh mặt nghiêng dài "}<Math inline>{"10{,}0\\,\\mathrm m"}</Math>{", góc "}<Math inline>{"30^\\circ"}</Math>{", hệ số ma sát trượt "}<Math inline>{"0{,}10"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tính tốc độ ở chân mặt nghiêng (m/s, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="9,09"
+  explanation={<><Math inline>{"h=5\\,\\mathrm m"}</Math>{"; "}<Math inline>{"A_{ms}=-\\mu mg\\cos30^\\circ\\cdot S\\approx-17{,}32\\,\\mathrm J"}</Math>{". "}<Math inline>{"\\tfrac12mv^2=mgh+A_{ms}=100-17{,}32=82{,}68\\,\\mathrm J\\Rightarrow v\\approx9{,}09\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-038"
+  question={<>{"Câu 38. Ném xiên viên đá "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" từ mặt đất với "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{", góc "}<Math inline>{"45^\\circ"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; bỏ qua lực cản. Tính động năng ở điểm cao nhất (J)."}</>}
+  answer="12,5"
+  explanation={<>{"Ở điểm cao nhất chỉ còn "}<Math inline>{"v_x=10\\cos45^\\circ=5\\sqrt2\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"W_{\\text{đ}}=\\tfrac12\\times0{,}5\\times50=12{,}5\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-039"
+  question={<>{"Câu 39. Thả rơi vật từ độ cao "}<Math inline>{"20\\,\\mathrm m"}</Math>{"; mốc ở mặt đất; bỏ qua lực cản. Tìm độ cao tại đó động năng bằng 3 lần thế năng (m)."}</>}
+  answer="5"
+  explanation={<><Math inline>{"W=W_{\\text{đ}}+W_t=4W_t\\Rightarrow mgh=4mgh'\\Rightarrow h'=5\\,\\mathrm m"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-10-sbt-040"
+  question={<>{"Câu 40. Vận động viên nhảy sào "}<Math inline>{"60\\,\\mathrm{kg}"}</Math>{" chạy đà đạt "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{". Giả sử (lý tưởng) toàn bộ động năng chạy đà chuyển thành thế năng nâng trọng tâm lên; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính độ cao trọng tâm được nâng thêm (m, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="5,10"
+  explanation={<><Math inline>{"\\Delta h=\\dfrac{v^2}{2g}=\\dfrac{100}{19{,}6}\\approx5{,}10\\,\\mathrm m"}</Math>{". Thực tế thấp hơn vì vẫn còn động năng theo phương ngang và có hao phí; bù lại vận động viên còn đẩy tay vào sào."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-10-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41 (Mở rộng — dùng gia tốc hướng tâm). Tàu lượn qua vòng lặp
+
+Toa tàu $500\,\mathrm{kg}$ xuất phát từ nghỉ ở đỉnh A cao $50\,\mathrm m$, xuống B ở mặt đất rồi đi vào vòng lặp tròn thẳng đứng bán kính $R=15\,\mathrm m$ (đỉnh C cao $2R=30\,\mathrm m$). Bỏ qua ma sát; $g=10\,\mathrm{m/s^2}$.
+
+1. Tính tốc độ tại B và tại C.
+2. Tính lực của đường ray lên toa tàu tại C (khi đó toa tàu ở mặt trong vòng lặp). Toa tàu có bám được đường ray không?
+
+<LoopDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $v_B=\sqrt{2gh_A}=\sqrt{1000}\approx31{,}6\,\mathrm{m/s}$; $v_C=\sqrt{2g(h_A-2R)}=\sqrt{400}=20\,\mathrm{m/s}$.
+
+**2.** Tại C, cả trọng lực và phản lực $N$ đều hướng xuống, về tâm vòng; tổng của chúng gây gia tốc hướng tâm $v_C^2/R$:
+
+$$
+N+mg=m\frac{v_C^2}R\quad\Rightarrow\quad N=500\left(\frac{400}{15}-10\right)\approx8333\,\mathrm N.
+$$
+
+$N>0$ nên đường ray vẫn ép lên toa tàu: toa tàu bám đường ray, không rơi. Toa tàu chỉ bám được khi $v_C^2\ge gR$, tức $h_A\ge2{,}5R=37{,}5\,\mathrm m$.
+
+</details>
+</div>
+
+<div data-question-id="bai-10-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Ô tô lăn xuống dốc rồi trượt trên đường ngang
+
+Ô tô $2600\,\mathrm{kg}$ tắt máy, lăn không vận tốc đầu từ đỉnh A cao $20\,\mathrm m$ của một con dốc, xuống chân dốc B rồi tiếp tục trên đường ngang BC dài $80\,\mathrm m$ thì dừng ở C (người lái phanh trên đoạn BC); $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Bỏ qua lực cản trên đoạn AB, tính tốc độ tại B.
+2. Tính lực cản trung bình trên đoạn BC và hệ số $\mu=F/(mg)$ tương ứng.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $v_B=\sqrt{2gh_A}=\sqrt{392}\approx19{,}8\,\mathrm{m/s}$.
+
+**2.** Định lý động năng trên BC: $0-\tfrac12mv_B^2=-F\cdot S_{BC}$, nên
+
+$$
+F=\frac{mgh_A}{S_{BC}}=\frac{2600\times9{,}8\times20}{80}=6370\,\mathrm N,\qquad \mu=\frac{F}{mg}=\frac{h_A}{S_{BC}}=0{,}25.
+$$
+
+Nhận xét: toàn bộ thế năng ban đầu $mgh_A\approx510\,\mathrm{kJ}$ cuối cùng chuyển thành nhiệt ở phanh và lốp.
+
+</details>
+</div>
+
+<div data-question-id="bai-10-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Cơ năng của vật ném xiên
+
+Ném quả cầu $0{,}2\,\mathrm{kg}$ từ độ cao $5{,}0\,\mathrm m$ với tốc độ $10\,\mathrm{m/s}$, hợp với phương ngang góc $30^\circ$; $g=10\,\mathrm{m/s^2}$; bỏ qua lực cản; mốc ở mặt đất.
+
+1. Tính cơ năng của quả cầu.
+2. Tính tốc độ khi chạm đất và độ cao lớn nhất so với mặt đất.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $W=mgh_0+\tfrac12mv_0^2=10+10=20\,\mathrm J$.
+
+**2.** Chạm đất: $\tfrac12mv^2=20\Rightarrow v=\sqrt{200}\approx14{,}1\,\mathrm{m/s}$ (không phụ thuộc góc ném).
+
+Ở điểm cao nhất chỉ còn $v_x=10\cos30^\circ=5\sqrt3\,\mathrm{m/s}$, nên $W_{\text{đ}}=\tfrac12\times0{,}2\times75=7{,}5\,\mathrm J$ và $W_t=12{,}5\,\mathrm J$:
+
+$$
+H_{\max}=\frac{12{,}5}{0{,}2\times10}=6{,}25\,\mathrm m.
+$$
+
+Kiểm tra bằng động học: $h_0+\dfrac{(v_0\sin30^\circ)^2}{2g}=5+1{,}25=6{,}25\,\mathrm m$ ✓.
+
+</details>
+</div>
+
+<div data-question-id="bai-10-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Con lắc vướng đinh
+
+Con lắc đơn: quả cầu $0{,}1\,\mathrm{kg}$, dây nhẹ dài $L=1{,}2\,\mathrm m$, thả nhẹ từ góc $60^\circ$. Khi qua vị trí cân bằng, dây vướng đinh O′ nằm dưới điểm treo O, $OO'=0{,}4\,\mathrm m$; $g=10\,\mathrm{m/s^2}$; bỏ qua lực cản.
+
+1. Tính tốc độ quả cầu ngay trước và ngay sau khi dây vướng đinh.
+2. Tính góc lệch lớn nhất $\beta$ của dây so với phương thẳng đứng sau khi vướng đinh. Kiểm tra điều kiện để dây luôn căng.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Độ cao thả so với điểm thấp nhất: $h=L(1-\cos60^\circ)=0{,}6\,\mathrm m$. Ngay khi vướng đinh, vị trí và vận tốc chưa kịp thay đổi:
+
+$$
+v=\sqrt{2gh}=\sqrt{12}\approx3{,}46\,\mathrm{m/s}\quad(\text{trước và sau như nhau}).
+$$
+
+**2.** Bán kính mới $r'=L-OO'=0{,}8\,\mathrm m$. Vì $h=0{,}6\,\mathrm m\le r'=0{,}8\,\mathrm m$, quả cầu không lên quá mức ngang đinh nên dây luôn căng. Bảo toàn cơ năng, quả cầu lên tới đúng độ cao $h$:
+
+$$
+r'(1-\cos\beta)=h\Rightarrow\cos\beta=1-\frac{0{,}6}{0{,}8}=0{,}25\Rightarrow\beta\approx75{,}5^\circ.
+$$
+
+**Lưu ý:** Nếu đinh đặt thấp hơn sao cho $r'<h$ (ví dụ $OO'=0{,}8\,\mathrm m$, $r'=0{,}4\,\mathrm m$), dây sẽ chùng khi quả cầu ở độ cao $(2h+r')/3$ và quả cầu bay theo parabol, không đạt độ cao $h$. Khi đó không thể dùng $r'(1-\cos\beta)=h$.
+
+</details>
+</div>
+
+<div data-question-id="bai-10-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Phanh tái sinh khi xuống dốc
+
+Ô tô điện $2600\,\mathrm{kg}$ xuống dốc từ độ cao $100\,\mathrm m$ xuống $20\,\mathrm m$, tốc độ giữ không đổi $10\,\mathrm{m/s}$. Phanh tái sinh thu hồi $75\%$ phần cơ năng giảm đi thành điện năng nạp vào pin; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính độ giảm cơ năng của xe.
+2. Tính điện năng nạp được vào pin (kWh).
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Tốc độ không đổi nên động năng không đổi; cơ năng giảm đúng bằng độ giảm thế năng:
+
+$$
+\Delta W=mg(h_1-h_2)=2600\times9{,}8\times80=2038400\,\mathrm J\approx2{,}04\,\mathrm{MJ}.
+$$
+
+**2.** $E=0{,}75\times2038400=1528800\,\mathrm J=\dfrac{1528800}{3{,}6\times10^6}\,\mathrm{kWh}\approx0{,}42\,\mathrm{kWh}$.
+
+Nhận xét: lượng điện này đủ cho ô tô điện đi thêm khoảng 2–3 km trên đường bằng.
+
+</details>
+</div>
+
+</Section>
+
+</div>

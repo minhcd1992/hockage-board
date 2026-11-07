@@ -12,6 +12,7 @@ export const BoatRiverSim = () => {
   
   const requestRef = useRef<number | null>(null);
   const startAnimTime = useRef<number | null>(null);
+  const frameCount = useRef(0);
 
   const RIVER_WIDTH = 200; // pixels
   const RIVER_BOTTOM = 250;
@@ -44,8 +45,8 @@ export const BoatRiverSim = () => {
     const currentY = RIVER_BOTTOM - t_sim * RIVER_WIDTH;
     setPos({ y: currentY, x: currentX });
     
-    // Update trace every few frames to save performance
-    if (Math.random() > 0.5) {
+    // Update trace every other frame to save performance
+    if (frameCount.current++ % 2 === 0) {
       setTrace(prev => [...prev, {x: currentX, y: currentY}]);
     }
 
@@ -164,10 +165,10 @@ export const BoatRiverSim = () => {
                 <marker id="arrowGreen" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                   <path d="M0,0 L0,6 L6,3 z" fill="#10b981" />
                 </marker>
-                <marker id="arrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <marker id="boatArrowBlue" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                   <path d="M0,0 L0,6 L6,3 z" fill="#3b82f6" />
                 </marker>
-                <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <marker id="boatArrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                   <path d="M0,0 L0,6 L6,3 z" fill="#ef4444" />
                 </marker>
               </defs>
@@ -179,8 +180,8 @@ export const BoatRiverSim = () => {
               {/* v23 (Nước vs Bờ) */}
               {vWater > 0 && (
                 <>
-                  <line x1="0" y1="-60" x2={vWater * 15} y2="-60" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#arrowBlue)" strokeDasharray="3 3"/>
-                  <line x1="0" y1="0" x2={vWater * 15} y2="0" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#arrowBlue)" />
+                  <line x1="0" y1="-60" x2={vWater * 15} y2="-60" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#boatArrowBlue)" strokeDasharray="3 3"/>
+                  <line x1="0" y1="0" x2={vWater * 15} y2="0" stroke="#3b82f6" strokeWidth="3" markerEnd="url(#boatArrowBlue)" />
                   <text x={vWater * 15 / 2 - 10} y="15" fill="#3b82f6" fontSize="12" fontWeight="bold">v₂₃</text>
                 </>
               )}
@@ -188,7 +189,7 @@ export const BoatRiverSim = () => {
               {/* v13 (Tổng hợp: Canô vs Bờ) */}
               {vWater > 0 && (
                 <>
-                  <line x1="0" y1="0" x2={vWater * 15} y2="-60" stroke="#ef4444" strokeWidth="4" markerEnd="url(#arrowRed)" />
+                  <line x1="0" y1="0" x2={vWater * 15} y2="-60" stroke="#ef4444" strokeWidth="4" markerEnd="url(#boatArrowRed)" />
                   <text x={vWater * 15 / 2 + 5} y="-35" fill="#ef4444" fontSize="12" fontWeight="bold">v₁₃</text>
                 </>
               )}

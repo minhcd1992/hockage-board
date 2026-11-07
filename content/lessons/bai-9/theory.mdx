@@ -1,0 +1,276 @@
+import { WorkAngle, PowerHill, EfficiencyFlow, CrateWorkForces, OrbitNoWork } from './components/Lesson9Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Nêu được các dạng năng lượng và sự chuyển hóa, truyền năng lượng.
+- Tính được công $W=Fd\cos\alpha$; phân biệt công phát động, công cản và lực không sinh công.
+- Tính công suất $\mathcal P=W/t$, liên hệ $\mathcal P=Fv$ và giải thích ý nghĩa thực tế.
+- Tính hiệu suất và năng lượng hao phí.
+
+</InfoBox>
+
+<InfoBox type="info" title="Về ký hiệu">
+
+Trong bài này, $W$ là **công**, $\mathcal P$ (chữ P viết hoa kiểu khác) là **công suất**, còn $P$ là **trọng lượng**. Đơn vị công suất oát cũng viết là W; cần đọc theo ngữ cảnh.
+
+</InfoBox>
+
+<Section title="A. Mở đầu — Năng lượng ở quanh ta" icon="rocket">
+
+**Nhà máy thủy điện.** Nước trong hồ chứa ở trên cao chảy qua ống dẫn, làm quay tua-bin và máy phát điện. Năng lượng của nước đã biến đổi thế nào? Đại lượng nào cho biết mỗi giây dòng nước truyền cho tua-bin bao nhiêu năng lượng?
+
+**Sạc ô tô điện.** Một trụ sạc nhanh công suất $150\,\mathrm{kW}$ có thể nạp cho ô tô điện đủ năng lượng đi khoảng $200\,\mathrm{km}$ trong chừng $15$–$20$ phút. Với ổ cắm gia đình khoảng $2{,}2\,\mathrm{kW}$, cùng lượng năng lượng đó phải sạc gần một ngày. Vì sao cùng một lượng năng lượng mà thời gian nạp chênh nhau hàng chục lần?
+
+**Vận động viên cử tạ.** Vận động viên nâng quả tạ $200\,\mathrm{kg}$ lên cao $2\,\mathrm m$, rồi giữ yên 3 giây chờ trọng tài. Trong 3 giây giữ yên, cơ bắp căng cứng và rất mệt, nhưng theo vật lý, **lực nâng không sinh công** lên quả tạ. Vì sao?
+
+<InfoBox type="info" title="Câu hỏi dẫn dắt">
+
+1. Năng lượng là gì và có những dạng nào?
+2. Công được tính thế nào; khi nào công dương, âm hoặc bằng 0?
+3. Công suất và hiệu suất cho biết điều gì về một máy?
+
+</InfoBox>
+
+</Section>
+
+<Section title="B. Năng lượng" icon="book">
+
+- Một vật hay hệ vật có **năng lượng** khi nó có khả năng tác dụng lực lên vật khác và làm vật khác dịch chuyển, tức có khả năng **sinh công**, hoặc làm vật khác nóng lên, phát sáng…
+- Năng lượng là đại lượng **vô hướng**. Có nhiều dạng: động năng, thế năng (gọi chung là cơ năng), nhiệt năng, điện năng, hóa năng, quang năng, năng lượng hạt nhân…
+- Năng lượng có thể **truyền** từ vật này sang vật khác (bằng cách thực hiện công hoặc truyền nhiệt) và **chuyển hóa** từ dạng này sang dạng khác.
+- **Định luật bảo toàn năng lượng:** Năng lượng không tự sinh ra và không tự mất đi, nó chỉ chuyển hóa từ dạng này sang dạng khác hoặc truyền từ vật này sang vật khác.
+
+Đơn vị năng lượng trong hệ SI là **jun** (J):
+
+$$
+1\,\mathrm J=1\,\mathrm{N\cdot m}=1\,\mathrm{kg\cdot m^2/s^2}.
+$$
+
+Ví dụ ở nhà máy thủy điện: thế năng của nước trên cao → động năng của dòng nước → động năng quay của tua-bin → điện năng; một phần chuyển thành nhiệt do ma sát.
+
+</Section>
+
+<Section title="C. Công cơ học" icon="book">
+
+### 1. Định nghĩa
+
+Công là **số đo phần năng lượng được truyền** từ vật này sang vật khác thông qua tác dụng của lực làm vật dịch chuyển. Khi lực không đổi $\vec F$ làm vật dịch chuyển một độ dịch chuyển $\vec d$:
+
+$$
+W=F\,d\cos\alpha,
+$$
+
+với $F$ là độ lớn của lực (N), $d$ là độ lớn độ dịch chuyển của điểm đặt lực (m), $\alpha$ là góc giữa $\vec F$ và $\vec d$ ($0^\circ\le\alpha\le180^\circ$). Công là đại lượng **vô hướng**, có thể dương, âm hoặc bằng 0.
+
+<WorkAngle />
+
+### 2. Công phát động, công cản
+
+<CompareTable title="Dấu của công theo góc α" columns={[<>{"Góc "}<Math inline>{"\\alpha"}</Math></>, <><Math inline>{"\\cos\\alpha"}</Math></>, <>{"Công"}</>, <>{"Ý nghĩa"}</>]}
+  rows={[
+    [<><Math inline>{"0^\\circ\\le\\alpha<90^\\circ"}</Math></>, <>{"dương"}</>, <><Math inline>{"W>0"}</Math>{": công phát động"}</>, <>{"Lực truyền năng lượng cho vật, giúp vật chuyển động."}</>],
+    [<><Math inline>{"\\alpha=90^\\circ"}</Math></>, <>{"bằng 0"}</>, <><Math inline>{"W=0"}</Math></>, <>{"Lực vuông góc với dịch chuyển, không sinh công."}</>],
+    [<><Math inline>{"90^\\circ<\\alpha\\le180^\\circ"}</Math></>, <>{"âm"}</>, <><Math inline>{"W<0"}</Math>{": công cản"}</>, <>{"Lực lấy bớt năng lượng của vật, cản trở chuyển động."}</>]
+  ]}
+/>
+
+### 3. Khi nào lực không sinh công?
+
+1. **Điểm đặt lực không dịch chuyển** ($d=0$): đẩy bức tường đứng yên, giữ quả tạ đứng yên.
+2. **Lực vuông góc với hướng dịch chuyển** ($\alpha=90^\circ$): trọng lực và phản lực khi vật chuyển động trên mặt ngang; lực luôn hướng vào tâm của vật chuyển động tròn.
+
+</Section>
+
+<Section title="D. Công suất" icon="book">
+
+### 1. Định nghĩa
+
+Hai máy xúc cùng xúc một lượng đất như nhau (cùng công). Máy A làm xong trong 10 phút, máy B mất 2 giờ: máy A "khỏe" hơn. **Công suất** đặc trưng cho **tốc độ thực hiện công**, bằng công thực hiện trong một đơn vị thời gian:
+
+$$
+\mathcal P=\frac Wt.
+$$
+
+- Đơn vị trong hệ SI là **oát** (W): $1\,\mathrm W=1\,\mathrm{J/s}$; $1\,\mathrm{kW}=10^3\,\mathrm W$, $1\,\mathrm{MW}=10^6\,\mathrm W$.
+- **Mã lực:** $1\,\mathrm{HP}\approx746\,\mathrm W$ (mã lực Anh); $1\,\mathrm{CV}\approx736\,\mathrm W$ (mã lực Pháp).
+- **Kilôoát giờ** là đơn vị **năng lượng** (không phải công suất): $1\,\mathrm{kWh}=1000\,\mathrm W\times3600\,\mathrm s=3{,}6\times10^6\,\mathrm J$.
+
+Trở lại ví dụ sạc xe: lượng năng lượng cần nạp như nhau, $W=\mathcal Pt$, nên công suất sạc lớn gấp khoảng 70 lần thì thời gian sạc ngắn đi khoảng 70 lần.
+
+### 2. Liên hệ giữa công suất, lực và vận tốc
+
+Khi lực $\vec F$ không đổi cùng hướng với vận tốc $\vec v$ của vật, trong thời gian ngắn $\Delta t$ vật dịch chuyển $v\Delta t$, lực sinh công $\Delta W=F\,v\,\Delta t$. Công suất của lực:
+
+$$
+\mathcal P=Fv.
+$$
+
+Nếu lực hợp với vận tốc góc $\alpha$ thì $\mathcal P=Fv\cos\alpha$.
+
+**Ý nghĩa thực tế:** Với cùng công suất của động cơ, muốn có lực kéo lớn (leo dốc, chở nặng) thì phải chạy chậm; khi lực cản nhỏ (đường bằng) thì xe chạy được nhanh. Hộp số giúp chọn cặp (lực, tốc độ) phù hợp: số thấp cho lực lớn, tốc độ nhỏ; số cao cho lực nhỏ, tốc độ lớn.
+
+<PowerHill />
+
+</Section>
+
+<Section title="E. Hiệu suất" icon="book">
+
+Trong thực tế luôn có ma sát, tỏa nhiệt… nên chỉ một phần năng lượng cung cấp cho máy được chuyển thành dạng có ích. **Hiệu suất** là tỉ số giữa năng lượng có ích và năng lượng toàn phần:
+
+$$
+H=\frac{W_{\text{ích}}}{W_{\text{tp}}}\times100\%=\frac{\mathcal P_{\text{ích}}}{\mathcal P_{\text{tp}}}\times100\%,\qquad W_{\text{hp}}=W_{\text{tp}}-W_{\text{ích}}.
+$$
+
+Luôn có $H<100\%$.
+
+<EfficiencyFlow />
+
+</Section>
+
+<Section title="F. Góc phân tích sâu" icon="idea">
+
+### 1. Đứng yên gánh hòm hàng 50 kg suốt 1 giờ có sinh công không?
+
+Để giữ yên hòm hàng, người phải tác dụng lực nâng có độ lớn bằng trọng lượng hòm, $F=mg\approx500\,\mathrm N$ (lấy $g=10\,\mathrm{m/s^2}$). Nhưng hòm **không dịch chuyển**, $d=0$:
+
+$$
+W=F\,d\cos0^\circ=500\times0\times1=0.
+$$
+
+Người vẫn mệt vì trong cơ bắp, các sợi cơ liên tục co và giãn rất nhỏ để duy trì lực căng; quá trình này tiêu tốn năng lượng hóa học và tỏa nhiệt bên trong cơ thể. Năng lượng đó không được truyền cho hòm hàng, nên công của lực nâng lên hòm bằng 0.
+
+### 2. Lực hấp dẫn của Trái Đất có sinh công lên Mặt Trăng không?
+
+Coi quỹ đạo của Mặt Trăng là đường tròn. Lực hấp dẫn của Trái Đất luôn hướng vào tâm quỹ đạo, còn mỗi độ dịch chuyển rất nhỏ của Mặt Trăng luôn tiếp tuyến với quỹ đạo. Hai hướng vuông góc nên lực hấp dẫn **không sinh công**; vì vậy nó chỉ làm đổi hướng vận tốc, không làm thay đổi tốc độ của Mặt Trăng. (Quỹ đạo thực của Mặt Trăng hơi dẹt nên tốc độ thay đổi chút ít trên quỹ đạo.)
+
+<OrbitNoWork />
+
+</Section>
+
+<Section title="G. Ví dụ minh họa" icon="target">
+
+### Ví dụ 1. Công của lực kéo, lực ma sát và trọng lực
+
+Kéo thùng hàng $m=40\,\mathrm{kg}$ trượt $20\,\mathrm m$ trên sàn ngang bằng lực $F_k=150\,\mathrm N$ hợp với phương ngang góc $30^\circ$ hướng lên. Hệ số ma sát trượt $\mu_t=0{,}2$, $g=9{,}8\,\mathrm{m/s^2}$. Tính công của lực kéo, lực ma sát, trọng lực và phản lực.
+
+<CrateWorkForces />
+
+**Bước 1 — Phân tích lực.** Thùng chịu trọng lực $\vec P$, phản lực $\vec N$, lực kéo $\vec F_k$ và ma sát trượt $\vec F_{ms}$. Độ dịch chuyển $d=20\,\mathrm m$ theo phương ngang.
+
+**Bước 2 — Tìm ma sát.** Theo phương đứng thùng không có gia tốc:
+
+$$
+N+F_k\sin30^\circ-P=0\quad\Rightarrow\quad N=392-75=317\,\mathrm N,\qquad F_{ms}=\mu_tN=63{,}4\,\mathrm N.
+$$
+
+**Bước 3 — Tính công.**
+
+$$
+W_{F_k}=150\times20\times\cos30^\circ\approx2598\,\mathrm J,\qquad W_{ms}=63{,}4\times20\times\cos180^\circ=-1268\,\mathrm J,
+$$
+
+$$
+W_P=W_N=0\quad(\alpha=90^\circ).
+$$
+
+**Bước 4 — Nhận xét.** Lực kéo truyền cho thùng khoảng 2598 J; ma sát lấy lại 1268 J (chuyển thành nhiệt ở mặt tiếp xúc). Tổng công $\approx1330\,\mathrm J>0$, nên thùng chuyển động nhanh dần. Trọng lực và phản lực vuông góc với dịch chuyển nên không sinh công.
+
+### Ví dụ 2. Công suất và hiệu suất của ô tô điện lên dốc
+
+Ô tô điện $m=2600\,\mathrm{kg}$ chạy đều lên dốc nghiêng $6^\circ$ với tốc độ $20\,\mathrm{m/s}$. Tổng lực cản (không khí và cản lăn) là $F_c=800\,\mathrm N$. Hiệu suất chuyển điện năng của pin thành công cơ học là $88\%$. Lấy $g=9{,}8\,\mathrm{m/s^2}$; số liệu là giả định.
+
+a) Tính công suất có ích của động cơ.
+
+b) Tính công suất điện mà pin phải cung cấp và điện năng tiêu thụ (kWh) nếu xe chạy như vậy trong 15 phút.
+
+**Bước 1 — Phân tích.** Xe chạy đều nên lực phát động $F_k$ cân bằng thành phần trọng lực dọc dốc và lực cản.
+
+**Bước 2 — Lực phát động.**
+
+$$
+F_k=mg\sin6^\circ+F_c=25480\times0{,}1045+800\approx2663+800=3463\,\mathrm N.
+$$
+
+**Bước 3 — Công suất và điện năng.**
+
+$$
+\mathcal P_{\text{ích}}=F_kv\approx3463\times20\approx69{,}3\,\mathrm{kW},\qquad \mathcal P_{\text{tp}}=\frac{\mathcal P_{\text{ích}}}{H}\approx\frac{69{,}27}{0{,}88}\approx78{,}7\,\mathrm{kW}.
+$$
+
+$$
+A=\mathcal P_{\text{tp}}\,t\approx78{,}7\,\mathrm{kW}\times0{,}25\,\mathrm h\approx19{,}7\,\mathrm{kWh}.
+$$
+
+**Bước 4 — Nhận xét.** Gần 77% lực phát động dùng để thắng thành phần trọng lực dọc dốc, nên leo dốc tốn năng lượng hơn nhiều so với chạy trên đường bằng. Động cơ điện có hiệu suất cao (khoảng 85–90%) so với động cơ xăng (thường khoảng 25–30%).
+
+</Section>
+
+<Section title="H. Ghi nhớ" icon="check">
+
+1. Năng lượng không tự sinh ra, không tự mất đi; chỉ chuyển hóa hoặc truyền từ vật này sang vật khác. Đơn vị: jun.
+2. Công $W=Fd\cos\alpha$: dương khi $\alpha$ nhọn, bằng 0 khi $\alpha=90^\circ$ hoặc $d=0$, âm khi $\alpha$ tù.
+3. Công suất $\mathcal P=W/t$, đơn vị oát; $\mathcal P=Fv$ khi lực cùng hướng vận tốc. kWh là đơn vị năng lượng.
+4. Hiệu suất $H=W_{\text{ích}}/W_{\text{tp}}<100\%$.
+
+</Section>
+
+<Section title="I. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<Quiz
+  id="bai-9-exercises-001"
+  question={<>{"Câu 1. Trường hợp nào sau đây lực tác dụng KHÔNG sinh công lên vật?"}</>}
+  options={[
+    <>{"Lực kéo của động cơ làm ô tô chuyển động nhanh dần."}</>,
+    <>{"Lực ma sát trượt làm xe máy chậm dần khi phanh."}</>,
+    <>{"Phản lực của mặt đường lên ô tô đang chạy trên đường nằm ngang."}</>,
+    <>{"Trọng lực tác dụng lên viên đá đang rơi."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Phản lực vuông góc với mặt đường ngang, tức vuông góc với dịch chuyển: "}<Math inline>{"\\alpha=90^\\circ"}</Math>{", "}<Math inline>{"W=0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-exercises-002"
+  question={<>{"Câu 2. Đẩy xe hàng bằng lực "}<Math inline>{"F=80\\,\\mathrm N"}</Math>{" theo phương ngang, xe dịch chuyển "}<Math inline>{"15\\,\\mathrm m"}</Math>{" theo hướng của lực. Công của lực đẩy là"}</>}
+  options={[
+    <><Math inline>{"1200\\,\\mathrm J"}</Math></>,
+    <><Math inline>{"5{,}33\\,\\mathrm J"}</Math></>,
+    <><Math inline>{"0\\,\\mathrm J"}</Math></>,
+    <><Math inline>{"600\\,\\mathrm J"}</Math></>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\alpha=0^\\circ"}</Math>{": "}<Math inline>{"W=Fd=80\\times15=1200\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-exercises-003"
+  question={<>{"Câu 3. Cần cẩu nâng khối bê tông trọng lượng "}<Math inline>{"10000\\,\\mathrm N"}</Math>{" thẳng đứng lên đều với tốc độ "}<Math inline>{"2\\,\\mathrm{m/s}"}</Math>{". Công suất có ích của cần cẩu là"}</>}
+  options={[
+    <><Math inline>{"5000\\,\\mathrm W"}</Math></>,
+    <><Math inline>{"20000\\,\\mathrm W"}</Math></>,
+    <><Math inline>{"10000\\,\\mathrm W"}</Math></>,
+    <><Math inline>{"40000\\,\\mathrm W"}</Math></>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Nâng đều nên lực kéo "}<Math inline>{"F=P=10000\\,\\mathrm N"}</Math>{"; "}<Math inline>{"\\mathcal P=Fv=20000\\,\\mathrm W=20\\,\\mathrm{kW}"}</Math>{"."}</>}
+/>
+
+<div data-question-id="bai-9-exercises-004" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 4. Vì sao cần cẩu kéo dầm thép lên đều càng nhanh thì động cơ càng dễ quá tải?
+
+Hãy giải thích bằng công thức công suất.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Kéo đều nên lực kéo luôn bằng trọng lượng dầm, $F=P$, không phụ thuộc tốc độ. Công suất có ích $\mathcal P=Fv=Pv$ tăng tỉ lệ với tốc độ nâng. Mỗi động cơ chỉ cung cấp được công suất đến một giới hạn thiết kế; nếu đòi tốc độ quá lớn, công suất cần vượt giới hạn đó, động cơ tiêu thụ dòng điện lớn và nóng lên, dễ hỏng. Muốn nâng nhanh hơn với tải nặng, phải dùng động cơ công suất lớn hơn.
+
+</details>
+</div>
+
+</Section>
+
+</div>

@@ -1,0 +1,623 @@
+import styles from './components/Lesson13Workbook.module.css'
+import { ConicalPendulumDiagram, LoopDiagram } from './components/Lesson13ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 13 — Động học và động lực học của chuyển động tròn">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Các câu có ghi "mở rộng" dùng kiến thức ngoài chương trình lớp 10 (lực hấp dẫn theo khoảng cách, hệ quy chiếu quay).
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-13-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Trong chuyển động tròn đều, đại lượng nào có độ lớn không đổi nhưng hướng luôn thay đổi?"}</>}
+  options={[
+    <>{"Tốc độ góc "}<Math inline>{"\\omega"}</Math>{"."}</>,
+    <>{"Vectơ gia tốc hướng tâm "}<Math inline>{"\\vec a_{ht}"}</Math>{"."}</>,
+    <>{"Tần số "}<Math inline>{"f"}</Math>{"."}</>,
+    <>{"Chu kì "}<Math inline>{"T"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\omega"}</Math>{", "}<Math inline>{"f"}</Math>{", "}<Math inline>{"T"}</Math>{" là các đại lượng vô hướng; "}<Math inline>{"\\vec a_{ht}"}</Math>{" luôn chỉ vào tâm nên hướng đổi theo vị trí của vật."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Liên hệ giữa tốc độ dài "}<Math inline>{"v"}</Math>{", tốc độ góc "}<Math inline>{"\\omega"}</Math>{" và bán kính "}<Math inline>{"R"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"v=\\omega/R"}</Math>{"."}</>,
+    <><Math inline>{"v=\\omega R"}</Math>{"."}</>,
+    <><Math inline>{"v=\\omega^2R"}</Math>{"."}</>,
+    <><Math inline>{"v=R/\\omega"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"v=\\dfrac{R\\,\\Delta\\theta}{\\Delta t}=\\omega R"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-003"
+  question={<>{"Câu 3 (Thông hiểu). Độ lớn gia tốc hướng tâm là"}</>}
+  options={[
+    <><Math inline>{"a_{ht}=v/R^2"}</Math>{"."}</>,
+    <><Math inline>{"a_{ht}=\\omega R^2"}</Math>{"."}</>,
+    <><Math inline>{"a_{ht}=v^2/R=\\omega^2R"}</Math>{"."}</>,
+    <><Math inline>{"a_{ht}=v^2/R^2"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Công thức gia tốc hướng tâm."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-004"
+  question={<>{"Câu 4 (Thông hiểu). Đơn vị của tốc độ góc trong hệ SI là"}</>}
+  options={[
+    <>{"vòng/phút."}</>,
+    <>{"độ/giây."}</>,
+    <><Math inline>{"\\mathrm{rad/s}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Góc đo bằng radian, thời gian đo bằng giây."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-005"
+  question={<>{"Câu 5 (Nhận biết). Chu kì của chuyển động tròn đều là"}</>}
+  options={[
+    <>{"số vòng vật đi được trong 1 giây."}</>,
+    <>{"thời gian vật đi hết một vòng."}</>,
+    <>{"góc bán kính quét được trong 1 giây."}</>,
+    <>{"quãng đường vật đi được trong 1 giây."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Định nghĩa chu kì."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-006"
+  question={<>{"Câu 6 (Thông hiểu). Tốc độ góc của kim giây đồng hồ là"}</>}
+  options={[
+    <><Math inline>{"\\dfrac{\\pi}{30}\\,\\mathrm{rad/s}"}</Math>{"."}</>,
+    <><Math inline>{"\\dfrac{\\pi}{60}\\,\\mathrm{rad/s}"}</Math>{"."}</>,
+    <><Math inline>{"2\\pi\\,\\mathrm{rad/s}"}</Math>{"."}</>,
+    <><Math inline>{"\\dfrac{\\pi}{1800}\\,\\mathrm{rad/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"T=60\\,\\mathrm s"}</Math>{" nên "}<Math inline>{"\\omega=\\dfrac{2\\pi}{60}=\\dfrac{\\pi}{30}\\,\\mathrm{rad/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-007"
+  question={<>{"Câu 7 (Thông hiểu). Quạt trần quay đều "}<Math inline>{"300"}</Math>{" vòng/phút. Tần số quay là"}</>}
+  options={[
+    <><Math inline>{"300\\,\\mathrm{Hz}"}</Math>{"."}</>,
+    <><Math inline>{"5\\,\\mathrm{Hz}"}</Math>{"."}</>,
+    <><Math inline>{"50\\,\\mathrm{Hz}"}</Math>{"."}</>,
+    <><Math inline>{"10\\pi\\,\\mathrm{Hz}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"f=\\dfrac{300}{60}=5\\,\\mathrm{Hz}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-008"
+  question={<>{"Câu 8 (Nhận biết). Phát biểu nào về lực hướng tâm là đúng?"}</>}
+  options={[
+    <>{"Lực hướng tâm là một loại lực mới, bên cạnh trọng lực và lực ma sát."}</>,
+    <>{"Lực hướng tâm là hợp lực của các lực tác dụng lên vật, hướng vào tâm quỹ đạo."}</>,
+    <>{"Lực hướng tâm luôn sinh công làm thay đổi động năng của vật."}</>,
+    <>{"Lực hướng tâm cùng hướng với vận tốc."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lực hướng tâm là tên gọi theo tác dụng; nó vuông góc với vận tốc nên không sinh công."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Ô tô chuyển động đều qua đỉnh một cầu vồng (cong lên). Áp lực "}<Math inline>{"N"}</Math>{" của xe lên mặt cầu so với trọng lượng "}<Math inline>{"P=mg"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"N=P"}</Math>{"."}</>,
+    <><Math inline>{"N=P+m\\dfrac{v^2}{R}>P"}</Math>{"."}</>,
+    <><Math inline>{"N=P-m\\dfrac{v^2}{R}<P"}</Math>{"."}</>,
+    <><Math inline>{"N=0"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Gia tốc hướng xuống (vào tâm): "}<Math inline>{"P-N=m\\dfrac{v^2}{R}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-010"
+  question={<>{"Câu 10 (Thông hiểu). Ô tô chuyển động đều qua điểm thấp nhất của một cầu lõm. Áp lực của xe lên mặt cầu là"}</>}
+  options={[
+    <><Math inline>{"N=mg-m\\dfrac{v^2}{R}"}</Math>{"."}</>,
+    <><Math inline>{"N=mg+m\\dfrac{v^2}{R}"}</Math>{"."}</>,
+    <><Math inline>{"N=mg"}</Math>{"."}</>,
+    <><Math inline>{"N=m\\dfrac{v^2}{R}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Gia tốc hướng lên (vào tâm): "}<Math inline>{"N-mg=m\\dfrac{v^2}{R}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu). Hành khách trên ô tô đang rẽ trái cảm thấy người nghiêng sang phải. Nguyên nhân là"}</>}
+  options={[
+    <>{"một lực ly tâm thật kéo người sang phải."}</>,
+    <>{"quán tính: cơ thể có xu hướng giữ hướng chuyển động cũ trong khi xe đổi hướng sang trái."}</>,
+    <>{"lực ma sát của ghế đẩy người sang phải."}</>,
+    <>{"trọng lực đổi hướng."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Trong hệ quy chiếu mặt đất không có lực ly tâm; ghế và thành xe phải đẩy người sang trái."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-012"
+  question={<>{"Câu 12 (Vận dụng). Đĩa tròn bán kính "}<Math inline>{"0{,}2\\,\\mathrm m"}</Math>{" quay đều "}<Math inline>{"60"}</Math>{" vòng/phút. Gia tốc hướng tâm của một điểm ở mép đĩa có độ lớn khoảng"}</>}
+  options={[
+    <><Math inline>{"0{,}8\\,\\mathrm{m/s^2}"}</Math>{"."}</>,
+    <><Math inline>{"7{,}9\\,\\mathrm{m/s^2}"}</Math>{"."}</>,
+    <><Math inline>{"40\\,\\mathrm{m/s^2}"}</Math>{"."}</>,
+    <><Math inline>{"1{,}3\\,\\mathrm{m/s^2}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\omega=2\\pi\\,\\mathrm{rad/s}"}</Math>{"; "}<Math inline>{"a_{ht}=4\\pi^2\\times0{,}2\\approx7{,}9\\,\\mathrm{m/s^2}"}</Math>{". (Kết quả 40 m/s² là do quên nhân với "}<Math inline>{"R"}</Math>{".)"}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-013"
+  question={<>{"Câu 13 (Vận dụng). Vệ tinh chuyển động tròn đều ở độ cao "}<Math inline>{"h"}</Math>{" bằng bán kính Trái Đất. Gia tốc rơi tự do ở mặt đất là "}<Math inline>{"9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Gia tốc hướng tâm của vệ tinh là"}</>}
+  options={[
+    <><Math inline>{"9{,}8\\,\\mathrm{m/s^2}"}</Math>{"."}</>,
+    <><Math inline>{"4{,}9\\,\\mathrm{m/s^2}"}</Math>{"."}</>,
+    <><Math inline>{"2{,}45\\,\\mathrm{m/s^2}"}</Math>{"."}</>,
+    <><Math inline>{"19{,}6\\,\\mathrm{m/s^2}"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Mở rộng: lực hấp dẫn tỉ lệ nghịch với bình phương khoảng cách tới tâm Trái Đất. Bán kính quỹ đạo gấp đôi nên "}<Math inline>{"a_{ht}=g/4=2{,}45\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-014"
+  question={<>{"Câu 14 (Vận dụng). Ô tô vào cua trên đường nằm ngang bán kính "}<Math inline>{"40\\,\\mathrm m"}</Math>{", "}<Math inline>{"\\mu_n=0{,}4"}</Math>{", "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tốc độ tối đa để xe không trượt là"}</>}
+  options={[
+    <><Math inline>{"16\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"12{,}65\\,\\mathrm{m/s}"}</Math>{" (khoảng "}<Math inline>{"45{,}5\\,\\mathrm{km/h}"}</Math>{")."}</>,
+    <><Math inline>{"20\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"8\\,\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"v_{\\max}=\\sqrt{0{,}4\\times10\\times40}=\\sqrt{160}\\approx12{,}65\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-015"
+  question={<>{"Câu 15 (Thông hiểu). Lực hướng tâm không sinh công vì"}</>}
+  options={[
+    <>{"độ dịch chuyển của vật bằng 0."}</>,
+    <>{"lực hướng tâm luôn vuông góc với vận tốc ("}<Math inline>{"\\alpha=90^\\circ"}</Math>{")."}</>,
+    <>{"độ lớn lực hướng tâm không đổi."}</>,
+    <>{"vật không có gia tốc."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"A=Fs\\cos90^\\circ=0"}</Math>{" trên mỗi đoạn dịch chuyển rất ngắn."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-016"
+  question={<>{"Câu 16 (Vận dụng). Quả cầu "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" buộc vào dây nhẹ dài "}<Math inline>{"1\\,\\mathrm m"}</Math>{", quay tròn đều trên mặt bàn nhẵn nằm ngang. Dây chịu lực căng tối đa "}<Math inline>{"50\\,\\mathrm N"}</Math>{". Tốc độ góc tối đa là"}</>}
+  options={[
+    <><Math inline>{"10\\,\\mathrm{rad/s}"}</Math>{"."}</>,
+    <><Math inline>{"100\\,\\mathrm{rad/s}"}</Math>{"."}</>,
+    <><Math inline>{"5\\,\\mathrm{rad/s}"}</Math>{"."}</>,
+    <><Math inline>{"7{,}07\\,\\mathrm{rad/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"T=m\\omega^2L\\Rightarrow\\omega_{\\max}=\\sqrt{\\dfrac{50}{0{,}5\\times1}}=10\\,\\mathrm{rad/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-017"
+  question={<>{"Câu 17 (Thông hiểu). Mặt đường ở khúc cua của đường đua được làm nghiêng vào phía tâm cua nhằm"}</>}
+  options={[
+    <>{"tăng lực ma sát trượt."}</>,
+    <>{"dùng thành phần nằm ngang của phản lực làm (một phần) lực hướng tâm, giúp xe vào cua an toàn ở tốc độ cao."}</>,
+    <>{"giảm khối lượng xe."}</>,
+    <>{"triệt tiêu trọng lực của xe."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"N\\sin\\theta"}</Math>{" hướng vào tâm cua."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-018"
+  question={<>{"Câu 18 (Vận dụng). Kim phút dài "}<Math inline>{"10\\,\\mathrm{cm}"}</Math>{", kim giờ dài "}<Math inline>{"6\\,\\mathrm{cm}"}</Math>{". Tỉ số tốc độ góc "}<Math inline>{"\\omega_{\\text{phút}}/\\omega_{\\text{giờ}}"}</Math>{" là"}</>}
+  options={[
+    <>{"12."}</>,
+    <>{"60."}</>,
+    <>{"24."}</>,
+    <>{"10/6."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Chu kì kim phút "}<Math inline>{"1\\,\\mathrm h"}</Math>{", kim giờ "}<Math inline>{"12\\,\\mathrm h"}</Math>{"; tốc độ góc không phụ thuộc chiều dài kim."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-019"
+  question={<>{"Câu 19 (Vận dụng cao). Ô tô qua đỉnh cầu vồng bán kính "}<Math inline>{"50\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Để xe không rời mặt cầu tại đỉnh, tốc độ phải thỏa mãn"}</>}
+  options={[
+    <><Math inline>{"v\\le22{,}1\\,\\mathrm{m/s}"}</Math>{" (khoảng "}<Math inline>{"80\\,\\mathrm{km/h}"}</Math>{")."}</>,
+    <><Math inline>{"v\\ge22{,}1\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"v\\le15\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"v\\le30\\,\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"N=mg-m\\dfrac{v^2}{R}\\ge0\\Rightarrow v\\le\\sqrt{gR}=\\sqrt{490}\\approx22{,}1\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-sbt-020"
+  question={<>{"Câu 20 (Thông hiểu). Vệ tinh địa tĩnh có chu kì bằng chu kì tự quay của Trái Đất, tức là khoảng"}</>}
+  options={[
+    <>{"12 giờ."}</>,
+    <>{"24 giờ ("}<Math inline>{"86\\,400\\,\\mathrm s"}</Math>{")."}</>,
+    <>{"365 ngày."}</>,
+    <>{"90 phút."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Chính xác hơn, chu kì tự quay của Trái Đất so với các ngôi sao là khoảng 23 giờ 56 phút; ở cấp độ này lấy gần đúng 24 giờ."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-13-sbt-021"
+  question={<>{"Câu 21. Điểm A ở mép một đĩa bán kính "}<Math inline>{"0{,}3\\,\\mathrm m"}</Math>{" quay đều "}<Math inline>{"120"}</Math>{" vòng/phút."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tần số quay là "}<Math inline>{"2\\,\\mathrm{Hz}"}</Math>{" và chu kì là "}<Math inline>{"0{,}5\\,\\mathrm s"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"f=120/60=2\\,\\mathrm{Hz}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Tốc độ góc của A là "}<Math inline>{"4\\pi\\approx12{,}57\\,\\mathrm{rad/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\omega=2\\pi f"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Tốc độ dài của A là "}<Math inline>{"1{,}2\\pi\\approx3{,}77\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"v=\\omega R=4\\pi\\times0{,}3"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Điểm B ở trung điểm bán kính có cùng tốc độ dài với A nhưng tốc độ góc chỉ bằng một nửa."}</>, isTrue: false, explanation: <>{"Ngược lại: B có cùng "}<Math inline>{"\\omega"}</Math>{" với A, còn tốc độ dài "}<Math inline>{"v_B=\\omega r_B=v_A/2"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-13-sbt-022"
+  question={<>{"Câu 22. Ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" vào cua trên đường nằm ngang bán kính "}<Math inline>{"50\\,\\mathrm m"}</Math>{"; "}<Math inline>{"\\mu_n=0{,}5"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Phản lực của mặt đường lên xe là "}<Math inline>{"25\\,480\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"N=mg"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Lực ma sát nghỉ cực đại là "}<Math inline>{"12\\,740\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}5\\times25\\,480"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Ở "}<Math inline>{"54\\,\\mathrm{km/h}"}</Math>{", lực hướng tâm cần là "}<Math inline>{"11\\,700\\,\\mathrm N<12\\,740\\,\\mathrm N"}</Math>{" nên xe không trượt."}</>, isTrue: true, explanation: <><Math inline>{"2600\\times15^2/50=11\\,700\\,\\mathrm N"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Tốc độ tối đa để xe không trượt là "}<Math inline>{"70\\,\\mathrm{km/h}"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"v_{\\max}=\\sqrt{0{,}5\\times9{,}8\\times50}=\\sqrt{245}\\approx15{,}7\\,\\mathrm{m/s}\\approx56\\,\\mathrm{km/h}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-13-sbt-023"
+  question={<>{"Câu 23. Trạm ISS chuyển động tròn đều ở độ cao "}<Math inline>{"400\\,\\mathrm{km}"}</Math>{"; "}<Math inline>{"R_{\\text{TĐ}}=6400\\,\\mathrm{km}"}</Math>{"; gia tốc rơi tự do ở độ cao đó "}<Math inline>{"g^{\\prime}=8{,}7\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lực đóng vai trò lực hướng tâm giữ trạm trên quỹ đạo là lực hấp dẫn của Trái Đất."}</>, isTrue: true, explanation: <>{"Bỏ qua lực cản rất nhỏ của khí quyển loãng."}</> },
+    { id: 'b', text: <>{"Tốc độ của trạm là "}<Math inline>{"v=\\sqrt{g^{\\prime}(R_{\\text{TĐ}}+h)}\\approx7{,}69\\,\\mathrm{km/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"mg^{\\prime}=m\\dfrac{v^2}{r}\\Rightarrow v=\\sqrt{8{,}7\\times6{,}8\\times10^6}\\approx7691\\,\\mathrm{m/s}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Phi hành gia trong trạm ở trạng thái \"không trọng lượng\" vì ở độ cao đó lực hấp dẫn của Trái Đất bằng 0."}</>, isTrue: false, explanation: <>{"Lực hấp dẫn vẫn lớn ("}<Math inline>{"g^{\\prime}=8{,}7\\,\\mathrm{m/s^2}"}</Math>{"). Người và trạm cùng \"rơi\" quanh Trái Đất với cùng gia tốc nên người không ép lên sàn."}</> },
+    { id: 'd', text: <>{"Chu kì quay của trạm khoảng "}<Math inline>{"5555\\,\\mathrm s"}</Math>{" (khoảng 92,6 phút)."}</>, isTrue: true, explanation: <><Math inline>{"T=\\dfrac{2\\pi\\times6{,}8\\times10^6}{7691}\\approx5555\\,\\mathrm s"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-13-sbt-024"
+  question={<>{"Câu 24. Ô tô "}<Math inline>{"1500\\,\\mathrm{kg}"}</Math>{" chạy với tốc độ không đổi "}<Math inline>{"15\\,\\mathrm{m/s}"}</Math>{" qua đỉnh một cầu vồng và đáy một cầu lõm, cùng bán kính cong "}<Math inline>{"45\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tại đỉnh cầu vồng, "}<Math inline>{"m\\dfrac{v^2}{R}=7500\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"1500\\times225/45"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Áp lực của xe lên đỉnh cầu vồng là "}<Math inline>{"15\\,000-7500=7500\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"N=P-mv^2/R"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Áp lực của xe lên đáy cầu lõm là "}<Math inline>{"22\\,500\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"N=P+mv^2/R"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Xe chạy càng nhanh qua cầu vồng thì áp lực lên đỉnh cầu càng lớn."}</>, isTrue: false, explanation: <><Math inline>{"N=P-mv^2/R"}</Math>{" giảm khi "}<Math inline>{"v"}</Math>{" tăng."}</> }
+  ]}
+/>
+
+<ConicalPendulumDiagram />
+
+<QuizTF
+  id="bai-13-sbt-025"
+  question={<>{"Câu 25. Con lắc nón: viên bi "}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{" treo vào dây dài "}<Math inline>{"1{,}0\\,\\mathrm m"}</Math>{", quay tròn đều trong mặt phẳng ngang, dây hợp với phương thẳng đứng góc "}<Math inline>{"60^\\circ"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{" (Hình 13.4)."}</>}
+  statements={[
+    { id: 'a', text: <>{"Bán kính quỹ đạo là "}<Math inline>{"R=L\\sin60^\\circ\\approx0{,}866\\,\\mathrm m"}</Math>{"."}</>, isTrue: true, explanation: <>{"Bán kính là khoảng cách từ bi tới trục thẳng đứng."}</> },
+    { id: 'b', text: <>{"Lực căng dây là "}<Math inline>{"T=\\dfrac{mg}{\\cos60^\\circ}=4{,}0\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"T\\cos\\alpha=mg"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Lực hướng tâm có độ lớn "}<Math inline>{"mg\\tan60^\\circ=2\\sqrt3\\approx3{,}46\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F_{ht}=T\\sin\\alpha"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Tốc độ góc là "}<Math inline>{"2\\sqrt5\\approx4{,}47\\,\\mathrm{rad/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\omega^2=\\dfrac{g}{L\\cos\\alpha}=20"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-13-sbt-026"
+  question={<>{"Câu 26. Một người ngồi trên xe máy đang vào cua sang trái."}</>}
+  statements={[
+    { id: 'a', text: <>{"Đối với người quan sát đứng yên trên mặt đất, không có lực ly tâm nào tác dụng lên người ngồi trên xe."}</>, isTrue: true, explanation: <>{"Lực ly tâm không do vật nào tác dụng; nó chỉ xuất hiện khi xét trong hệ quy chiếu quay."}</> },
+    { id: 'b', text: <>{"Trong hệ quy chiếu mặt đất, lực hướng tâm tác dụng lên hệ xe và người do lực ma sát nghỉ của mặt đường lên lốp xe cung cấp."}</>, isTrue: true, explanation: <>{"Đó là ngoại lực nằm ngang duy nhất tác dụng lên hệ."}</> },
+    { id: 'c', text: <>{"Mở rộng: trong hệ quy chiếu gắn với xe, người ta đưa vào lực quán tính ly tâm có độ lớn "}<Math inline>{"m\\omega^2R"}</Math>{"."}</>, isTrue: true, explanation: <>{"Lực quán tính trong hệ quy chiếu phi quán tính."}</> },
+    { id: 'd', text: <>{"Nếu mặt đường dính dầu, xe trượt ra ngoài theo phương tiếp tuyến là do lực ly tâm đẩy xe."}</>, isTrue: false, explanation: <>{"Xe đi thẳng theo quán tính vì không còn đủ ma sát làm lực hướng tâm."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-13-sbt-027"
+  question={<>{"Câu 27. Máy ly tâm bán kính "}<Math inline>{"0{,}1\\,\\mathrm m"}</Math>{" quay "}<Math inline>{"6000"}</Math>{" vòng/phút; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tốc độ góc là "}<Math inline>{"200\\pi\\approx628\\,\\mathrm{rad/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\omega=\\dfrac{6000\\times2\\pi}{60}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Gia tốc hướng tâm ở mép ống khoảng "}<Math inline>{"39\\,500\\,\\mathrm{m/s^2}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"(200\\pi)^2\\times0{,}1\\approx39\\,478\\,\\mathrm{m/s^2}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Gia tốc này gấp khoảng "}<Math inline>{"4000"}</Math>{" lần "}<Math inline>{"g"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"39\\,478/9{,}8\\approx4028"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Xét trong hệ quy chiếu mặt đất, có một lực ly tâm thật đẩy tế bào hồng cầu về đáy ống."}</>, isTrue: false, explanation: <>{"Trong hệ quy chiếu mặt đất không có lực ly tâm. Lực do chất lỏng xung quanh tác dụng không đủ làm lực hướng tâm cho các hạt đặc hơn, nên chúng dịch dần ra xa trục (về đáy ống)."}</> }
+  ]}
+/>
+
+<LoopDiagram />
+
+<QuizTF
+  id="bai-13-sbt-028"
+  question={<>{"Câu 28. Xe mô hình "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" thả không vận tốc đầu từ độ cao "}<Math inline>{"h"}</Math>{", trượt vào vòng lộn bán kính "}<Math inline>{"0{,}4\\,\\mathrm m"}</Math>{"; bỏ qua ma sát; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{" (Hình 13.5)."}</>}
+  statements={[
+    { id: 'a', text: <>{"Điều kiện để xe không rời ray ở điểm cao nhất là phản lực "}<Math inline>{"N\\ge0"}</Math>{"."}</>, isTrue: true, explanation: <>{"Khi "}<Math inline>{"N<0"}</Math>{" thì ray phải \"kéo\" xe, điều không thể xảy ra."}</> },
+    { id: 'b', text: <>{"Tốc độ tối thiểu ở điểm cao nhất là "}<Math inline>{"\\sqrt{gR}=2{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"N=0"}</Math>{": "}<Math inline>{"mg=mv^2/R"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Độ cao thả tối thiểu là "}<Math inline>{"h_{\\min}=2{,}5R=1{,}0\\,\\mathrm m"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"mgh=mg\\cdot2R+\\tfrac12mgR"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Thả từ "}<Math inline>{"h=1{,}2\\,\\mathrm m"}</Math>{" thì áp lực của xe lên ray ở điểm cao nhất là "}<Math inline>{"2{,}0\\,\\mathrm N"}</Math>{"."}</>, isTrue: false, explanation: <><Math inline>{"v^2=2g(h-2R)=8"}</Math>{"; "}<Math inline>{"N=\\dfrac{mv^2}{R}-mg=10-5=5{,}0\\,\\mathrm N"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-13-sbt-029"
+  question={<>{"Câu 29. Bánh xe bán kính "}<Math inline>{"0{,}35\\,\\mathrm m"}</Math>{" lăn không trượt trên đường thẳng với tốc độ không đổi "}<Math inline>{"14\\,\\mathrm{m/s}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tốc độ góc của bánh quanh trục là "}<Math inline>{"\\omega=v/R=40\\,\\mathrm{rad/s}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Lăn không trượt: điểm vành đi được quãng đường bằng quãng đường trục xe đi."}</> },
+    { id: 'b', text: <>{"Điểm cao nhất của vành có tốc độ đối với mặt đất là "}<Math inline>{"28\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Cộng vận tốc: "}<Math inline>{"v+\\omega R=2v"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Điểm vành đang tiếp xúc với mặt đất có tốc độ tức thời đối với mặt đất bằng 0."}</>, isTrue: true, explanation: <><Math inline>{"v-\\omega R=0"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Mọi điểm trên vành có gia tốc hướng tâm (đối với trục bánh) "}<Math inline>{"560\\,\\mathrm{m/s^2}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\omega^2R=1600\\times0{,}35"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-13-sbt-030"
+  question={<>{"Câu 30. Một vật chuyển động tròn đều dưới tác dụng của lực hướng tâm."}</>}
+  statements={[
+    { id: 'a', text: <>{"Động năng của vật biến thiên liên tục vì hướng của vận tốc thay đổi."}</>, isTrue: false, explanation: <><Math inline>{"W_{\\text{đ}}=\\tfrac12mv^2"}</Math>{" chỉ phụ thuộc tốc độ, mà tốc độ không đổi."}</> },
+    { id: 'b', text: <>{"Công của lực hướng tâm trên nửa vòng tròn là "}<Math inline>{"F_{ht}\\cdot\\pi R"}</Math>{"."}</>, isTrue: false, explanation: <>{"Lực luôn vuông góc với độ dịch chuyển nên công bằng 0."}</> },
+    { id: 'c', text: <>{"Công của lực hướng tâm trong một vòng bằng 0."}</>, isTrue: true, explanation: <>{"Vì công trên mọi đoạn đều bằng 0."}</> },
+    { id: 'd', text: <>{"Chuyển động tròn đều có tốc độ không đổi và có gia tốc với độ lớn không đổi."}</>, isTrue: true, explanation: <><Math inline>{"a_{ht}=v^2/R"}</Math>{" không đổi."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-13-sbt-031"
+  question={<>{"Câu 31. Đĩa hát quay đều "}<Math inline>{"33{,}33"}</Math>{" vòng/phút. Tính tốc độ góc ("}<Math inline>{"\\mathrm{rad/s}"}</Math>{", làm tròn 2 chữ số thập phân)."}</>}
+  answer="3,49"
+  explanation={<><Math inline>{"\\omega=\\dfrac{33{,}33\\times2\\pi}{60}\\approx3{,}49\\,\\mathrm{rad/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-032"
+  question={<>{"Câu 32. Ô tô vào cua trên đường phẳng bán kính "}<Math inline>{"60\\,\\mathrm m"}</Math>{", "}<Math inline>{"\\mu_n=0{,}6"}</Math>{", "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính tốc độ tối đa để xe không trượt ("}<Math inline>{"\\mathrm{m/s}"}</Math>{", làm tròn 2 chữ số thập phân)."}</>}
+  answer="18,78"
+  explanation={<><Math inline>{"\\sqrt{0{,}6\\times9{,}8\\times60}=\\sqrt{352{,}8}\\approx18{,}78\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-033"
+  question={<>{"Câu 33. Vệ tinh bay tròn đều ở độ cao "}<Math inline>{"600\\,\\mathrm{km}"}</Math>{"; "}<Math inline>{"R_{\\text{TĐ}}=6400\\,\\mathrm{km}"}</Math>{"; gia tốc rơi tự do ở độ cao đó "}<Math inline>{"8{,}2\\,\\mathrm{m/s^2}"}</Math>{". Tính tốc độ của vệ tinh ("}<Math inline>{"\\mathrm{km/s}"}</Math>{", làm tròn 2 chữ số thập phân)."}</>}
+  answer="7,58"
+  explanation={<><Math inline>{"v=\\sqrt{8{,}2\\times7{,}0\\times10^6}\\approx7576\\,\\mathrm{m/s}\\approx7{,}58\\,\\mathrm{km/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-034"
+  question={<>{"Câu 34. Ô tô "}<Math inline>{"1200\\,\\mathrm{kg}"}</Math>{" qua đỉnh cầu vồng bán kính "}<Math inline>{"40\\,\\mathrm m"}</Math>{" với tốc độ "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính áp lực của xe lên cầu tại đỉnh (N)."}</>}
+  answer="8760"
+  explanation={<><Math inline>{"N=11\\,760-1200\\times\\dfrac{100}{40}=11\\,760-3000=8760\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-035"
+  question={<>{"Câu 35. Ô tô "}<Math inline>{"2000\\,\\mathrm{kg}"}</Math>{" qua đáy cầu lõm bán kính "}<Math inline>{"50\\,\\mathrm m"}</Math>{" với tốc độ "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính áp lực của xe lên đáy cầu (N)."}</>}
+  answer="35600"
+  explanation={<><Math inline>{"N=19\\,600+2000\\times\\dfrac{400}{50}=35\\,600\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-036"
+  question={<>{"Câu 36. Cánh quạt trực thăng dài "}<Math inline>{"4{,}0\\,\\mathrm m"}</Math>{" quay đều "}<Math inline>{"450"}</Math>{" vòng/phút. Tính tốc độ dài của đầu cánh ("}<Math inline>{"\\mathrm{m/s}"}</Math>{", làm tròn đến số nguyên)."}</>}
+  answer="188"
+  explanation={<><Math inline>{"\\omega=15\\pi\\,\\mathrm{rad/s}"}</Math>{"; "}<Math inline>{"v=60\\pi\\approx188\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-037"
+  question={<>{"Câu 37. Con lắc nón: bi "}<Math inline>{"0{,}1\\,\\mathrm{kg}"}</Math>{", dây dài "}<Math inline>{"0{,}5\\,\\mathrm m"}</Math>{", dây lệch "}<Math inline>{"45^\\circ"}</Math>{" so với phương thẳng đứng; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính tốc độ góc ("}<Math inline>{"\\mathrm{rad/s}"}</Math>{", làm tròn 2 chữ số thập phân)."}</>}
+  answer="5,26"
+  explanation={<><Math inline>{"\\omega=\\sqrt{\\dfrac{g}{L\\cos45^\\circ}}=\\sqrt{\\dfrac{9{,}8}{0{,}3536}}\\approx5{,}26\\,\\mathrm{rad/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-038"
+  question={<>{"Câu 38. Viên bi trượt không ma sát vào vòng lộn bán kính "}<Math inline>{"0{,}5\\,\\mathrm m"}</Math>{". Tính độ cao thả tối thiểu (so với điểm thấp nhất của vòng) để bi không rời ray ở đỉnh vòng (m)."}</>}
+  answer="1,25"
+  explanation={<><Math inline>{"h_{\\min}=2{,}5R=1{,}25\\,\\mathrm m"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-039"
+  question={<>{"Câu 39. Máy ly tâm quay "}<Math inline>{"12\\,000"}</Math>{" vòng/phút. Tính gia tốc hướng tâm tại điểm cách trục "}<Math inline>{"8\\,\\mathrm{cm}"}</Math>{", viết dưới dạng "}<Math inline>{"x\\times10^4\\,\\mathrm{m/s^2}"}</Math>{"; điền "}<Math inline>{"x"}</Math>{" (làm tròn 2 chữ số thập phân)."}</>}
+  answer="12,63"
+  explanation={<><Math inline>{"\\omega=400\\pi\\,\\mathrm{rad/s}"}</Math>{"; "}<Math inline>{"a=(400\\pi)^2\\times0{,}08\\approx1{,}2633\\times10^5=12{,}63\\times10^4\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-13-sbt-040"
+  question={<>{"Câu 40. Khúc cua bán kính "}<Math inline>{"100\\,\\mathrm m"}</Math>{" được làm nghiêng để xe chạy "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{" không cần ma sát; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính góc nghiêng (độ, làm tròn 1 chữ số thập phân)."}</>}
+  answer="22,2"
+  explanation={<><Math inline>{"\\tan\\theta=\\dfrac{400}{980}\\approx0{,}408\\Rightarrow\\theta\\approx22{,}2^\\circ"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-13-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Thiết kế khúc cua nghiêng
+
+Khúc cua trên đường cao tốc có bán kính $R=150\,\mathrm m$, mặt đường nghiêng góc $\theta=15^\circ$ vào phía tâm; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính tốc độ thiết kế $v_0$ (km/h) để xe vào cua mà không cần ma sát.
+2. Ngày mưa, hệ số ma sát nghỉ chỉ còn $\mu_n=0{,}2$. Tìm dải tốc độ để xe vào cua mà không trượt lên phía ngoài hay tụt xuống phía trong.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $v_0=\sqrt{gR\tan\theta}=\sqrt{9{,}8\times150\times0{,}268}\approx19{,}85\,\mathrm{m/s}\approx71{,}4\,\mathrm{km/h}$.
+
+**2.** Chọn $Ox$ nằm ngang hướng vào tâm, $Oy$ thẳng đứng hướng lên.
+
+*Tốc độ lớn nhất* (xe có xu hướng trượt ra ngoài, ma sát cực đại $\mu_nN$ hướng xuống dốc):
+
+$$
+N\sin\theta+\mu_nN\cos\theta=m\frac{v^2}{R},\qquad N\cos\theta-\mu_nN\sin\theta=mg
+\ \Longrightarrow\ v_{\max}^2=gR\,\frac{\sin\theta+\mu_n\cos\theta}{\cos\theta-\mu_n\sin\theta}.
+$$
+
+$v_{\max}^2=1470\times\dfrac{0{,}2588+0{,}1932}{0{,}9659-0{,}0518}\approx727\Rightarrow v_{\max}\approx27{,}0\,\mathrm{m/s}\approx97\,\mathrm{km/h}$.
+
+*Tốc độ nhỏ nhất* (xe có xu hướng tụt xuống, ma sát hướng lên dốc): đổi dấu $\mu_n$,
+
+$$
+v_{\min}^2=gR\,\frac{\sin\theta-\mu_n\cos\theta}{\cos\theta+\mu_n\sin\theta}=1470\times\frac{0{,}0656}{1{,}0177}\approx94{,}8\Rightarrow v_{\min}\approx9{,}74\,\mathrm{m/s}\approx35\,\mathrm{km/h}.
+$$
+
+Dải tốc độ an toàn khoảng $35\,\mathrm{km/h}\le v\le97\,\mathrm{km/h}$. (Có thể kiểm tra bằng Mô phỏng 13.2, nút "Nghiêng 15°, trời mưa".)
+
+</details>
+</div>
+
+<div data-question-id="bai-13-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Vệ tinh địa tĩnh (mở rộng)
+
+Vệ tinh địa tĩnh $800\,\mathrm{kg}$ chuyển động tròn đều trong mặt phẳng xích đạo với chu kì $T=24\,\mathrm h=86\,400\,\mathrm s$. Cho $M=5{,}97\times10^{24}\,\mathrm{kg}$, $R_{\text{TĐ}}=6400\,\mathrm{km}$, $G=6{,}67\times10^{-11}\,\mathrm{N\cdot m^2/kg^2}$. (Định luật vạn vật hấp dẫn $F=G\dfrac{Mm}{r^2}$ được học kĩ ở lớp 11.)
+
+1. Lập biểu thức liên hệ bán kính quỹ đạo $r$ với $T$. Tính độ cao $h$ của vệ tinh.
+2. Tính tốc độ của vệ tinh và lực hấp dẫn của Trái Đất lên vệ tinh.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Lực hấp dẫn đóng vai trò lực hướng tâm:
+
+$$
+G\frac{Mm}{r^2}=m\left(\frac{2\pi}{T}\right)^2r\ \Longrightarrow\ r^3=\frac{GMT^2}{4\pi^2}=\frac{6{,}67\times10^{-11}\times5{,}97\times10^{24}\times86\,400^2}{4\pi^2}\approx7{,}53\times10^{22}\,\mathrm{m^3}.
+$$
+
+$r\approx4{,}22\times10^7\,\mathrm m=42\,200\,\mathrm{km}$, nên $h=r-R_{\text{TĐ}}\approx35\,800\,\mathrm{km}$.
+
+**2.** $v=\dfrac{2\pi r}{T}\approx3070\,\mathrm{m/s}\approx3{,}07\,\mathrm{km/s}$; $F=m\dfrac{v^2}{r}\approx800\times\dfrac{3070^2}{4{,}22\times10^7}\approx179\,\mathrm N$.
+
+Lực này chỉ bằng khoảng $2{,}3\%$ trọng lượng của vệ tinh ở mặt đất ($7840\,\mathrm N$), vì vệ tinh ở rất xa tâm Trái Đất.
+
+</details>
+</div>
+
+<div data-question-id="bai-13-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Vòng lộn của tàu lượn
+
+Toa tàu lượn $400\,\mathrm{kg}$ bắt đầu chuyển động từ trạng thái nghỉ tại điểm A ở độ cao $25\,\mathrm m$, trượt xuống vòng lộn bán kính $8\,\mathrm m$ (Hình 13.5). Bỏ qua ma sát; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính tốc độ và áp lực của toa lên ray tại điểm thấp nhất B.
+2. Tính tốc độ và áp lực của toa lên ray tại điểm cao nhất C. Toa có rời ray không?
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Bảo toàn cơ năng: $v_B=\sqrt{2gh}=\sqrt{490}\approx22{,}1\,\mathrm{m/s}$. Tại B, gia tốc hướng lên:
+
+$$
+N_B=mg+m\frac{v_B^2}{R}=3920+400\times\frac{490}{8}=3920+24\,500=28\,420\,\mathrm N\approx7{,}3\,mg.
+$$
+
+**2.** C ở độ cao $2R=16\,\mathrm m$: $v_C=\sqrt{2g(h-2R)}=\sqrt{176{,}4}\approx13{,}3\,\mathrm{m/s}$. Tại C, cả trọng lực và phản lực đều hướng xuống (vào tâm):
+
+$$
+N_C=m\frac{v_C^2}{R}-mg=400\times\frac{176{,}4}{8}-3920=8820-3920=4900\,\mathrm N.
+$$
+
+$N_C>0$ nên toa vẫn ép lên ray và không rời ray. (Điều kiện tối thiểu là $h\ge2{,}5R=20\,\mathrm m$.)
+
+</details>
+</div>
+
+<div data-question-id="bai-13-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Lực căng dây của con lắc đơn
+
+Viên bi $0{,}4\,\mathrm{kg}$ treo vào dây nhẹ không dãn dài $L=1{,}2\,\mathrm m$. Kéo bi lệch góc $\alpha_0=60^\circ$ rồi thả nhẹ; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính tốc độ của bi khi qua vị trí thấp nhất.
+2. Lập biểu thức lực căng dây $T$ theo góc lệch $\alpha$. Tính lực căng lớn nhất và nhỏ nhất.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Bảo toàn cơ năng, mốc thế năng ở vị trí thấp nhất: $mgL(1-\cos\alpha_0)=\tfrac12mv^2$, nên
+
+$$
+v=\sqrt{2gL(1-\cos60^\circ)}=\sqrt{11{,}76}\approx3{,}43\,\mathrm{m/s}.
+$$
+
+**2.** Tại góc lệch $\alpha$: bảo toàn cơ năng cho $v^2=2gL(\cos\alpha-\cos\alpha_0)$. Theo phương dây (hướng vào điểm treo), hợp lực đóng vai trò lực hướng tâm:
+
+$$
+T-mg\cos\alpha=m\frac{v^2}{L}\ \Longrightarrow\ T=mg(3\cos\alpha-2\cos\alpha_0).
+$$
+
+- Lớn nhất tại vị trí thấp nhất ($\alpha=0$): $T_{\max}=0{,}4\times9{,}8\times(3-1)=7{,}84\,\mathrm N$ (gấp đôi trọng lượng).
+- Nhỏ nhất tại vị trí biên ($\alpha=60^\circ$, $v=0$): $T_{\min}=mg\cos60^\circ=1{,}96\,\mathrm N$.
+
+</details>
+</div>
+
+<div data-question-id="bai-13-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Vì sao cầu thường làm cong vồng lên?
+
+Ô tô $2600\,\mathrm{kg}$ chạy với tốc độ không đổi $20\,\mathrm{m/s}$ ($72\,\mathrm{km/h}$); $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính áp lực $N_1$ của xe lên đỉnh một cầu vồng bán kính cong $80\,\mathrm m$. Với tốc độ nào thì xe bắt đầu rời khỏi mặt cầu?
+2. Tính áp lực $N_2$ của xe lên đáy một cầu lõm bán kính cong $50\,\mathrm m$. So sánh $N_1$, $N_2$ và giải thích vì sao cầu thường được làm cong vồng lên.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $N_1=mg-m\dfrac{v^2}{R_1}=25\,480-2600\times\dfrac{400}{80}=25\,480-13\,000=12\,480\,\mathrm N$.
+
+Xe bắt đầu rời mặt cầu khi $N_1=0$: $v=\sqrt{gR_1}=\sqrt{784}=28\,\mathrm{m/s}\approx101\,\mathrm{km/h}$.
+
+**2.** $N_2=mg+m\dfrac{v^2}{R_2}=25\,480+2600\times\dfrac{400}{50}=25\,480+20\,800=46\,280\,\mathrm N$, gấp khoảng $3{,}7$ lần $N_1$.
+
+**Giải thích.** Ở cầu lõm, áp lực của xe lên mặt cầu lớn hơn trọng lượng, làm kết cấu cầu và hệ thống treo của xe chịu tải lớn. Ở cầu vồng, áp lực nhỏ hơn trọng lượng nên cầu chịu tải nhẹ hơn. Ngoài ra mặt cầu vồng giúp nước mưa thoát ra hai đầu cầu, và tạo khoảng trống bên dưới cho thuyền bè đi qua. Tuy vậy, độ cong phải đủ nhỏ ($R$ lớn) để xe chạy ở tốc độ cho phép không bị "nhẹ bổng" và mất bám đường ở đỉnh cầu.
+
+</details>
+</div>
+
+</Section>
+
+</div>

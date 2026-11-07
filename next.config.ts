@@ -10,7 +10,9 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: [['remark-math', {}]],
-    rehypePlugins: [['rehype-katex', {}]],
+    // Vietnamese letters inside \text{...} only lack KaTeX font metrics (they still render);
+    // the content check scripts catch Vietnamese letters in math mode separately.
+    rehypePlugins: [['rehype-katex', { strict: 'ignore' }]],
   },
 })
 

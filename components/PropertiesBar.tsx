@@ -73,7 +73,7 @@ export function PropertiesBar() {
   let showArrows = false;
   let showSineParams = false;
   let showTextParams = false;
-  let showPhysics = false;
+  const showPhysics = false;
   let showAngleParams = false;
   let showRightAngleParams = false;
   let showEqualSegmentParams = false;
@@ -84,13 +84,13 @@ export function PropertiesBar() {
   let activeIsFilled = state.isFilled;
   let activeFontFamily = state.fontFamily;
   let activeFontSize = state.fontSize;
-  let isPhysicsObject = false;
-  let isStatic = false;
-  let physicsMass = 1;
-  let physicsVelocityX = 0;
-  let physicsVelocityY = 0;
-  let physicsAccelerationX = 0;
-  let physicsAccelerationY = 0;
+  const isPhysicsObject = false;
+  const isStatic = false;
+  const physicsMass = 1;
+  const physicsVelocityX = 0;
+  const physicsVelocityY = 0;
+  const physicsAccelerationX = 0;
+  const physicsAccelerationY = 0;
   
   let arrowStart = state.arrowStart;
   let arrowEnd = state.arrowEnd;

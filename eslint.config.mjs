@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Throwaway local scripts
+    "scratch/**",
+    "dump_console.js",
+    // Vendored assets (pdf.js worker, cmaps)
+    "public/**",
   ]),
 ]);
 

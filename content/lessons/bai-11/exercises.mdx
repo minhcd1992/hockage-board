@@ -1,0 +1,601 @@
+import styles from './components/Lesson11Workbook.module.css'
+import { ExplosionTopDiagram, BallisticPendulumDiagram } from './components/Lesson11ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 11 — Động lượng và định luật bảo toàn động lượng">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Trừ khi đề nêu khác, tốc độ được đo so với mặt đất; trong va chạm, nổ, bắn súng ta bỏ qua xung lượng của ngoại lực trong thời gian rất ngắn. Số liệu phương tiện là giả định.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-11-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Đơn vị nào sau đây là đơn vị của động lượng?"}</>}
+  options={[
+    <><Math inline>{"\\mathrm{kg\\cdot m/s^2}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{N\\cdot s}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{J\\cdot s}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{N/m}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\mathrm{kg\\cdot m/s}=\\mathrm{(kg\\cdot m/s^2)\\cdot s}=\\mathrm{N\\cdot s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Vectơ động lượng của một vật luôn"}</>}
+  options={[
+    <>{"cùng phương, ngược chiều vận tốc."}</>,
+    <>{"cùng phương, cùng chiều vận tốc."}</>,
+    <>{"vuông góc với vận tốc."}</>,
+    <>{"cùng chiều gia tốc."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\vec p=m\\vec v"}</Math>{" với "}<Math inline>{"m>0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-003"
+  question={<>{"Câu 3 (Nhận biết). Định luật II Newton viết theo động lượng có nội dung"}</>}
+  options={[
+    <>{"lực bằng tích khối lượng và gia tốc."}</>,
+    <>{"xung lượng bằng thương độ biến thiên động lượng và thời gian."}</>,
+    <>{"hợp lực bằng tốc độ biến thiên động lượng của vật."}</>,
+    <>{"động lượng của vật không đổi theo thời gian."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"\\vec F=\\Delta\\vec p/\\Delta t"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-004"
+  question={<>{"Câu 4 (Thông hiểu). Vật "}<Math inline>{"2\\,\\mathrm{kg}"}</Math>{" chuyển động với tốc độ "}<Math inline>{"5\\,\\mathrm{m/s}"}</Math>{" có động lượng"}</>}
+  options={[
+    <><Math inline>{"10\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"5\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"20\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"2{,}5\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"p=mv=10\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-005"
+  question={<>{"Câu 5 (Nhận biết). Hệ kín là hệ"}</>}
+  options={[
+    <>{"không chịu bất kỳ lực nào."}</>,
+    <>{"chỉ chịu ma sát và lực cản."}</>,
+    <>{"không có ngoại lực hoặc tổng ngoại lực bằng 0."}</>,
+    <>{"mà các vật không chuyển động tương đối với nhau."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Nội lực có thể rất lớn; điều kiện là tổng ngoại lực bằng 0."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-006"
+  question={<>{"Câu 6 (Thông hiểu). Lực "}<Math inline>{"40\\,\\mathrm N"}</Math>{" tác dụng trong "}<Math inline>{"0{,}25\\,\\mathrm s"}</Math>{" có xung lượng độ lớn"}</>}
+  options={[
+    <><Math inline>{"160\\,\\mathrm{N\\cdot s}"}</Math>{"."}</>,
+    <><Math inline>{"10\\,\\mathrm{N\\cdot s}"}</Math>{"."}</>,
+    <><Math inline>{"8\\,\\mathrm{N\\cdot s}"}</Math>{"."}</>,
+    <><Math inline>{"200\\,\\mathrm{N\\cdot s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F\\Delta t=40\\times0{,}25=10\\,\\mathrm{N\\cdot s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-007"
+  question={<>{"Câu 7 (Thông hiểu). Bóng tennis "}<Math inline>{"0{,}06\\,\\mathrm{kg}"}</Math>{" bay ngang "}<Math inline>{"25\\,\\mathrm{m/s}"}</Math>{" đập vuông góc vào tường rồi bật ngược lại "}<Math inline>{"15\\,\\mathrm{m/s}"}</Math>{". Độ lớn độ biến thiên động lượng là"}</>}
+  options={[
+    <><Math inline>{"0{,}6\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"2{,}4\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"1{,}5\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0{,}9\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Chọn chiều dương theo chiều bật lại: "}<Math inline>{"v_1=-25"}</Math>{", "}<Math inline>{"v_2=+15\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"\\Delta p=0{,}06\\times40=2{,}4\\,\\mathrm{kg\\cdot m/s}"}</Math>{". Không lấy hiệu hai tốc độ."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-008"
+  question={<>{"Câu 8 (Nhận biết). Va chạm mềm là va chạm mà sau đó"}</>}
+  options={[
+    <>{"hai vật bật ra với tốc độ ban đầu."}</>,
+    <>{"hai vật dính vào nhau, chuyển động với cùng vận tốc."}</>,
+    <>{"động năng của hệ bảo toàn."}</>,
+    <>{"tổng động lượng của hệ bằng 0."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Theo định nghĩa."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Đại bác "}<Math inline>{"1200\\,\\mathrm{kg}"}</Math>{" bắn viên đạn "}<Math inline>{"12\\,\\mathrm{kg}"}</Math>{" theo phương ngang với "}<Math inline>{"300\\,\\mathrm{m/s}"}</Math>{". Tốc độ giật lùi của đại bác là"}</>}
+  options={[
+    <><Math inline>{"3\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"30\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"12\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0{,}3\\,\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"V=\\dfrac{12\\times300}{1200}=3\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-010"
+  question={<>{"Câu 10 (Thông hiểu). Hai vật "}<Math inline>{"3\\,\\mathrm{kg}"}</Math>{" và "}<Math inline>{"2\\,\\mathrm{kg}"}</Math>{" chuyển động cùng chiều trên một đường thẳng với tốc độ "}<Math inline>{"4\\,\\mathrm{m/s}"}</Math>{" và "}<Math inline>{"6\\,\\mathrm{m/s}"}</Math>{". Tổng động lượng của hệ có độ lớn"}</>}
+  options={[
+    <><Math inline>{"24\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"12\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0"}</Math>{"."}</>,
+    <><Math inline>{"18\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"12+12=24\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu). Nếu hai vật ở Câu 10 chuyển động ngược chiều nhau thì tổng động lượng của hệ có độ lớn"}</>}
+  options={[
+    <><Math inline>{"24\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0"}</Math>{"."}</>,
+    <><Math inline>{"12\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>,
+    <><Math inline>{"6\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"12+(-12)=0"}</Math>{": hai động lượng bằng nhau về độ lớn, ngược chiều."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-012"
+  question={<>{"Câu 12 (Nhận biết). Tên lửa hoạt động dựa trên"}</>}
+  options={[
+    <>{"định luật vạn vật hấp dẫn."}</>,
+    <>{"định luật bảo toàn động lượng (chuyển động bằng phản lực)."}</>,
+    <>{"định luật bảo toàn cơ năng."}</>,
+    <>{"định luật Béc-nu-li."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Khí phụt ra sau, thân tên lửa tiến lên."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-013"
+  question={<>{"Câu 13 (Thông hiểu). Ô tô "}<Math inline>{"1500\\,\\mathrm{kg}"}</Math>{" phanh từ "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{" đến dừng trong "}<Math inline>{"2{,}5\\,\\mathrm s"}</Math>{". Độ lớn lực hãm trung bình (coi là hợp lực) là"}</>}
+  options={[
+    <><Math inline>{"12000\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"30000\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"7500\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"15000\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"F=\\dfrac{1500\\times20}{2{,}5}=12000\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-014"
+  question={<>{"Câu 14 (Thông hiểu). Liên hệ giữa động năng và độ lớn động lượng là"}</>}
+  options={[
+    <><Math inline>{"W_{\\text{đ}}=\\dfrac{p^2}{2m}"}</Math>{"."}</>,
+    <><Math inline>{"W_{\\text{đ}}=\\dfrac{p}{2m}"}</Math>{"."}</>,
+    <><Math inline>{"W_{\\text{đ}}=2mp^2"}</Math>{"."}</>,
+    <><Math inline>{"W_{\\text{đ}}=\\dfrac{p^2}{m}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\tfrac12mv^2=\\dfrac{(mv)^2}{2m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-015"
+  question={<>{"Câu 15 (Thông hiểu). Hai vật "}<Math inline>{"1\\,\\mathrm{kg}"}</Math>{" và "}<Math inline>{"4\\,\\mathrm{kg}"}</Math>{" có cùng động năng. Tỉ số "}<Math inline>{"p_1/p_2"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"1/4"}</Math>{"."}</>,
+    <><Math inline>{"1/2"}</Math>{"."}</>,
+    <><Math inline>{"2"}</Math>{"."}</>,
+    <><Math inline>{"4"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"p=\\sqrt{2mW_{\\text{đ}}}"}</Math>{" nên "}<Math inline>{"p_1/p_2=\\sqrt{1/4}=1/2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-016"
+  question={<>{"Câu 16 (Thông hiểu). Va chạm đàn hồi trực diện giữa hai vật cùng khối lượng, vật 2 ban đầu đứng yên. Sau va chạm"}</>}
+  options={[
+    <>{"vật 1 giữ nguyên vận tốc, vật 2 đứng yên."}</>,
+    <>{"hai vật dính nhau với vận tốc "}<Math inline>{"v_1/2"}</Math>{"."}</>,
+    <>{"vật 1 dừng lại, vật 2 chuyển động với vận tốc "}<Math inline>{"v_1"}</Math>{"."}</>,
+    <>{"vật 1 bật ngược lại với "}<Math inline>{"-v_1"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Thay "}<Math inline>{"m_1=m_2"}</Math>{", "}<Math inline>{"v_2=0"}</Math>{": "}<Math inline>{"v_1'=0"}</Math>{", "}<Math inline>{"v_2'=v_1"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-017"
+  question={<>{"Câu 17 (Vận dụng). Ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" chạy "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{" va chạm mềm vào xe máy "}<Math inline>{"400\\,\\mathrm{kg}"}</Math>{" (cả người) đang đứng yên. Tốc độ chung ngay sau va chạm là"}</>}
+  options={[
+    <><Math inline>{"8{,}67\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"10{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"5{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"6{,}5\\,\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"V=\\dfrac{26000}{3000}\\approx8{,}67\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-018"
+  question={<>{"Câu 18 (Thông hiểu). Túi khí bảo vệ người trong ô tô khi va chạm vì nó"}</>}
+  options={[
+    <>{"làm giảm độ biến thiên động lượng của người."}</>,
+    <>{"kéo dài thời gian dừng, làm giảm lực trung bình tác dụng lên người."}</>,
+    <>{"làm người giảm vận tốc nhanh hơn."}</>,
+    <>{"triệt tiêu động năng của xe trước va chạm."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\Delta p"}</Math>{" không đổi; "}<Math inline>{"F=|\\Delta p|/\\Delta t"}</Math>{" giảm khi "}<Math inline>{"\\Delta t"}</Math>{" tăng."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-019"
+  question={<>{"Câu 19 (Vận dụng). Viên đạn "}<Math inline>{"1\\,\\mathrm{kg}"}</Math>{" đang bay thẳng đứng lên với "}<Math inline>{"100\\,\\mathrm{m/s}"}</Math>{" thì nổ thành hai mảnh bằng nhau. Mảnh 1 bay theo phương ngang với "}<Math inline>{"200\\sqrt3\\,\\mathrm{m/s}"}</Math>{". Mảnh 2 bay với tốc độ"}</>}
+  options={[
+    <><Math inline>{"200\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"283\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"400\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"300\\,\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"p=100\\,\\mathrm{kg\\cdot m/s}"}</Math>{" (thẳng đứng), "}<Math inline>{"p_1=0{,}5\\times200\\sqrt3=100\\sqrt3\\,\\mathrm{kg\\cdot m/s}"}</Math>{" (nằm ngang). "}<Math inline>{"\\vec p_2=\\vec p-\\vec p_1"}</Math>{" vuông góc nên "}<Math inline>{"p_2=\\sqrt{100^2+(100\\sqrt3)^2}=200\\,\\mathrm{kg\\cdot m/s}"}</Math>{", "}<Math inline>{"v_2=200/0{,}5=400\\,\\mathrm{m/s}"}</Math>{", hợp với phương thẳng đứng "}<Math inline>{"60^\\circ"}</Math>{", lệch về phía ngược mảnh 1."}</>}
+/>
+
+<Quiz
+  id="bai-11-sbt-020"
+  question={<>{"Câu 20 (Nhận biết). Trường hợp nào KHÔNG áp dụng được định luật bảo toàn động lượng cho hệ đang xét?"}</>}
+  options={[
+    <>{"Tên lửa phụt khí trong không gian (hệ tên lửa + khí)."}</>,
+    <>{"Hai viên bi va chạm trên đệm khí nằm ngang."}</>,
+    <>{"Quả bóng bàn rơi trong không khí, chịu trọng lực và lực cản không cân bằng (hệ chỉ gồm quả bóng)."}</>,
+    <>{"Hai người trượt băng đẩy nhau ra từ trạng thái nghỉ."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Ngoại lực tác dụng lên quả bóng có tổng khác 0 trong thời gian dài."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-11-sbt-021"
+  question={<>{"Câu 21. Hành khách "}<Math inline>{"60\\,\\mathrm{kg}"}</Math>{" ngồi yên trên toa tàu điện đang chạy thẳng đều "}<Math inline>{"15\\,\\mathrm{m/s}"}</Math>{" so với nhà ga."}</>}
+  statements={[
+    { id: 'a', text: <>{"Động lượng của hành khách đối với toa tàu bằng 0."}</>, isTrue: true, explanation: <>{"So với toa, "}<Math inline>{"v=0"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Động lượng của hành khách đối với nhà ga có độ lớn "}<Math inline>{"900\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"60\\times15"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Động lượng là đại lượng vô hướng nên không phụ thuộc hệ quy chiếu."}</>, isTrue: false, explanation: <>{"Động lượng là vectơ và phụ thuộc hệ quy chiếu."}</> },
+    { id: 'd', text: <>{"Khi tàu hãm phanh, độ biến thiên động lượng của hành khách đối với nhà ga ngược chiều vận tốc của tàu."}</>, isTrue: true, explanation: <><Math inline>{"\\Delta\\vec p=\\vec F\\Delta t"}</Math>{" cùng chiều gia tốc, ngược chiều vận tốc."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-022"
+  question={<>{"Câu 22. Người nhảy từ độ cao "}<Math inline>{"2\\,\\mathrm m"}</Math>{" xuống đất. Khi chạm đất, nếu giữ chân thẳng thì thời gian dừng là "}<Math inline>{"0{,}05\\,\\mathrm s"}</Math>{"; nếu chùng gối thì là "}<Math inline>{"0{,}5\\,\\mathrm s"}</Math>{". Lấy "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{", bỏ qua lực cản."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tốc độ ngay trước khi chạm đất khoảng "}<Math inline>{"6{,}32\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\sqrt{2gh}=\\sqrt{40}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Độ biến thiên động lượng khi dừng lại là như nhau trong hai trường hợp."}</>, isTrue: true, explanation: <>{"Cùng dừng từ "}<Math inline>{"6{,}32\\,\\mathrm{m/s}"}</Math>{" về 0."}</> },
+    { id: 'c', text: <>{"Hợp lực trung bình tác dụng lên người khi chùng gối nhỏ hơn 10 lần so với khi giữ chân thẳng."}</>, isTrue: true, explanation: <><Math inline>{"F_{\\text{hợp}}=|\\Delta p|/\\Delta t"}</Math>{"; "}<Math inline>{"\\Delta t"}</Math>{" tăng 10 lần. Lưu ý: lực của mặt đất bằng hợp lực cộng trọng lượng, nên lực mặt đất chỉ giảm khoảng 6 lần ("}<Math inline>{"136{,}5m"}</Math>{" còn "}<Math inline>{"22{,}6m"}</Math>{")."}</> },
+    { id: 'd', text: <>{"Chùng gối làm giảm công của trọng lực trong quá trình rơi."}</>, isTrue: false, explanation: <>{"Quá trình rơi không đổi; chùng gối chỉ ảnh hưởng lúc hãm."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-023"
+  question={<>{"Câu 23. Xe tải "}<Math inline>{"4000\\,\\mathrm{kg}"}</Math>{" chạy "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{" va chạm mềm vào ô tô con "}<Math inline>{"1000\\,\\mathrm{kg}"}</Math>{" đang đứng yên."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tổng động lượng của hệ được bảo toàn trong va chạm."}</>, isTrue: true, explanation: <>{"Va chạm ngắn, coi hệ kín."}</> },
+    { id: 'b', text: <>{"Vận tốc chung ngay sau va chạm là "}<Math inline>{"8{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"40000/5000"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Tổng động năng sau va chạm bằng tổng động năng trước va chạm."}</>, isTrue: false, explanation: <>{"Va chạm mềm làm mất động năng."}</> },
+    { id: 'd', text: <>{"Phần động năng mất đi bằng 20% động năng ban đầu."}</>, isTrue: true, explanation: <><Math inline>{"200\\,\\mathrm{kJ}\\to160\\,\\mathrm{kJ}"}</Math>{", mất "}<Math inline>{"40\\,\\mathrm{kJ}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-024"
+  question={<>{"Câu 24. Tên lửa mô hình: vỏ "}<Math inline>{"0{,}4\\,\\mathrm{kg}"}</Math>{" chứa "}<Math inline>{"0{,}1\\,\\mathrm{kg}"}</Math>{" nhiên liệu, đứng yên. Toàn bộ nhiên liệu cháy và phụt tức thời xuống dưới với tốc độ "}<Math inline>{"200\\,\\mathrm{m/s}"}</Math>{" so với mặt đất. Bỏ qua trọng lực trong thời gian phụt rất ngắn."}</>}
+  statements={[
+    { id: 'a', text: <>{"Đây là ứng dụng của định luật bảo toàn động lượng cho hệ kín."}</>, isTrue: true, explanation: <>{"Hệ vỏ + khí."}</> },
+    { id: 'b', text: <>{"Vận tốc của tên lửa ngược chiều vận tốc của khí."}</>, isTrue: true, explanation: <><Math inline>{"\\vec V=-\\dfrac mM\\vec v"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Tốc độ tên lửa ngay sau khi phụt hết nhiên liệu là "}<Math inline>{"50\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"V=\\dfrac{0{,}1\\times200}{0{,}4}"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Động năng của tên lửa bằng động năng của khối khí."}</>, isTrue: false, explanation: <>{"Khí: "}<Math inline>{"2000\\,\\mathrm J"}</Math>{"; tên lửa: "}<Math inline>{"500\\,\\mathrm J"}</Math>{". Động lượng bằng nhau về độ lớn nhưng động năng thì không."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-025"
+  question={<>{"Câu 25. Súng "}<Math inline>{"4\\,\\mathrm{kg}"}</Math>{" bắn viên đạn "}<Math inline>{"10\\,\\mathrm g"}</Math>{" với tốc độ "}<Math inline>{"800\\,\\mathrm{m/s}"}</Math>{" (so với mặt đất)."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tổng động lượng của hệ súng và đạn trước khi bắn bằng 0."}</>, isTrue: true, explanation: <>{"Đứng yên."}</> },
+    { id: 'b', text: <>{"Vận tốc giật lùi của súng ngược chiều vận tốc viên đạn."}</>, isTrue: true, explanation: <>{"Bảo toàn động lượng."}</> },
+    { id: 'c', text: <>{"Tốc độ giật lùi của súng là "}<Math inline>{"2{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}01\\times800/4"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Nếu tì chặt báng súng vào vai (coi khối lượng súng và người là "}<Math inline>{"64\\,\\mathrm{kg}"}</Math>{"), tốc độ giật lùi chỉ còn "}<Math inline>{"0{,}125\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"8/64"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-026"
+  question={<>{"Câu 26. Viên đạn "}<Math inline>{"2\\,\\mathrm{kg}"}</Math>{" bắn lên với "}<Math inline>{"50\\,\\mathrm{m/s}"}</Math>{" hợp với phương ngang "}<Math inline>{"60^\\circ"}</Math>{". Ở điểm cao nhất, viên đạn nổ thành hai mảnh bằng nhau; ngay sau khi nổ mảnh 1 có vận tốc bằng 0. Bỏ qua lực cản."}</>}
+  statements={[
+    { id: 'a', text: <>{"Ngay trước khi nổ, vận tốc của viên đạn nằm ngang, độ lớn "}<Math inline>{"25\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"v_0\\cos60^\\circ"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Động lượng của viên đạn ngay trước khi nổ là "}<Math inline>{"50\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"2\\times25"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Ngay sau khi nổ, mảnh 2 bay theo phương ngang với "}<Math inline>{"50\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"50=1\\times v_2"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Động năng của mảnh 2 ngay sau nổ bằng động năng của viên đạn ngay trước nổ."}</>, isTrue: false, explanation: <><Math inline>{"1250\\,\\mathrm J>625\\,\\mathrm J"}</Math>{": năng lượng của thuốc nổ chuyển thành động năng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-027"
+  question={<>{"Câu 27. Bi A "}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{" chạy "}<Math inline>{"5\\,\\mathrm{m/s}"}</Math>{" va chạm đàn hồi trực diện với bi B "}<Math inline>{"0{,}3\\,\\mathrm{kg}"}</Math>{" đang đứng yên trên rãnh nằm ngang không ma sát."}</>}
+  statements={[
+    { id: 'a', text: <>{"Sau va chạm bi A bật ngược lại với "}<Math inline>{"v_1'=-1{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\dfrac{(0{,}2-0{,}3)\\times5}{0{,}5}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Sau va chạm bi B chuyển động về phía trước với "}<Math inline>{"4{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\dfrac{2\\times0{,}2\\times5}{0{,}5}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Tổng động năng sau va chạm bằng tổng động năng trước va chạm, bằng "}<Math inline>{"2{,}5\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}1\\times1+0{,}15\\times16=2{,}5\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Xung lượng mà bi A truyền cho bi B có độ lớn "}<Math inline>{"1{,}2\\,\\mathrm{N\\cdot s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\Delta p_B=0{,}3\\times4"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-028"
+  question={<>{"Câu 28. Liên hệ giữa động lượng và động năng của một ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Động năng tỉ lệ thuận với độ lớn động lượng."}</>, isTrue: false, explanation: <><Math inline>{"W_{\\text{đ}}=p^2/(2m)"}</Math>{" tỉ lệ với "}<Math inline>{"p^2"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Động lượng tăng 2 lần thì động năng tăng 4 lần."}</>, isTrue: true, explanation: <><Math inline>{"p^2"}</Math>{" tăng 4 lần."}</> },
+    { id: 'c', text: <><Math inline>{"W_{\\text{đ}}=\\dfrac{p^2}{2m}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Biến đổi từ "}<Math inline>{"\\tfrac12mv^2"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Hai ô tô có động lượng bằng nhau thì có động năng bằng nhau."}</>, isTrue: false, explanation: <>{"Nếu khối lượng khác nhau, xe nhẹ hơn có động năng lớn hơn."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-029"
+  question={<>{"Câu 29. Hệ kín và định luật bảo toàn động lượng."}</>}
+  statements={[
+    { id: 'a', text: <>{"Định luật chỉ đúng khi các vật trong hệ hoàn toàn không chịu ngoại lực nào."}</>, isTrue: false, explanation: <>{"Chỉ cần tổng ngoại lực bằng 0, hoặc ngoại lực không đáng kể trong thời gian rất ngắn."}</> },
+    { id: 'b', text: <>{"Va chạm giữa hai hòn bi-a trong thời gian rất ngắn có thể coi gần đúng là hệ kín."}</>, isTrue: true, explanation: <>{"Nội lực rất lớn so với ma sát."}</> },
+    { id: 'c', text: <>{"Nếu tổng ngoại lực theo phương ngang bằng 0 thì động lượng của hệ theo phương ngang được bảo toàn."}</>, isTrue: true, explanation: <>{"Bảo toàn theo một phương."}</> },
+    { id: 'd', text: <>{"Động lượng của riêng một vật đang rơi tự do không được bảo toàn."}</>, isTrue: true, explanation: <>{"Trọng lực làm vận tốc tăng; hệ \"vật + Trái Đất\" mới có động lượng bảo toàn."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-11-sbt-030"
+  question={<>{"Câu 30. Con lắc thử đạn: khối gỗ "}<Math inline>{"1{,}99\\,\\mathrm{kg}"}</Math>{" treo bằng dây nhẹ; viên đạn "}<Math inline>{"10\\,\\mathrm g"}</Math>{" bay ngang cắm vào khối gỗ và nằm lại trong đó. Sau đó hệ lên cao nhất "}<Math inline>{"0{,}2\\,\\mathrm m"}</Math>{" so với vị trí cân bằng; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Viên đạn cắm vào khối gỗ là va chạm mềm."}</>, isTrue: true, explanation: <>{"Hai vật dính vào nhau."}</> },
+    { id: 'b', text: <>{"Tốc độ của hệ ngay sau va chạm là "}<Math inline>{"2{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Bảo toàn cơ năng khi đi lên: "}<Math inline>{"V=\\sqrt{2gh}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Tốc độ ban đầu của viên đạn là "}<Math inline>{"400\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}01v_0=2\\times2"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Cơ năng của hệ được bảo toàn trong suốt quá trình, kể cả lúc đạn cắm vào gỗ."}</>, isTrue: false, explanation: <>{"Lúc đạn cắm vào gỗ có mất động năng thành nhiệt; cơ năng chỉ bảo toàn trong giai đoạn đi lên."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-11-sbt-031"
+  question={<>{"Câu 31. Ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" chạy "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{". Tính độ lớn động lượng ("}<Math inline>{"\\mathrm{kg\\cdot m/s}"}</Math>{")."}</>}
+  answer="52000"
+  explanation={<><Math inline>{"p=2600\\times20=52000\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-032"
+  question={<>{"Câu 32. Quả bóng "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" bay ngang "}<Math inline>{"12\\,\\mathrm{m/s}"}</Math>{" đập vuông góc vào tường rồi bật ngược lại "}<Math inline>{"8\\,\\mathrm{m/s}"}</Math>{". Tính "}<Math inline>{"|\\Delta p|"}</Math>{" ("}<Math inline>{"\\mathrm{kg\\cdot m/s}"}</Math>{")."}</>}
+  answer="10"
+  explanation={<><Math inline>{"0{,}5\\times[8-(-12)]=10\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-033"
+  question={<>{"Câu 33. Tên lửa mô hình (vỏ "}<Math inline>{"1{,}2\\,\\mathrm{kg}"}</Math>{") đứng yên, phụt tức thời "}<Math inline>{"80\\,\\mathrm g"}</Math>{" khí với tốc độ "}<Math inline>{"300\\,\\mathrm{m/s}"}</Math>{" so với mặt đất. Tính tốc độ của vỏ tên lửa ngay sau đó (m/s)."}</>}
+  answer="20"
+  explanation={<><Math inline>{"1{,}2V=0{,}08\\times300\\Rightarrow V=20\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-034"
+  question={<>{"Câu 34. Đại bác "}<Math inline>{"2000\\,\\mathrm{kg}"}</Math>{" bắn viên đạn "}<Math inline>{"20\\,\\mathrm{kg}"}</Math>{" theo phương ngang; đại bác giật lùi với "}<Math inline>{"3\\,\\mathrm{m/s}"}</Math>{". Tính tốc độ của viên đạn so với mặt đất (m/s)."}</>}
+  answer="300"
+  explanation={<><Math inline>{"2000\\times3=20v\\Rightarrow v=300\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-035"
+  question={<>{"Câu 35. Ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" chạy "}<Math inline>{"15\\,\\mathrm{m/s}"}</Math>{" va chạm mềm từ phía sau vào xe máy "}<Math inline>{"400\\,\\mathrm{kg}"}</Math>{" đang đứng yên. Tính tốc độ chung ngay sau va chạm (m/s)."}</>}
+  answer="13"
+  explanation={<><Math inline>{"39000/3000=13\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-036"
+  question={<>{"Câu 36. Bi 1 ("}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"4\\,\\mathrm{m/s}"}</Math>{") va chạm đàn hồi trực diện với bi 2 ("}<Math inline>{"0{,}6\\,\\mathrm{kg}"}</Math>{") đang đứng yên trên đệm khí. Tính tốc độ của bi 2 sau va chạm (m/s)."}</>}
+  answer="2"
+  explanation={<><Math inline>{"v_2'=\\dfrac{2\\times0{,}2\\times4}{0{,}8}=2\\,\\mathrm{m/s}"}</Math>{"; bi 1 bật lại với "}<Math inline>{"-2\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-037"
+  question={<>{"Câu 37. Xe máy cùng người "}<Math inline>{"120\\,\\mathrm{kg}"}</Math>{" đang chạy "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{" phanh gấp, dừng hẳn trong "}<Math inline>{"0{,}2\\,\\mathrm s"}</Math>{" (ví dụ do va chạm). Tính độ lớn lực hãm trung bình (N)."}</>}
+  answer="6000"
+  explanation={<><Math inline>{"F=\\dfrac{120\\times10}{0{,}2}=6000\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-038"
+  question={<>{"Câu 38. Viên đạn "}<Math inline>{"4\\,\\mathrm{kg}"}</Math>{" bay ngang "}<Math inline>{"250\\,\\mathrm{m/s}"}</Math>{" nổ thành hai mảnh; mảnh "}<Math inline>{"1{,}6\\,\\mathrm{kg}"}</Math>{" bay tiếp theo chiều cũ với "}<Math inline>{"400\\,\\mathrm{m/s}"}</Math>{". Tính tốc độ của mảnh còn lại (m/s)."}</>}
+  answer="150"
+  explanation={<><Math inline>{"1000=640+2{,}4v_2\\Rightarrow v_2=150\\,\\mathrm{m/s}"}</Math>{", cùng chiều cũ."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-039"
+  question={<>{"Câu 39. Vật "}<Math inline>{"5\\,\\mathrm{kg}"}</Math>{" có động lượng "}<Math inline>{"40\\,\\mathrm{kg\\cdot m/s}"}</Math>{". Tính động năng (J)."}</>}
+  answer="160"
+  explanation={<><Math inline>{"\\dfrac{p^2}{2m}=\\dfrac{1600}{10}=160\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-11-sbt-040"
+  question={<>{"Câu 40. Người "}<Math inline>{"50\\,\\mathrm{kg}"}</Math>{" đứng trên thuyền "}<Math inline>{"150\\,\\mathrm{kg}"}</Math>{" đang đứng yên trên mặt nước. Người chạy dọc thuyền với "}<Math inline>{"4\\,\\mathrm{m/s}"}</Math>{" so với mặt nước. Bỏ qua lực cản của nước, tính tốc độ lùi của thuyền (m/s, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="1,33"
+  explanation={<><Math inline>{"0=50\\times4+150V\\Rightarrow|V|=\\tfrac43\\approx1{,}33\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-11-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Ô tô đâm vào dải phân cách hấp thụ va chạm
+
+Ô tô $2600\,\mathrm{kg}$ chạy $25\,\mathrm{m/s}$ đâm vào dải phân cách bằng vật liệu dễ biến dạng và dừng lại trong $0{,}5\,\mathrm s$.
+
+1. Tính động lượng ban đầu của ô tô.
+2. Tính lực trung bình tác dụng lên ô tô. Giải thích vì sao túi khí giúp bảo vệ người lái.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $p_0=2600\times25=65000\,\mathrm{kg\cdot m/s}$.
+
+**2.** $F=\dfrac{|\Delta p|}{\Delta t}=\dfrac{65000}{0{,}5}=130000\,\mathrm N$. Nếu xe đâm vào tường cứng và dừng trong khoảng $0{,}05\,\mathrm s$, lực sẽ lớn gấp 10 lần.
+
+Với người lái, độ biến thiên động lượng khi dừng lại là cố định. Túi khí làm người không đập vào vô-lăng cứng mà bị hãm dần trên quãng đường dài hơn, thời gian dừng tăng lên nhiều lần nên lực tác dụng lên đầu và ngực giảm tương ứng; lực còn được phân bố trên diện tích lớn.
+
+</details>
+</div>
+
+<div data-question-id="bai-11-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Va chạm đàn hồi trên đệm khí
+
+Bi A $100\,\mathrm g$ chạy $8\,\mathrm{m/s}$ va chạm đàn hồi trực diện với bi B $300\,\mathrm g$ đang đứng yên trên đệm khí nằm ngang, không ma sát.
+
+1. Viết các phương trình bảo toàn động lượng và động năng.
+2. Tìm vận tốc của hai bi sau va chạm.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Chọn chiều dương theo vận tốc ban đầu của A:
+
+$$
+m_1v_1=m_1v_1'+m_2v_2',\qquad \tfrac12m_1v_1^2=\tfrac12m_1v_1'^2+\tfrac12m_2v_2'^2.
+$$
+
+**2.** Giải hệ (hoặc dùng công thức va chạm đàn hồi):
+
+$$
+v_1'=\frac{(0{,}1-0{,}3)\times8}{0{,}4}=-4{,}0\,\mathrm{m/s},\qquad v_2'=\frac{2\times0{,}1\times8}{0{,}4}=4{,}0\,\mathrm{m/s}.
+$$
+
+Bi A bật ngược lại với $4\,\mathrm{m/s}$; bi B chạy về phía trước với $4\,\mathrm{m/s}$. Kiểm tra động năng: trước $3{,}2\,\mathrm J$; sau $0{,}8+2{,}4=3{,}2\,\mathrm J$ ✓.
+
+</details>
+</div>
+
+<div data-question-id="bai-11-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Đạn nổ ở đỉnh quỹ đạo
+
+Viên đạn $M=5\,\mathrm{kg}$ bắn từ mặt đất với $100\,\mathrm{m/s}$, góc $60^\circ$ so với phương ngang. Ở điểm cao nhất, đạn nổ thành hai mảnh: mảnh 1 ($2\,\mathrm{kg}$) có vận tốc bằng 0 ngay sau nổ (rồi rơi tự do). Bỏ qua lực cản.
+
+1. Tính vận tốc của viên đạn ngay trước khi nổ.
+2. Tìm hướng và độ lớn vận tốc của mảnh 2 ngay sau khi nổ.
+
+<ExplosionTopDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Ở điểm cao nhất $v_y=0$: $v=v_0\cos60^\circ=50\,\mathrm{m/s}$, nằm ngang.
+
+**2.** Bảo toàn động lượng cho lúc nổ (rất ngắn): $M\vec v=m_1\vec v_1+m_2\vec v_2$ với $\vec v_1=\vec0$, nên $\vec v_2=\dfrac M{m_2}\vec v$: cùng hướng ngang ban đầu,
+
+$$
+v_2=\frac{5\times50}{3}\approx83{,}3\,\mathrm{m/s}.
+$$
+
+</details>
+</div>
+
+<div data-question-id="bai-11-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Tên lửa phụt khí để tăng tốc
+
+Tên lửa tổng khối lượng $M_0=10$ tấn đang bay với $1000\,\mathrm{m/s}$ thì phụt tức thời $m=2$ tấn khí ra phía sau với tốc độ $u=2500\,\mathrm{m/s}$ so với tên lửa (trước khi phụt). Bỏ qua tác dụng của trọng lực trong thời gian phụt khí rất ngắn.
+
+1. Viết phương trình bảo toàn động lượng.
+2. Tính tốc độ của tên lửa ngay sau khi phụt khí.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Chiều dương theo chiều bay. Vận tốc khí so với hệ quy chiếu ban đầu: $v_{\text{khí}}=1000-2500=-1500\,\mathrm{m/s}$.
+
+$$
+M_0v_0=(M_0-m)V+mv_{\text{khí}}.
+$$
+
+**2.** $10\times1000=8V+2\times(-1500)\Rightarrow V=1625\,\mathrm{m/s}$ (đơn vị khối lượng là tấn ở cả hai vế nên không cần đổi).
+
+</details>
+</div>
+
+<div data-question-id="bai-11-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Con lắc thử đạn
+
+Khối gỗ $M=1{,}99\,\mathrm{kg}$ treo đứng yên ở đầu dây nhẹ dài $1{,}5\,\mathrm m$. Viên đạn $10\,\mathrm g$ bay ngang với tốc độ $v_0$ cắm vào và nằm lại trong khối gỗ. Sau đó hệ lệch lên tới góc lớn nhất $60^\circ$ so với phương thẳng đứng; $g=10\,\mathrm{m/s^2}$.
+
+1. Tính độ cao lớn nhất của hệ so với vị trí cân bằng.
+2. Tính tốc độ của hệ ngay sau va chạm và tốc độ $v_0$ của viên đạn.
+
+<BallisticPendulumDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $h=L(1-\cos60^\circ)=0{,}75\,\mathrm m$.
+
+**2.** Giai đoạn đi lên: chỉ trọng lực sinh công (lực căng vuông góc vận tốc), cơ năng bảo toàn: $V=\sqrt{2gh}=\sqrt{15}\approx3{,}87\,\mathrm{m/s}$.
+
+Giai đoạn va chạm (rất ngắn): động lượng bảo toàn,
+
+$$
+mv_0=(m+M)V\Rightarrow v_0=\frac{2{,}00\times3{,}873}{0{,}01}\approx775\,\mathrm{m/s}.
+$$
+
+**Nhận xét:** Không được dùng bảo toàn cơ năng cho cả quá trình: khi đạn cắm vào gỗ, khoảng $99{,}5\%$ động năng của đạn chuyển thành nhiệt và công biến dạng. Đây là cách đo tốc độ đạn trước khi có thiết bị điện tử.
+
+</details>
+</div>
+
+</Section>
+
+</div>

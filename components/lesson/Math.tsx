@@ -10,6 +10,9 @@ export const Math: React.FC<MathProps> = ({ children, inline = false }) => {
   const html = katex.renderToString(children, {
     throwOnError: false,
     displayMode: !inline,
+    // Vietnamese letters inside \text{...} render with the browser's fallback font;
+    // KaTeX only lacks metrics for them. Keep every other strict-mode warning.
+    strict: (code: string) => (code === 'unknownSymbol' || code === 'symbolNotInFont' ? 'ignore' : 'warn'),
   });
 
   const Component = 'span';

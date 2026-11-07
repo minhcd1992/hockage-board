@@ -1,0 +1,268 @@
+import { CircularMotionSim, CurveForceLab, BridgeSim } from './components/Lesson13Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Nêu được định nghĩa radian; biểu diễn được độ dịch chuyển góc theo radian.
+- Vận dụng các khái niệm tốc độ góc, chu kì, tần số, tốc độ dài và mối liên hệ $v=\omega R$.
+- Hiểu vì sao chuyển động tròn đều có gia tốc hướng tâm; vận dụng $a_{ht}=\dfrac{v^2}{R}=\omega^2R$ và $F_{ht}=m\dfrac{v^2}{R}$.
+- Xác định được lực (hoặc hợp lực) đóng vai trò lực hướng tâm trong các tình huống thực tế: xe vào cua, cầu vồng, cầu lõm, vệ tinh.
+
+</InfoBox>
+
+<Section title="A. Mở đầu" icon="rocket">
+
+**Xe vào cua.** Một ô tô chạy $100\,\mathrm{km/h}$ đi vào khúc cua. Nếu mặt đường phẳng và phủ băng ($\mu\approx0$), xe không thể rẽ mà lao thẳng ra khỏi đường theo phương tiếp tuyến. Vì vậy ở các khúc cua trên đường cao tốc, mặt đường được làm **nghiêng vào phía tâm cua**. Lực nào giữ cho xe đi theo đường cong?
+
+**Trạm vũ trụ.** Trạm vũ trụ Quốc tế (ISS) nặng hơn 400 tấn, bay quanh Trái Đất ở độ cao khoảng $400\,\mathrm{km}$ với tốc độ khoảng $7{,}7\,\mathrm{km/s}$ (gần $28\,000\,\mathrm{km/h}$), mỗi vòng mất khoảng 92 phút. Điều gì làm hướng chuyển động của trạm liên tục đổi để nó không bay thẳng ra không gian?
+
+**Máy ly tâm và lồng giặt.** Máy ly tâm trong phòng xét nghiệm quay ống nghiệm tới hàng nghìn vòng mỗi phút để tách các tế bào máu đặc hơn xuống đáy ống. Lồng máy giặt quay nhanh ở chế độ vắt để nước thoát ra khỏi vải qua các lỗ nhỏ.
+
+**Câu hỏi của bài:** Chuyển động tròn đều được mô tả bằng những đại lượng nào? Vì sao tốc độ không đổi mà vật vẫn có gia tốc, và gia tốc ấy hướng về đâu? Lực hướng tâm là loại lực gì?
+
+</Section>
+
+<Section title="B. Động học của chuyển động tròn đều" icon="book">
+
+### 1. Radian và độ dịch chuyển góc
+
+Khi vật đi được cung tròn dài $s$ trên đường tròn bán kính $R$, bán kính nối tâm với vật quét được góc
+
+$$
+\Delta\theta=\frac{s}{R}\quad(\text{rad}).
+$$
+
+**Một radian** là góc ở tâm chắn cung có độ dài bằng bán kính. Một vòng tròn ứng với $2\pi\,\mathrm{rad}=360^\circ$, nên $1\,\mathrm{rad}\approx57{,}3^\circ$.
+
+### 2. Chuyển động tròn đều
+
+**Chuyển động tròn đều** là chuyển động có quỹ đạo tròn và **tốc độ không đổi**: vật đi được những cung bằng nhau trong những khoảng thời gian bằng nhau.
+
+<InfoBox type="warning" title="Tốc độ không đổi, nhưng vận tốc thay đổi">
+
+Vectơ vận tốc $\vec v$ luôn **tiếp tuyến** với quỹ đạo, nên hướng của nó đổi liên tục dù độ lớn không đổi. Vận tốc thay đổi nghĩa là có gia tốc: **chuyển động tròn đều là chuyển động có gia tốc.**
+
+</InfoBox>
+
+### 3. Các đại lượng đặc trưng
+
+- **Tốc độ góc:** $\omega=\dfrac{\Delta\theta}{\Delta t}$, đơn vị $\mathrm{rad/s}$.
+- **Chu kì** (thời gian đi hết một vòng): $T=\dfrac{2\pi}{\omega}$, đơn vị giây.
+- **Tần số** (số vòng đi được trong một giây): $f=\dfrac1T=\dfrac{\omega}{2\pi}$, đơn vị $\mathrm{Hz}$ (vòng/s). Nếu cho tốc độ quay $n$ vòng/phút thì $f=\dfrac{n}{60}$.
+- **Tốc độ dài:** $v=\dfrac{s}{\Delta t}=\dfrac{R\,\Delta\theta}{\Delta t}$, nên
+
+$$
+v=\omega R=\frac{2\pi R}{T}.
+$$
+
+Mọi điểm của một vật rắn quay quanh trục cố định có **cùng** $\omega$, $T$, $f$; điểm càng xa trục thì tốc độ dài càng lớn.
+
+### 4. Gia tốc hướng tâm
+
+Gia tốc trong chuyển động tròn đều chỉ làm đổi **hướng** của vận tốc. Nó luôn hướng vào tâm quỹ đạo nên gọi là **gia tốc hướng tâm** $\vec a_{ht}$:
+
+- điểm đặt tại vật; phương là đường bán kính; chiều từ vật vào tâm;
+- độ lớn
+
+$$
+a_{ht}=\frac{v^2}{R}=\omega^2R.
+$$
+
+Vì $\vec a_{ht}$ luôn vuông góc với $\vec v$, nó không làm tốc độ thay đổi. Mô phỏng dưới đây cho thấy vì sao hiệu $\Delta\vec v$ của hai vận tốc liên tiếp hướng vào tâm.
+
+<CircularMotionSim />
+
+</Section>
+
+<Section title="C. Động lực học: lực hướng tâm" icon="book">
+
+### 1. Định nghĩa
+
+Theo định luật II Newton, vật có gia tốc hướng tâm thì hợp lực tác dụng lên vật phải cùng hướng với gia tốc đó, tức là hướng vào tâm. Hợp lực này gọi là **lực hướng tâm**:
+
+$$
+F_{ht}=ma_{ht}=m\frac{v^2}{R}=m\omega^2R.
+$$
+
+<InfoBox type="warning" title="Lực hướng tâm không phải một loại lực mới">
+
+Lực hướng tâm không đứng ngang hàng với trọng lực, lực đàn hồi hay lực ma sát. Đó là **tên gọi theo tác dụng** của một lực, hoặc hợp lực của các lực thật, khi nó hướng vào tâm và giữ cho vật chuyển động tròn. Khi vẽ hình phân tích lực, **không vẽ thêm** một mũi tên "lực hướng tâm" bên cạnh các lực thật.
+
+</InfoBox>
+
+### 2. Lực hướng tâm trong các tình huống thực tế
+
+<CompareTable title="Bảng 13.1. Lực nào đóng vai trò lực hướng tâm?" columns={[<>{"Tình huống"}</>, <>{"Lực (hoặc hợp lực) hướng vào tâm"}</>, <>{"Phương trình"}</>]}
+  rows={[
+    [<>{"Vật buộc vào dây, quay tròn trên mặt bàn nhẵn nằm ngang"}</>, <>{"Lực căng dây "}<Math inline>{"\\vec T"}</Math></>, <><Math inline>{"T=m\\omega^2R"}</Math></>],
+    [<>{"Ô tô vào cua trên đường phẳng nằm ngang"}</>, <>{"Lực ma sát nghỉ của mặt đường lên lốp xe"}</>, <><Math inline>{"F_{ms}=m\\dfrac{v^2}{R}\\le\\mu_nmg"}</Math></>],
+    [<>{"Ô tô vào cua trên đường nghiêng góc "}<Math inline>{"\\theta"}</Math>{", không cần ma sát"}</>, <>{"Hợp lực của trọng lực "}<Math inline>{"\\vec P"}</Math>{" và phản lực "}<Math inline>{"\\vec N"}</Math></>, <><Math inline>{"N\\sin\\theta=m\\dfrac{v^2}{R}"}</Math>{", "}<Math inline>{"N\\cos\\theta=mg"}</Math></>],
+    [<>{"Ô tô ở đỉnh cầu vồng"}</>, <>{"Hợp lực "}<Math inline>{"\\vec P+\\vec N"}</Math>{" (hướng xuống)"}</>, <><Math inline>{"mg-N=m\\dfrac{v^2}{R}"}</Math></>],
+    [<>{"Con lắc nón"}</>, <>{"Hợp lực "}<Math inline>{"\\vec P+\\vec T"}</Math>{" (nằm ngang)"}</>, <><Math inline>{"mg\\tan\\alpha=m\\omega^2R"}</Math></>],
+    [<>{"Vệ tinh quay quanh Trái Đất (mở rộng)"}</>, <>{"Lực hấp dẫn của Trái Đất"}</>, <><Math inline>{"G\\dfrac{Mm}{r^2}=m\\dfrac{v^2}{r}"}</Math></>],
+    [<>{"Electron quay quanh hạt nhân (mở rộng, lớp 11)"}</>, <>{"Lực hút tĩnh điện Coulomb"}</>, <><Math inline>{"k\\dfrac{|q_1q_2|}{r^2}=m\\dfrac{v^2}{r}"}</Math></>]
+  ]}
+/>
+
+</Section>
+
+<Section title="D. Xe vào cua: đường phẳng và đường nghiêng" icon="target">
+
+**Đường phẳng nằm ngang.** Theo phương thẳng đứng $N=mg$. Lực duy nhất hướng vào tâm là **lực ma sát nghỉ** giữa lốp và mặt đường. Xe không trượt khi
+
+$$
+m\frac{v^2}{R}\le\mu_nmg\quad\Longrightarrow\quad v\le v_{\max}=\sqrt{\mu_ngR}.
+$$
+
+Tốc độ tối đa không phụ thuộc khối lượng xe; khi đường ướt ($\mu_n$ nhỏ) hoặc cua gắt ($R$ nhỏ), phải giảm tốc độ.
+
+**Đường nghiêng góc $\theta$.** Phản lực $\vec N$ vuông góc với mặt đường nên nghiêng vào phía tâm. Thành phần thẳng đứng $N\cos\theta$ cân bằng trọng lực; thành phần nằm ngang $N\sin\theta$ hướng vào tâm. Ở **tốc độ thiết kế** $v_0$, riêng hai lực $\vec P$, $\vec N$ đã đủ, không cần ma sát:
+
+$$
+\tan\theta=\frac{v_0^2}{gR}.
+$$
+
+Khi xe chạy nhanh hơn $v_0$, lực ma sát phải hướng xuống dốc để bổ sung lực hướng tâm; khi chậm hơn $v_0$, ma sát hướng lên dốc để xe không tụt xuống. Nhờ đó mặt đường nghiêng cho phép một **dải tốc độ an toàn** rộng hơn đường phẳng.
+
+<CurveForceLab />
+
+</Section>
+
+<Section title="E. Ô tô qua cầu vồng và cầu lõm" icon="target">
+
+Chọn chiều dương hướng vào tâm quỹ đạo.
+
+- **Đỉnh cầu vồng** (tâm ở phía dưới): $mg-N=m\dfrac{v^2}{R}$, nên $N=mg-m\dfrac{v^2}{R}<mg$. Xe ép lên cầu nhẹ hơn trọng lượng; khi $v\ge\sqrt{gR}$ thì $N=0$ và xe rời khỏi mặt cầu.
+- **Đáy cầu lõm** (tâm ở phía trên): $N-mg=m\dfrac{v^2}{R}$, nên $N=mg+m\dfrac{v^2}{R}>mg$. Xe ép lên cầu mạnh hơn trọng lượng.
+
+Theo định luật III Newton, áp lực của xe lên mặt cầu có độ lớn bằng $N$.
+
+<BridgeSim />
+
+</Section>
+
+<Section title="F. Góc phân tích sâu" icon="idea">
+
+### 1. "Lực ly tâm" có thật không?
+
+Khi ô tô rẽ gấp sang trái, hành khách thấy mình như bị "đẩy" sang phải. Nhiều người cho rằng có một lực ly tâm thật đẩy họ ra ngoài.
+
+- **Xét trong hệ quy chiếu gắn với mặt đất (hệ quy chiếu quán tính):** không có lực nào đẩy hành khách sang phải. Theo quán tính, cơ thể có xu hướng tiếp tục đi thẳng. Xe rẽ trái, và ghế, thành cửa phải tác dụng lực **sang trái** lên người để kéo người rẽ theo. Cảm giác "bị văng ra" chỉ là do người giữ nguyên hướng cũ trong khi xe đã đổi hướng.
+- **Mở rộng (hệ quy chiếu gắn với xe đang quay):** trong hệ quy chiếu phi quán tính này, để giải thích việc hành khách đứng yên so với xe, người ta đưa thêm **lực quán tính ly tâm** $F_{lt}=m\omega^2R$. Đây không phải lực do vật nào tác dụng.
+
+Khi giải bài toán trong hệ quy chiếu mặt đất, **không vẽ** lực ly tâm. Một ô tô trên đường trơn trượt ra ngoài theo phương tiếp tuyến cũng vì quán tính, do ma sát không đủ làm lực hướng tâm, chứ không do lực ly tâm đẩy.
+
+### 2. Vì sao lực hướng tâm không sinh công?
+
+Lực hướng tâm luôn vuông góc với vận tốc, tức vuông góc với độ dịch chuyển trong mỗi khoảng thời gian rất ngắn. Do đó công của nó bằng 0 và động năng $\tfrac12mv^2$ không đổi: lực hướng tâm chỉ đổi hướng chuyển động, không đổi tốc độ.
+
+### 3. Máy ly tâm tách các chất thế nào?
+
+Để một phần chất lỏng chuyển động tròn cùng ống nghiệm, cần một lực hướng tâm $m\omega^2r$, do áp suất của chất lỏng xung quanh cung cấp. Lực này đủ cho phần chất lỏng có khối lượng riêng trung bình, nhưng không đủ cho các hạt đặc hơn (như tế bào hồng cầu), nên các hạt này dần dịch ra xa trục, tức là về phía đáy ống. Tương tự, trong lồng giặt, khi lực bám giữa nước và sợi vải không đủ làm lực hướng tâm, nước tách khỏi vải và văng qua các lỗ.
+
+</Section>
+
+<Section title="G. Ví dụ minh họa" icon="target">
+
+### Ví dụ 1. Tốc độ vào cua tối đa trên đường phẳng
+
+Ô tô $m=2600\,\mathrm{kg}$ vào cua trên đường nằm ngang bán kính $R=50\,\mathrm m$; hệ số ma sát nghỉ $\mu_n=0{,}6$; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính lực hướng tâm cần thiết khi xe chạy $54\,\mathrm{km/h}$ ($15\,\mathrm{m/s}$).
+2. Tính tốc độ tối đa để xe không trượt.
+
+**Phân tích.** Xe chịu $\vec P$, $\vec N$ (cân bằng nhau, $N=mg=25\,480\,\mathrm N$) và lực ma sát nghỉ nằm ngang hướng vào tâm cua. Lực ma sát nghỉ đóng vai trò lực hướng tâm.
+
+1. $F_{ht}=m\dfrac{v^2}{R}=2600\times\dfrac{15^2}{50}=11\,700\,\mathrm N$. Lực ma sát nghỉ cực đại là $\mu_nmg=15\,288\,\mathrm N$, đủ lớn nên xe vào cua an toàn.
+2. $v_{\max}=\sqrt{\mu_ngR}=\sqrt{0{,}6\times9{,}8\times50}=\sqrt{294}\approx17{,}1\,\mathrm{m/s}\approx61{,}7\,\mathrm{km/h}$.
+
+**Nhận xét.** Nếu vượt quá khoảng $62\,\mathrm{km/h}$, ma sát nghỉ không đủ để làm lực hướng tâm và xe trượt ra phía ngoài cua. Đường ướt làm $\mu_n$ giảm nên tốc độ an toàn còn thấp hơn.
+
+### Ví dụ 2. Đường đua nghiêng
+
+Khúc cua bán kính $R=120\,\mathrm m$ được làm nghiêng góc $\theta$ để xe chạy $90\,\mathrm{km/h}$ ($25\,\mathrm{m/s}$) không cần đến ma sát; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính góc nghiêng $\theta$.
+2. Tính phản lực của mặt đường lên xe $m=1200\,\mathrm{kg}$ ở tốc độ đó.
+
+**Phân tích.** Không có ma sát, xe chỉ chịu $\vec P$ và $\vec N$; hợp lực của chúng nằm ngang, hướng vào tâm. Chọn $Ox$ nằm ngang hướng vào tâm, $Oy$ thẳng đứng hướng lên:
+
+$$
+Oy:\ N\cos\theta=mg;\qquad Ox:\ N\sin\theta=m\frac{v^2}{R}\quad\Longrightarrow\quad\tan\theta=\frac{v^2}{gR}.
+$$
+
+1. $\tan\theta=\dfrac{25^2}{9{,}8\times120}=\dfrac{625}{1176}\approx0{,}531$, nên $\theta\approx28^\circ$.
+2. $N=\dfrac{mg}{\cos\theta}=\dfrac{1200\times9{,}8}{\cos28^\circ}\approx13\,300\,\mathrm N$, lớn hơn trọng lượng $11\,760\,\mathrm N$.
+
+**Nhận xét.** Ở đúng $90\,\mathrm{km/h}$, xe vào cua được ngay cả khi mặt đường rất trơn. Ở tốc độ khác, xe vẫn cần ma sát (xem Mô phỏng 13.2, nút "Ví dụ 2"); vì vậy đường nghiêng làm việc vào cua an toàn hơn chứ không loại bỏ hoàn toàn nguy cơ trượt.
+
+</Section>
+
+<Section title="H. Ghi nhớ" icon="check">
+
+1. $\Delta\theta=s/R$ (rad); $\omega=\Delta\theta/\Delta t$; $T=2\pi/\omega$; $f=1/T$; $v=\omega R$.
+2. Chuyển động tròn đều có gia tốc hướng tâm $a_{ht}=v^2/R=\omega^2R$, luôn vuông góc với vận tốc.
+3. $F_{ht}=mv^2/R$ là hợp lực hướng vào tâm, do các lực thật cung cấp; lực hướng tâm không sinh công.
+4. Đường phẳng: $v_{\max}=\sqrt{\mu_ngR}$. Đường nghiêng không ma sát: $\tan\theta=v_0^2/(gR)$.
+5. Đỉnh cầu vồng $N=mg-mv^2/R$; đáy cầu lõm $N=mg+mv^2/R$.
+
+</Section>
+
+<Section title="I. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<Quiz
+  id="bai-13-exercises-001"
+  question={<>{"Câu 1. Trong chuyển động tròn đều, phát biểu nào về gia tốc hướng tâm "}<Math inline>{"\\vec a_{ht}"}</Math>{" là đúng?"}</>}
+  options={[
+    <>{"Vectơ gia tốc hướng tâm không đổi cả về độ lớn và hướng."}</>,
+    <>{"Gia tốc hướng tâm có độ lớn không đổi, còn hướng thay đổi liên tục và luôn chỉ vào tâm."}</>,
+    <>{"Gia tốc hướng tâm làm thay đổi độ lớn của vận tốc."}</>,
+    <>{"Gia tốc hướng tâm bằng 0 vì tốc độ không đổi."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Độ lớn "}<Math inline>{"a_{ht}=\\omega^2R"}</Math>{" không đổi, nhưng vectơ "}<Math inline>{"\\vec a_{ht}"}</Math>{" quay theo vật để luôn chỉ vào tâm. Nó chỉ làm đổi hướng vận tốc, không đổi tốc độ."}</>}
+/>
+
+<Quiz
+  id="bai-13-exercises-002"
+  question={<>{"Câu 2. Một vật chuyển động tròn đều với bán kính "}<Math inline>{"R=0{,}5\\,\\mathrm m"}</Math>{" và tốc độ góc "}<Math inline>{"\\omega=4\\,\\mathrm{rad/s}"}</Math>{". Độ lớn gia tốc hướng tâm là"}</>}
+  options={[
+    <><Math inline>{"2\\,\\mathrm{m/s^2}"}</Math></>,
+    <><Math inline>{"8\\,\\mathrm{m/s^2}"}</Math></>,
+    <><Math inline>{"1\\,\\mathrm{m/s^2}"}</Math></>,
+    <><Math inline>{"4\\,\\mathrm{m/s^2}"}</Math></>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"a_{ht}=\\omega^2R=16\\times0{,}5=8\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-13-exercises-003"
+  question={<>{"Câu 3. Vệ tinh "}<Math inline>{"500\\,\\mathrm{kg}"}</Math>{" chuyển động tròn đều quanh Trái Đất ở độ cao có gia tốc rơi tự do "}<Math inline>{"g^{\\prime}=8{,}5\\,\\mathrm{m/s^2}"}</Math>{". Lực hướng tâm tác dụng lên vệ tinh có độ lớn"}</>}
+  options={[
+    <><Math inline>{"4250\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"4900\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"0\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"500\\,\\mathrm N"}</Math></>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Lực hút của Trái Đất (trọng lực tại độ cao đó) đóng vai trò lực hướng tâm: "}<Math inline>{"F_{ht}=mg^{\\prime}=500\\times8{,}5=4250\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<div data-question-id="bai-13-exercises-004" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 4. Vì sao điểm ở đầu kim phút có gia tốc hướng tâm lớn hơn điểm ở gần trục quay?
+
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Mọi điểm trên kim phút quay cùng một góc trong cùng thời gian, nên có cùng tốc độ góc $\omega=\dfrac{2\pi}{3600\,\mathrm s}$. Theo $a_{ht}=\omega^2r$, với cùng $\omega$ gia tốc hướng tâm tỉ lệ thuận với khoảng cách $r$ tới trục quay. Điểm ở đầu kim có $r$ lớn nhất nên có gia tốc hướng tâm lớn nhất (và cũng có tốc độ dài $v=\omega r$ lớn nhất).
+
+</details>
+</div>
+
+</Section>
+
+</div>

@@ -1,0 +1,633 @@
+import styles from './components/Lesson7Workbook.module.css'
+import { ThreeBlocksDiagram, BankedCurveDiagram } from './components/Lesson7ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 7 — Các lực trong thực tiễn">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Số liệu phương tiện là giả định; xét hệ quy chiếu mặt đất. Với xe đang lăn bánh, lực cản do mặt đường gây ra là **lực cản lăn** (không phải ma sát trượt). Câu 29, 43 và 44 là phần mở rộng.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-7-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Lực căng xuất hiện khi kéo căng một sợi dây có bản chất là"}</>}
+  options={[
+    <>{"lực hấp dẫn giữa các nguyên tử trong sợi dây."}</>,
+    <>{"lực ma sát giữa các sợi nhỏ cấu tạo nên dây."}</>,
+    <>{"lực đàn hồi do các phân tử trong dây bị kéo xa nhau hơn vị trí cân bằng."}</>,
+    <>{"lực hạt nhân liên kết các hạt trong dây."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Dây bị kéo giãn rất ít, các liên kết giữa phân tử bị kéo dài và xuất hiện lực đàn hồi chống lại sự giãn; đó là lực căng."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Ở tốc độ vừa phải, độ lớn lực ma sát trượt giữa hai mặt rắn gần như không phụ thuộc vào"}</>}
+  options={[
+    <>{"áp lực "}<Math inline>{"N"}</Math>{" vuông góc mặt tiếp xúc."}</>,
+    <>{"vật liệu và tình trạng hai bề mặt tiếp xúc."}</>,
+    <>{"diện tích mặt tiếp xúc và tốc độ trượt."}</>,
+    <>{"hệ số ma sát trượt "}<Math inline>{"\\mu_t"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"F_{mst}=\\mu_tN"}</Math>{": phụ thuộc "}<Math inline>{"N"}</Math>{" và "}<Math inline>{"\\mu_t"}</Math>{" (tức vật liệu, tình trạng bề mặt), gần như không phụ thuộc diện tích tiếp xúc và tốc độ trượt."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-003"
+  question={<>{"Câu 3 (Thông hiểu). Với cùng một cặp vật liệu và cùng tình trạng bề mặt, hệ số ma sát trượt "}<Math inline>{"\\mu_t"}</Math>{" và hệ số ma sát nghỉ "}<Math inline>{"\\mu_n"}</Math>{" thường thỏa mãn"}</>}
+  options={[
+    <><Math inline>{"\\mu_t>\\mu_n"}</Math>{"."}</>,
+    <><Math inline>{"\\mu_t<\\mu_n"}</Math>{"."}</>,
+    <><Math inline>{"\\mu_t=\\mu_n"}</Math>{"."}</>,
+    <><Math inline>{"\\mu_t=2\\mu_n"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Thực nghiệm cho thấy thường "}<Math inline>{"\\mu_t<\\mu_n"}</Math>{": làm vật bắt đầu trượt khó hơn duy trì vật đang trượt."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-004"
+  question={<>{"Câu 4 (Nhận biết). Trọng lực tác dụng lên một vật ở gần mặt đất là"}</>}
+  options={[
+    <>{"lực quán tính do Trái Đất tự quay."}</>,
+    <>{"lực hấp dẫn do Trái Đất tác dụng lên vật."}</>,
+    <>{"lực đẩy Ác-si-mét của khí quyển."}</>,
+    <>{"lực ma sát giữa vật và không khí."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Trọng lực là lực hấp dẫn Trái Đất tác dụng lên vật."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-005"
+  question={<>{"Câu 5 (Nhận biết). Trọng lực tác dụng lên một vật rắn đồng chất có dạng hình học đối xứng có điểm đặt tại"}</>}
+  options={[
+    <>{"điểm cao nhất của vật."}</>,
+    <>{"mặt đáy của vật."}</>,
+    <>{"trọng tâm, trùng với tâm hình học của vật."}</>,
+    <>{"một điểm bất kỳ trên mặt ngoài của vật."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Với vật đồng chất, có tâm đối xứng, trọng tâm trùng tâm hình học."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-006"
+  question={<>{"Câu 6 (Nhận biết). Công thức tính độ lớn lực ma sát trượt là"}</>}
+  options={[
+    <><Math inline>{"F_{mst}=\\mu_tN"}</Math>{"."}</>,
+    <><Math inline>{"F_{mst}=\\mu_tm"}</Math>{"."}</>,
+    <><Math inline>{"F_{mst}=\\mu_tg"}</Math>{"."}</>,
+    <><Math inline>{"F_{mst}=N/\\mu_t"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"F_{mst}=\\mu_tN"}</Math>{", với "}<Math inline>{"N"}</Math>{" là độ lớn áp lực vuông góc mặt tiếp xúc."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-007"
+  question={<>{"Câu 7 (Nhận biết). Hệ số ma sát (nghỉ hoặc trượt) có đơn vị là"}</>}
+  options={[
+    <>{"newton ("}<Math inline>{"\\mathrm N"}</Math>{")."}</>,
+    <>{"mét trên giây bình phương ("}<Math inline>{"\\mathrm{m/s^2}"}</Math>{")."}</>,
+    <>{"kilôgam ("}<Math inline>{"\\mathrm{kg}"}</Math>{")."}</>,
+    <>{"không có đơn vị."}</>
+  ]}
+  correctIndex={3}
+  explanation={<><Math inline>{"\\mu=F/N"}</Math>{" là tỉ số hai lực nên không có đơn vị."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-008"
+  question={<>{"Câu 8 (Thông hiểu). Một người đứng trên cân đặt trong thang máy đang rơi tự do. Số chỉ của cân bằng"}</>}
+  options={[
+    <><Math inline>{"mg"}</Math>{"."}</>,
+    <><Math inline>{"2mg"}</Math>{"."}</>,
+    <><Math inline>{"0"}</Math>{"."}</>,
+    <><Math inline>{"0{,}5mg"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Chọn chiều dương hướng lên, "}<Math inline>{"a=-g"}</Math>{": "}<Math inline>{"N=m(g+a)=0"}</Math>{". Trọng lực vẫn bằng "}<Math inline>{"mg"}</Math>{", chỉ có trọng lượng biểu kiến bằng 0."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Nguyên nhân chính tạo ra lực nâng tác dụng lên cánh máy bay đang bay là"}</>}
+  options={[
+    <>{"ma sát giữa không khí và bề mặt cánh."}</>,
+    <>{"áp suất ở mặt dưới cánh lớn hơn ở mặt trên do dòng khí phía trên chảy nhanh hơn."}</>,
+    <>{"lực đẩy Ác-si-mét của không khí lên thể tích máy bay."}</>,
+    <>{"lực hút tĩnh điện giữa không khí và vỏ máy bay."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Dòng khí phía trên cánh nhanh hơn nên áp suất nhỏ hơn; chênh lệch áp suất giữa mặt dưới và mặt trên tạo lực nâng."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-010"
+  question={<>{"Câu 10 (Thông hiểu). Lực ma sát nghỉ đóng vai trò lực phát động trong trường hợp nào sau đây?"}</>}
+  options={[
+    <>{"Thùng hàng trượt xuống mặt phẳng nghiêng."}</>,
+    <>{"Ô tô phanh gấp, bánh bị khóa và trượt lê."}</>,
+    <>{"Người bước đi về phía trước trên mặt đường."}</>,
+    <>{"Viên bi lăn chậm dần trên mặt bàn nằm ngang."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Chân đạp đất về sau, mặt đất tác dụng ma sát nghỉ lên chân hướng về trước. Ở A và B là ma sát trượt; ở D là lực cản lăn."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu). Khối gỗ "}<Math inline>{"m=2\\,\\mathrm{kg}"}</Math>{" đứng yên trên sàn ngang, "}<Math inline>{"\\mu_n=0{,}3"}</Math>{", "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Kéo khối gỗ bằng lực nằm ngang "}<Math inline>{"4\\,\\mathrm N"}</Math>{". Độ lớn lực ma sát tác dụng lên khối gỗ là"}</>}
+  options={[
+    <><Math inline>{"6\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"4\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"2\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"0\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_{msn,\\max}=0{,}3\\times2\\times10=6\\,\\mathrm N>4\\,\\mathrm N"}</Math>{" nên vật chưa trượt; ma sát nghỉ bằng lực kéo: "}<Math inline>{"4\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-012"
+  question={<>{"Câu 12 (Nhận biết). Ở tốc độ lớn trong không khí, độ lớn lực cản tác dụng lên vật phụ thuộc tốc độ "}<Math inline>{"v"}</Math>{" theo quy luật gần đúng"}</>}
+  options={[
+    <><Math inline>{"F_c\\propto v"}</Math>{"."}</>,
+    <><Math inline>{"F_c\\propto v^2"}</Math>{"."}</>,
+    <><Math inline>{"F_c\\propto 1/v"}</Math>{"."}</>,
+    <>{"không phụ thuộc "}<Math inline>{"v"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Ở tốc độ lớn, "}<Math inline>{"F_c=\\tfrac12C_D\\rho Sv^2"}</Math>{", tỉ lệ với "}<Math inline>{"v^2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-013"
+  question={<>{"Câu 13 (Thông hiểu). Vật rơi trong không khí đạt tốc độ giới hạn khi"}</>}
+  options={[
+    <>{"gia tốc rơi đạt giá trị lớn nhất "}<Math inline>{"a=g"}</Math>{"."}</>,
+    <>{"lực cản không khí bằng 0."}</>,
+    <>{"độ lớn lực cản bằng trọng lượng của vật."}</>,
+    <>{"vật chạm mặt đất."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Khi "}<Math inline>{"F_c=P"}</Math>{", hợp lực bằng 0 nên vật rơi đều với tốc độ không đổi."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-014"
+  question={<>{"Câu 14 (Thông hiểu). Vật khối lượng "}<Math inline>{"5\\,\\mathrm{kg}"}</Math>{" ở nơi có "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{" có trọng lượng là"}</>}
+  options={[
+    <><Math inline>{"49\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"5{,}0\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"9{,}8\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"50\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"P=mg=5\\times9{,}8=49\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-015"
+  question={<>{"Câu 15 (Nhận biết). Với một sợi dây nhẹ, không giãn đang bị kéo căng, độ lớn lực căng dây"}</>}
+  options={[
+    <>{"tăng dần từ hai đầu vào giữa dây."}</>,
+    <>{"như nhau tại mọi điểm trên dây."}</>,
+    <>{"ở đầu kéo lớn hơn ở đầu buộc vật."}</>,
+    <>{"giảm dần theo thời gian kéo."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Một đoạn dây khối lượng không đáng kể có hợp lực bằng 0, nên lực căng ở hai đầu đoạn bằng nhau."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-016"
+  question={<>{"Câu 16 (Thông hiểu). Vật khối lượng "}<Math inline>{"m"}</Math>{" nằm yên trên mặt phẳng nghiêng góc "}<Math inline>{"\\alpha"}</Math>{", không có lực nào khác theo phương vuông góc mặt nghiêng. Độ lớn phản lực của mặt nghiêng là"}</>}
+  options={[
+    <><Math inline>{"N=mg"}</Math>{"."}</>,
+    <><Math inline>{"N=mg\\sin\\alpha"}</Math>{"."}</>,
+    <><Math inline>{"N=mg\\cos\\alpha"}</Math>{"."}</>,
+    <><Math inline>{"N=mg\\tan\\alpha"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Theo phương vuông góc mặt nghiêng: "}<Math inline>{"N-mg\\cos\\alpha=0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-017"
+  question={<>{"Câu 17 (Thông hiểu). Ô tô khối lượng "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" phanh gấp trên đường ngang, bánh bị khóa và trượt lê với "}<Math inline>{"\\mu_t=0{,}60"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Độ lớn lực ma sát trượt là"}</>}
+  options={[
+    <><Math inline>{"1274\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"15288\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"25480\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"509{,}6\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"N=mg=25480\\,\\mathrm N"}</Math>{", "}<Math inline>{"F_{mst}=0{,}60\\times25480=15288\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-018"
+  question={<>{"Câu 18 (Thông hiểu). Ở tốc độ đủ lớn, coi "}<Math inline>{"F_c\\propto v^2"}</Math>{". Khi tốc độ ô tô tăng từ "}<Math inline>{"50\\,\\mathrm{km/h}"}</Math>{" lên "}<Math inline>{"100\\,\\mathrm{km/h}"}</Math>{", lực cản không khí"}</>}
+  options={[
+    <>{"tăng 2 lần."}</>,
+    <>{"tăng 4 lần."}</>,
+    <>{"tăng 8 lần."}</>,
+    <>{"giảm 2 lần."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Tốc độ tăng 2 lần thì "}<Math inline>{"F_c"}</Math>{" tăng "}<Math inline>{"2^2=4"}</Math>{" lần."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-019"
+  question={<>{"Câu 19 (Nhận biết). Lực cản lăn khi bánh xe lăn trên mặt đường chủ yếu do"}</>}
+  options={[
+    <>{"bánh xe trượt lê hoàn toàn trên mặt đường."}</>,
+    <>{"bánh xe và mặt đường bị biến dạng ở chỗ tiếp xúc."}</>,
+    <>{"lực hút của Trái Đất lên bánh xe."}</>,
+    <>{"chênh lệch áp suất không khí trong lốp."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lốp và mặt đường biến dạng nhẹ ở vùng tiếp xúc, tạo ra cản trở chuyển động lăn."}</>}
+/>
+
+<Quiz
+  id="bai-7-sbt-020"
+  question={<>{"Câu 20 (Thông hiểu). Người khối lượng "}<Math inline>{"60\\,\\mathrm{kg}"}</Math>{" đứng trong thang máy đang đi lên nhanh dần đều với gia tốc "}<Math inline>{"2{,}0\\,\\mathrm{m/s^2}"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Áp lực của người lên sàn thang máy là"}</>}
+  options={[
+    <><Math inline>{"468\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"588\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"708\\,\\mathrm N"}</Math>{"."}</>,
+    <><Math inline>{"120\\,\\mathrm N"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Gia tốc hướng lên: "}<Math inline>{"N=m(g+a)=60\\times11{,}8=708\\,\\mathrm N"}</Math>{"; áp lực của người lên sàn có cùng độ lớn (định luật III)."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-7-sbt-021"
+  question={<>{"Câu 21. Xét lực ma sát giữa lốp và mặt đường khi một ô tô tăng tốc và khi phanh gấp."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khi xe tăng tốc về phía trước, ma sát nghỉ của mặt đường lên lốp bánh chủ động hướng về phía trước và là lực phát động."}</>, isTrue: true, explanation: <>{"Lốp miết mặt đường về sau; mặt đường tác dụng ma sát nghỉ lên lốp hướng về trước."}</> },
+    { id: 'b', text: <>{"Ma sát nghỉ cực đại giữa lốp và mặt đường giới hạn gia tốc lớn nhất mà xe có thể đạt được mà không bị quay trượt bánh."}</>, isTrue: true, explanation: <>{"Lực phát động không thể vượt "}<Math inline>{"\\mu_nN"}</Math>{" của bánh chủ động, nên gia tốc tăng tốc bị giới hạn."}</> },
+    { id: 'c', text: <>{"Hệ thống chống bó cứng ABS giữ cho lốp trượt liên tục trên mặt đường để xe dừng nhanh nhất."}</>, isTrue: false, explanation: <>{"ABS ngăn bánh xe bị khóa, giữ lốp bám đường bằng ma sát nghỉ gần giá trị cực đại để xe vẫn điều khiển được."}</> },
+    { id: 'd', text: <>{"Khi bánh bị khóa và trượt lê, ở tốc độ vừa phải lực ma sát trượt hầu như không phụ thuộc tốc độ trượt."}</>, isTrue: true, explanation: <>{"Đây là đặc điểm thực nghiệm của ma sát trượt."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-022"
+  question={<>{"Câu 22. Xét trọng lượng và trọng lượng biểu kiến của một người đứng trên cân trong thang máy."}</>}
+  statements={[
+    { id: 'a', text: <>{"Trọng lực "}<Math inline>{"P=mg"}</Math>{" tác dụng lên người không phụ thuộc trạng thái chuyển động của thang máy."}</>, isTrue: true, explanation: <>{"Trọng lực chỉ phụ thuộc "}<Math inline>{"m"}</Math>{" và "}<Math inline>{"g"}</Math>{" tại nơi đó."}</> },
+    { id: 'b', text: <>{"Khi thang máy đi lên chậm dần đều với gia tốc có độ lớn "}<Math inline>{"a"}</Math>{", số chỉ của cân là "}<Math inline>{"m(g-a)"}</Math>{", nhỏ hơn "}<Math inline>{"mg"}</Math>{"."}</>, isTrue: true, explanation: <>{"Đi lên chậm dần: gia tốc hướng xuống. Chọn chiều dương lên: "}<Math inline>{"N-mg=-ma"}</Math>{", nên "}<Math inline>{"N=m(g-a)"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Khi thang máy rơi tự do, trọng lực tác dụng lên người bằng 0."}</>, isTrue: false, explanation: <>{"Trọng lực vẫn là "}<Math inline>{"mg"}</Math>{"; chỉ có phản lực của cân (trọng lượng biểu kiến) bằng 0."}</> },
+    { id: 'd', text: <>{"Số chỉ của cân bằng độ lớn lực mà chân người ép lên mặt cân, cũng bằng độ lớn phản lực của cân lên chân."}</>, isTrue: true, explanation: <>{"Hai lực này là cặp lực – phản lực theo định luật III nên có cùng độ lớn."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-023"
+  question={<>{"Câu 23. Hai vật "}<Math inline>{"m_1<m_2"}</Math>{" nối với nhau bằng dây nhẹ, không giãn vắt qua ròng rọc cố định nhẹ, không ma sát (máy Atwood). Thả hệ từ nghỉ."}</>}
+  statements={[
+    { id: 'a', text: <>{"Vì dây không giãn, hai vật có cùng độ lớn gia tốc."}</>, isTrue: true, explanation: <>{"Hai vật đi được những quãng đường bằng nhau trong cùng thời gian."}</> },
+    { id: 'b', text: <>{"Vì dây nhẹ và ròng rọc lý tưởng, lực căng tác dụng lên hai vật có cùng độ lớn "}<Math inline>{"T"}</Math>{"."}</>, isTrue: true, explanation: <>{"Dây nhẹ có lực căng như nhau ở mọi điểm; ròng rọc nhẹ, không ma sát không làm thay đổi độ lớn lực căng."}</> },
+    { id: 'c', text: <>{"Độ lớn gia tốc của hệ là "}<Math inline>{"a=\\dfrac{m_2-m_1}{m_1+m_2}g"}</Math>{"."}</>, isTrue: true, explanation: <>{"Vật 1: "}<Math inline>{"T-m_1g=m_1a"}</Math>{"; vật 2: "}<Math inline>{"m_2g-T=m_2a"}</Math>{". Cộng hai phương trình được kết quả trên."}</> },
+    { id: 'd', text: <>{"Lực căng dây bằng trọng lượng của vật nhẹ hơn: "}<Math inline>{"T=m_1g"}</Math>{"."}</>, isTrue: false, explanation: <>{"Vật 1 đi lên nhanh dần nên "}<Math inline>{"T=m_1(g+a)=\\dfrac{2m_1m_2}{m_1+m_2}g>m_1g"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-024"
+  question={<>{"Câu 24. Xét một giọt mưa rơi từ đám mây cao "}<Math inline>{"2000\\,\\mathrm m"}</Math>{" trong không khí."}</>}
+  statements={[
+    { id: 'a', text: <>{"Trong suốt quá trình rơi, giọt mưa chuyển động nhanh dần đều với gia tốc "}<Math inline>{"g"}</Math>{"."}</>, isTrue: false, explanation: <>{"Lực cản tăng theo tốc độ nên gia tốc giảm dần; chỉ ở ngay lúc bắt đầu rơi ("}<Math inline>{"v=0"}</Math>{") thì "}<Math inline>{"a=g"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Gia tốc của giọt mưa giảm dần và bằng 0 khi giọt mưa đạt tốc độ giới hạn."}</>, isTrue: true, explanation: <>{"Khi "}<Math inline>{"F_c=P"}</Math>{" thì "}<Math inline>{"a=0"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Giọt mưa có bán kính lớn hơn thì có tốc độ giới hạn lớn hơn."}</>, isTrue: true, explanation: <>{"Với "}<Math inline>{"C_D"}</Math>{" như nhau: "}<Math inline>{"m\\propto r^3"}</Math>{", "}<Math inline>{"S\\propto r^2"}</Math>{" nên "}<Math inline>{"v_t=\\sqrt{2mg/(C_D\\rho S)}\\propto\\sqrt r"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Khi đã đạt tốc độ giới hạn, hợp lực tác dụng lên giọt mưa bằng 0."}</>, isTrue: true, explanation: <>{"Lực cản cân bằng trọng lực."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-025"
+  question={<>{"Câu 25. Một cuốn sách nằm yên trên mặt bàn nằm ngang chịu trọng lực "}<Math inline>{"\\vec P"}</Math>{" và phản lực "}<Math inline>{"\\vec N"}</Math>{" của mặt bàn."}</>}
+  statements={[
+    { id: 'a', text: <><Math inline>{"\\vec P"}</Math>{" và "}<Math inline>{"\\vec N"}</Math>{" là cặp lực – phản lực theo định luật III Newton."}</>, isTrue: false, explanation: <>{"Hai lực cùng đặt lên cuốn sách, do hai vật khác nhau gây ra (Trái Đất và mặt bàn), nên không phải cặp lực – phản lực."}</> },
+    { id: 'b', text: <><Math inline>{"\\vec P"}</Math>{" và "}<Math inline>{"\\vec N"}</Math>{" là hai lực cân bằng vì cùng tác dụng lên cuốn sách và cuốn sách đứng yên."}</>, isTrue: true, explanation: <>{"Hợp lực bằng 0 nên "}<Math inline>{"\\vec N=-\\vec P"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Phản lực của "}<Math inline>{"\\vec N"}</Math>{" theo định luật III là lực mà cuốn sách ép lên mặt bàn."}</>, isTrue: true, explanation: <>{"Bàn đẩy sách lên thì sách ép bàn xuống."}</> },
+    { id: 'd', text: <>{"Nếu chiếc bàn đặt trong thang máy đang có gia tốc hướng lên, độ lớn "}<Math inline>{"N"}</Math>{" lớn hơn "}<Math inline>{"P"}</Math>{"."}</>, isTrue: true, explanation: <>{"Với cuốn sách: "}<Math inline>{"N-P=ma>0"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-026"
+  question={<>{"Câu 26. Một máy bay chở khách đang bay bằng, thẳng đều ở độ cao không đổi. Coi lực đẩy nằm ngang."}</>}
+  statements={[
+    { id: 'a', text: <>{"Lực nâng cân bằng với trọng lực tác dụng lên máy bay."}</>, isTrue: true, explanation: <>{"Theo phương đứng, gia tốc bằng 0."}</> },
+    { id: 'b', text: <>{"Lực cản của không khí lên máy bay cùng chiều với vận tốc của máy bay."}</>, isTrue: false, explanation: <>{"Lực cản luôn ngược chiều vận tốc so với không khí."}</> },
+    { id: 'c', text: <>{"Tổng lực đẩy của các động cơ có độ lớn bằng lực cản của không khí."}</>, isTrue: true, explanation: <>{"Theo phương ngang, gia tốc bằng 0."}</> },
+    { id: 'd', text: <>{"Lực nâng xuất hiện do dòng khí phía trên cánh chảy nhanh hơn phía dưới, tạo chênh lệch áp suất."}</>, isTrue: true, explanation: <>{"Áp suất mặt dưới cánh lớn hơn mặt trên."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-027"
+  question={<>{"Câu 27. Xét ma sát lăn, ma sát nghỉ và ma sát trượt trong giao thông."}</>}
+  statements={[
+    { id: 'a', text: <>{"Hệ số cản lăn giữa lốp cao su và mặt đường nhỏ hơn nhiều so với hệ số ma sát trượt giữa chúng."}</>, isTrue: true, explanation: <>{"Hệ số cản lăn cỡ 0,01–0,02, còn hệ số ma sát trượt cỡ 0,5–0,8."}</> },
+    { id: 'b', text: <>{"Thay chuyển động trượt bằng chuyển động lăn (dùng bánh xe, ổ bi) giúp giảm đáng kể lực cản."}</>, isTrue: true, explanation: <>{"Lực cản lăn nhỏ hơn ma sát trượt hàng chục lần."}</> },
+    { id: 'c', text: <>{"Khi xe đạp chạy thẳng đều, lực ma sát của mặt đường lên bánh sau (bánh chủ động) là ma sát trượt hướng về phía trước."}</>, isTrue: false, explanation: <>{"Bánh sau lăn không trượt nên đó là ma sát nghỉ, hướng về phía trước."}</> },
+    { id: 'd', text: <>{"Khi phanh quá mạnh làm bánh xe bị khóa không quay, ma sát giữa lốp và mặt đường là ma sát lăn."}</>, isTrue: false, explanation: <>{"Bánh không quay mà trượt lê trên đường nên đó là ma sát trượt."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-028"
+  question={<>{"Câu 28. Kéo một vật khối lượng "}<Math inline>{"m"}</Math>{" trượt trên sàn ngang bằng lực "}<Math inline>{"\\vec F_k"}</Math>{" hợp với phương ngang góc "}<Math inline>{"\\alpha"}</Math>{" hướng lên ("}<Math inline>{"0<\\alpha<90^\\circ"}</Math>{", "}<Math inline>{"F_k\\sin\\alpha<mg"}</Math>{"); hệ số ma sát trượt "}<Math inline>{"\\mu_t"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Phản lực của sàn có độ lớn "}<Math inline>{"N=mg-F_k\\sin\\alpha"}</Math>{"."}</>, isTrue: true, explanation: <>{"Theo phương đứng: "}<Math inline>{"N+F_k\\sin\\alpha-mg=0"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Kéo chếch lên làm giảm "}<Math inline>{"N"}</Math>{", do đó làm giảm lực ma sát trượt so với khi kéo ngang."}</>, isTrue: true, explanation: <><Math inline>{"F_{mst}=\\mu_tN"}</Math>{" giảm khi "}<Math inline>{"N"}</Math>{" giảm."}</> },
+    { id: 'c', text: <>{"Độ lớn lực ma sát trượt là "}<Math inline>{"F_{mst}=\\mu_t(mg-F_k\\sin\\alpha)"}</Math>{"."}</>, isTrue: true, explanation: <>{"Thay "}<Math inline>{"N"}</Math>{" vào "}<Math inline>{"F_{mst}=\\mu_tN"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Gia tốc của vật dọc theo sàn là "}<Math inline>{"a=\\dfrac{F_k\\cos\\alpha-\\mu_t(mg-F_k\\sin\\alpha)}{m}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Theo phương ngang: "}<Math inline>{"F_k\\cos\\alpha-F_{mst}=ma"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-029"
+  question={<>{"Câu 29 (Mở rộng — dùng gia tốc hướng tâm "}<Math inline>{"v^2/L"}</Math>{"). Con lắc đơn gồm quả cầu khối lượng "}<Math inline>{"m"}</Math>{" treo vào dây nhẹ dài "}<Math inline>{"L"}</Math>{" đang dao động, biên độ góc "}<Math inline>{"\\alpha_{\\max}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tại vị trí biên ("}<Math inline>{"v=0"}</Math>{"), lực căng dây có độ lớn "}<Math inline>{"T=mg\\cos\\alpha_{\\max}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Tại biên, gia tốc hướng tâm bằng 0: "}<Math inline>{"T-mg\\cos\\alpha_{\\max}=0"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Tại vị trí cân bằng, lực căng dây bằng trọng lượng quả cầu: "}<Math inline>{"T=mg"}</Math>{"."}</>, isTrue: false, explanation: <>{"Tại vị trí cân bằng vật có gia tốc hướng tâm hướng lên: "}<Math inline>{"T-mg=mv_{\\max}^2/L"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Lực căng dây luôn vuông góc với vận tốc của quả cầu."}</>, isTrue: true, explanation: <>{"Quả cầu chuyển động trên cung tròn, vận tốc tiếp tuyến, còn dây nằm theo bán kính."}</> },
+    { id: 'd', text: <>{"Tại vị trí cân bằng, lực căng dây đạt giá trị lớn nhất "}<Math inline>{"T_{\\max}=mg+mv_{\\max}^2/L"}</Math>{"."}</>, isTrue: true, explanation: <>{"Từ phương trình ở ý b."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-7-sbt-030"
+  question={<>{"Câu 30. Một vật khối lượng "}<Math inline>{"m"}</Math>{" đang trượt xuống mặt phẳng nghiêng góc "}<Math inline>{"\\alpha"}</Math>{", hệ số ma sát trượt "}<Math inline>{"\\mu_t"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Độ lớn lực ma sát trượt là "}<Math inline>{"F_{mst}=\\mu_tmg\\cos\\alpha"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"N=mg\\cos\\alpha"}</Math>{" nên "}<Math inline>{"F_{mst}=\\mu_tN"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Gia tốc của vật là "}<Math inline>{"a=g(\\sin\\alpha-\\mu_t\\cos\\alpha)"}</Math>{", chiều dương hướng xuống dốc."}</>, isTrue: true, explanation: <><Math inline>{"mg\\sin\\alpha-\\mu_tmg\\cos\\alpha=ma"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Vật đang trượt sẽ tiếp tục trượt nhanh dần xuống dốc nếu "}<Math inline>{"\\tan\\alpha>\\mu_t"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"a>0\\Leftrightarrow\\sin\\alpha>\\mu_t\\cos\\alpha"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Nếu "}<Math inline>{"\\tan\\alpha=\\mu_t"}</Math>{", vật đang trượt sẽ trượt thẳng đều xuống dốc."}</>, isTrue: true, explanation: <>{"Khi đó "}<Math inline>{"a=0"}</Math>{"."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-7-sbt-031"
+  question={<>{"Câu 31. Ô tô khối lượng "}<Math inline>{"m_1=2600\\,\\mathrm{kg}"}</Math>{" kéo rơ-moóc khối lượng "}<Math inline>{"m_2=400\\,\\mathrm{kg}"}</Math>{" bằng dây cáp nhẹ, không giãn trên đường ngang. Lực cản (lực cản lăn) lên mỗi xe bằng "}<Math inline>{"0{,}05"}</Math>{" trọng lượng của xe đó. Lực phát động của mặt đường lên ô tô là "}<Math inline>{"F_k=4500\\,\\mathrm N"}</Math>{". Lấy "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực căng của dây cáp (N, làm tròn đến hàng đơn vị)."}</>}
+  answer="600"
+  explanation={<>{"Cả hệ: "}<Math inline>{"a=\\dfrac{4500-0{,}05\\times3000\\times9{,}8}{3000}=\\dfrac{4500-1470}{3000}=1{,}01\\,\\mathrm{m/s^2}"}</Math>{". Rơ-moóc: "}<Math inline>{"T-0{,}05m_2g=m_2a\\Rightarrow T=400(1{,}01+0{,}49)=600\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-032"
+  question={<>{"Câu 32. Một đoạn dầm thép khối lượng "}<Math inline>{"5000\\,\\mathrm{kg}"}</Math>{" được giữ cân bằng bởi hai dây cáp đối xứng, mỗi dây hợp với phương thẳng đứng góc "}<Math inline>{"30^\\circ"}</Math>{". Lấy "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực căng mỗi dây (N, làm tròn đến hàng đơn vị)."}</>}
+  answer="28290"
+  explanation={<>{"Theo phương đứng: "}<Math inline>{"2T\\cos30^\\circ=mg=49000\\,\\mathrm N\\Rightarrow T=\\dfrac{49000}{\\sqrt3}\\approx28290\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-033"
+  question={<>{"Câu 33. Giọt mưa hình cầu bán kính "}<Math inline>{"r=1{,}0\\,\\mathrm{mm}"}</Math>{", khối lượng "}<Math inline>{"m=4{,}19\\times10^{-6}\\,\\mathrm{kg}"}</Math>{", rơi trong không khí có "}<Math inline>{"\\rho=1{,}2\\,\\mathrm{kg/m^3}"}</Math>{". Hệ số cản "}<Math inline>{"C_D=0{,}5"}</Math>{", diện tích cản "}<Math inline>{"S=\\pi r^2"}</Math>{", "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính tốc độ giới hạn (m/s, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="6,60"
+  explanation={<><Math inline>{"S=\\pi(10^{-3})^2\\approx3{,}142\\times10^{-6}\\,\\mathrm{m^2}"}</Math>{". "}<Math inline>{"v_t=\\sqrt{\\dfrac{2mg}{C_D\\rho S}}=\\sqrt{\\dfrac{2\\times4{,}19\\times10^{-6}\\times9{,}8}{0{,}5\\times1{,}2\\times3{,}142\\times10^{-6}}}\\approx\\sqrt{43{,}57}\\approx6{,}60\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-034"
+  question={<>{"Câu 34. Ô tô khối lượng "}<Math inline>{"1500\\,\\mathrm{kg}"}</Math>{" leo dốc nghiêng "}<Math inline>{"30^\\circ"}</Math>{" với tốc độ không đổi. Tổng lực cản dọc mặt dốc bằng "}<Math inline>{"0{,}1"}</Math>{" lần áp lực của xe lên mặt dốc. Lấy "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực phát động dọc mặt dốc (N, làm tròn đến hàng đơn vị)."}</>}
+  answer="8623"
+  explanation={<>{"Leo dốc đều: "}<Math inline>{"F_k=mg\\sin30^\\circ+0{,}1\\,mg\\cos30^\\circ=14700(0{,}5+0{,}0866)\\approx8623\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-035"
+  question={<>{"Câu 35. Thang máy khối lượng "}<Math inline>{"800\\,\\mathrm{kg}"}</Math>{" chở một người "}<Math inline>{"70\\,\\mathrm{kg}"}</Math>{" đang đi xuống và chậm dần đều với gia tốc có độ lớn "}<Math inline>{"2{,}0\\,\\mathrm{m/s^2}"}</Math>{". Lấy "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính áp lực của người lên sàn thang máy (N, làm tròn đến hàng đơn vị)."}</>}
+  answer="826"
+  explanation={<>{"Đi xuống chậm dần nên gia tốc hướng lên. Với người: "}<Math inline>{"N=m(g+a)=70\\times11{,}8=826\\,\\mathrm N"}</Math>{". (Lực căng cáp: "}<Math inline>{"T=(800+70)\\times11{,}8=10266\\,\\mathrm N"}</Math>{".)"}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-036"
+  question={<>{"Câu 36. Kéo thùng hàng "}<Math inline>{"10\\,\\mathrm{kg}"}</Math>{" trên sàn ngang bằng lực "}<Math inline>{"50\\,\\mathrm N"}</Math>{" hợp với phương ngang góc "}<Math inline>{"37^\\circ"}</Math>{" hướng lên ("}<Math inline>{"\\cos37^\\circ=0{,}8"}</Math>{", "}<Math inline>{"\\sin37^\\circ=0{,}6"}</Math>{"). Hệ số ma sát trượt "}<Math inline>{"0{,}2"}</Math>{", "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tính gia tốc của thùng ("}<Math inline>{"\\mathrm{m/s^2}"}</Math>{", làm tròn đến 1 chữ số thập phân)."}</>}
+  answer="2,6"
+  explanation={<><Math inline>{"N=mg-F\\sin37^\\circ=100-30=70\\,\\mathrm N"}</Math>{", "}<Math inline>{"F_{mst}=0{,}2\\times70=14\\,\\mathrm N"}</Math>{". "}<Math inline>{"a=\\dfrac{50\\times0{,}8-14}{10}=2{,}6\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-037"
+  question={<>{"Câu 37. Ô tô khối lượng "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" đỗ yên trên dốc nghiêng "}<Math inline>{"15^\\circ"}</Math>{" ("}<Math inline>{"\\sin15^\\circ\\approx0{,}2588"}</Math>{", "}<Math inline>{"\\cos15^\\circ\\approx0{,}9659"}</Math>{"). Hệ số ma sát nghỉ giữa lốp và mặt đường là "}<Math inline>{"0{,}6"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính độ lớn lực ma sát nghỉ giữ xe (N, làm tròn đến hàng đơn vị)."}</>}
+  answer="6594"
+  explanation={<>{"Xe đứng yên: "}<Math inline>{"F_{msn}=mg\\sin15^\\circ=25480\\times0{,}2588\\approx6594\\,\\mathrm N"}</Math>{". Kiểm tra: "}<Math inline>{"\\mu_nN=0{,}6\\times25480\\times0{,}9659\\approx14767\\,\\mathrm N>6594\\,\\mathrm N"}</Math>{" nên xe không trượt. Hệ số 0,6 chỉ dùng để kiểm tra, không dùng để tính ma sát nghỉ."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-038"
+  question={<>{"Câu 38. Một máy bay khối lượng "}<Math inline>{"200"}</Math>{" tấn bay bằng, thẳng đều với tốc độ "}<Math inline>{"900\\,\\mathrm{km/h}"}</Math>{". Theo số liệu giả định, lực cản của không khí bằng "}<Math inline>{"\\tfrac1{10}"}</Math>{" trọng lượng máy bay. Lấy "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{", coi lực đẩy nằm ngang. Tính tổng lực đẩy của các động cơ (kN, nhập số nguyên)."}</>}
+  answer="196"
+  explanation={<>{"Bay đều: "}<Math inline>{"F_d=F_c=0{,}1\\times200000\\times9{,}8=196000\\,\\mathrm N=196\\,\\mathrm{kN}"}</Math>{". Tốc độ 900 km/h không cần dùng."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-039"
+  question={<>{"Câu 39. Máy Atwood gồm hai vật "}<Math inline>{"3{,}0\\,\\mathrm{kg}"}</Math>{" và "}<Math inline>{"2{,}0\\,\\mathrm{kg}"}</Math>{" nối bằng dây nhẹ, không giãn qua ròng rọc cố định nhẹ, không ma sát. Lấy "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính lực căng dây khi thả hệ (N, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="23,52"
+  explanation={<><Math inline>{"a=\\dfrac{3-2}{5}\\times9{,}8=1{,}96\\,\\mathrm{m/s^2}"}</Math>{". Vật 2 kg đi lên: "}<Math inline>{"T=2(9{,}8+1{,}96)=23{,}52\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-7-sbt-040"
+  question={<>{"Câu 40. Một vật nhỏ được truyền vận tốc "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{" dọc lên một mặt phẳng nghiêng dài, góc "}<Math inline>{"30^\\circ"}</Math>{", hệ số ma sát trượt "}<Math inline>{"0{,}2"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính quãng đường lớn nhất vật đi lên được (m, làm tròn đến 2 chữ số thập phân)."}</>}
+  answer="7,58"
+  explanation={<>{"Khi đi lên, trọng lực và ma sát đều hướng xuống dốc: "}<Math inline>{"a=-g(\\sin30^\\circ+0{,}2\\cos30^\\circ)\\approx-6{,}597\\,\\mathrm{m/s^2}"}</Math>{". "}<Math inline>{"s_{\\max}=\\dfrac{0-10^2}{2a}\\approx7{,}58\\,\\mathrm m"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-7-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Hệ ba vật nối dây trên mặt bàn
+
+Ba vật $m_1=1\,\mathrm{kg}$, $m_2=2\,\mathrm{kg}$, $m_3=3\,\mathrm{kg}$ đặt trên mặt bàn nằm ngang, nối với nhau bằng hai dây nhẹ, không giãn (dây 1 nối $m_1$ với $m_2$, dây 2 nối $m_2$ với $m_3$). Hệ số ma sát trượt giữa mỗi vật và mặt bàn là $\mu_t=0{,}1$. Kéo $m_3$ bằng lực nằm ngang $F=12\,\mathrm N$. Lấy $g=10\,\mathrm{m/s^2}$.
+
+1. Vẽ các lực tác dụng lên từng vật.
+2. Tính gia tốc của hệ và lực căng $T_1$, $T_2$ của hai dây.
+
+<ThreeBlocksDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1. Sơ đồ lực.** Mỗi vật chịu trọng lực, phản lực (cân bằng nhau theo phương đứng) và ma sát trượt hướng ngược chuyển động. Theo phương ngang: $m_1$ chịu $T_1$ hướng sang phải; $m_2$ chịu $T_2$ sang phải và $T_1$ sang trái; $m_3$ chịu $F$ sang phải và $T_2$ sang trái.
+
+**2. Gia tốc.** Xét cả hệ, lực căng là nội lực:
+
+$$
+a=\frac{F-\mu_t(m_1+m_2+m_3)g}{m_1+m_2+m_3}=\frac{12-0{,}1\times6\times10}{6}=1{,}0\,\mathrm{m/s^2}.
+$$
+
+**Lực căng.** Vật 1: $T_1-\mu_tm_1g=m_1a\Rightarrow T_1=1\times1{,}0+0{,}1\times1\times10=2{,}0\,\mathrm N$.
+
+Hai vật 1 và 2: $T_2-\mu_t(m_1+m_2)g=(m_1+m_2)a\Rightarrow T_2=3\times1{,}0+0{,}1\times3\times10=6{,}0\,\mathrm N$.
+
+Kiểm tra với vật 3: $F-T_2-\mu_tm_3g=12-6-3=3\,\mathrm N=m_3a$. ✓
+
+**Nhận xét:** Mỗi dây chỉ cần kéo các vật phía sau nó, nên dây càng gần lực kéo thì lực căng càng lớn: $T_1<T_2<F$.
+
+</details>
+</div>
+
+<div data-question-id="bai-7-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Nhảy dù và tốc độ giới hạn
+
+Một vận động viên nhảy dù có tổng khối lượng (người và dù) $m=80\,\mathrm{kg}$. Dùng mô hình $F_c=\tfrac12C_D\rho Sv^2$ với $\rho=1{,}2\,\mathrm{kg/m^3}$, $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Khi chưa mở dù: $S_1=0{,}6\,\mathrm{m^2}$, $C_{D1}=0{,}8$. Tính tốc độ giới hạn $v_{t1}$.
+2. Khi dù đã mở hoàn toàn: $S_2=40\,\mathrm{m^2}$, $C_{D2}=1{,}2$. Tính tốc độ giới hạn $v_{t2}$.
+3. Mô tả sự thay đổi gia tốc và phác họa đồ thị $v(t)$ từ lúc rời máy bay đến khi tiếp đất.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $v_{t1}=\sqrt{\dfrac{2mg}{C_{D1}\rho S_1}}=\sqrt{\dfrac{2\times80\times9{,}8}{0{,}8\times1{,}2\times0{,}6}}=\sqrt{\dfrac{1568}{0{,}576}}\approx52{,}2\,\mathrm{m/s}\ (\approx188\,\mathrm{km/h}).$
+
+**2.** $v_{t2}=\sqrt{\dfrac{1568}{1{,}2\times1{,}2\times40}}=\sqrt{\dfrac{1568}{57{,}6}}\approx5{,}22\,\mathrm{m/s}\ (\approx19\,\mathrm{km/h}).$
+
+**3. Diễn biến.**
+
+- *Giai đoạn 1 (chưa mở dù):* lúc đầu $a=g$; tốc độ tăng làm lực cản tăng, gia tốc giảm dần về 0; $v$ tiến dần tới $v_{t1}\approx52\,\mathrm{m/s}$.
+- *Giai đoạn 2 (vừa mở dù):* $S$ và $C_D$ tăng đột ngột nên $F_c\gg P$; hợp lực hướng lên, vận động viên chậm dần nhanh (gia tốc hướng lên, có độ lớn lớn). Khi $v$ giảm, $F_c$ giảm, độ lớn gia tốc giảm dần.
+- *Giai đoạn 3:* $v$ tiến tới $v_{t2}\approx5{,}2\,\mathrm{m/s}$ và gần như không đổi cho đến khi tiếp đất.
+
+Đồ thị $v(t)$: đường cong đi lên từ gốc, tiệm cận $v_{t1}$; tại thời điểm mở dù giảm nhanh; sau đó tiệm cận $v_{t2}$ từ phía trên.
+
+</details>
+</div>
+
+<div data-question-id="bai-7-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43 (Mở rộng). Ô tô qua đoạn đường cua nghiêng
+
+Đoạn đường cua có bán kính $R=100\,\mathrm m$, mặt đường nghiêng góc $\theta$ so với phương ngang (mép ngoài cao hơn mép trong). Khi xe chạy trên đường cua với tốc độ $v$, hợp lực tác dụng lên xe phải hướng vào tâm cua và có độ lớn $mv^2/R$. Lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Giả sử mặt đường không có ma sát. Lập công thức và tính góc $\theta$ để xe chạy với tốc độ $v_0=72\,\mathrm{km/h}$ qua cua an toàn.
+2. Mặt đường có hệ số ma sát nghỉ $\mu_n=0{,}3$, góc nghiêng $\theta=22^\circ$. Lập công thức và tính tốc độ lớn nhất để xe không bị trượt ra phía ngoài.
+
+<BankedCurveDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1. Không có ma sát.** Xe chịu $\vec P$ và $\vec N$ (vuông góc mặt đường). Theo phương đứng và phương ngang (hướng vào tâm):
+
+$$
+N\cos\theta=mg,\qquad N\sin\theta=\frac{mv_0^2}{R}\quad\Rightarrow\quad\tan\theta=\frac{v_0^2}{gR}=\frac{20^2}{9{,}8\times100}\approx0{,}408.
+$$
+
+Vậy $\theta\approx22{,}2^\circ$.
+
+**2. Có ma sát, tốc độ lớn nhất.** Khi xe sắp trượt ra ngoài, ma sát nghỉ đạt cực đại $\mu_nN$ và hướng dọc mặt đường xuống phía trong:
+
+$$
+N\cos\theta-\mu_nN\sin\theta=mg,\qquad N\sin\theta+\mu_nN\cos\theta=\frac{mv_{\max}^2}{R}.
+$$
+
+Chia vế với vế:
+
+$$
+v_{\max}^2=gR\,\frac{\tan\theta+\mu_n}{1-\mu_n\tan\theta}=980\times\frac{0{,}404+0{,}3}{1-0{,}3\times0{,}404}\approx785\quad\Rightarrow\quad v_{\max}\approx28{,}0\,\mathrm{m/s}\approx101\,\mathrm{km/h}.
+$$
+
+**Nhận xét:** Độ nghiêng của mặt đường giúp thành phần ngang của phản lực cung cấp một phần lực hướng tâm, nên xe qua cua được ở tốc độ lớn hơn so với đường phẳng ($v_{\max}=\sqrt{\mu_ngR}\approx17\,\mathrm{m/s}$).
+
+</details>
+</div>
+
+<div data-question-id="bai-7-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44 (Mở rộng — dùng đạo hàm và hàm mũ). Hạt nhỏ rơi trong dầu
+
+Một hạt nhỏ khối lượng $m$ được thả từ trạng thái nghỉ trong một bình dầu. Bỏ qua lực đẩy Ác-si-mét; lực cản của dầu có độ lớn $F_c=kv$ ($k$ là hằng số dương).
+
+1. Viết phương trình định luật II Newton cho hạt.
+2. Chứng minh vận tốc của hạt là $v(t)=v_t\left(1-e^{-kt/m}\right)$ với $v_t=\dfrac{mg}{k}$.
+3. Tính thời gian để hạt đạt $99\%$ tốc độ giới hạn.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Chọn chiều dương hướng xuống: $m\dfrac{dv}{dt}=mg-kv$.
+
+**2.** Tách biến: $\dfrac{dv}{mg-kv}=\dfrac{dt}{m}$. Lấy tích phân từ $0$ đến $t$ (với $v(0)=0$):
+
+$$
+-\frac1k\ln\frac{mg-kv}{mg}=\frac tm\quad\Rightarrow\quad 1-\frac{kv}{mg}=e^{-kt/m}\quad\Rightarrow\quad v(t)=\frac{mg}{k}\left(1-e^{-kt/m}\right).
+$$
+
+Khi $t\to\infty$, $v\to v_t=mg/k$, đúng là giá trị làm $kv_t=mg$.
+
+**3.** $v=0{,}99v_t\Leftrightarrow e^{-k\tau/m}=0{,}01\Rightarrow\tau=\dfrac mk\ln100\approx4{,}6\,\dfrac mk$.
+
+</details>
+</div>
+
+<div data-question-id="bai-7-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Xe đầu kéo và rơ-moóc lên dốc
+
+Xe đầu kéo khối lượng $m_1=10$ tấn kéo rơ-moóc khối lượng $m_2=20$ tấn lên một con dốc nghiêng $6^\circ$ ($\sin6^\circ\approx0{,}1045$, $\cos6^\circ\approx0{,}9945$). Lực cản lăn lên mỗi xe bằng $\mu=0{,}04$ lần áp lực của xe đó lên mặt dốc. Lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Đoàn xe leo dốc thẳng đều với tốc độ $36\,\mathrm{km/h}$. Tính lực phát động $F_k$ (của mặt đường lên các bánh chủ động của đầu kéo) và lực căng $T$ tại chốt nối.
+2. Sau đó đoàn xe tăng tốc với gia tốc $0{,}5\,\mathrm{m/s^2}$. Tính lực phát động $F_k'$ và lực căng $T'$.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Đặt $k=\sin6^\circ+\mu\cos6^\circ=0{,}1045+0{,}04\times0{,}9945\approx0{,}14428$. Lực cản dọc dốc (thành phần trọng lực và lực cản lăn) lên vật khối lượng $m$ bằng $kmg$.
+
+**1. Leo dốc đều ($a=0$).**
+
+Rơ-moóc: $T=km_2g=0{,}14428\times196000\approx2{,}83\times10^4\,\mathrm N$ (khoảng $28279\,\mathrm N$).
+
+Cả đoàn xe: $F_k=k(m_1+m_2)g=0{,}14428\times294000\approx4{,}24\times10^4\,\mathrm N$ (khoảng $42418\,\mathrm N$).
+
+**2. Tăng tốc ($a=0{,}5\,\mathrm{m/s^2}$).**
+
+$$
+T'=T+m_2a\approx28279+10000=38279\,\mathrm N,\qquad F_k'=F_k+(m_1+m_2)a\approx42418+15000=57418\,\mathrm N.
+$$
+
+**Nhận xét:** Tốc độ 36 km/h không ảnh hưởng đến lực khi đoàn xe chuyển động đều. Khi tăng tốc, chốt nối phải chịu thêm lực $m_2a$ để tăng tốc cho rơ-moóc.
+
+</details>
+</div>
+
+</Section>
+
+</div>

@@ -184,8 +184,8 @@ export abstract class BoardObject {
   }
 
   inverseTransformPoint(p: Point): Point {
-     let x = p.x - this.cx;
-     let y = p.y - this.cy;
+     const x = p.x - this.cx;
+     const y = p.y - this.cy;
      const cos = Math.cos(-this.rotation);
      const sin = Math.sin(-this.rotation);
      const rx = x * cos - y * sin;

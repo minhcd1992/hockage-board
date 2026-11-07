@@ -133,7 +133,7 @@
 
 <Quiz
   id="bai-2-exercises-011"
-  question={<><strong>Câu 11: </strong>Trong công thức cộng vận tốc vectơ <Math inline>{"\\vec{v}{1,3} = \\vec{v}{1,2} + \\vec{v}_{2,3}"}</Math>, phát biểu nào sau đây đúng về tên gọi các hệ quy chiếu?</>}
+  question={<><strong>Câu 11: </strong>Trong công thức cộng vận tốc vectơ <Math inline>{"\\vec{v}_{1,3} = \\vec{v}_{1,2} + \\vec{v}_{2,3}"}</Math>, phát biểu nào sau đây đúng về tên gọi các hệ quy chiếu?</>}
   options={[
     <>Ký hiệu (1) là hệ quy chiếu đứng yên, (3) là vật chuyển động.</>,
     <>Ký hiệu (1) là vật chuyển động, (2) là hệ quy chiếu chuyển động, (3) là hệ quy chiếu đứng yên.</>,
@@ -141,7 +141,7 @@
     <>Ký hiệu (1) và (3) đều là các hệ quy chiếu chuyển động.</>
   ]}
   correctIndex={1}
-  explanation={<>Quy ước chuẩn Halliday/GDPT: (1) vật chuyển động, (2) HQC chuyển động, (3) HQC đứng yên.</>}
+  explanation={<>Quy ước trong SGK: (1) vật chuyển động, (2) HQC chuyển động, (3) HQC đứng yên.</>}
 />
 
 <Quiz
@@ -175,12 +175,12 @@
   question={<><strong>Câu 14: </strong>Trong thí nghiệm đo tốc độ tức thời bằng cổng quang điện kết hợp đồng hồ đo thời gian hiện số, dụng cụ nào được dùng để đo quãng đường (chiều rộng tấm chắn sáng)?</>}
   options={[
     <>Đồng hồ bấm giây.</>,
-    <>Thước kẹp (panme) hoặc thước chia độ.</>,
+    <>Thước kẹp (thước cặp) hoặc thước chia độ.</>,
     <>Cổng quang điện.</>,
     <>Lực kế.</>
   ]}
   correctIndex={1}
-  explanation={<>Bề rộng tấm chắn sáng rất nhỏ được đo chính xác bằng thước kẹp panme.</>}
+  explanation={<>Bề rộng tấm chắn sáng rất nhỏ được đo chính xác bằng thước kẹp.</>}
 />
 
 <Quiz
@@ -198,15 +198,15 @@
 
 <Quiz
   id="bai-2-exercises-016"
-  question={<><strong>Câu 16: </strong>Công thức tính sai số tương đối của phép đo tốc độ gián tiếp <Math inline>{"v = \\frac{s}{t}"}</Math> từ sai số tuyệt đối của quãng đường <Math inline>{"\\Delta s"}</Math> và thời gian <Math inline>{"\\Delta t"}</Math> là</>}
+  question={<><strong>Câu 16: </strong>Công thức tính sai số tương đối <Math inline>{"\\delta v"}</Math> của phép đo tốc độ gián tiếp <Math inline>{"v = \\frac{s}{t}"}</Math> từ sai số tuyệt đối của quãng đường <Math inline>{"\\Delta s"}</Math> và thời gian <Math inline>{"\\Delta t"}</Math> là</>}
   options={[
-    <><Math inline>{"\\Delta v = \\Delta s - \\Delta t"}</Math>.</>,
-    <><Math inline>{"\\Delta v = \\Delta s + \\Delta t = \\frac{\\Delta s}{\\bar{s}} + \\frac{\\Delta t}{\\bar{t}}"}</Math>.</>,
-    <><Math inline>{"\\Delta v = \\Delta s \\cdot \\Delta t"}</Math>.</>,
-    <><Math inline>{"\\Delta v = \\frac{\\Delta s}{\\Delta t}"}</Math>.</>
+    <><Math inline>{"\\delta v = \\delta s - \\delta t"}</Math>.</>,
+    <><Math inline>{"\\delta v = \\delta s + \\delta t = \\frac{\\Delta s}{\\bar{s}} + \\frac{\\Delta t}{\\bar{t}}"}</Math>.</>,
+    <><Math inline>{"\\delta v = \\delta s \\cdot \\delta t"}</Math>.</>,
+    <><Math inline>{"\\delta v = \\frac{\\Delta s}{\\Delta t}"}</Math>.</>
   ]}
   correctIndex={1}
-  explanation={<>Sai số tương đối gián tiếp của phép chia bằng tổng sai số tương đối các thành phần: <Math inline>{"\\Delta v = \\Delta s + \\Delta t"}</Math>.</>}
+  explanation={<>Sai số tương đối gián tiếp của phép chia bằng tổng sai số tương đối các thành phần: <Math inline>{"\\delta v = \\delta s + \\delta t"}</Math>.</>}
 />
 
 <Quiz
@@ -284,7 +284,7 @@
     {
       id: "c",
       text: <>Hai xe gặp nhau tại thời điểm <Math inline>{"t = 1\\text{ h}"}</Math> và tại vị trí cách gốc tọa độ <Math inline>{"d = 40\\text{ km}"}</Math>.</>,
-      isTrue: true,
+      isTrue: false,
       explanation: <>Phương trình tọa độ: <Math inline>{"d_A = 30t"}</Math>, <Math inline>{"d_B = 100 - 40t"}</Math>. Giao nhau: <Math inline>{"30t = 100 - 40t \\Rightarrow 70t = 100 \\Rightarrow t = 10/7\\text{ h} \\approx 1,43\\text{ h}"}</Math>. Ý c nói <Math inline>{"t = 1\\text{ h}"}</Math> là SAI.</>
     },
     {
@@ -304,7 +304,7 @@
     {
       id: "a",
       text: <>Tốc độ của ca nô đối với nước khi không có dòng chảy là <Math inline>{"v_{c/n} = 12\\text{ km/h}"}</Math>.</>,
-      isTrue: true,
+      isTrue: false,
       explanation: <>Đặt khoảng cách là <Math inline>{"L"}</Math>. Không dòng chảy: <Math inline>{"L = v_{c/n} \\cdot 1,5 \\Rightarrow v_{c/n} = L / 1,5"}</Math>. Xuôi dòng: <Math inline>{"L = (v_{c/n} + 4) \\cdot 1 \\Rightarrow L = v_{c/n} + 4"}</Math>. Thay <Math inline>{"L = 1,5 v_{c/n} \\Rightarrow 1,5 v_{c/n} = v_{c/n} + 4 \\Rightarrow 0,5 v_{c/n} = 4 \\Rightarrow v_{c/n} = 8\\text{ km/h}"}</Math>. Vậy ý a nói <Math inline>{"12\\text{ km/h}"}</Math> là SAI.</>
     },
     {
@@ -355,7 +355,7 @@
       id: "d",
       text: <>Sai số tuyệt đối của phép đo tốc độ tức thời thu được bằng tổng sai số tuyệt đối của thước đo bề rộng và sai số tuyệt đối của đồng hồ đo thời gian (<Math inline>{"\\Delta v = \\Delta d + \\Delta t"}</Math>).</>,
       isTrue: false,
-      explanation: <>Sai số tương đối mới cộng lại (<Math inline>{"\\Delta v = \\Delta d + \\Delta t"}</Math>), còn sai số tuyệt đối không cộng trực tiếp. (Kết quả: a-ĐÚNG, b-SAI, c-ĐÚNG, d-SAI)</>
+      explanation: <>Sai số tương đối mới cộng lại (<Math inline>{"\\delta v = \\delta d + \\delta t"}</Math>), còn sai số tuyệt đối không cộng trực tiếp. (Kết quả: a-ĐÚNG, b-SAI, c-ĐÚNG, d-SAI)</>
     },
   ]}
 />
@@ -470,8 +470,8 @@
     {
       id: "b",
       text: <>Sai số ngẫu nhiên trung bình của phép đo thời gian là <Math inline>{"\\Delta t_{ng} = 0,012\\text{ s}"}</Math>.</>,
-      isTrue: false,
-      explanation: <><Math inline>{"\\Delta t_1 = |2,01 - 2,00| = 0,01"}</Math>; <Math inline>{"\\Delta t_2 = 0,01"}</Math>; <Math inline>{"\\Delta t_3 = 0,02"}</Math>; <Math inline>{"\\Delta t_4 = 0,02"}</Math>; <Math inline>{"\\Delta t_5 = 0"}</Math>. Trung bình <Math inline>{"\\bar{\\Delta t} = (0,01 + 0,01 + 0,02 + 0,02 + 0)/5 = 0,012\\text{ s}"}</Math>. Tuy nhiên đây chỉ là sai số ngẫu nhiên <Math inline>{"\\bar{\\Delta t}"}</Math>. Ý b phát biểu đúng gia trị <Math inline>{"0,012\\text{ s}"}</Math>. Vậy ý b ĐÚNG.</>
+      isTrue: true,
+      explanation: <><Math inline>{"\\Delta t_1 = |2,01 - 2,00| = 0,01"}</Math>; <Math inline>{"\\Delta t_2 = 0,01"}</Math>; <Math inline>{"\\Delta t_3 = 0,02"}</Math>; <Math inline>{"\\Delta t_4 = 0,02"}</Math>; <Math inline>{"\\Delta t_5 = 0"}</Math>. Trung bình <Math inline>{"\\bar{\\Delta t} = (0,01 + 0,01 + 0,02 + 0,02 + 0)/5 = 0,012\\text{ s}"}</Math>. Giá trị này khớp với phát biểu nên ý b ĐÚNG.</>
     },
     {
       id: "c",
@@ -481,9 +481,9 @@
     },
     {
       id: "d",
-      text: <>Sai số tương đối của quãng đường là <Math inline>{"\\Delta S = 0,2%"}</Math>.</>,
+      text: <>Sai số tương đối của quãng đường là <Math inline>{"\\delta S = 0,2\\%"}</Math>.</>,
       isTrue: true,
-      explanation: <><Math inline>{"\\Delta S = \\frac{0,002}{1,000} \\times 100% = 0,2%"}</Math>. (Kết quả: a-ĐÚNG, b-ĐÚNG, c-ĐÚNG, d-ĐÚNG)</>
+      explanation: <><Math inline>{"\\delta S = \\frac{0,002}{1,000} \\times 100\\% = 0,2\\%"}</Math>. (Kết quả: a-ĐÚNG, b-ĐÚNG, c-ĐÚNG, d-ĐÚNG)</>
     },
   ]}
 />
@@ -491,7 +491,7 @@
 <QuizTF
   id="bai-2-exercises-028"
   question="Câu 28:"
-  context={<>Một máy bay trinh sát bay theo hướng Đông với vận tốc so với không khí là <Math inline>{"v_{m/k} = 150\\text{ m/s}"}</Math>. Có một luồng gió mạnh thổi từ hướng Nam lên hướng Bắc với vận tốc <Math inline>{"v_{k/đ} = 50\\text{ m/s}"}</Math>.</>}
+  context={<>Một máy bay trinh sát bay theo hướng Đông với vận tốc so với không khí là <Math inline>{"v_{m/k} = 150\\text{ m/s}"}</Math>. Có một luồng gió mạnh thổi từ hướng Nam lên hướng Bắc với vận tốc <Math inline>{"v_{k/\\text{đ}} = 50\\text{ m/s}"}</Math>.</>}
   statements={[
     {
       id: "a",
@@ -515,7 +515,7 @@
       id: "d",
       text: <>Khi bẻ lái chếch hướng để bay về đúng hướng Đông, tốc độ di chuyển của máy bay so với đất sẽ tăng lên lớn hơn <Math inline>{"150\\text{ m/s}"}</Math>.</>,
       isTrue: false,
-      explanation: <>Khi chếch hướng, một phần công suất bị dùng để cản gió nên thành phần tốc độ hướng Đông thực tế sẽ giảm xuống còn <Math inline>{"\\sqrt{150^2 - 50^2} = \\sqrt{20000} \\approx 141,4\\text{ m/s} < 150\\text{ m/s}"}</Math>. (Kết quả: a-ĐÚNG, b-ĐÚNG, c-ĐÚNG, d-SAI)</>
+      explanation: <>Khi chếch hướng, một phần vận tốc của máy bay (so với không khí) dùng để bù gió thổi lên phía Bắc, nên tốc độ thực tế về hướng Đông chỉ còn <Math inline>{"\\sqrt{150^2 - 50^2} = \\sqrt{20000} \\approx 141,4\\text{ m/s} < 150\\text{ m/s}"}</Math>. (Kết quả: a-ĐÚNG, b-ĐÚNG, c-ĐÚNG, d-SAI)</>
     },
   ]}
 />
@@ -565,7 +565,7 @@
     },
     {
       id: "b",
-      text: <>Tốc độ tức thời của ô tô được tính bằng <Math inline>{"v = \\frac{\td_2 - d_1\t}{\\Delta t_0}"}</Math>.</>,
+      text: <>Tốc độ tức thời của ô tô được tính bằng <Math inline>{"v = \\frac{|d_2 - d_1|}{\\Delta t_0}"}</Math>.</>,
       isTrue: true,
       explanation: <>Tốc độ tức thời <Math inline>{"v = \\Delta d / \\Delta t_0"}</Math>.</>
     },
@@ -579,7 +579,7 @@
       id: "d",
       text: <>Góc bắn của súng laser so với phương chuyển động của xe càng lớn thì tốc độ đo được càng lớn hơn tốc độ thực tế của xe.</>,
       isTrue: false,
-      explanation: <>Nếu súng chiếu lệch góc <Math inline>{"\\theta"}</Math> so với phương chuyển động, tốc độ đo được là <Math inline>{"v_{đo} = v_{thực} \\cdot \\cos \\theta < v_{thực}"}</Math>. (Kết quả: a-ĐÚNG, b-ĐÚNG, c-ĐÚNG, d-SAI)</>
+      explanation: <>Nếu súng chiếu lệch góc <Math inline>{"\\theta"}</Math> so với phương chuyển động, tốc độ đo được là <Math inline>{"v_{\\text{đo}} = v_{\\text{thực}} \\cdot \\cos \\theta < v_{\\text{thực}}"}</Math>. (Kết quả: a-ĐÚNG, b-ĐÚNG, c-ĐÚNG, d-SAI)</>
     },
   ]}
 />
@@ -600,7 +600,7 @@
   question="Câu 32:"
   context={<>Một ca nô chạy xuôi dòng từ bến A đến bến B mất <Math inline>{"t_1 = 2\\text{ giờ}"}</Math>, và chạy ngược dòng từ B về A mất <Math inline>{"t_2 = 3\\text{ giờ}"}</Math>. Hỏi nếu ca nô tắt máy trôi tự do theo dòng nước từ A đến B thì thời gian trôi mất bao nhiêu giờ?</>}
   answer="12"
-  explanation={<>Xuôi: <Math inline>{"L = (v_c + v_n) \\cdot 2"}</Math>; Ngược: <Math inline>{"L = (v_c - v_n) \\cdot 3 \\Rightarrow 2v_c + 2v_n = 3v_c - 3v_n \\Rightarrow v_c = 5v_n"}</Math>. Thay vào <Math inline>{"L = 6v_n \\cdot 2 = 12v_n \\Rightarrow t_{trôi} = L/v_n = 12\\text{ giờ}"}</Math>.</>}
+  explanation={<>Xuôi: <Math inline>{"L = (v_c + v_n) \\cdot 2"}</Math>; Ngược: <Math inline>{"L = (v_c - v_n) \\cdot 3 \\Rightarrow 2v_c + 2v_n = 3v_c - 3v_n \\Rightarrow v_c = 5v_n"}</Math>. Thay vào <Math inline>{"L = 6v_n \\cdot 2 = 12v_n \\Rightarrow t_{\\text{trôi}} = L/v_n = 12\\text{ giờ}"}</Math>.</>}
 />
 
 <QuizShort
@@ -614,9 +614,9 @@
 <QuizShort
   id="bai-2-exercises-034"
   question="Câu 34:"
-  context={<>Trong bài thực hành đo tốc độ tức thời dùng cổng quang điện, thước kẹp có sai số dụng cụ <Math inline>{"\\Delta d = 0,1\\text{ mm}"}</Math> đo bề rộng tấm chắn sáng là <Math inline>{"d = 20,0\\text{ mm}"}</Math>. Đồng hồ hiện số có sai số dụng cụ <Math inline>{"\\Delta t = 0,001\\text{ s}"}</Math> đo được thời gian chắn sáng là <Math inline>{"t = 0,050\\text{ s}"}</Math>. Tính sai số tương đối <Math inline>{"\\Delta v"}</Math> của phép đo tốc độ (kết quả tính theo <Math inline>{"%"}</Math> và làm tròn đến <Math inline>{"1"}</Math> chữ số thập phân).</>}
-  answer="2.5"
-  explanation={<><Math inline>{"\\Delta v = \\frac{\\Delta d}{d} + \\frac{\\Delta t}{t} = \\frac{0,1}{20,0} + \\frac{0,001}{0,050} = 0,005 + 0,020 = 0,025 = 2,5%"}</Math>.</>}
+  context={<>Trong bài thực hành đo tốc độ tức thời dùng cổng quang điện, thước kẹp có sai số dụng cụ <Math inline>{"\\Delta d = 0,1\\text{ mm}"}</Math> đo bề rộng tấm chắn sáng là <Math inline>{"d = 20,0\\text{ mm}"}</Math>. Đồng hồ hiện số có sai số dụng cụ <Math inline>{"\\Delta t = 0,001\\text{ s}"}</Math> đo được thời gian chắn sáng là <Math inline>{"t = 0,050\\text{ s}"}</Math>. Tính sai số tương đối <Math inline>{"\\delta v"}</Math> của phép đo tốc độ (kết quả tính theo <Math inline>{"\\%"}</Math> và làm tròn đến <Math inline>{"1"}</Math> chữ số thập phân).</>}
+  answer="2,5"
+  explanation={<><Math inline>{"\\delta v = \\frac{\\Delta d}{d} + \\frac{\\Delta t}{t} = \\frac{0,1}{20,0} + \\frac{0,001}{0,050} = 0,005 + 0,020 = 0,025 = 2,5\\%"}</Math>.</>}
 />
 
 <QuizShort
@@ -631,7 +631,7 @@
   id="bai-2-exercises-036"
   question="Câu 36:"
   context={<>Hai ô tô A và B khởi hành cùng lúc từ hai vị trí cách nhau <Math inline>{"150\\text{ km}"}</Math> trên một đường thẳng, chuyển động ngược chiều nhau để gặp nhau. Xe A chạy với tốc độ không đổi <Math inline>{"60\\text{ km/h}"}</Math>, xe B chạy với tốc độ không đổi <Math inline>{"40\\text{ km/h}"}</Math>. Hỏi sau khoảng thời gian bao lâu kể từ khi xuất phát thì hai xe gặp nhau (đơn vị: <Math inline>{"\\text{giờ}"}</Math>)?</>}
-  answer="1.5"
+  answer="1,5"
   explanation={<><Math inline>{"t = \\frac{S}{v_A + v_B} = \\frac{150}{60 + 40} = 1,5\\text{ giờ}"}</Math>.</>}
 />
 
@@ -639,7 +639,7 @@
   id="bai-2-exercises-037"
   question="Câu 37:"
   context={<>Học sinh đo 5 lần thời gian viên bi thép lăn qua cổng quang điện thu được các kết quả lần lượt là: <Math inline>{"0,041\\text{ s}"}</Math>; <Math inline>{"0,040\\text{ s}"}</Math>; <Math inline>{"0,042\\text{ s}"}</Math>; <Math inline>{"0,039\\text{ s}"}</Math>; <Math inline>{"0,038\\text{ s}"}</Math>. Bề rộng tấm chắn sáng là <Math inline>{"d = 20\\text{ mm}"}</Math>. Tính giá trị trung bình của tốc độ tức thời <Math inline>{"\\bar{v}"}</Math> (đơn vị: <Math inline>{"\\text{m/s}"}</Math>).</>}
-  answer="0.5"
+  answer="0,5"
   explanation={<><Math inline>{"\\bar{t} = (0,041 + 0,040 + 0,042 + 0,039 + 0,038)/5 = 0,040\\text{ s}"}</Math>. <Math inline>{"\\bar{v} = \\frac{0,020\\text{ m}}{0,040\\text{ s}} = 0,5\\text{ m/s}"}</Math>.</>}
 />
 
@@ -689,7 +689,7 @@
     Xem lời giải chi tiết
   </summary>
   <div className="p-4 bg-white whitespace-pre-wrap leading-relaxed text-slate-800 border-t border-slate-200">
-    {<>a) Tốc độ tức thời tại A và B:<br/><br/><Math inline>{"v_A = \\frac{d}{\\Delta t_A} = \\frac{0,010}{0,050} = 0,200\\text{ m/s} = 20,0\\text{ cm/s}"}</Math>. Sai số tương đối: <Math inline>{"\\Delta v_A = \\frac{0,1}{10,0} + \\frac{0,001}{0,050} = 0,01 + 0,02 = 0,03 = 3%"}</Math>. Sai số tuyệt đối: <Math inline>{"\\Delta v_A = 20,0 \\cdot 3% = 0,6\\text{ cm/s} \\Rightarrow v_A = (20,0 \\pm 0,6)\\text{ cm/s}"}</Math>.<br/>Tương tự <Math inline>{"v_B = (20,0 \\pm 0,6)\\text{ cm/s}"}</Math>. Vì <Math inline>{"v_A = v_B"}</Math>, rô-bốt chuyển động thẳng đều trên đoạn AB. b) Tốc độ trung bình:<br/><Math inline>{"v_{tb1} = \\frac{S}{t_{AB}} = \\frac{50,0}{2,50} = 20,0\\text{ cm/s}"}</Math>.<br/><Math inline>{"v_{tb2} = \\frac{20,0 + 20,0}{2} = 20,0\\text{ cm/s}"}</Math>. Hai kết quả hoàn toàn trùng khớp, khẳng định độ tin cậy của phép đo.</>}
+    {<>a) Tốc độ tức thời tại A và B:<br/><br/><Math inline>{"v_A = \\frac{d}{\\Delta t_A} = \\frac{0,010}{0,050} = 0,200\\text{ m/s} = 20,0\\text{ cm/s}"}</Math>. Sai số tương đối: <Math inline>{"\\delta v_A = \\frac{0,1}{10,0} + \\frac{0,001}{0,050} = 0,01 + 0,02 = 0,03 = 3\\%"}</Math>. Sai số tuyệt đối: <Math inline>{"\\Delta v_A = 20,0 \\cdot 3\\% = 0,6\\text{ cm/s} \\Rightarrow v_A = (20,0 \\pm 0,6)\\text{ cm/s}"}</Math>.<br/>Tương tự <Math inline>{"v_B = (20,0 \\pm 0,6)\\text{ cm/s}"}</Math>. Vì <Math inline>{"v_A = v_B"}</Math>, rô-bốt chuyển động thẳng đều trên đoạn AB. b) Tốc độ trung bình:<br/><Math inline>{"v_{tb1} = \\frac{S}{t_{AB}} = \\frac{50,0}{2,50} = 20,0\\text{ cm/s}"}</Math>.<br/><Math inline>{"v_{tb2} = \\frac{20,0 + 20,0}{2} = 20,0\\text{ cm/s}"}</Math>. Hai kết quả hoàn toàn trùng khớp, khẳng định độ tin cậy của phép đo.</>}
   </div>
 </details>
 
@@ -706,14 +706,14 @@
 </details>
 
 **Câu 44:**
-<div className="mb-4 whitespace-pre-wrap">{<>Một ô tô đang chạy trên đường cao tốc với tốc độ giới hạn cho phép là <Math inline>{"90\\text{ km/h}"}</Math>. Cảnh sát giao thông sử dụng súng bắn tốc độ laser phát ra hai xung ánh sáng ngắn cách nhau thời gian <Math inline>{"\\Delta t_0 = 2,00 \\cdot 10^{-3}\\text{ s}"}</Math>.<br/><br/>Xung 1 phát ra lúc <Math inline>{"t_1"}</Math>, phản xạ từ xe quay về súng sau thời gian <Math inline>{"\\tau_1 = 1,20 \\cdot 10^{-6}\\text{ s}"}</Math>.<br/>Xung 2 phát ra lúc <Math inline>{"t_2 = t_1 + \\Delta t_0"}</Math>, phản xạ quay về súng sau thời gian <Math inline>{"\\tau_2 = 1,16 \\cdot 10^{-6}\\text{ s}"}</Math>. Biết tốc độ ánh sáng truyền trong không khí là <Math inline>{"c = 3,00 \\cdot 10^8\\text{ m/s}"}</Math>. a) Tính khoảng cách <Math inline>{"d_1"}</Math> và <Math inline>{"d_2"}</Math> từ súng bắn tốc độ đến xe tại hai thời điểm phát xung. b) Xe đang chuyển động lại gần hay ra xa súng? Tính tốc độ của xe ô tô (đơn vị <Math inline>{"\\text{km/h}"}</Math>). c) Ô tô có vi phạm quy định về tốc độ giới hạn không?</>}</div>
+<div className="mb-4 whitespace-pre-wrap">{<>Một ô tô đang chạy trên đường cao tốc với tốc độ giới hạn cho phép là <Math inline>{"90\\text{ km/h}"}</Math>. Cảnh sát giao thông sử dụng súng bắn tốc độ laser phát ra hai xung ánh sáng ngắn cách nhau thời gian <Math inline>{"\\Delta t_0 = 0,200\\text{ s}"}</Math>.<br/><br/>Xung 1 phát ra lúc <Math inline>{"t_1"}</Math>, phản xạ từ xe quay về súng sau thời gian <Math inline>{"\\tau_1 = 1,20 \\cdot 10^{-6}\\text{ s}"}</Math>.<br/>Xung 2 phát ra lúc <Math inline>{"t_2 = t_1 + \\Delta t_0"}</Math>, phản xạ quay về súng sau thời gian <Math inline>{"\\tau_2 = 1,16 \\cdot 10^{-6}\\text{ s}"}</Math>. Biết tốc độ ánh sáng truyền trong không khí là <Math inline>{"c = 3,00 \\cdot 10^8\\text{ m/s}"}</Math>. a) Tính khoảng cách <Math inline>{"d_1"}</Math> và <Math inline>{"d_2"}</Math> từ súng bắn tốc độ đến xe tại hai thời điểm phát xung. b) Xe đang chuyển động lại gần hay ra xa súng? Tính tốc độ của xe ô tô (đơn vị <Math inline>{"\\text{km/h}"}</Math>). c) Ô tô có vi phạm quy định về tốc độ giới hạn không?</>}</div>
 
 <details className="mb-8 border border-slate-300 rounded-lg bg-white overflow-hidden shadow-sm">
   <summary className="font-semibold bg-slate-100 p-4 cursor-pointer hover:bg-slate-200 transition-colors select-none text-slate-700">
     Xem lời giải chi tiết
   </summary>
   <div className="p-4 bg-white whitespace-pre-wrap leading-relaxed text-slate-800 border-t border-slate-200">
-    {<>a) Khoảng cách tại hai thời điểm:<br/><br/><Math inline>{"d_1 = \\frac{c \\cdot \\tau_1}{2} = \\frac{3,00 \\cdot 10^8 \\cdot 1,20 \\cdot 10^{-6}}{2} = 180\\text{ m}"}</Math>.<br/><Math inline>{"d_2 = \\frac{c \\cdot \\tau_2}{2} = \\frac{3,00 \\cdot 10^8 \\cdot 1,16 \\cdot 10^{-6}}{2} = 174\\text{ m}"}</Math>. b) <Math inline>{"d_2 < d_1 \\Rightarrow"}</Math> Xe đang chuyển động lại gần súng. Tốc độ của xe: <Math>{"v = \\frac{|d_2 - d_1|}{\\Delta t_0} = \\frac{180 - 174}{2,00 \\cdot 10^{-3}} = \\frac{6}{0,002} = 3000\\text{ m/s} \\ldots"}</Math> (Lưu ý điều chỉnh số liệu thực tế súng laser chuyên dụng: <Math inline>{"v = \\frac{6\\text{ m}}{0,2\\text{ s}} = 30\\text{ m/s} = 108\\text{ km/h}"}</Math>). c) Xe đã chạy <Math inline>{"108\\text{ km/h}"}</Math>, vượt quá giới hạn <Math inline>{"90\\text{ km/h}"}</Math> nên vi phạm an toàn giao thông.</>}
+    {<>a) Khoảng cách tại hai thời điểm:<br/><br/><Math inline>{"d_1 = \\frac{c \\cdot \\tau_1}{2} = \\frac{3,00 \\cdot 10^8 \\cdot 1,20 \\cdot 10^{-6}}{2} = 180\\text{ m}"}</Math>.<br/><Math inline>{"d_2 = \\frac{c \\cdot \\tau_2}{2} = \\frac{3,00 \\cdot 10^8 \\cdot 1,16 \\cdot 10^{-6}}{2} = 174\\text{ m}"}</Math>. b) <Math inline>{"d_2 < d_1 \\Rightarrow"}</Math> Xe đang chuyển động lại gần súng. Tốc độ của xe: <Math>{"v = \\frac{|d_2 - d_1|}{\\Delta t_0} = \\frac{180 - 174}{0,200} = 30\\text{ m/s} = 108\\text{ km/h}"}</Math>. c) Xe đã chạy <Math inline>{"108\\text{ km/h}"}</Math>, vượt quá giới hạn <Math inline>{"90\\text{ km/h}"}</Math> nên vi phạm an toàn giao thông.</>}
   </div>
 </details>
 
@@ -725,7 +725,7 @@
     Xem lời giải chi tiết
   </summary>
   <div className="p-4 bg-white whitespace-pre-wrap leading-relaxed text-slate-800 border-t border-slate-200">
-    {<>a) Phương trình chuyển động của ROV đối với bờ:<br/><br/>Thành phần theo trục Ox (hướng Đông): <Math inline>{"v_{x,tổng} = v_x + v_n = 3,0 + 1,5 = 4,5\\text{ m/s}"}</Math>. <Math>{"x(t) = 4,5 t\\text{ (m)}"}</Math><br/>Thành phần theo trục Oy (hướng Bắc): <Math inline>{"v_y = 4,0\\text{ m/s}"}</Math>. <Math>{"y(t) = 4,0 t\\text{ (m)}"}</Math> b) Vận tốc tổng hợp đối với bờ: <Math>{"v = \\sqrt{v_{x,tổng}^2 + v_y^2} = \\sqrt{4,5^2 + 4,0^2} = \\sqrt{20,25 + 16,0} = \\sqrt{36,25} \\approx 6,02\\text{ m/s}"}</Math> Góc hợp với hướng Đông: <Math inline>{"\\tan \\theta = \\frac{v_y}{v_{x,tổng}} = \\frac{4,0}{4,5} = \\frac{8}{9} \\Rightarrow \\theta \\approx 41,63^\\circ"}</Math> (hướng Đông – Bắc). c) Sau <Math inline>{"t = 2\\text{ phút} = 120\\text{ s}"}</Math>:<br/><Math inline>{"x = 4,5 \\cdot 120 = 540\\text{ m}"}</Math>.<br/><Math inline>{"y = 4,0 \\cdot 120 = 480\\text{ m}"}</Math>. Khoảng cách đến gốc <Math inline>{"O"}</Math>: <Math>{"D = \\sqrt{x^2 + y^2} = 6,02 \\cdot 120 \\approx 722,5\\text{ m}"}</Math></>}
+    {<>a) Phương trình chuyển động của ROV đối với bờ:<br/><br/>Thành phần theo trục Ox (hướng Đông): <Math inline>{"v_{x,\\text{tổng}} = v_x + v_n = 3,0 + 1,5 = 4,5\\text{ m/s}"}</Math>. <Math>{"x(t) = 4,5 t\\text{ (m)}"}</Math><br/>Thành phần theo trục Oy (hướng Bắc): <Math inline>{"v_y = 4,0\\text{ m/s}"}</Math>. <Math>{"y(t) = 4,0 t\\text{ (m)}"}</Math> b) Vận tốc tổng hợp đối với bờ: <Math>{"v = \\sqrt{v_{x,\\text{tổng}}^2 + v_y^2} = \\sqrt{4,5^2 + 4,0^2} = \\sqrt{20,25 + 16,0} = \\sqrt{36,25} \\approx 6,02\\text{ m/s}"}</Math> Góc hợp với hướng Đông: <Math inline>{"\\tan \\theta = \\frac{v_y}{v_{x,\\text{tổng}}} = \\frac{4,0}{4,5} = \\frac{8}{9} \\Rightarrow \\theta \\approx 41,63^\\circ"}</Math> (hướng Đông – Bắc). c) Sau <Math inline>{"t = 2\\text{ phút} = 120\\text{ s}"}</Math>:<br/><Math inline>{"x = 4,5 \\cdot 120 = 540\\text{ m}"}</Math>.<br/><Math inline>{"y = 4,0 \\cdot 120 = 480\\text{ m}"}</Math>. Khoảng cách đến gốc <Math inline>{"O"}</Math>: <Math>{"D = \\sqrt{x^2 + y^2} = 6,02 \\cdot 120 \\approx 722,5\\text{ m}"}</Math></>}
   </div>
 </details>
 

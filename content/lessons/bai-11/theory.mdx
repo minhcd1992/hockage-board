@@ -1,0 +1,272 @@
+import { CollisionLab, ImpulseCushion, RecoilSplit, RocketForces } from './components/Lesson11Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Nêu được động lượng là đại lượng vectơ $\vec p=m\vec v$; tính động lượng của vật và của hệ.
+- Phát biểu và vận dụng liên hệ giữa xung lượng của lực và độ biến thiên động lượng.
+- Phát biểu điều kiện hệ kín và định luật bảo toàn động lượng.
+- Vận dụng cho va chạm mềm, va chạm đàn hồi, súng giật và chuyển động bằng phản lực.
+
+</InfoBox>
+
+<Section title="A. Mở đầu" icon="rocket">
+
+**Tên lửa trong chân không.** Ngoài vũ trụ không có không khí. Tên lửa không có gì xung quanh để "đạp" vào, vậy làm sao nó tăng tốc và đổi hướng được?
+
+**Túi khí trên ô tô.** Khi ô tô đang chạy $72\,\mathrm{km/h}$ đâm vào vật cản, người trong xe phải dừng lại trong khoảng thời gian rất ngắn. Vì sao túi khí và phần đầu xe dễ biến dạng, chỉ kéo dài thời gian dừng thêm vài phần trăm giây, lại giảm chấn thương đáng kể?
+
+**Súng giật.** Viên đạn chỉ nặng vài gam bay về phía trước, nhưng khẩu súng nặng vài kilôgam lại giật mạnh về phía sau. Vì sao?
+
+<InfoBox type="info" title="Câu hỏi dẫn dắt">
+
+1. Đại lượng nào đặc trưng cho chuyển động về cả khối lượng và vận tốc?
+2. Lực và thời gian tác dụng liên quan thế nào đến sự thay đổi chuyển động?
+3. Khi nào tổng động lượng của một hệ được bảo toàn?
+
+</InfoBox>
+
+</Section>
+
+<Section title="B. Động lượng" icon="book">
+
+Một quả bóng gôn và một xe tải cùng chạy $30\,\mathrm{km/h}$: xe tải khó dừng hơn nhiều và khi va chạm thì tác dụng mạnh hơn nhiều. **Động lượng** đặc trưng cho điều đó:
+
+$$
+\vec p=m\vec v.
+$$
+
+- Động lượng là **đại lượng vectơ**, cùng hướng với vận tốc; độ lớn $p=mv$.
+- Đơn vị: $\mathrm{kg\cdot m/s}$, cũng bằng $\mathrm{N\cdot s}$.
+- Vận tốc phụ thuộc hệ quy chiếu nên động lượng cũng phụ thuộc hệ quy chiếu.
+
+**Động lượng của hệ** bằng **tổng vectơ** động lượng của các vật trong hệ:
+
+$$
+\vec p_{\text{hệ}}=m_1\vec v_1+m_2\vec v_2+\dots
+$$
+
+Trên một đường thẳng, chọn chiều dương rồi cộng các giá trị đại số $m_iv_i$; vật đi ngược chiều dương có $v_i<0$.
+
+**Liên hệ với động năng:** $W_{\text{đ}}=\tfrac12mv^2=\dfrac{p^2}{2m}$. Hai vật cùng động lượng thì vật nhẹ hơn có động năng lớn hơn.
+
+</Section>
+
+<Section title="C. Xung lượng của lực và độ biến thiên động lượng" icon="book">
+
+### 1. Định luật II Newton viết theo động lượng
+
+Với vật có khối lượng không đổi, chịu hợp lực $\vec F$ không đổi trong thời gian $\Delta t$:
+
+$$
+\vec F=m\vec a=m\frac{\Delta\vec v}{\Delta t}=\frac{\Delta\vec p}{\Delta t}.
+$$
+
+Newton đã phát biểu định luật II theo cách này: **hợp lực bằng tốc độ biến thiên động lượng** của vật.
+
+### 2. Xung lượng
+
+Tích $\vec F\Delta t$ gọi là **xung lượng** của lực trong khoảng thời gian $\Delta t$:
+
+$$
+\vec F\,\Delta t=\Delta\vec p=\vec p_2-\vec p_1.
+$$
+
+> **Độ biến thiên động lượng của vật trong một khoảng thời gian bằng xung lượng của hợp lực tác dụng lên vật trong khoảng thời gian đó.**
+
+Nếu lực thay đổi trong lúc va chạm, ta dùng **lực trung bình** $\vec F_{\text{tb}}=\Delta\vec p/\Delta t$.
+
+### 3. Ý nghĩa: kéo dài thời gian va chạm để giảm lực
+
+Muốn làm vật dừng từ vận tốc $v_0$, độ biến thiên động lượng là như nhau. Thời gian dừng càng ngắn thì lực càng lớn; kéo dài thời gian dừng (túi khí, đệm, vùng biến dạng của ô tô, chùng gối khi tiếp đất) làm lực giảm tương ứng.
+
+<ImpulseCushion />
+
+</Section>
+
+<Section title="D. Định luật bảo toàn động lượng" icon="book">
+
+### 1. Hệ kín
+
+Lực giữa các vật trong hệ gọi là **nội lực**; lực do vật ngoài hệ tác dụng gọi là **ngoại lực**. **Hệ kín** (hệ cô lập) là hệ không chịu ngoại lực, hoặc tổng các ngoại lực bằng 0.
+
+Trong thực tế, có thể coi gần đúng là hệ kín khi:
+
+1. Tổng ngoại lực theo một phương bằng 0: động lượng của hệ **bảo toàn theo phương đó** (ví dụ phương ngang khi trọng lực và phản lực cân bằng, bỏ qua ma sát).
+2. Các quá trình rất ngắn như **va chạm, nổ, bắn súng**: nội lực rất lớn so với ngoại lực (trọng lực, ma sát), nên trong khoảng thời gian rất ngắn đó có thể bỏ qua xung lượng của ngoại lực.
+
+### 2. Định luật
+
+> **Động lượng của một hệ kín được bảo toàn** (không đổi cả về độ lớn và hướng).
+
+$$
+\vec p_{\text{trước}}=\vec p_{\text{sau}}.
+$$
+
+Định luật suy ra từ định luật III Newton: trong mỗi tương tác, hai vật nhận các xung lượng bằng nhau và ngược chiều, nên tổng động lượng của chúng không đổi.
+
+</Section>
+
+<Section title="E. Va chạm và chuyển động bằng phản lực" icon="book">
+
+### 1. Va chạm mềm
+
+Sau va chạm hai vật **dính vào nhau** và chuyển động với cùng vận tốc $\vec V$:
+
+$$
+m_1\vec v_1+m_2\vec v_2=(m_1+m_2)\vec V\quad\Rightarrow\quad\vec V=\frac{m_1\vec v_1+m_2\vec v_2}{m_1+m_2}.
+$$
+
+Động lượng bảo toàn, nhưng một phần động năng chuyển thành nhiệt và công làm biến dạng vật.
+
+### 2. Va chạm đàn hồi (trực diện, trên một đường thẳng)
+
+Sau va chạm hai vật tách ra, **bảo toàn cả động lượng và động năng**. Giải hai phương trình bảo toàn được:
+
+$$
+v_1'=\frac{(m_1-m_2)v_1+2m_2v_2}{m_1+m_2},\qquad v_2'=\frac{(m_2-m_1)v_2+2m_1v_1}{m_1+m_2}.
+$$
+
+Trường hợp đặc biệt: hai vật cùng khối lượng, vật 2 đứng yên thì sau va chạm vật 1 dừng lại, vật 2 chuyển động với vận tốc của vật 1.
+
+<CollisionLab />
+
+### 3. Súng giật và chuyển động bằng phản lực
+
+Hệ ban đầu đứng yên có tổng động lượng bằng 0. Khi một phần của hệ (viên đạn, khối khí) bị đẩy ra với vận tốc $\vec v$ (so với mặt đất), phần còn lại $M$ thu vận tốc
+
+$$
+\vec V=-\frac{m}{M}\vec v,
+$$
+
+ngược chiều với phần bị đẩy ra. Đó là **chuyển động bằng phản lực**: súng giật, tên lửa phụt khí, người nhảy khỏi thuyền làm thuyền lùi.
+
+<RecoilSplit />
+
+</Section>
+
+<Section title="F. Góc phân tích sâu" icon="idea">
+
+### 1. Tên lửa "đẩy" vào đâu để tiến lên?
+
+Nhiều người nghĩ tên lửa phải đẩy vào không khí, nên không thể bay trong chân không. Thực ra tên lửa đẩy **khối khí do chính nó mang theo**: trong buồng đốt, tên lửa đẩy khí ra phía sau, đồng thời khí đẩy tên lửa về phía trước với lực cùng độ lớn (định luật III). Xét hệ "thân tên lửa + khí", đây là nội lực, nên tổng động lượng của hệ được bảo toàn: khí có động lượng hướng ra sau thì thân tên lửa có động lượng hướng ra trước. Không cần không khí bên ngoài; ngoài vũ trụ còn không có lực cản của khí quyển.
+
+<RocketForces />
+
+### 2. Túi khí và thời gian va chạm
+
+Hành khách $60\,\mathrm{kg}$ trên ô tô $20\,\mathrm{m/s}$ dừng hẳn: $|\Delta p|=1200\,\mathrm{kg\cdot m/s}$.
+
+- **Đập vào vật cứng**, thời gian dừng khoảng $0{,}005\,\mathrm s$: $F\approx\dfrac{1200}{0{,}005}=240000\,\mathrm N$, lớn bằng trọng lượng của vật khoảng 24 tấn.
+- **Có túi khí**, thời gian dừng khoảng $0{,}1\,\mathrm s$: $F\approx12000\,\mathrm N$, nhỏ hơn 20 lần và lực còn được phân bố trên diện tích rộng của túi khí.
+
+Các con số trên là ước lượng để so sánh; thời gian va chạm thực tế phụ thuộc từng tình huống.
+
+</Section>
+
+<Section title="G. Ví dụ minh họa" icon="target">
+
+### Ví dụ 1. Va chạm mềm giữa ô tô và xe máy
+
+Trên đường thẳng, ô tô $m_1=2600\,\mathrm{kg}$ chạy $15\,\mathrm{m/s}$ đâm từ phía sau vào xe máy cùng người lái $m_2=400\,\mathrm{kg}$ đang đứng yên chờ đèn đỏ; hai xe dính vào nhau. Bỏ qua ma sát trong thời gian va chạm. Tính vận tốc ngay sau va chạm và phần động năng bị mất.
+
+**Bước 1 — Hệ.** Va chạm rất ngắn, nội lực rất lớn so với ma sát: coi hệ hai xe là hệ kín theo phương ngang. Va chạm mềm.
+
+**Bước 2 — Phương trình.** Chọn chiều dương theo chiều ô tô chạy: $m_1v_1+0=(m_1+m_2)V$.
+
+**Bước 3 — Tính toán.**
+
+$$
+V=\frac{2600\times15}{3000}=13\,\mathrm{m/s};\qquad W_{\text{đ}1}=\tfrac12\times2600\times15^2=292500\,\mathrm J,\qquad W_{\text{đ}2}=\tfrac12\times3000\times13^2=253500\,\mathrm J.
+$$
+
+Động năng mất: $39000\,\mathrm J=39\,\mathrm{kJ}$.
+
+**Bước 4 — Nhận xét.** Ô tô chỉ giảm từ 15 xuống 13 m/s, nhưng xe máy và người lái bị tăng từ 0 lên 13 m/s gần như tức thời: vật nhẹ chịu thay đổi vận tốc lớn hơn nhiều. Phần động năng mất đi làm biến dạng thân xe và tỏa nhiệt.
+
+### Ví dụ 2. Tên lửa phụt khí trong không gian
+
+Tên lửa tổng khối lượng $M=500\,\mathrm{kg}$ đang bay thẳng đều $200\,\mathrm{m/s}$ trong chân không thì phụt tức thời $m=50\,\mathrm{kg}$ khí ra phía sau với tốc độ $u=600\,\mathrm{m/s}$ so với tên lửa (trước khi phụt). Tính tốc độ của tên lửa ngay sau khi phụt khí.
+
+**Bước 1 — Hệ.** Hệ "tên lửa + khí" là hệ kín. Khối lượng còn lại $M-m=450\,\mathrm{kg}$.
+
+**Bước 2 — Vận tốc khí so với mặt đất (hệ quy chiếu ban đầu).** $v_{\text{khí}}=200-600=-400\,\mathrm{m/s}$: khí bay ngược chiều chuyển động.
+
+**Bước 3 — Bảo toàn động lượng.**
+
+$$
+Mv_0=(M-m)V+mv_{\text{khí}}\Rightarrow500\times200=450V+50\times(-400)\Rightarrow V\approx266{,}7\,\mathrm{m/s}.
+$$
+
+**Bước 4 — Nhận xét.** Tên lửa tăng tốc thêm khoảng $66{,}7\,\mathrm{m/s}$ theo chiều cũ. Tên lửa thực phụt khí liên tục chứ không phụt tức thời một lần; khi đó ta áp dụng bảo toàn động lượng cho từng phần khí nhỏ.
+
+</Section>
+
+<Section title="H. Ghi nhớ" icon="check">
+
+1. $\vec p=m\vec v$ là đại lượng vectơ, đơn vị $\mathrm{kg\cdot m/s}=\mathrm{N\cdot s}$; $W_{\text{đ}}=p^2/(2m)$.
+2. $\vec F\Delta t=\Delta\vec p$: cùng $\Delta p$, thời gian dài thì lực nhỏ.
+3. Hệ kín (hoặc quá trình va chạm, nổ rất ngắn): $\vec p_{\text{trước}}=\vec p_{\text{sau}}$.
+4. Va chạm mềm: bảo toàn động lượng, mất động năng. Va chạm đàn hồi: bảo toàn cả hai.
+
+</Section>
+
+<Section title="I. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<Quiz
+  id="bai-11-exercises-001"
+  question={<>{"Câu 1. Đại lượng nào sau đây là đại lượng vectơ?"}</>}
+  options={[
+    <>{"Động năng."}</>,
+    <>{"Công cơ học."}</>,
+    <>{"Động lượng."}</>,
+    <>{"Công suất."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"\\vec p=m\\vec v"}</Math>{" có hướng của vận tốc. Động năng, công, công suất là đại lượng vô hướng."}</>}
+/>
+
+<Quiz
+  id="bai-11-exercises-002"
+  question={<>{"Câu 2. Quả bóng "}<Math inline>{"0{,}4\\,\\mathrm{kg}"}</Math>{" bay ngang với tốc độ "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{". Độ lớn động lượng của quả bóng là"}</>}
+  options={[
+    <><Math inline>{"4\\,\\mathrm{kg\\cdot m/s}"}</Math></>,
+    <><Math inline>{"40\\,\\mathrm{kg\\cdot m/s}"}</Math></>,
+    <><Math inline>{"2\\,\\mathrm{kg\\cdot m/s}"}</Math></>,
+    <><Math inline>{"20\\,\\mathrm J"}</Math></>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"p=mv=0{,}4\\times10=4\\,\\mathrm{kg\\cdot m/s}"}</Math>{". Phương án 20 J sai vì jun là đơn vị năng lượng, không phải động lượng."}</>}
+/>
+
+<Quiz
+  id="bai-11-exercises-003"
+  question={<>{"Câu 3. Khẩu đại bác "}<Math inline>{"1000\\,\\mathrm{kg}"}</Math>{" đứng yên bắn viên đạn "}<Math inline>{"10\\,\\mathrm{kg}"}</Math>{" theo phương ngang với tốc độ "}<Math inline>{"200\\,\\mathrm{m/s}"}</Math>{" (so với mặt đất). Bỏ qua ma sát, tốc độ giật lùi của đại bác là"}</>}
+  options={[
+    <><Math inline>{"2\\,\\mathrm{m/s}"}</Math></>,
+    <><Math inline>{"20\\,\\mathrm{m/s}"}</Math></>,
+    <><Math inline>{"0{,}5\\,\\mathrm{m/s}"}</Math></>,
+    <><Math inline>{"200\\,\\mathrm{m/s}"}</Math></>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"0=MV+mv\\Rightarrow|V|=\\dfrac{mv}M=\\dfrac{10\\times200}{1000}=2\\,\\mathrm{m/s}"}</Math>{", ngược chiều viên đạn."}</>}
+/>
+
+<div data-question-id="bai-11-exercises-004" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 4. Vì sao khi đỡ một quả dừa rơi, ta thường hạ tay xuống theo quả dừa thay vì giữ tay cứng?
+
+Hãy giải thích bằng xung lượng của lực.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Để quả dừa dừng lại trên tay, độ biến thiên động lượng $\Delta p$ của nó là như nhau dù ta đỡ thế nào. Lực trung bình tay tác dụng lên quả dừa (và quả dừa tác dụng lên tay) có độ lớn khoảng $F=\dfrac{|\Delta p|}{\Delta t}$ (cộng thêm trọng lượng quả dừa). Hạ tay theo quả dừa làm thời gian hãm $\Delta t$ dài ra nhiều lần, nên lực giảm đi nhiều lần, tránh đau và chấn thương tay.
+
+</details>
+</div>
+
+</Section>
+
+</div>

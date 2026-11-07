@@ -1,0 +1,595 @@
+import styles from './components/Lesson12Workbook.module.css'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 12 — Thực hành khảo sát va chạm">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Trừ khi đề nêu khác: máng nằm ngang, bỏ qua ma sát, tốc độ đo bằng cổng quang là độ lớn (tự gán dấu khi xe đổi chiều).
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-12-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Tấm chắn sáng bề rộng "}<Math inline>{"\\Delta s"}</Math>{" đi qua cổng quang trong thời gian "}<Math inline>{"\\Delta t"}</Math>{". Tốc độ của xe khi qua cổng được tính gần đúng bằng"}</>}
+  options={[
+    <><Math inline>{"v=\\Delta t/\\Delta s"}</Math>{"."}</>,
+    <><Math inline>{"v=\\Delta s\\cdot\\Delta t"}</Math>{"."}</>,
+    <><Math inline>{"v=\\Delta s/\\Delta t"}</Math>{"."}</>,
+    <><Math inline>{"v=\\tfrac12\\Delta s(\\Delta t)^2"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Theo nguyên lý đo."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Thiết bị giúp giảm ma sát nhiều nhất khi khảo sát va chạm của các xe là"}</>}
+  options={[
+    <>{"máng gỗ nhám."}</>,
+    <>{"máng đệm khí."}</>,
+    <>{"thước thép."}</>,
+    <>{"cân đĩa."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lớp khí nâng xe lên khỏi mặt máng."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-003"
+  question={<>{"Câu 3 (Nhận biết). Dụng cụ đo thời gian tấm chắn sáng che chùm tia hồng ngoại là"}</>}
+  options={[
+    <>{"cổng quang điện nối với đồng hồ đo thời gian hiện số."}</>,
+    <>{"thước kẹp nối với lực kế."}</>,
+    <>{"cân điện tử."}</>,
+    <>{"lực kế lò xo và nivo."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Cổng quang phát hiện lúc bị che; đồng hồ đếm thời gian."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-004"
+  question={<>{"Câu 4 (Thông hiểu). Để khảo sát va chạm mềm, đầu tiếp xúc của hai xe cần gắn"}</>}
+  options={[
+    <>{"lò xo lá thép."}</>,
+    <>{"băng dính nhám (hoặc sáp dính)."}</>,
+    <>{"mặt kim loại nhẵn cứng."}</>,
+    <>{"bánh răng."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Để hai xe dính vào nhau."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-005"
+  question={<>{"Câu 5 (Thông hiểu). Để khảo sát va chạm đàn hồi, đầu tiếp xúc của hai xe cần gắn"}</>}
+  options={[
+    <>{"lò xo lá thép (hoặc vòng cao su đàn hồi)."}</>,
+    <>{"băng dính nhám."}</>,
+    <>{"băng keo hai mặt."}</>,
+    <>{"đất sét dẻo."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Để hai xe bật ra, ít mất động năng."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-006"
+  question={<>{"Câu 6 (Thông hiểu). Trước khi đo, thao tác bắt buộc với máng là"}</>}
+  options={[
+    <>{"nghiêng máng "}<Math inline>{"45^\\circ"}</Math>{"."}</>,
+    <>{"chỉnh vít để máng nằm ngang (kiểm tra bằng nivo)."}</>,
+    <>{"đặt máng thẳng đứng."}</>,
+    <>{"bôi mỡ lên mặt máng."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Máng nghiêng thì trọng lực có thành phần dọc máng, hệ không còn kín."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-007"
+  question={<>{"Câu 7 (Nhận biết). Đơn vị của động lượng là"}</>}
+  options={[
+    <><Math inline>{"\\mathrm{N/m}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{J\\cdot s}"}</Math>{"."}</>,
+    <><Math inline>{"\\mathrm{kg\\cdot m/s}"}</Math>{" (hoặc "}<Math inline>{"\\mathrm{N\\cdot s}"}</Math>{")."}</>,
+    <><Math inline>{"\\mathrm{W/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"p=mv"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-008"
+  question={<>{"Câu 8 (Thông hiểu). Tấm chắn rộng "}<Math inline>{"20\\,\\mathrm{mm}"}</Math>{" qua cổng trong "}<Math inline>{"0{,}050\\,\\mathrm s"}</Math>{". Tốc độ xe là"}</>}
+  options={[
+    <><Math inline>{"0{,}40\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0{,}10\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"2{,}50\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"1{,}00\\,\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"0{,}020/0{,}050=0{,}40\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Xe 1 ("}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"0{,}6\\,\\mathrm{m/s}"}</Math>{") va chạm mềm với xe 2 ("}<Math inline>{"0{,}1\\,\\mathrm{kg}"}</Math>{") đứng yên. Vận tốc chung là"}</>}
+  options={[
+    <><Math inline>{"0{,}40\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0{,}60\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0{,}20\\,\\mathrm{m/s}"}</Math>{"."}</>,
+    <><Math inline>{"0{,}30\\,\\mathrm{m/s}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"0{,}12/0{,}3=0{,}40\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-010"
+  question={<>{"Câu 10 (Nhận biết). Trong va chạm mềm, đại lượng nào KHÔNG bảo toàn?"}</>}
+  options={[
+    <>{"Tổng động lượng của hệ."}</>,
+    <>{"Tổng khối lượng của hệ."}</>,
+    <>{"Tổng động năng của hệ."}</>,
+    <>{"Vị trí trọng tâm hệ ngay lúc va chạm."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Một phần động năng chuyển thành nhiệt, công biến dạng."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu). Trong va chạm đàn hồi (lý tưởng) của một hệ kín"}</>}
+  options={[
+    <>{"chỉ động lượng bảo toàn, động năng giảm về 0."}</>,
+    <>{"chỉ động năng bảo toàn."}</>,
+    <>{"cả tổng động lượng và tổng động năng đều bảo toàn."}</>,
+    <>{"cả hai đều giảm."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Theo định nghĩa va chạm đàn hồi."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-012"
+  question={<>{"Câu 12 (Thông hiểu). Giảm bề rộng tấm chắn sáng (từ 50 mm xuống 10 mm) thì tỉ số "}<Math inline>{"\\Delta s/\\Delta t"}</Math></>}
+  options={[
+    <>{"gần với vận tốc tức thời tại cổng hơn."}</>,
+    <>{"xa vận tốc tức thời hơn."}</>,
+    <>{"luôn bằng 0."}</>,
+    <>{"tăng 100 lần."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Xe ít thay đổi vận tốc trong thời gian chắn sáng ngắn hơn. (Nhưng không nên quá hẹp vì sai số do đồng hồ tăng.)"}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-013"
+  question={<>{"Câu 13 (Nhận biết). Sai số dụng cụ của đồng hồ đo thời gian hiện số thường lấy bằng"}</>}
+  options={[
+    <><Math inline>{"1\\,\\mathrm s"}</Math>{"."}</>,
+    <>{"độ chia nhỏ nhất của đồng hồ (thường "}<Math inline>{"0{,}001\\,\\mathrm s"}</Math>{")."}</>,
+    <>{"0."}</>,
+    <>{"bình phương giá trị trung bình."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Quy ước thường dùng."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-014"
+  question={<>{"Câu 14 (Thông hiểu). Xe 1 ("}<Math inline>{"0{,}3\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"0{,}4\\,\\mathrm{m/s}"}</Math>{") va chạm đàn hồi với xe 2 cùng khối lượng đang đứng yên. Sau va chạm"}</>}
+  options={[
+    <><Math inline>{"v_1'=0{,}4"}</Math>{"; "}<Math inline>{"v_2'=0"}</Math>{" (m/s)."}</>,
+    <><Math inline>{"v_1'=0"}</Math>{"; "}<Math inline>{"v_2'=0{,}4"}</Math>{" (m/s)."}</>,
+    <><Math inline>{"v_1'=v_2'=0{,}2"}</Math>{" (m/s)."}</>,
+    <><Math inline>{"v_1'=-0{,}4"}</Math>{"; "}<Math inline>{"v_2'=0{,}4"}</Math>{" (m/s)."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Hai vật cùng khối lượng trao đổi vận tốc."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-015"
+  question={<>{"Câu 15 (Nhận biết). Nguyên nhân chính làm "}<Math inline>{"p_{\\text{sau}}"}</Math>{" đo được thường nhỏ hơn một chút so với "}<Math inline>{"p_{\\text{trước}}"}</Math>{" là"}</>}
+  options={[
+    <>{"khối lượng xe quá lớn."}</>,
+    <>{"tấm chắn sáng quá mỏng."}</>,
+    <>{"lực cản không khí và ma sát còn sót lại."}</>,
+    <>{"điện áp nguồn quá cao."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Ngoại lực cản ngược chiều chuyển động."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-016"
+  question={<>{"Câu 16 (Thông hiểu). Hai xe chạy ngược chiều nhau tới va chạm; "}<Math inline>{"v_1"}</Math>{", "}<Math inline>{"v_2"}</Math>{" là tốc độ (độ lớn). Chọn chiều dương theo chiều chuyển động của xe 1. Tổng động lượng trước va chạm là"}</>}
+  options={[
+    <><Math inline>{"m_1v_1+m_2v_2"}</Math>{"."}</>,
+    <><Math inline>{"m_1v_1-m_2v_2"}</Math>{"."}</>,
+    <><Math inline>{"(m_1+m_2)(v_1+v_2)"}</Math>{"."}</>,
+    <><Math inline>{"m_1v_1\\cdot m_2v_2"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Xe 2 đi ngược chiều dương nên vận tốc của nó là "}<Math inline>{"-v_2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-017"
+  question={<>{"Câu 17 (Thông hiểu). "}<Math inline>{"\\Delta s=(0{,}020\\pm0{,}001)\\,\\mathrm m"}</Math>{", "}<Math inline>{"\\Delta t=(0{,}040\\pm0{,}001)\\,\\mathrm s"}</Math>{". Sai số tỉ đối của tốc độ là"}</>}
+  options={[
+    <><Math inline>{"2{,}5\\%"}</Math>{"."}</>,
+    <><Math inline>{"5{,}0\\%"}</Math>{"."}</>,
+    <><Math inline>{"7{,}5\\%"}</Math>{"."}</>,
+    <><Math inline>{"1{,}0\\%"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"5\\%+2{,}5\\%=7{,}5\\%"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-018"
+  question={<>{"Câu 18 (Nhận biết). Trên đồng hồ MC964, chế độ dùng để đo thời gian tấm chắn sáng che cổng quang nối vào ổ A là"}</>}
+  options={[
+    <>{"Mode A."}</>,
+    <>{"Mode T."}</>,
+    <>{"Mode A + B."}</>,
+    <>{"Mode A ↔ B."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Mode A đo thời gian che sáng ở cổng nối ổ A (Mode B tương tự cho ổ B). Mode A + B đo tổng thời gian che sáng của cả hai cổng; Mode A ↔ B đo thời gian đi từ cổng A đến cổng B."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-019"
+  question={<>{"Câu 19 (Thông hiểu). Va chạm mềm, "}<Math inline>{"m_1=m_2"}</Math>{", xe 2 đứng yên. Vận tốc chung so với "}<Math inline>{"v_1"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"V=v_1"}</Math>{"."}</>,
+    <><Math inline>{"V=v_1/2"}</Math>{"."}</>,
+    <><Math inline>{"V=2v_1"}</Math>{"."}</>,
+    <><Math inline>{"V=v_1/4"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"V=\\dfrac{mv_1}{2m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-12-sbt-020"
+  question={<>{"Câu 20 (Thông hiểu). Phần động năng mất đi trong va chạm mềm chủ yếu chuyển thành"}</>}
+  options={[
+    <>{"điện năng."}</>,
+    <>{"quang năng."}</>,
+    <>{"nhiệt năng và công làm biến dạng chỗ dính."}</>,
+    <>{"năng lượng hạt nhân."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Biến dạng không hồi phục tỏa nhiệt."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-12-sbt-021"
+  question={<>{"Câu 21. Dùng cổng quang và tấm chắn bề rộng "}<Math inline>{"\\Delta s"}</Math>{" để đo tốc độ của xe."}</>}
+  statements={[
+    { id: 'a', text: <><Math inline>{"\\Delta s/\\Delta t"}</Math>{" thực chất là tốc độ trung bình của xe trong thời gian tấm chắn đi qua cổng."}</>, isTrue: true, explanation: <>{"Đúng theo định nghĩa tốc độ trung bình."}</> },
+    { id: 'b', text: <>{"Vì "}<Math inline>{"\\Delta s"}</Math>{" nhỏ (10–20 mm), có thể coi "}<Math inline>{"\\Delta s/\\Delta t"}</Math>{" gần đúng là tốc độ tức thời tại cổng."}</>, isTrue: true, explanation: <>{"Xe gần như không đổi vận tốc trong thời gian rất ngắn."}</> },
+    { id: 'c', text: <>{"Nếu xe chuyển động thẳng biến đổi đều, "}<Math inline>{"\\Delta s/\\Delta t"}</Math>{" bằng đúng tốc độ tức thời khi điểm chính giữa tấm chắn đi qua tia sáng."}</>, isTrue: false, explanation: <>{"Với chuyển động biến đổi đều, tốc độ trung bình bằng tốc độ tức thời ở thời điểm giữa khoảng "}<Math inline>{"\\Delta t"}</Math>{". Xe nhanh dần thì nửa sau tấm chắn đi qua nhanh hơn nửa đầu, nên thời điểm giữa đến trước khi điểm giữa tấm chắn qua tia sáng; hai tốc độ chỉ gần bằng nhau."}</> },
+    { id: 'd', text: <>{"Thay tấm chắn rộng 100 mm sẽ làm phép đo tốc độ tức thời tại một điểm chính xác hơn."}</>, isTrue: false, explanation: <>{"Tấm chắn quá rộng, xe kịp thay đổi vận tốc đáng kể."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-022"
+  question={<>{"Câu 22. Điều kiện hệ kín và độ ngang của máng."}</>}
+  statements={[
+    { id: 'a', text: <>{"Máng đệm khí triệt tiêu hoàn toàn ma sát nên hệ hai xe luôn là hệ kín tuyệt đối."}</>, isTrue: false, explanation: <>{"Ma sát chỉ giảm mạnh, vẫn còn lực cản nhỏ."}</> },
+    { id: 'b', text: <>{"Nếu máng nghiêng góc "}<Math inline>{"\\alpha"}</Math>{", thành phần "}<Math inline>{"mg\\sin\\alpha"}</Math>{" dọc máng là ngoại lực tác dụng lên hệ."}</>, isTrue: true, explanation: <>{"Đó là thành phần của trọng lực."}</> },
+    { id: 'c', text: <>{"Khi máng nghiêng, động lượng của hệ theo phương dọc máng không được bảo toàn."}</>, isTrue: true, explanation: <>{"Có ngoại lực theo phương đó."}</> },
+    { id: 'd', text: <>{"Bật bơm khí, đặt xe đứng yên trên máng; nếu xe không tự trượt về đầu nào thì máng đã nằm ngang."}</>, isTrue: true, explanation: <>{"Cách kiểm tra đơn giản và hiệu quả."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-023"
+  question={<>{"Câu 23. Xe 1 ("}<Math inline>{"0{,}4\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"0{,}5\\,\\mathrm{m/s}"}</Math>{") va chạm mềm với xe 2 ("}<Math inline>{"0{,}1\\,\\mathrm{kg}"}</Math>{") đang đứng yên."}</>}
+  statements={[
+    { id: 'a', text: <>{"Động lượng của hệ ngay trước va chạm là "}<Math inline>{"0{,}20\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}4\\times0{,}5"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Vận tốc chung ngay sau va chạm là "}<Math inline>{"0{,}40\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}20/0{,}5"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Động năng của hệ trước va chạm là "}<Math inline>{"0{,}05\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\tfrac12\\times0{,}4\\times0{,}25"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Động năng sau va chạm là "}<Math inline>{"0{,}04\\,\\mathrm J"}</Math>{"; phần mất đi là "}<Math inline>{"0{,}01\\,\\mathrm J"}</Math>{" (20%)."}</>, isTrue: true, explanation: <><Math inline>{"\\tfrac12\\times0{,}5\\times0{,}16=0{,}04\\,\\mathrm J"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-024"
+  question={<>{"Câu 24. Xe 1 ("}<Math inline>{"m_1"}</Math>{", "}<Math inline>{"v_1"}</Math>{") va chạm đàn hồi trực diện với xe 2 ("}<Math inline>{"m_2"}</Math>{") đang đứng yên trên máng ngang."}</>}
+  statements={[
+    { id: 'a', text: <>{"Nếu "}<Math inline>{"m_1=m_2"}</Math>{": xe 1 dừng lại, xe 2 chuyển động với "}<Math inline>{"v_1"}</Math>{"."}</>, isTrue: true, explanation: <>{"Trao đổi vận tốc."}</> },
+    { id: 'b', text: <>{"Nếu "}<Math inline>{"m_1\\gg m_2"}</Math>{": xe 1 gần như giữ nguyên vận tốc, xe 2 chuyển động với vận tốc gần "}<Math inline>{"2v_1"}</Math>{"."}</>, isTrue: true, explanation: <>{"Từ công thức, "}<Math inline>{"v_2'\\to2v_1"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Nếu "}<Math inline>{"m_1\\ll m_2"}</Math>{": xe 1 bật ngược lại với vận tốc gần "}<Math inline>{"-v_1"}</Math>{", xe 2 gần như đứng yên."}</>, isTrue: true, explanation: <>{"Như bóng nảy vào tường."}</> },
+    { id: 'd', text: <>{"Trong va chạm đàn hồi, tổng động năng sau va chạm luôn lớn hơn trước va chạm."}</>, isTrue: false, explanation: <>{"Động năng bảo toàn, không tăng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-025"
+  question={<>{"Câu 25. Xử lý số liệu và sai số trong bài thực hành."}</>}
+  statements={[
+    { id: 'a', text: <>{"Sai số của phép đo khối lượng bằng cân điện tử lấy theo sai số dụng cụ của cân."}</>, isTrue: true, explanation: <>{"Thường bằng độ chia nhỏ nhất hoặc theo nhà sản xuất."}</> },
+    { id: 'b', text: <>{"Sai số tuyệt đối của thời gian (đo nhiều lần) bằng sai số ngẫu nhiên trung bình cộng sai số dụng cụ."}</>, isTrue: true, explanation: <><Math inline>{"\\Delta(\\Delta t)=\\overline{\\Delta t}_{\\text{ngẫu nhiên}}+\\Delta t_{\\text{dc}}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Với "}<Math inline>{"v=\\Delta s/\\Delta t"}</Math>{", sai số tỉ đối "}<Math inline>{"\\delta v"}</Math>{" bằng hiệu các sai số tỉ đối của "}<Math inline>{"\\Delta s"}</Math>{" và "}<Math inline>{"\\Delta t"}</Math>{"."}</>, isTrue: false, explanation: <>{"Với phép chia, các sai số tỉ đối được cộng lại."}</> },
+    { id: 'd', text: <>{"Độ lệch tỉ đối khi so sánh động lượng: "}<Math inline>{"\\delta p=\\dfrac{|p_{\\text{sau}}-p_{\\text{trước}}|}{p_{\\text{trước}}}\\times100\\%"}</Math>{"."}</>, isTrue: true, explanation: <>{"Công thức dùng trong bài."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-026"
+  question={<>{"Câu 26. Hai xe nhỏ cùng khối lượng "}<Math inline>{"0{,}2\\,\\mathrm{kg}"}</Math>{" chuyển động trên mặt bàn đệm khí nằm ngang, va chạm và dính vào nhau tại O."}</>}
+  statements={[
+    { id: 'a', text: <>{"Tổng động lượng phải tính theo quy tắc cộng vectơ."}</>, isTrue: true, explanation: <>{"Động lượng là vectơ."}</> },
+    { id: 'b', text: <>{"Xe 1 chạy theo Ox với "}<Math inline>{"3\\,\\mathrm{m/s}"}</Math>{", xe 2 theo Oy với "}<Math inline>{"4\\,\\mathrm{m/s}"}</Math>{": tổng động lượng có độ lớn "}<Math inline>{"1{,}0\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\sqrt{0{,}6^2+0{,}8^2}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Vận tốc chung sau va chạm có độ lớn "}<Math inline>{"2{,}5\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"1{,}0/0{,}4"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Hướng chuyển động sau va chạm hợp với Ox góc khoảng "}<Math inline>{"53{,}1^\\circ"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\tan\\theta=0{,}8/0{,}6"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-027"
+  question={<>{"Câu 27. Xung lượng và thời gian va chạm."}</>}
+  statements={[
+    { id: 'a', text: <>{"Xung lượng "}<Math inline>{"\\vec F\\Delta t"}</Math>{" của hợp lực bằng độ biến thiên động lượng của vật."}</>, isTrue: true, explanation: <>{"Định lý xung lượng."}</> },
+    { id: 'b', text: <>{"Cùng độ biến thiên động lượng, thời gian va chạm dài hơn thì lực trung bình nhỏ hơn."}</>, isTrue: true, explanation: <><Math inline>{"F=|\\Delta p|/\\Delta t"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Đầu lò xo lá mềm kéo dài thời gian va chạm nên làm tăng lực va chạm cực đại."}</>, isTrue: false, explanation: <>{"Thời gian dài hơn làm lực nhỏ hơn."}</> },
+    { id: 'd', text: <>{"Vùng hấp thụ va chạm ở đầu ô tô kéo dài thời gian va chạm để giảm lực tác dụng lên người."}</>, isTrue: true, explanation: <>{"Nguyên lý thiết kế an toàn."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-028"
+  question={<>{"Câu 28. Xe "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" thả không vận tốc đầu từ độ cao "}<Math inline>{"0{,}2\\,\\mathrm m"}</Math>{" trên máng nghiêng, xuống đoạn ngang rồi va chạm mềm với xe thứ hai cùng khối lượng đang đứng yên. Bỏ qua ma sát; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Trên máng nghiêng, thế năng của xe 1 chuyển hết thành động năng khi tới đoạn ngang."}</>, isTrue: true, explanation: <>{"Bảo toàn cơ năng."}</> },
+    { id: 'b', text: <>{"Tốc độ xe 1 ngay trước va chạm là "}<Math inline>{"2{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\sqrt{2gh}"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Ngay sau va chạm, hai xe chuyển động với "}<Math inline>{"1{,}0\\,\\mathrm{m/s}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Khối lượng bằng nhau."}</> },
+    { id: 'd', text: <>{"Cơ năng của hệ ngay sau va chạm bằng cơ năng ban đầu của xe 1."}</>, isTrue: false, explanation: <><Math inline>{"0{,}5\\,\\mathrm J<1{,}0\\,\\mathrm J"}</Math>{": va chạm mềm mất một nửa động năng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-029"
+  question={<>{"Câu 29. Thao tác với cổng quang và đồng hồ hiện số."}</>}
+  statements={[
+    { id: 'a', text: <>{"Chỉnh độ cao cổng quang để tia sáng chỉ bị tấm chắn che, không bị thân xe hoặc bánh xe che."}</>, isTrue: true, explanation: <>{"Nếu thân xe che, thời gian đo được sai."}</> },
+    { id: 'b', text: <>{"Gắn tấm chắn sáng thẳng đứng, cạnh có bề rộng "}<Math inline>{"\\Delta s"}</Math>{" nằm dọc theo chiều chuyển động."}</>, isTrue: true, explanation: <>{"Như vậy quãng đường xe đi trong lúc che sáng đúng bằng "}<Math inline>{"\\Delta s"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Trước mỗi lần đo, bấm RESET để đưa số chỉ về 0."}</>, isTrue: true, explanation: <>{"Xóa kết quả cũ."}</> },
+    { id: 'd', text: <>{"Cắm cổng quang vào sai ổ trên đồng hồ vẫn cho kết quả đúng."}</>, isTrue: false, explanation: <>{"Đồng hồ đo theo chế độ của từng ổ; cắm sai sẽ không đo hoặc đo sai đại lượng."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-12-sbt-030"
+  question={<>{"Câu 30. So sánh biến đổi năng lượng trong va chạm mềm và va chạm đàn hồi."}</>}
+  statements={[
+    { id: 'a', text: <>{"Trong va chạm mềm, chỗ tiếp xúc biến dạng không hồi phục."}</>, isTrue: true, explanation: <>{"Hai vật dính lại."}</> },
+    { id: 'b', text: <>{"Trong va chạm đàn hồi lý tưởng, biến dạng khi tiếp xúc hồi phục hoàn toàn."}</>, isTrue: true, explanation: <>{"Theo định nghĩa."}</> },
+    { id: 'c', text: <>{"Với va chạm đàn hồi lý tưởng, tỉ số "}<Math inline>{"W_{\\text{đ,sau}}/W_{\\text{đ,trước}}"}</Math>{" bằng 100%."}</>, isTrue: true, explanation: <>{"Động năng bảo toàn."}</> },
+    { id: 'd', text: <>{"Với va chạm mềm, tỉ số "}<Math inline>{"W_{\\text{đ,sau}}/W_{\\text{đ,trước}}"}</Math>{" luôn bằng 100%."}</>, isTrue: false, explanation: <>{"Luôn nhỏ hơn 100%; với xe 2 đứng yên là "}<Math inline>{"m_1/(m_1+m_2)"}</Math>{"."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-12-sbt-031"
+  question={<>{"Câu 31. Tấm chắn "}<Math inline>{"\\Delta s=20{,}0\\,\\mathrm{mm}"}</Math>{"; đồng hồ chỉ "}<Math inline>{"\\Delta t=0{,}040\\,\\mathrm s"}</Math>{". Tính tốc độ xe (m/s)."}</>}
+  answer="0,5"
+  explanation={<><Math inline>{"0{,}020/0{,}040=0{,}50\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-032"
+  question={<>{"Câu 32. Xe 1 ("}<Math inline>{"0{,}30\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"0{,}80\\,\\mathrm{m/s}"}</Math>{") va chạm mềm với xe 2 ("}<Math inline>{"0{,}10\\,\\mathrm{kg}"}</Math>{") đứng yên. Tính vận tốc chung (m/s)."}</>}
+  answer="0,6"
+  explanation={<><Math inline>{"0{,}24/0{,}40=0{,}60\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-033"
+  question={<>{"Câu 33. Xe 1 ("}<Math inline>{"0{,}40\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"0{,}50\\,\\mathrm{m/s}"}</Math>{") va chạm đàn hồi với xe 2 ("}<Math inline>{"0{,}10\\,\\mathrm{kg}"}</Math>{") đứng yên. Tính vận tốc xe 2 sau va chạm (m/s)."}</>}
+  answer="0,8"
+  explanation={<><Math inline>{"v_2'=\\dfrac{2\\times0{,}4\\times0{,}5}{0{,}5}=0{,}80\\,\\mathrm{m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-034"
+  question={<>{"Câu 34. Xe 1 ("}<Math inline>{"0{,}20\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"1{,}20\\,\\mathrm{m/s}"}</Math>{") và xe 2 ("}<Math inline>{"0{,}30\\,\\mathrm{kg}"}</Math>{") chạy ngược chiều với tốc độ "}<Math inline>{"0{,}40\\,\\mathrm{m/s}"}</Math>{", va chạm mềm. Tính tốc độ chung (m/s)."}</>}
+  answer="0,24"
+  explanation={<>{"Chiều dương theo xe 1: "}<Math inline>{"V=\\dfrac{0{,}24-0{,}12}{0{,}50}=0{,}24\\,\\mathrm{m/s}"}</Math>{", theo chiều xe 1."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-035"
+  question={<>{"Câu 35. Năm lần đo thời gian chắn sáng: "}<Math inline>{"0{,}050"}</Math>{"; "}<Math inline>{"0{,}051"}</Math>{"; "}<Math inline>{"0{,}049"}</Math>{"; "}<Math inline>{"0{,}052"}</Math>{"; "}<Math inline>{"0{,}048\\,\\mathrm s"}</Math>{". Tính giá trị trung bình (s)."}</>}
+  answer="0,050"
+  explanation={<>{"Tổng "}<Math inline>{"0{,}250\\,\\mathrm s"}</Math>{", chia 5. (Sai số ngẫu nhiên trung bình: "}<Math inline>{"0{,}0012\\,\\mathrm s"}</Math>{".)"}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-036"
+  question={<>{"Câu 36. Xe 1 ("}<Math inline>{"0{,}50\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"2{,}00\\,\\mathrm{m/s}"}</Math>{") va chạm mềm với xe 2 ("}<Math inline>{"0{,}50\\,\\mathrm{kg}"}</Math>{") đứng yên. Tính phần động năng mất đi (J)."}</>}
+  answer="0,5"
+  explanation={<><Math inline>{"V=1\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"1{,}0-0{,}5=0{,}50\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-037"
+  question={<>{"Câu 37. Thử va chạm: ô tô "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" đâm vào vách thử, tốc độ giảm từ "}<Math inline>{"15\\,\\mathrm{m/s}"}</Math>{" về 0 trong "}<Math inline>{"0{,}10\\,\\mathrm s"}</Math>{". Tính lực trung bình lên xe (kN)."}</>}
+  answer="390"
+  explanation={<><Math inline>{"F=\\dfrac{2600\\times15}{0{,}10}=390000\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-038"
+  question={<>{"Câu 38. Tấm chắn "}<Math inline>{"0{,}015\\,\\mathrm m"}</Math>{"; xe "}<Math inline>{"0{,}40\\,\\mathrm{kg}"}</Math>{" qua cổng 1 trong "}<Math inline>{"0{,}030\\,\\mathrm s"}</Math>{", qua cổng 2 trong "}<Math inline>{"0{,}020\\,\\mathrm s"}</Math>{" (cùng chiều). Tính độ biến thiên động lượng ("}<Math inline>{"\\mathrm{kg\\cdot m/s}"}</Math>{")."}</>}
+  answer="0,10"
+  explanation={<><Math inline>{"v_1=0{,}50"}</Math>{", "}<Math inline>{"v_2=0{,}75\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"\\Delta p=0{,}40\\times0{,}25=0{,}10\\,\\mathrm{kg\\cdot m/s}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-039"
+  question={<>{"Câu 39. Xe 1 ("}<Math inline>{"0{,}30\\,\\mathrm{kg}"}</Math>{", "}<Math inline>{"1{,}00\\,\\mathrm{m/s}"}</Math>{") va chạm đàn hồi với xe 2 ("}<Math inline>{"0{,}10\\,\\mathrm{kg}"}</Math>{") đứng yên. Tính vận tốc xe 1 sau va chạm (m/s)."}</>}
+  answer="0,5"
+  explanation={<><Math inline>{"v_1'=\\dfrac{0{,}20\\times1{,}00}{0{,}40}=0{,}50\\,\\mathrm{m/s}"}</Math>{", tiếp tục theo chiều cũ."}</>}
+/>
+
+<QuizShort
+  id="bai-12-sbt-040"
+  question={<>{"Câu 40. "}<Math inline>{"p_{\\text{trước}}=0{,}250\\,\\mathrm{kg\\cdot m/s}"}</Math>{", "}<Math inline>{"p_{\\text{sau}}=0{,}242\\,\\mathrm{kg\\cdot m/s}"}</Math>{". Tính độ lệch tỉ đối "}<Math inline>{"\\delta p"}</Math>{" (%, làm tròn 1 chữ số thập phân)."}</>}
+  answer="3,2"
+  explanation={<><Math inline>{"0{,}008/0{,}250=3{,}2\\%"}</Math>{"."}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-12-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Xử lý bảng số liệu va chạm mềm
+
+$\Delta s=0{,}020\,\mathrm m$, $m_1=0{,}300\,\mathrm{kg}$, $m_2=0{,}200\,\mathrm{kg}$ (xe 2 đứng yên). Kết quả đo:
+
+<CompareTable title="Số liệu đo" columns={[<>{"Lần đo"}</>, <><Math inline>{"\\Delta t_1"}</Math>{" (s)"}</>, <><Math inline>{"\\Delta t'"}</Math>{" (s)"}</>]}
+  rows={[
+    [<>{"1"}</>, <>{"0,040"}</>, <>{"0,066"}</>],
+    [<>{"2"}</>, <>{"0,041"}</>, <>{"0,067"}</>],
+    [<>{"3"}</>, <>{"0,039"}</>, <>{"0,065"}</>]
+  ]}
+/>
+
+1. Tính $\bar v_1$ và $\bar V$.
+2. Tính $\bar p_{\text{trước}}$, $\bar p_{\text{sau}}$ và $\delta p$; rút ra kết luận.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $\overline{\Delta t_1}=0{,}040\,\mathrm s\Rightarrow\bar v_1=0{,}500\,\mathrm{m/s}$; $\overline{\Delta t'}=0{,}066\,\mathrm s\Rightarrow\bar V\approx0{,}303\,\mathrm{m/s}$.
+
+**2.** $\bar p_{\text{trước}}=0{,}300\times0{,}500=0{,}150\,\mathrm{kg\cdot m/s}$; $\bar p_{\text{sau}}=0{,}500\times0{,}303\approx0{,}152\,\mathrm{kg\cdot m/s}$; $\delta p\approx1{,}0\%$.
+
+Sai số của mỗi thời gian khoảng $0{,}0007+0{,}001\approx0{,}002\,\mathrm s$, tức khoảng $3$–$4\%$; độ lệch $1\%$ nhỏ hơn nhiều, nên động lượng được bảo toàn trong phạm vi sai số.
+
+</details>
+</div>
+
+<div data-question-id="bai-12-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Va chạm đàn hồi và sự truyền động năng
+
+Xe 1 ($0{,}400\,\mathrm{kg}$, $0{,}600\,\mathrm{m/s}$) va chạm đàn hồi trực diện với xe 2 ($0{,}200\,\mathrm{kg}$) đứng yên trên máng ngang.
+
+1. Viết hệ phương trình bảo toàn và tìm $v_1'$, $v_2'$.
+2. Tính động năng từng xe trước và sau; nhận xét.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $m_1v_1=m_1v_1'+m_2v_2'$ và $\tfrac12m_1v_1^2=\tfrac12m_1v_1'^2+\tfrac12m_2v_2'^2$. Giải được
+
+$$
+v_1'=\frac{(0{,}4-0{,}2)\times0{,}6}{0{,}6}=0{,}200\,\mathrm{m/s},\qquad v_2'=\frac{2\times0{,}4\times0{,}6}{0{,}6}=0{,}800\,\mathrm{m/s}.
+$$
+
+Cả hai xe chuyển động theo chiều cũ; trong thí nghiệm, xe 1 cũng sẽ đi qua cổng 2 (sau xe 2).
+
+**2.** Trước: $0{,}072\,\mathrm J$ (xe 2: 0). Sau: xe 1 $0{,}008\,\mathrm J$, xe 2 $0{,}064\,\mathrm J$, tổng $0{,}072\,\mathrm J$. Xe 1 truyền cho xe 2 khoảng $89\%$ động năng của nó.
+
+</details>
+</div>
+
+<div data-question-id="bai-12-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Tìm nguyên nhân sai số lớn
+
+Một nhóm luôn thu được $p_{\text{sau}}$ nhỏ hơn $p_{\text{trước}}$ khoảng 12%, ở mọi lần đo.
+
+1. Vì sao có thể nói đây là sai số hệ thống? Nêu ba nguyên nhân có thể.
+2. Đề xuất cách khắc phục từng nguyên nhân.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Sai lệch luôn cùng một phía và lớn hơn nhiều sai số ngẫu nhiên (vài phần trăm), nên do một nguyên nhân hệ thống. Có thể là:
+
+- Máng **dốc lên** theo chiều chuyển động (hoặc chưa thật phẳng), trọng lực làm xe chậm lại.
+- **Ma sát lớn bất thường:** bơm khí yếu, lỗ thổi khí bị tắc, xe chạm vào máng.
+- **Cổng 2 đặt quá xa** điểm va chạm, xe bị chậm đi nhiều trước khi tới cổng 2.
+- **Sai số tính toán:** quên cộng khối lượng tấm chắn, đầu dính vào khối lượng xe; dùng nhầm bề rộng tấm chắn của hai xe.
+
+**2.** Chỉnh lại độ ngang bằng nivo và kiểm tra bằng cách đẩy nhẹ một xe qua hai cổng (hai thời gian phải gần bằng nhau); làm sạch lỗ thổi khí, tăng lưu lượng bơm; đặt cổng 2 gần điểm va chạm; cân lại khối lượng mỗi xe kèm đầy đủ phụ kiện và đo lại bề rộng từng tấm chắn.
+
+</details>
+</div>
+
+<div data-question-id="bai-12-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Thả xe từ máng nghiêng rồi va chạm mềm
+
+Xe 1 ($0{,}200\,\mathrm{kg}$) thả không vận tốc đầu từ độ cao $0{,}45\,\mathrm m$ trên máng nghiêng, xuống đoạn ngang, qua cổng 1 rồi va chạm mềm với xe 2 ($0{,}100\,\mathrm{kg}$) đứng yên; hai xe dính nhau qua cổng 2. $\Delta s=0{,}020\,\mathrm m$, $g=9{,}8\,\mathrm{m/s^2}$, bỏ qua ma sát.
+
+1. Tính $v_1$ và thời gian chắn sáng dự kiến ở cổng 1.
+2. Tính $V$ và thời gian chắn sáng dự kiến ở cổng 2. Nhận xét về độ chính xác khi đồng hồ có độ chia $0{,}001\,\mathrm s$.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $v_1=\sqrt{2gh}=\sqrt{8{,}82}\approx2{,}97\,\mathrm{m/s}$; $\Delta t_1=\dfrac{0{,}020}{2{,}97}\approx0{,}0067\,\mathrm s$.
+
+**2.** $V=\dfrac{0{,}200\times2{,}97}{0{,}300}=1{,}98\,\mathrm{m/s}$; $\Delta t'\approx0{,}0101\,\mathrm s$.
+
+**Nhận xét:** Thời gian chắn sáng chỉ khoảng 7–10 ms, nên sai số $0{,}001\,\mathrm s$ của đồng hồ chiếm tới $10$–$15\%$, quá lớn để kiểm chứng định luật. Nên thả xe ở độ cao thấp hơn (vài cm) hoặc dùng tấm chắn rộng hơn, để $\Delta t$ cỡ vài chục ms.
+
+</details>
+</div>
+
+<div data-question-id="bai-12-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Thử nghiệm va chạm ô tô
+
+Mô hình ô tô $2500\,\mathrm{kg}$ chạy $20\,\mathrm{m/s}$ đâm trực diện vào tường bê tông.
+
+1. Tính động lượng và động năng của ô tô ngay trước va chạm.
+2. Không có vùng hấp thụ va chạm, xe dừng trong $0{,}02\,\mathrm s$. Có vùng hấp thụ (đầu xe co lại khoảng $1{,}0\,\mathrm m$), xe dừng trong $0{,}10\,\mathrm s$. Tính lực trung bình trong hai trường hợp và rút ra nhận xét.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $p=50000\,\mathrm{kg\cdot m/s}$; $W_{\text{đ}}=\tfrac12\times2500\times20^2=500\,\mathrm{kJ}$.
+
+**2.** $F_1=\dfrac{50000}{0{,}02}=2{,}5\times10^6\,\mathrm N$; $F_2=\dfrac{50000}{0{,}10}=5{,}0\times10^5\,\mathrm N$.
+
+**Kiểm tra số liệu:** Nếu xe giảm tốc đều từ 20 m/s đến 0 trong $0{,}10\,\mathrm s$, quãng đường dừng bằng $\bar v\,\Delta t=10\times0{,}10=1{,}0\,\mathrm m$, khớp với độ co của đầu xe. (Không có vùng hấp thụ, xe chỉ đi thêm khoảng $0{,}2\,\mathrm m$.)
+
+**Nhận xét:** Vùng hấp thụ va chạm kéo dài thời gian dừng 5 lần, làm lực trung bình giảm 5 lần; khoang hành khách được giữ cứng để không bị biến dạng, còn đầu xe hấp thụ phần lớn động năng $500\,\mathrm{kJ}$.
+
+</details>
+</div>
+
+</Section>
+
+</div>

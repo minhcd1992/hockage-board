@@ -1,0 +1,350 @@
+import { FrictionPull, ApparentWeight, TerminalVelocity, WalkingFriction, AirplaneForces, CarExampleForces, ChandelierForces } from './components/Lesson7Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Mô tả trọng lực, phân biệt khối lượng, trọng lượng và trọng lượng biểu kiến.
+- Xác định lực căng dây và vận dụng mô hình dây lý tưởng.
+- Phân biệt ma sát nghỉ, ma sát trượt, ma sát lăn; biết khi nào dùng $F=\mu N$.
+- Giải thích lực cản, tốc độ giới hạn và lực nâng của chất lưu.
+
+</InfoBox>
+
+<Section title="A. Mở đầu — Những lực quanh ta" icon="rocket">
+
+**Giọt mưa và chiếc mũ bảo hiểm.** Nếu không có không khí, giọt mưa rơi từ đám mây cao $h=2000\,\mathrm m$ sẽ chạm đất với tốc độ
+
+$$
+v=\sqrt{2gh}=\sqrt{2\times9{,}8\times2000}\approx198\,\mathrm{m/s}\approx713\,\mathrm{km/h}.
+$$
+
+Thực tế, giọt mưa chạm má ta chỉ với khoảng $7$–$9\,\mathrm{m/s}$. Lực nào đã làm giọt mưa chậm lại như vậy?
+
+**Ô tô điện tăng tốc.** Một ô tô điện nặng khoảng 2,6 tấn tăng tốc từ $0$ lên $100\,\mathrm{km/h}$ trong vài giây. Động cơ làm bánh xe quay, nhưng nếu mặt đường phủ băng trơn, bánh xe quay tít tại chỗ mà xe không nhích lên. Ngoại lực nào thực sự đẩy xe tiến về phía trước?
+
+**Cầu treo và máy bay.** Vì sao những sợi cáp thép tương đối mảnh của cầu treo giữ được hàng nghìn tấn bê tông? Vì sao một máy bay chở khách nặng hàng trăm tấn có thể bay bằng trên không trung?
+
+<InfoBox type="info" title="Câu hỏi dẫn dắt">
+
+1. Mỗi lực trong các hiện tượng trên do vật nào gây ra, có hướng và độ lớn ra sao?
+2. Khi nào ma sát cản trở chuyển động, khi nào ma sát lại giúp vật chuyển động?
+3. Vì sao vật rơi trong không khí không tăng tốc mãi?
+
+</InfoBox>
+
+</Section>
+
+<Section title="B. Trọng lực, trọng lượng và trọng lượng biểu kiến" icon="book">
+
+### 1. Trọng lực
+
+**Trọng lực** $\vec P$ tác dụng lên vật ở gần mặt đất là lực hấp dẫn do Trái Đất tác dụng lên vật.
+
+- **Điểm đặt:** tại trọng tâm $G$ của vật. Với vật đồng chất, có dạng đối xứng, trọng tâm trùng tâm hình học.
+- **Phương, chiều:** thẳng đứng (phương dây dọi), hướng xuống.
+- **Độ lớn:**
+
+$$
+P=mg.
+$$
+
+### 2. Khối lượng và trọng lượng
+
+- **Khối lượng** $m$ ($\mathrm{kg}$) là đại lượng vô hướng, dương, đặc trưng cho mức quán tính của vật. Khối lượng của một vật không đổi dù vật ở Trái Đất hay Mặt Trăng.
+- **Trọng lượng** $P$ ($\mathrm N$) là độ lớn của trọng lực, phụ thuộc gia tốc rơi tự do $g$ tại nơi đặt vật. Trên Mặt Trăng $g\approx1{,}6\,\mathrm{m/s^2}$, khoảng $\tfrac16$ giá trị ở Trái Đất, nên một nhà du hành có trọng lượng chỉ khoảng $\tfrac16$ so với ở Trái Đất, dù khối lượng không đổi.
+
+Câu nói “tôi nặng 60 kg” trong đời sống thực ra nói về **khối lượng**.
+
+### 3. Trọng lượng biểu kiến — đứng trên cân trong thang máy
+
+Số chỉ của cân bằng độ lớn **phản lực** $N$ mà mặt cân đỡ người; ta gọi đó là **trọng lượng biểu kiến**. Xét trong hệ mặt đất, chọn chiều dương hướng lên, gọi $a$ là gia tốc của thang máy:
+
+$$
+N-mg=ma\quad\Rightarrow\quad N=m(g+a).
+$$
+
+- $a=0$ (đứng yên hoặc chuyển động thẳng đều): $N=mg$.
+- $\vec a$ hướng lên (đi lên nhanh dần **hoặc** đi xuống chậm dần): $N>mg$.
+- $\vec a$ hướng xuống (đi lên chậm dần **hoặc** đi xuống nhanh dần): $N<mg$.
+- Thang máy rơi tự do ($a=-g$): $N=0$, người ở trạng thái **mất trọng lượng biểu kiến**. Trọng lực $P=mg$ vẫn tác dụng lên người.
+
+<ApparentWeight />
+
+</Section>
+
+<Section title="C. Lực căng dây" icon="book">
+
+Khi một sợi dây bị kéo căng, dây tác dụng lên các vật nối ở hai đầu một **lực căng** $\vec T$. Lực căng là một dạng lực đàn hồi: dây bị kéo giãn rất ít, các phân tử trong dây bị kéo xa nhau hơn vị trí cân bằng nên xuất hiện lực chống lại sự giãn.
+
+- **Điểm đặt:** tại chỗ dây buộc vào vật.
+- **Phương:** dọc theo sợi dây.
+- **Chiều:** hướng từ vật vào phía trong sợi dây. Dây chỉ có thể **kéo**, không thể đẩy.
+
+### Dây lý tưởng
+
+Trong phần lớn bài toán, ta coi dây **nhẹ** (khối lượng không đáng kể) và **không giãn**:
+
+- Dây không giãn nên hai vật nối bằng dây căng có cùng độ lớn vận tốc và gia tốc dọc theo dây.
+- Dây nhẹ nên lực căng có cùng độ lớn tại mọi điểm trên dây, kể cả khi dây vắt qua ròng rọc nhẹ, không ma sát.
+
+<InfoBox type="info" title="Vì sao dây nhẹ có lực căng như nhau ở hai đầu?">
+
+Xét một đoạn dây khối lượng $m_d$ chịu lực căng $\vec T_1,\vec T_2$ ở hai đầu: $\vec T_1+\vec T_2=m_d\vec a$. Khi $m_d\approx0$ thì $\vec T_1+\vec T_2\approx\vec0$, tức hai lực căng có cùng độ lớn, ngược chiều.
+
+</InfoBox>
+
+</Section>
+
+<Section title="D. Lực ma sát" icon="book">
+
+Mặt tiếp xúc của hai vật dù được mài nhẵn vẫn có những chỗ lồi lõm rất nhỏ. Hai vật chỉ thực sự chạm nhau tại các đỉnh lồi đó; ở đây các phân tử của hai bề mặt rất gần nhau và hút nhau. Lực ma sát là tổng hợp tác dụng cản của các chỗ tiếp xúc này lên chuyển động (hoặc xu hướng chuyển động) tương đối giữa hai bề mặt.
+
+### 1. Ma sát nghỉ
+
+- **Xuất hiện** khi có lực (hay thành phần lực) song song mặt tiếp xúc làm vật có xu hướng trượt, nhưng vật **vẫn đứng yên** so với mặt tiếp xúc.
+- **Hướng:** song song mặt tiếp xúc, ngược chiều xu hướng trượt.
+- **Độ lớn:** tự điều chỉnh, có giá trị đúng bằng mức cần để giữ vật không trượt. Với vật trên sàn ngang chịu lực kéo ngang: $F_{msn}=F_k$.
+- Ma sát nghỉ chỉ tăng được đến giá trị cực đại:
+
+$$
+F_{msn}\le F_{msn,\max}=\mu_nN,
+$$
+
+trong đó $\mu_n$ là **hệ số ma sát nghỉ** (không có đơn vị), $N$ là độ lớn áp lực vuông góc mặt tiếp xúc.
+
+<InfoBox type="warning" title="Bẫy thường gặp">
+
+$\mu_nN$ là **giới hạn trên**, không phải giá trị của ma sát nghỉ. Nếu lực kéo chưa vượt $\mu_nN$, vật đứng yên và ma sát nghỉ chỉ bằng lực kéo.
+
+</InfoBox>
+
+### 2. Ma sát trượt
+
+- **Xuất hiện** khi vật trượt trên bề mặt vật khác.
+- **Hướng:** ngược chiều vận tốc của vật so với bề mặt.
+- **Độ lớn:**
+
+$$
+F_{mst}=\mu_tN.
+$$
+
+Đặc điểm (rút ra từ thực nghiệm, gần đúng):
+
+- Không phụ thuộc diện tích tiếp xúc và hầu như không phụ thuộc tốc độ trượt (ở tốc độ vừa phải).
+- Phụ thuộc vật liệu và tình trạng hai bề mặt.
+- Thường $\mu_t<\mu_n$: lực cần để **làm vật bắt đầu trượt** lớn hơn lực cần để **duy trì** vật trượt đều.
+
+<FrictionPull />
+
+**Cách quan sát:** Tăng dần lực kéo $F$. Khi $F\le\mu_nN$, chấm tròn chạy trên đường xanh: ma sát bằng $F$. Ngay khi $F$ vượt $\mu_nN$, vật trượt và ma sát giảm xuống $\mu_tN$; phần chênh lệch làm vật có gia tốc.
+
+### 3. Ma sát lăn
+
+Khi bánh xe hay viên bi lăn không trượt, chỗ tiếp xúc giữa bánh và mặt đường bị biến dạng một chút, tạo ra **lực cản lăn**. Lực cản lăn thường nhỏ hơn ma sát trượt hàng chục lần; vì vậy con người dùng bánh xe, ổ bi để vận chuyển vật nặng. Trong bài toán, ta có thể mô hình $F_l=\mu_lN$ với hệ số cản lăn $\mu_l$ nhỏ (khoảng $0{,}01$–$0{,}02$ với lốp ô tô trên đường nhựa).
+
+</Section>
+
+<Section title="E. Lực cản và lực nâng của chất lưu" icon="book">
+
+Chất lưu là chất lỏng và chất khí.
+
+### 1. Lực cản
+
+Khi vật chuyển động trong chất lưu, chất lưu tác dụng lên vật **lực cản** $\vec F_c$ **ngược chiều vận tốc** của vật so với chất lưu. Độ lớn lực cản tăng khi tốc độ tăng và phụ thuộc hình dạng, kích thước vật, loại chất lưu:
+
+- Vật nhỏ, chuyển động chậm (ví dụ hạt bụi trong dầu): $F_c\approx kv$.
+- Vật chuyển động nhanh trong không khí (ô tô, người nhảy dù): *(mở rộng)*
+
+$$
+F_c=\tfrac12C_D\rho Sv^2,
+$$
+
+với $C_D$ là hệ số cản (phụ thuộc hình dạng), $\rho$ là khối lượng riêng của chất lưu, $S$ là diện tích cản (tiết diện vuông góc với chuyển động).
+
+### 2. Tốc độ giới hạn
+
+Thả vật rơi trong không khí từ trạng thái nghỉ:
+
+1. Ban đầu $v=0$ nên $F_c=0$: vật có gia tốc $a=g$.
+2. Khi $v$ tăng, $F_c$ tăng nên gia tốc $a=\dfrac{P-F_c}{m}$ giảm dần.
+3. Khi $F_c=P$, hợp lực bằng 0, $a=0$: vật rơi thẳng đều với **tốc độ giới hạn** $v_t$.
+
+Với lực cản $F_c=\tfrac12C_D\rho Sv^2$:
+
+$$
+mg=\tfrac12C_D\rho Sv_t^2\quad\Rightarrow\quad v_t=\sqrt{\frac{2mg}{C_D\rho S}}.
+$$
+
+<TerminalVelocity />
+
+### 3. Lực nâng
+
+Khi không khí chảy qua cánh máy bay có hình dạng và góc nghiêng thích hợp, dòng khí phía trên cánh chảy nhanh hơn phía dưới. Nơi dòng chảy nhanh có áp suất nhỏ hơn (định luật Béc-nu-li), nên áp suất ở mặt dưới cánh lớn hơn ở mặt trên. Chênh lệch áp suất này tạo ra **lực nâng** $\vec F_n$ vuông góc với hướng dòng khí. Có thể nhìn theo cách khác: cánh đẩy dòng khí lệch xuống dưới, và theo định luật III, không khí đẩy cánh lên.
+
+<AirplaneForces />
+
+</Section>
+
+<Section title="F. Góc phân tích sâu" icon="idea">
+
+### 1. Ma sát nghỉ là lực cản hay lực phát động?
+
+Nhiều bạn nghĩ “ma sát luôn cản trở chuyển động”. Hãy xét việc đi bộ: bàn chân phía sau đạp mặt đất về phía sau. Bàn chân có xu hướng trượt về sau, nên mặt đất tác dụng lên chân **lực ma sát nghỉ hướng về phía trước**. Đó chính là ngoại lực theo phương ngang làm cơ thể tiến lên. Trên mặt băng rất trơn ($\mu_n\approx0$), ta không thể bước đi.
+
+Ô tô cũng vậy: động cơ làm bánh chủ động quay, lốp miết mặt đường về phía sau, mặt đường tác dụng lên lốp lực ma sát nghỉ hướng về phía trước. Lực này là **lực phát động** của xe.
+
+<WalkingFriction />
+
+**Kết luận:** ma sát nghỉ cản trở sự **trượt tương đối** giữa hai mặt tiếp xúc, nhưng có thể là **lực phát động** của người và xe.
+
+### 2. Thí nghiệm tưởng tượng — Hành trình của giọt mưa
+
+Xét giọt mưa hình cầu bán kính $r=1{,}5\,\mathrm{mm}$, khối lượng $m=D\cdot\tfrac43\pi r^3\approx1{,}41\times10^{-5}\,\mathrm{kg}$ (khoảng 14 mg, với $D=1000\,\mathrm{kg/m^3}$ là khối lượng riêng của nước), bắt đầu rơi từ độ cao $2000\,\mathrm m$.
+
+- **Nếu không có không khí:** giọt mưa rơi tự do và chạm đất với $v\approx198\,\mathrm{m/s}$. Động năng khi đó khoảng $\tfrac12mv^2\approx0{,}28\,\mathrm J$, gấp hơn 600 lần động năng thực tế của nó khi rơi với khoảng $8\,\mathrm{m/s}$.
+- **Trong không khí:** với $C_D\approx0{,}5$, công thức tốc độ giới hạn cho $v_t\approx8\,\mathrm{m/s}$ (khoảng $29\,\mathrm{km/h}$). Mô phỏng 7.3 cho thấy giọt mưa đạt 99% tốc độ này chỉ sau khoảng 2 s, khi mới rơi được khoảng 13 m. Gần như toàn bộ quãng đường còn lại, giọt mưa rơi thẳng đều.
+
+Lực cản của không khí làm giọt mưa rơi chậm và chạm đất nhẹ nhàng.
+
+</Section>
+
+<Section title="G. Ví dụ minh họa" icon="target">
+
+### Ví dụ 1. Lực ma sát tác dụng lên ô tô điện
+
+Một ô tô điện khối lượng $m=2600\,\mathrm{kg}$ chuyển động trên đường nằm ngang, lấy $g=9{,}8\,\mathrm{m/s^2}$. Số liệu là giả định.
+
+a) Khi phanh gấp, bánh xe bị khóa và trượt lê trên đường với hệ số ma sát trượt $\mu_t=0{,}60$. Tính lực ma sát trượt và gia tốc hãm.
+
+b) Khi xe chạy bình thường (bánh lăn không trượt), lực phát động của mặt đường lên bánh chủ động là $F_k=3874\,\mathrm N$, hệ số cản lăn $\mu_l=0{,}02$; bỏ qua lực cản không khí. Tính gia tốc của xe.
+
+<CarExampleForces />
+
+**Bước 1 — Phân tích lực.** Xe chịu trọng lực $\vec P$, phản lực $\vec N$, lực phát động $\vec F_k$ (khi bánh lăn) và lực cản (ma sát trượt khi phanh khóa bánh, hoặc lực cản lăn khi bánh lăn). Chọn $Ox$ theo chiều chuyển động, $Oy$ thẳng đứng lên.
+
+**Bước 2 — Phương thẳng đứng.** Xe không có gia tốc theo phương đứng:
+
+$$
+N-P=0\quad\Rightarrow\quad N=mg=2600\times9{,}8=25480\,\mathrm N.
+$$
+
+**Bước 3 — Tính toán.**
+
+a) Ma sát trượt và gia tốc hãm:
+
+$$
+F_{mst}=\mu_tN=0{,}60\times25480=15288\,\mathrm N,\qquad a=-\frac{F_{mst}}{m}=-5{,}88\,\mathrm{m/s^2}.
+$$
+
+b) Lực cản lăn $F_l=\mu_lN=0{,}02\times25480=509{,}6\,\mathrm N$. Theo phương $Ox$:
+
+$$
+F_k-F_l=ma\quad\Rightarrow\quad a=\frac{3874-509{,}6}{2600}\approx1{,}29\,\mathrm{m/s^2}.
+$$
+
+**Bước 4 — Nhận xét.** Lực cản lăn ($\approx510\,\mathrm N$) nhỏ hơn ma sát trượt khi khóa bánh ($15288\,\mathrm N$) khoảng 30 lần: bánh xe lăn giúp xe di chuyển dễ dàng. Khi phanh, hệ thống chống bó cứng ABS giữ cho bánh xe không bị khóa; lốp vẫn bám đường bằng ma sát nghỉ nên xe còn điều khiển được hướng.
+
+### Ví dụ 2. Lực căng dây treo đèn chùm
+
+Một đèn chùm khối lượng $m=12\,\mathrm{kg}$ treo cân bằng nhờ hai dây nhẹ AB và AC buộc vào trần nhà. Dây AB hợp với trần góc $\alpha=30^\circ$, dây AC hợp với trần góc $\beta=60^\circ$; đoạn dây AD thẳng đứng treo đèn. Lấy $g=9{,}8\,\mathrm{m/s^2}$. Tính lực căng của dây AB và AC.
+
+<ChandelierForces />
+
+**Bước 1 — Chọn vật.** Xét nút A, chịu ba lực căng $\vec T_{AB},\vec T_{AC},\vec T_{AD}$. Vì đèn cân bằng nên $T_{AD}=mg=117{,}6\,\mathrm N$ và nút A cân bằng:
+
+$$
+\vec T_{AB}+\vec T_{AC}+\vec T_{AD}=\vec0.
+$$
+
+**Bước 2 — Chiếu lên các trục.** Chọn $Ox$ nằm ngang sang phải, $Oy$ thẳng đứng lên:
+
+$$
+Ox:\ T_{AC}\cos60^\circ-T_{AB}\cos30^\circ=0,
+\qquad
+Oy:\ T_{AB}\sin30^\circ+T_{AC}\sin60^\circ-117{,}6=0.
+$$
+
+**Bước 3 — Giải.** Từ phương trình $Ox$: $T_{AC}=\sqrt3\,T_{AB}$. Thay vào phương trình $Oy$:
+
+$$
+0{,}5\,T_{AB}+1{,}5\,T_{AB}=117{,}6\quad\Rightarrow\quad T_{AB}=58{,}8\,\mathrm N,\qquad T_{AC}=58{,}8\sqrt3\approx101{,}8\,\mathrm N.
+$$
+
+**Bước 4 — Nhận xét.** Dây AC dốc hơn (gần phương thẳng đứng hơn) gánh phần lớn trọng lượng đèn nên có lực căng lớn hơn. Khi thiết kế cáp treo, cần tính lực căng từng sợi theo góc nghiêng để chọn cáp đủ bền.
+
+</Section>
+
+<Section title="H. Ghi nhớ" icon="check">
+
+1. Trọng lực $P=mg$, hướng thẳng đứng xuống; số chỉ của cân là phản lực $N=m(g+a)$, không phải lúc nào cũng bằng $mg$.
+2. Dây lý tưởng chỉ kéo, lực căng dọc theo dây và như nhau ở mọi điểm trên dây.
+3. Ma sát nghỉ tự điều chỉnh, $F_{msn}\le\mu_nN$; ma sát trượt $F_{mst}=\mu_tN$, ngược chiều vận tốc tương đối.
+4. Lực cản của chất lưu ngược chiều vận tốc và tăng theo tốc độ; vật rơi trong không khí tiến tới tốc độ giới hạn khi $F_c=P$.
+
+</Section>
+
+<Section title="I. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<Quiz
+  id="bai-7-exercises-001"
+  question={<>{"Câu 1. Một cuốn sách Vật lí 10 khối lượng "}<Math inline>{"0{,}5\\,\\mathrm{kg}"}</Math>{" nằm yên trên mặt bàn nằm ngang. Phát biểu nào sau đây đúng?"}</>}
+  options={[
+    <>{"Trọng lực "}<Math inline>{"\\vec P"}</Math>{" và phản lực "}<Math inline>{"\\vec N"}</Math>{" của mặt bàn là cặp lực – phản lực theo định luật III Newton."}</>,
+    <>{"Độ lớn phản lực "}<Math inline>{"N"}</Math>{" luôn bằng trọng lượng "}<Math inline>{"P"}</Math>{" của cuốn sách trong mọi trường hợp."}</>,
+    <>{"Trọng lực "}<Math inline>{"\\vec P"}</Math>{" và phản lực "}<Math inline>{"\\vec N"}</Math>{" cùng tác dụng lên cuốn sách và là hai lực cân bằng."}</>,
+    <>{"Cuốn sách đứng yên vì không có lực nào tác dụng lên nó."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"\\vec P"}</Math>{" do Trái Đất hút sách, "}<Math inline>{"\\vec N"}</Math>{" do bàn đỡ sách; cả hai đặt lên sách và cân bằng nhau. Phản lực của "}<Math inline>{"\\vec P"}</Math>{" là lực sách hút Trái Đất. "}<Math inline>{"N=P"}</Math>{" chỉ đúng trong tình huống này (mặt ngang, không có lực khác theo phương đứng, không có gia tốc đứng)."}</>}
+/>
+
+<Quiz
+  id="bai-7-exercises-002"
+  question={<>{"Câu 2. Kéo một thùng hàng khối lượng "}<Math inline>{"m=10\\,\\mathrm{kg}"}</Math>{" trượt thẳng đều trên sàn ngang bằng lực kéo nằm ngang "}<Math inline>{"F_k=20\\,\\mathrm N"}</Math>{". Lấy "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Hệ số ma sát trượt giữa thùng và sàn là"}</>}
+  options={[
+    <><Math inline>{"0{,}1"}</Math></>,
+    <><Math inline>{"0{,}2"}</Math></>,
+    <><Math inline>{"0{,}5"}</Math></>,
+    <><Math inline>{"2{,}0"}</Math></>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Trượt thẳng đều nên "}<Math inline>{"a=0"}</Math>{": "}<Math inline>{"F_k=F_{mst}=\\mu_t mg"}</Math>{", suy ra "}<Math inline>{"\\mu_t=\\dfrac{20}{10\\times10}=0{,}2"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-7-exercises-003"
+  question={<>{"Câu 3. Khối gỗ "}<Math inline>{"m=5\\,\\mathrm{kg}"}</Math>{" đứng yên trên sàn ngang, hệ số ma sát nghỉ "}<Math inline>{"\\mu_n=0{,}4"}</Math>{", "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Kéo khối gỗ bằng lực nằm ngang "}<Math inline>{"F_k=15\\,\\mathrm N"}</Math>{". Độ lớn lực ma sát tác dụng lên khối gỗ là"}</>}
+  options={[
+    <><Math inline>{"20\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"15\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"5\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"0\\,\\mathrm N"}</Math></>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"F_{msn,\\max}=\\mu_n mg=20\\,\\mathrm N"}</Math>{". Vì "}<Math inline>{"F_k=15\\,\\mathrm N<20\\,\\mathrm N"}</Math>{", vật chưa trượt và ma sát nghỉ tự điều chỉnh: "}<Math inline>{"F_{msn}=F_k=15\\,\\mathrm N"}</Math>{". Giá trị 20 N chỉ là giới hạn trên."}</>}
+/>
+
+<div data-question-id="bai-7-exercises-004" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 4. Vì sao khi nhảy từ trên cao xuống, ta nên chùng gối?
+
+Hãy giải thích bằng lực mà mặt đất tác dụng lên chân trong lúc chân hãm chuyển động của cơ thể.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Ngay khi chạm đất, cơ thể có tốc độ $v$ hướng xuống và cần được hãm về 0. Chọn chiều dương hướng lên, gia tốc trung bình khi hãm có độ lớn $a=\dfrac{v}{\Delta t}$, hướng lên. Theo định luật II:
+
+$$
+N-mg=ma\quad\Rightarrow\quad N=m\left(g+\frac{v}{\Delta t}\right).
+$$
+
+Chùng gối làm thời gian hãm $\Delta t$ dài hơn (cơ thể còn đi xuống thêm một đoạn trong lúc giảm tốc), nên $a$ nhỏ đi và phản lực $N$ của mặt đất lên chân giảm. Lực nhỏ hơn giúp giảm nguy cơ chấn thương khớp và xương.
+
+</details>
+</div>
+
+</Section>
+
+</div>

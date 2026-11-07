@@ -16,7 +16,8 @@ export function floodFill(
   const startA = data[startPos + 3];
 
   // Parse fillColorStr (e.g. '#ff0000')
-  let fillR = 0, fillG = 0, fillB = 0, fillA = 255;
+  let fillR = 0, fillG = 0, fillB = 0;
+  const fillA = 255;
   if (fillColorStr.startsWith('#')) {
     const hex = fillColorStr.replace('#', '');
     if (hex.length === 6) {

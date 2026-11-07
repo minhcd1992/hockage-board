@@ -1,0 +1,593 @@
+import styles from './components/Lesson9Workbook.module.css'
+import { InclineSlideDiagram, ThrowWorkDiagram } from './components/Lesson9ExerciseFigures'
+
+<div className={`${styles.workbook} min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_.flex>h3]:min-w-0 [&_p]:my-3 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1 [&_ol]:list-decimal [&_ol]:pl-5`}>
+
+<InfoBox type="info" title="Sách bài tập Bài 9 — Năng lượng, công và công suất">
+
+45 câu gồm **20 trắc nghiệm, 10 đúng/sai, 10 trả lời ngắn và 5 tự luận**, có đáp án và lời giải. Ký hiệu: $W$ là công, $\mathcal P$ là công suất, $P$ là trọng lượng. Số liệu phương tiện và nhà máy là giả định.
+
+</InfoBox>
+
+<Section title="I. Trắc nghiệm 4 phương án — 20 câu" icon="check">
+
+Chọn một phương án đúng nhất rồi bấm **Kiểm tra**.
+
+<Quiz
+  id="bai-9-sbt-001"
+  question={<>{"Câu 1 (Nhận biết). Đại lượng là số đo phần năng lượng được truyền từ vật này sang vật khác thông qua lực làm vật dịch chuyển là"}</>}
+  options={[
+    <>{"gia tốc."}</>,
+    <>{"công cơ học."}</>,
+    <>{"động lượng."}</>,
+    <>{"trọng lực."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Theo định nghĩa của công."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-002"
+  question={<>{"Câu 2 (Nhận biết). Công của lực không đổi "}<Math inline>{"\\vec F"}</Math>{" làm vật có độ dịch chuyển "}<Math inline>{"\\vec d"}</Math>{", với "}<Math inline>{"\\alpha"}</Math>{" là góc giữa "}<Math inline>{"\\vec F"}</Math>{" và "}<Math inline>{"\\vec d"}</Math>{", là"}</>}
+  options={[
+    <><Math inline>{"W=Fd\\sin\\alpha"}</Math>{"."}</>,
+    <><Math inline>{"W=Fd\\cos\\alpha"}</Math>{"."}</>,
+    <><Math inline>{"W=Fd\\tan\\alpha"}</Math>{"."}</>,
+    <><Math inline>{"W=\\dfrac{Fd}{\\cos\\alpha}"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"W=Fd\\cos\\alpha"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-003"
+  question={<>{"Câu 3 (Nhận biết). Đơn vị nào sau đây KHÔNG phải đơn vị của công hoặc năng lượng?"}</>}
+  options={[
+    <>{"jun ("}<Math inline>{"\\mathrm J"}</Math>{")."}</>,
+    <>{"kilôoát giờ ("}<Math inline>{"\\mathrm{kWh}"}</Math>{")."}</>,
+    <>{"niutơn mét ("}<Math inline>{"\\mathrm{N\\cdot m}"}</Math>{")."}</>,
+    <>{"oát trên giây ("}<Math inline>{"\\mathrm{W/s}"}</Math>{")."}</>
+  ]}
+  correctIndex={3}
+  explanation={<><Math inline>{"\\mathrm{J}"}</Math>{", "}<Math inline>{"\\mathrm{N\\cdot m}"}</Math>{" và "}<Math inline>{"\\mathrm{kWh}"}</Math>{" đều là đơn vị năng lượng. "}<Math inline>{"\\mathrm{W/s}"}</Math>{" không phải."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-004"
+  question={<>{"Câu 4 (Nhận biết). Đơn vị công suất trong hệ SI là"}</>}
+  options={[
+    <>{"jun ("}<Math inline>{"\\mathrm J"}</Math>{")."}</>,
+    <>{"oát ("}<Math inline>{"\\mathrm W"}</Math>{")."}</>,
+    <>{"niutơn ("}<Math inline>{"\\mathrm N"}</Math>{")."}</>,
+    <>{"mã lực ("}<Math inline>{"\\mathrm{HP}"}</Math>{")."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Oát; mã lực là đơn vị ngoài hệ SI."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-005"
+  question={<>{"Câu 5 (Thông hiểu). Lực "}<Math inline>{"\\vec F"}</Math>{" hợp với hướng dịch chuyển một góc nhọn ("}<Math inline>{"0^\\circ\\le\\alpha<90^\\circ"}</Math>{"). Công của lực"}</>}
+  options={[
+    <>{"dương, gọi là công phát động."}</>,
+    <>{"âm, gọi là công cản."}</>,
+    <>{"bằng 0."}</>,
+    <>{"âm hay dương tùy khối lượng vật."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\cos\\alpha>0"}</Math>{" nên "}<Math inline>{"W>0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-006"
+  question={<>{"Câu 6 (Thông hiểu). Trường hợp nào lực tác dụng lên vật không sinh công?"}</>}
+  options={[
+    <>{"Người kéo thùng hàng trượt trên sàn."}</>,
+    <>{"Trọng lực tác dụng lên quả tạ đang rơi."}</>,
+    <>{"Lực hấp dẫn của Trái Đất lên vệ tinh chuyển động tròn đều quanh Trái Đất."}</>,
+    <>{"Ma sát làm xe máy chậm dần khi phanh."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Trên quỹ đạo tròn, lực hấp dẫn hướng vào tâm, luôn vuông góc với vận tốc: "}<Math inline>{"\\alpha=90^\\circ"}</Math>{", "}<Math inline>{"W=0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-007"
+  question={<>{"Câu 7 (Thông hiểu). Lực "}<Math inline>{"50\\,\\mathrm N"}</Math>{" làm vật dịch chuyển "}<Math inline>{"10\\,\\mathrm m"}</Math>{" theo hướng hợp với lực góc "}<Math inline>{"60^\\circ"}</Math>{". Công của lực là"}</>}
+  options={[
+    <><Math inline>{"500\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"250\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"433\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"0\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"W=50\\times10\\times\\cos60^\\circ=250\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-008"
+  question={<>{"Câu 8 (Thông hiểu). Ô tô chạy trên đường nằm ngang. Công của phản lực mặt đường lên các bánh xe"}</>}
+  options={[
+    <>{"dương."}</>,
+    <>{"âm."}</>,
+    <>{"bằng 0."}</>,
+    <>{"phụ thuộc tốc độ của ô tô."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Phản lực vuông góc với dịch chuyển."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-009"
+  question={<>{"Câu 9 (Thông hiểu). Động cơ xe máy điện thực hiện công "}<Math inline>{"12000\\,\\mathrm J"}</Math>{" trong "}<Math inline>{"4\\,\\mathrm s"}</Math>{". Công suất trung bình của động cơ là"}</>}
+  options={[
+    <><Math inline>{"3000\\,\\mathrm W"}</Math>{"."}</>,
+    <><Math inline>{"48000\\,\\mathrm W"}</Math>{"."}</>,
+    <><Math inline>{"300\\,\\mathrm W"}</Math>{"."}</>,
+    <><Math inline>{"1200\\,\\mathrm W"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\mathcal P=W/t=12000/4=3000\\,\\mathrm W"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-010"
+  question={<>{"Câu 10 (Thông hiểu). Động cơ ô tô làm việc với công suất không đổi. Khi cần lực kéo rất lớn để leo dốc, người lái phải"}</>}
+  options={[
+    <>{"tăng tốc độ tối đa."}</>,
+    <>{"giảm tốc độ xuống mức thích hợp."}</>,
+    <>{"giữ nguyên tốc độ."}</>,
+    <>{"tắt máy cho xe trôi."}</>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"\\mathcal P=Fv"}</Math>{" không đổi nên "}<Math inline>{"F"}</Math>{" lớn thì "}<Math inline>{"v"}</Math>{" phải nhỏ."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-011"
+  question={<>{"Câu 11 (Thông hiểu). Tỉ số giữa công có ích và công toàn phần gọi là"}</>}
+  options={[
+    <>{"công suất tức thời."}</>,
+    <>{"momen lực."}</>,
+    <>{"hiệu suất."}</>,
+    <>{"hệ số ma sát."}</>
+  ]}
+  correctIndex={2}
+  explanation={<><Math inline>{"H=W_{\\text{ích}}/W_{\\text{tp}}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-012"
+  question={<>{"Câu 12 (Thông hiểu). Máy nâng đều khối đá "}<Math inline>{"200\\,\\mathrm{kg}"}</Math>{" lên cao "}<Math inline>{"5\\,\\mathrm m"}</Math>{" trong "}<Math inline>{"10\\,\\mathrm s"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Công suất có ích của máy là"}</>}
+  options={[
+    <><Math inline>{"980\\,\\mathrm W"}</Math>{"."}</>,
+    <><Math inline>{"9800\\,\\mathrm W"}</Math>{"."}</>,
+    <><Math inline>{"490\\,\\mathrm W"}</Math>{"."}</>,
+    <><Math inline>{"1960\\,\\mathrm W"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"W=mgh=9800\\,\\mathrm J"}</Math>{"; "}<Math inline>{"\\mathcal P=9800/10=980\\,\\mathrm W"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-013"
+  question={<>{"Câu 13 (Vận dụng). Vật "}<Math inline>{"2\\,\\mathrm{kg}"}</Math>{" rơi tự do từ độ cao "}<Math inline>{"20\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Công của trọng lực trong giây thứ hai là"}</>}
+  options={[
+    <><Math inline>{"400\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"300\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"200\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"100\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Sau 1 s vật rơi được "}<Math inline>{"5\\,\\mathrm m"}</Math>{", sau 2 s rơi được "}<Math inline>{"20\\,\\mathrm m"}</Math>{"; trong giây thứ hai rơi "}<Math inline>{"15\\,\\mathrm m"}</Math>{". "}<Math inline>{"W=mg\\cdot15=20\\times15=300\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-014"
+  question={<>{"Câu 14 (Vận dụng). Kéo vali đi "}<Math inline>{"40\\,\\mathrm m"}</Math>{" trên sàn ngang bằng lực "}<Math inline>{"50\\,\\mathrm N"}</Math>{" nghiêng "}<Math inline>{"30^\\circ"}</Math>{" so với phương ngang. Công của lực kéo là"}</>}
+  options={[
+    <><Math inline>{"1732{,}1\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"2000{,}0\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"1000{,}0\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"866{,}0\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"W=50\\times40\\times\\cos30^\\circ\\approx1732{,}1\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-015"
+  question={<>{"Câu 15 (Vận dụng). Ô tô "}<Math inline>{"1500\\,\\mathrm{kg}"}</Math>{" tăng tốc nhanh dần đều từ nghỉ lên "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{" trong "}<Math inline>{"10\\,\\mathrm s"}</Math>{" trên đường ngang; bỏ qua lực cản. Công suất trung bình của lực phát động là"}</>}
+  options={[
+    <><Math inline>{"30\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"15\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"60\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"300\\,\\mathrm{kW}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"a=2\\,\\mathrm{m/s^2}"}</Math>{", "}<Math inline>{"F=ma=3000\\,\\mathrm N"}</Math>{", "}<Math inline>{"s=\\tfrac12at^2=100\\,\\mathrm m"}</Math>{", "}<Math inline>{"W=300\\,\\mathrm{kJ}"}</Math>{", "}<Math inline>{"\\mathcal P=W/t=30\\,\\mathrm{kW}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-016"
+  question={<>{"Câu 16 (Vận dụng). Máy bơm có công suất toàn phần "}<Math inline>{"2\\,\\mathrm{kW}"}</Math>{", hiệu suất "}<Math inline>{"80\\%"}</Math>{", bơm nước lên cao "}<Math inline>{"16\\,\\mathrm m"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Thể tích nước bơm được trong 1 giờ là"}</>}
+  options={[
+    <><Math inline>{"36\\,\\mathrm{m^3}"}</Math>{"."}</>,
+    <><Math inline>{"45\\,\\mathrm{m^3}"}</Math>{"."}</>,
+    <><Math inline>{"28{,}8\\,\\mathrm{m^3}"}</Math>{"."}</>,
+    <><Math inline>{"18\\,\\mathrm{m^3}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"W_{\\text{ích}}=0{,}8\\times2000\\times3600=5{,}76\\times10^6\\,\\mathrm J=mgh\\Rightarrow m=36000\\,\\mathrm{kg}"}</Math>{", tức "}<Math inline>{"36\\,\\mathrm{m^3}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-017"
+  question={<>{"Câu 17 (Vận dụng). Lực cản lên xuồng máy tỉ lệ với bình phương tốc độ, "}<Math inline>{"F_c=kv^2"}</Math>{". Xuồng chạy đều "}<Math inline>{"10\\,\\mathrm{m/s}"}</Math>{" cần công suất "}<Math inline>{"8\\,\\mathrm{kW}"}</Math>{". Để chạy đều "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{" cần công suất"}</>}
+  options={[
+    <><Math inline>{"16\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"32\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"64\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"24\\,\\mathrm{kW}"}</Math>{"."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Chạy đều: "}<Math inline>{"F=F_c=kv^2"}</Math>{", "}<Math inline>{"\\mathcal P=Fv=kv^3"}</Math>{". Tốc độ gấp đôi thì công suất gấp 8 lần: "}<Math inline>{"64\\,\\mathrm{kW}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-018"
+  question={<>{"Câu 18 (Vận dụng). Dốc dài "}<Math inline>{"100\\,\\mathrm m"}</Math>{", cao "}<Math inline>{"10\\,\\mathrm m"}</Math>{". Ô tô "}<Math inline>{"1000\\,\\mathrm{kg}"}</Math>{" lên dốc đều với "}<Math inline>{"36\\,\\mathrm{km/h}"}</Math>{", tổng lực cản "}<Math inline>{"200\\,\\mathrm N"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Công suất của động cơ là"}</>}
+  options={[
+    <><Math inline>{"12\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"10\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"20\\,\\mathrm{kW}"}</Math>{"."}</>,
+    <><Math inline>{"8\\,\\mathrm{kW}"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"\\sin\\theta=0{,}1"}</Math>{"; "}<Math inline>{"F=mg\\sin\\theta+F_c=1200\\,\\mathrm N"}</Math>{"; "}<Math inline>{"\\mathcal P=1200\\times10=12\\,\\mathrm{kW}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-019"
+  question={<>{"Câu 19 (Vận dụng). "}<Math inline>{"1{,}5\\,\\mathrm{kWh}"}</Math>{" bằng"}</>}
+  options={[
+    <><Math inline>{"5{,}4\\times10^6\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"1{,}5\\times10^3\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"3{,}6\\times10^6\\,\\mathrm J"}</Math>{"."}</>,
+    <><Math inline>{"5{,}4\\times10^3\\,\\mathrm J"}</Math>{"."}</>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"1{,}5\\times1000\\times3600=5{,}4\\times10^6\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-9-sbt-020"
+  question={<>{"Câu 20 (Thông hiểu). Một động cơ điện có hiệu suất "}<Math inline>{"75\\%"}</Math>{". Điều đó có nghĩa là"}</>}
+  options={[
+    <>{"75% điện năng tiêu thụ được chuyển thành cơ năng có ích."}</>,
+    <>{"75% năng lượng bị hao phí thành nhiệt."}</>,
+    <>{"động cơ chạy nhanh hơn 75% so với bình thường."}</>,
+    <>{"động cơ tiêu thụ điện ít hơn 75%."}</>
+  ]}
+  correctIndex={0}
+  explanation={<>{"25% còn lại là năng lượng hao phí."}</>}
+/>
+
+</Section>
+
+<Section title="II. Trắc nghiệm đúng/sai — 10 câu" icon="check">
+
+Chọn Đúng hoặc Sai cho từng ý rồi mở giải thích để đối chiếu.
+
+<QuizTF
+  id="bai-9-sbt-021"
+  question={<>{"Câu 21. Khối gỗ trượt xuống mặt phẳng nghiêng có ma sát."}</>}
+  statements={[
+    { id: 'a', text: <>{"Trọng lực sinh công dương."}</>, isTrue: true, explanation: <>{"Thành phần trọng lực dọc dốc cùng chiều dịch chuyển; góc giữa "}<Math inline>{"\\vec P"}</Math>{" và "}<Math inline>{"\\vec d"}</Math>{" nhọn."}</> },
+    { id: 'b', text: <>{"Phản lực của mặt nghiêng sinh công âm."}</>, isTrue: false, explanation: <>{"Phản lực vuông góc với mặt nghiêng, tức vuông góc với dịch chuyển: "}<Math inline>{"W_N=0"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Ma sát trượt sinh công âm."}</>, isTrue: true, explanation: <>{"Ma sát ngược chiều dịch chuyển."}</> },
+    { id: 'd', text: <>{"Nếu khối gỗ trượt đều thì tổng công của các lực tác dụng lên nó bằng 0."}</>, isTrue: true, explanation: <>{"Trượt đều nên hợp lực bằng 0, công của hợp lực bằng 0."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-022"
+  question={<>{"Câu 22. Ô tô điện "}<Math inline>{"2600\\,\\mathrm{kg}"}</Math>{" tăng tốc nhanh dần đều từ nghỉ lên "}<Math inline>{"18\\,\\mathrm{m/s}"}</Math>{" trên quãng đường "}<Math inline>{"90\\,\\mathrm m"}</Math>{" nằm ngang; lực cản không đổi "}<Math inline>{"400\\,\\mathrm N"}</Math>{" (số liệu giả định)."}</>}
+  statements={[
+    { id: 'a', text: <>{"Gia tốc của ô tô là "}<Math inline>{"1{,}8\\,\\mathrm{m/s^2}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"a=\\dfrac{v^2}{2s}=\\dfrac{324}{180}=1{,}8\\,\\mathrm{m/s^2}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Lực phát động là "}<Math inline>{"5080\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F_k=ma+F_c=4680+400=5080\\,\\mathrm N"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Công của lực phát động trên quãng đường "}<Math inline>{"90\\,\\mathrm m"}</Math>{" là "}<Math inline>{"457{,}2\\,\\mathrm{kJ}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"W=5080\\times90=457200\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Công suất tức thời của lực phát động khi ô tô đạt "}<Math inline>{"18\\,\\mathrm{m/s}"}</Math>{" là "}<Math inline>{"91{,}44\\,\\mathrm{kW}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\mathcal P=F_kv=5080\\times18=91440\\,\\mathrm W"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-023"
+  question={<>{"Câu 23. Xe máy điện chạy trên đường ngang; động cơ có công suất lớn nhất "}<Math inline>{"3\\,\\mathrm{kW}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Công suất tức thời của động cơ luôn bằng "}<Math inline>{"3\\,\\mathrm{kW}"}</Math>{"."}</>, isTrue: false, explanation: <>{"Động cơ chỉ phát công suất lớn nhất khi người lái tăng ga hết mức; bình thường nhỏ hơn."}</> },
+    { id: 'b', text: <>{"Khi xe chạy đều, lực phát động bằng lực cản."}</>, isTrue: true, explanation: <>{"Chạy đều nên hợp lực bằng 0."}</> },
+    { id: 'c', text: <>{"Khi xe chạy đều ở tốc độ lớn nhất, lực phát động lớn hơn lực cản."}</>, isTrue: false, explanation: <>{"Vẫn chạy đều nên "}<Math inline>{"F_k=F_c"}</Math>{"; khi đó "}<Math inline>{"\\mathcal P_{\\max}=F_cv_{\\max}"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Nếu gặp gió ngược làm lực cản tăng, tốc độ lớn nhất xe duy trì được sẽ giảm."}</>, isTrue: true, explanation: <><Math inline>{"v_{\\max}=\\mathcal P_{\\max}/F_c"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-024"
+  question={<>{"Câu 24. Một nhà máy thủy điện (số liệu giả định) có lưu lượng nước qua tua-bin "}<Math inline>{"1200\\,\\mathrm{m^3/s}"}</Math>{", độ chênh cao "}<Math inline>{"60\\,\\mathrm m"}</Math>{", khối lượng riêng của nước "}<Math inline>{"1000\\,\\mathrm{kg/m^3}"}</Math>{", "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Mỗi giây có "}<Math inline>{"1{,}2\\times10^6\\,\\mathrm{kg}"}</Math>{" nước chảy qua tua-bin."}</>, isTrue: true, explanation: <><Math inline>{"m=\\rho Q\\cdot1\\,\\mathrm s=1{,}2\\times10^6\\,\\mathrm{kg}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Công suất của trọng lực lên dòng nước (công suất toàn phần cung cấp cho tua-bin) là "}<Math inline>{"720\\,\\mathrm{MW}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\mathcal P=mgh/t=1{,}2\\times10^6\\times10\\times60=7{,}2\\times10^8\\,\\mathrm W"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Với hiệu suất "}<Math inline>{"90\\%"}</Math>{", công suất điện phát ra là "}<Math inline>{"648\\,\\mathrm{MW}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}9\\times720=648\\,\\mathrm{MW}"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Điện năng phát ra trong 24 giờ ở công suất này là "}<Math inline>{"15{,}552\\times10^6\\,\\mathrm{kWh}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"648000\\,\\mathrm{kW}\\times24\\,\\mathrm h=15552000\\,\\mathrm{kWh}"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-025"
+  question={<>{"Câu 25. Vận động viên cử tạ với quả tạ "}<Math inline>{"180\\,\\mathrm{kg}"}</Math>{": nâng từ sàn lên cao "}<Math inline>{"2\\,\\mathrm m"}</Math>{" trong "}<Math inline>{"1{,}5\\,\\mathrm s"}</Math>{" (giai đoạn 1), giữ yên "}<Math inline>{"3{,}0\\,\\mathrm s"}</Math>{" (giai đoạn 2), rồi thả cho tạ rơi tự do xuống sàn (giai đoạn 3). Lấy "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; coi tạ được nâng chậm, đều."}</>}
+  statements={[
+    { id: 'a', text: <>{"Công của lực nâng trong giai đoạn 1 là "}<Math inline>{"3600\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <>{"Nâng đều nên "}<Math inline>{"F=mg"}</Math>{"; "}<Math inline>{"W_1=mgh=3600\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Công của lực nâng trong giai đoạn 2 là "}<Math inline>{"10800\\,\\mathrm J"}</Math>{"."}</>, isTrue: false, explanation: <>{"Tạ đứng yên, "}<Math inline>{"d=0"}</Math>{", nên "}<Math inline>{"W_2=0"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Công của trọng lực trong giai đoạn 3 là "}<Math inline>{"+3600\\,\\mathrm J"}</Math>{"."}</>, isTrue: true, explanation: <>{"Trọng lực cùng chiều dịch chuyển xuống "}<Math inline>{"2\\,\\mathrm m"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Công suất trung bình của lực nâng trong 4,5 s đầu là "}<Math inline>{"800\\,\\mathrm W"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"\\dfrac{3600+0}{4{,}5}=800\\,\\mathrm W"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-026"
+  question={<>{"Câu 26. Xét công "}<Math inline>{"W=Fd\\cos\\alpha"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Công là đại lượng vectơ cùng chiều với lực."}</>, isTrue: false, explanation: <>{"Công là đại lượng vô hướng."}</> },
+    { id: 'b', text: <>{"Khi "}<Math inline>{"\\alpha"}</Math>{" là góc tù, lực sinh công cản."}</>, isTrue: true, explanation: <><Math inline>{"\\cos\\alpha<0"}</Math>{" nên "}<Math inline>{"W<0"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Lực luôn hướng vào tâm của vật chuyển động tròn đều sinh công dương làm vật nhanh lên."}</>, isTrue: false, explanation: <>{"Lực đó vuông góc với vận tốc nên không sinh công; tốc độ không đổi."}</> },
+    { id: 'd', text: <>{"Khi người bước đi, lực ma sát nghỉ của mặt đất lên bàn chân sinh công dương."}</>, isTrue: false, explanation: <>{"Bàn chân bám đất không trượt nên điểm đặt của lực ma sát nghỉ không dịch chuyển trong lúc lực tác dụng: công bằng 0. Năng lượng để cơ thể tăng tốc do cơ bắp cung cấp; ma sát nghỉ chỉ là ngoại lực giúp cơ thể có gia tốc."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-027"
+  question={<>{"Câu 27. Cần cẩu nâng dầm bê tông "}<Math inline>{"4000\\,\\mathrm{kg}"}</Math>{" lên cao "}<Math inline>{"30\\,\\mathrm m"}</Math>{": nâng nhanh dần đều từ nghỉ đến "}<Math inline>{"2\\,\\mathrm{m/s}"}</Math>{" trong "}<Math inline>{"4\\,\\mathrm m"}</Math>{" đầu, sau đó nâng đều với "}<Math inline>{"2\\,\\mathrm{m/s}"}</Math>{". Lấy "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Gia tốc của dầm trong "}<Math inline>{"4\\,\\mathrm m"}</Math>{" đầu là "}<Math inline>{"0{,}5\\,\\mathrm{m/s^2}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"a=\\dfrac{v^2}{2h_1}=\\dfrac{4}{8}=0{,}5\\,\\mathrm{m/s^2}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Lực kéo của cáp trong giai đoạn tăng tốc là "}<Math inline>{"42000\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"F_1=m(g+a)=4000\\times10{,}5"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Công của lực kéo trong "}<Math inline>{"4\\,\\mathrm m"}</Math>{" đầu là "}<Math inline>{"168\\,\\mathrm{kJ}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"W_1=42000\\times4=168000\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Lực kéo của cáp trong giai đoạn nâng đều là "}<Math inline>{"40000\\,\\mathrm N"}</Math>{"."}</>, isTrue: true, explanation: <>{"Nâng đều nên "}<Math inline>{"F_2=mg"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-028"
+  question={<>{"Câu 28. Đơn vị và thứ nguyên."}</>}
+  statements={[
+    { id: 'a', text: <><Math inline>{"1\\,\\mathrm J=1\\,\\mathrm{kg\\cdot m^2/s^2}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"1\\,\\mathrm J=1\\,\\mathrm{N\\cdot m}=1\\,\\mathrm{kg\\cdot m/s^2}\\cdot\\mathrm m"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Kilôoát giờ là đơn vị đo công suất."}</>, isTrue: false, explanation: <>{"kWh là đơn vị năng lượng: "}<Math inline>{"1\\,\\mathrm{kWh}=3{,}6\\times10^6\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'c', text: <><Math inline>{"1\\,\\mathrm W=1\\,\\mathrm{J/s}"}</Math>{"."}</>, isTrue: true, explanation: <>{"Theo định nghĩa công suất."}</> },
+    { id: 'd', text: <>{"Mã lực ("}<Math inline>{"1\\,\\mathrm{HP}\\approx746\\,\\mathrm W"}</Math>{") là đơn vị công suất, dùng cho động cơ."}</>, isTrue: true, explanation: <>{"Mã lực là đơn vị công suất ngoài hệ SI."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-029"
+  question={<>{"Câu 29. Ô tô tiêu thụ 8 lít xăng khi chạy đều "}<Math inline>{"100\\,\\mathrm{km}"}</Math>{" với tốc độ "}<Math inline>{"72\\,\\mathrm{km/h}"}</Math>{". Năng suất tỏa nhiệt của xăng "}<Math inline>{"4{,}6\\times10^7\\,\\mathrm{J/kg}"}</Math>{", khối lượng riêng "}<Math inline>{"0{,}7"}</Math>{" kg/lít; lực cản trung bình "}<Math inline>{"700\\,\\mathrm N"}</Math>{"."}</>}
+  statements={[
+    { id: 'a', text: <>{"Khối lượng xăng tiêu thụ là "}<Math inline>{"5{,}6\\,\\mathrm{kg}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"0{,}7\\times8=5{,}6\\,\\mathrm{kg}"}</Math>{"."}</> },
+    { id: 'b', text: <>{"Nhiệt lượng do xăng tỏa ra là "}<Math inline>{"257{,}6\\,\\mathrm{MJ}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"5{,}6\\times4{,}6\\times10^7=2{,}576\\times10^8\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'c', text: <>{"Công có ích để thắng lực cản trên "}<Math inline>{"100\\,\\mathrm{km}"}</Math>{" là "}<Math inline>{"70\\,\\mathrm{MJ}"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"700\\times10^5=7\\times10^7\\,\\mathrm J"}</Math>{"."}</> },
+    { id: 'd', text: <>{"Hiệu suất của động cơ xấp xỉ "}<Math inline>{"27{,}2\\%"}</Math>{"."}</>, isTrue: true, explanation: <><Math inline>{"70/257{,}6\\approx27{,}2\\%"}</Math>{"."}</> }
+  ]}
+/>
+
+<QuizTF
+  id="bai-9-sbt-030"
+  question={<>{"Câu 30. Một vật chuyển động thẳng dưới tác dụng của hợp lực "}<Math inline>{"\\vec F"}</Math>{" (chuẩn bị cho bài Động năng)."}</>}
+  statements={[
+    { id: 'a', text: <>{"Công của hợp lực bằng độ biến thiên động năng "}<Math inline>{"\\tfrac12mv_2^2-\\tfrac12mv_1^2"}</Math>{" của vật."}</>, isTrue: true, explanation: <>{"Đó là định lý động năng (sẽ học ở bài sau)."}</> },
+    { id: 'b', text: <>{"Nếu công của hợp lực dương thì tốc độ của vật tăng."}</>, isTrue: true, explanation: <>{"Động năng tăng nên tốc độ tăng."}</> },
+    { id: 'c', text: <>{"Nếu công của hợp lực bằng 0 thì vật chắc chắn đứng yên."}</>, isTrue: false, explanation: <>{"Động năng không đổi; vật có thể chuyển động thẳng đều."}</> },
+    { id: 'd', text: <>{"Trong chuyển động thẳng chậm dần đều, công của hợp lực âm."}</>, isTrue: true, explanation: <>{"Tốc độ giảm nên động năng giảm."}</> }
+  ]}
+/>
+
+</Section>
+
+<Section title="III. Trả lời ngắn — 10 câu" icon="edit">
+
+Nhập kết quả theo đơn vị và mức làm tròn trong đề, rồi mở lời giải để so sánh.
+
+<QuizShort
+  id="bai-9-sbt-031"
+  question={<>{"Câu 31. Đẩy xe nôi đi "}<Math inline>{"50\\,\\mathrm m"}</Math>{" trên đường ngang bằng lực "}<Math inline>{"40\\,\\mathrm N"}</Math>{" hợp với phương ngang góc "}<Math inline>{"45^\\circ"}</Math>{". Tính công của lực đẩy (J, làm tròn đến hàng đơn vị)."}</>}
+  answer="1414"
+  explanation={<><Math inline>{"W=40\\times50\\times\\cos45^\\circ\\approx1414\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-032"
+  question={<>{"Câu 32. Ô tô có công suất lớn nhất "}<Math inline>{"300\\,\\mathrm{kW}"}</Math>{" chạy đều với tốc độ lớn nhất "}<Math inline>{"200\\,\\mathrm{km/h}"}</Math>{" trên đường ngang. Tính tổng lực cản tác dụng lên xe khi đó (N)."}</>}
+  answer="5400"
+  explanation={<><Math inline>{"v=200/3{,}6\\approx55{,}56\\,\\mathrm{m/s}"}</Math>{". Chạy đều nên "}<Math inline>{"F_c=F_k=\\mathcal P/v=300000/55{,}56=5400\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-033"
+  question={<>{"Câu 33. Máy bơm hiệu suất "}<Math inline>{"75\\%"}</Math>{" bơm nước từ đáy giếng sâu "}<Math inline>{"10\\,\\mathrm m"}</Math>{" lên bể ở độ cao "}<Math inline>{"5\\,\\mathrm m"}</Math>{" so với mặt đất, mỗi phút "}<Math inline>{"1{,}2\\,\\mathrm{m^3}"}</Math>{"; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tính công suất toàn phần của máy bơm (kW)."}</>}
+  answer="4"
+  explanation={<>{"Nước được nâng "}<Math inline>{"15\\,\\mathrm m"}</Math>{"; mỗi phút "}<Math inline>{"W_{\\text{ích}}=1200\\times10\\times15=1{,}8\\times10^5\\,\\mathrm J"}</Math>{", "}<Math inline>{"\\mathcal P_{\\text{ích}}=3\\,\\mathrm{kW}"}</Math>{", "}<Math inline>{"\\mathcal P_{\\text{tp}}=3/0{,}75=4\\,\\mathrm{kW}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-034"
+  question={<>{"Câu 34. Trạm sạc hoạt động ở công suất "}<Math inline>{"150\\,\\mathrm{kW}"}</Math>{" liên tục trong "}<Math inline>{"2400\\,\\mathrm s"}</Math>{". Tính điện năng tiêu thụ (kWh)."}</>}
+  answer="100"
+  explanation={<><Math inline>{"t=2400/3600=\\tfrac23\\,\\mathrm h"}</Math>{"; "}<Math inline>{"A=150\\times\\tfrac23=100\\,\\mathrm{kWh}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-035"
+  question={<>{"Câu 35. Ô tô "}<Math inline>{"1200\\,\\mathrm{kg}"}</Math>{" tăng tốc nhanh dần đều từ nghỉ, sau "}<Math inline>{"100\\,\\mathrm m"}</Math>{" đạt "}<Math inline>{"20\\,\\mathrm{m/s}"}</Math>{" trên đường ngang. Tổng lực cản bằng "}<Math inline>{"0{,}05"}</Math>{" trọng lượng xe; "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tính công của lực phát động trên quãng đường này (kJ)."}</>}
+  answer="300"
+  explanation={<><Math inline>{"a=\\dfrac{400}{200}=2\\,\\mathrm{m/s^2}"}</Math>{"; "}<Math inline>{"F_c=600\\,\\mathrm N"}</Math>{"; "}<Math inline>{"F_k=ma+F_c=3000\\,\\mathrm N"}</Math>{"; "}<Math inline>{"W=3000\\times100=300\\,\\mathrm{kJ}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-036"
+  question={<>{"Câu 36. Tàu thủy chạy đều "}<Math inline>{"18\\,\\mathrm{km/h}"}</Math>{" nhờ lực đẩy của chân vịt "}<Math inline>{"120\\,\\mathrm{kN}"}</Math>{". Tính công suất có ích của động cơ (kW)."}</>}
+  answer="600"
+  explanation={<><Math inline>{"\\mathcal P=Fv=120000\\times5=600\\,\\mathrm{kW}"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-037"
+  question={<>{"Câu 37. Kéo đều vật "}<Math inline>{"5\\,\\mathrm{kg}"}</Math>{" lên mặt nghiêng dài "}<Math inline>{"10\\,\\mathrm m"}</Math>{", cao "}<Math inline>{"6\\,\\mathrm m"}</Math>{" bằng lực song song mặt nghiêng; hệ số ma sát trượt "}<Math inline>{"0{,}2"}</Math>{", "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{". Tính công của lực kéo (J)."}</>}
+  answer="380"
+  explanation={<><Math inline>{"\\sin\\theta=0{,}6"}</Math>{", "}<Math inline>{"\\cos\\theta=0{,}8"}</Math>{". "}<Math inline>{"F_k=mg\\sin\\theta+\\mu_tmg\\cos\\theta=30+8=38\\,\\mathrm N"}</Math>{"; "}<Math inline>{"W=38\\times10=380\\,\\mathrm J"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-038"
+  question={<>{"Câu 38. Người nhảy dù "}<Math inline>{"70\\,\\mathrm{kg}"}</Math>{" sau khi mở dù rơi đều với tốc độ giới hạn "}<Math inline>{"6\\,\\mathrm{m/s}"}</Math>{"; "}<Math inline>{"g=9{,}8\\,\\mathrm{m/s^2}"}</Math>{". Tính độ lớn công suất của lực cản không khí khi đó (W)."}</>}
+  answer="4116"
+  explanation={<>{"Rơi đều nên "}<Math inline>{"F_c=mg=686\\,\\mathrm N"}</Math>{"; "}<Math inline>{"|\\mathcal P_c|=F_cv=686\\times6=4116\\,\\mathrm W"}</Math>{". Lực cản ngược chiều vận tốc nên công suất của nó mang dấu âm."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-039"
+  question={<>{"Câu 39. Xe máy điện có hiệu suất "}<Math inline>{"85\\%"}</Math>{"; khi chạy đều "}<Math inline>{"36\\,\\mathrm{km/h}"}</Math>{" trên đường bằng, pin cung cấp công suất "}<Math inline>{"1{,}2\\,\\mathrm{kW}"}</Math>{". Tính tổng lực cản tác dụng lên xe (N)."}</>}
+  answer="102"
+  explanation={<><Math inline>{"\\mathcal P_{\\text{ích}}=0{,}85\\times1200=1020\\,\\mathrm W"}</Math>{"; chạy đều "}<Math inline>{"F_c=\\mathcal P_{\\text{ích}}/v=1020/10=102\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<QuizShort
+  id="bai-9-sbt-040"
+  question={<>{"Câu 40. Viên đạn "}<Math inline>{"10\\,\\mathrm g"}</Math>{" bay với "}<Math inline>{"600\\,\\mathrm{m/s}"}</Math>{" xuyên qua tấm gỗ dày "}<Math inline>{"5\\,\\mathrm{cm}"}</Math>{", ra khỏi tấm gỗ với "}<Math inline>{"200\\,\\mathrm{m/s}"}</Math>{". Coi lực cản của gỗ không đổi. Tính độ lớn lực cản (kN)."}</>}
+  answer="32"
+  explanation={<>{"Coi lực cản không đổi, đạn chậm dần đều: "}<Math inline>{"a=\\dfrac{200^2-600^2}{2\\times0{,}05}=-3{,}2\\times10^6\\,\\mathrm{m/s^2}"}</Math>{"; "}<Math inline>{"F_c=m|a|=0{,}01\\times3{,}2\\times10^6=32000\\,\\mathrm N"}</Math>{". (Có thể dùng định lý động năng ở bài sau.)"}</>}
+/>
+
+</Section>
+
+<Section title="IV. Tự luận — 5 câu" icon="edit">
+
+<div data-question-id="bai-9-sbt-041" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 41. Ô tô điện lên dốc
+
+Ô tô điện khối lượng $2600\,\mathrm{kg}$ chạy đều lên dốc nghiêng $5^\circ$ với tốc độ $15\,\mathrm{m/s}$; tổng lực cản (không khí và cản lăn) $F_c=600\,\mathrm N$; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính lực phát động.
+2. Tính công suất có ích của động cơ và công của lực phát động khi xe đi được $600\,\mathrm m$ trên dốc.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Chạy đều: $F_k=mg\sin5^\circ+F_c=25480\times0{,}08716+600\approx2220{,}7+600=2820{,}7\,\mathrm N$.
+
+**2.** $\mathcal P_{\text{ích}}=F_kv\approx2820{,}7\times15\approx42{,}3\,\mathrm{kW}$; $W=F_ks\approx2820{,}7\times600\approx1{,}69\times10^6\,\mathrm J$.
+
+Kiểm tra: thời gian đi $600\,\mathrm m$ là $40\,\mathrm s$, và $\mathcal Pt=42{,}3\,\mathrm{kW}\times40\,\mathrm s\approx1{,}69\,\mathrm{MJ}$ ✓.
+
+</details>
+</div>
+
+<div data-question-id="bai-9-sbt-042" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 42. Công của trọng lực và ma sát trên mặt nghiêng
+
+Vật $m=4\,\mathrm{kg}$ trượt không vận tốc đầu từ đỉnh A xuống chân B của mặt nghiêng dài $L=5\,\mathrm m$, góc nghiêng $30^\circ$, hệ số ma sát trượt $0{,}15$; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính công của trọng lực, của ma sát và của phản lực khi vật đi từ A đến B.
+2. Tính tốc độ của vật tại B.
+
+<InclineSlideDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Độ cao giảm $h=L\sin30^\circ=2{,}5\,\mathrm m$; $W_P=mgh=4\times9{,}8\times2{,}5=98\,\mathrm J$.
+
+$N=mg\cos30^\circ\approx33{,}95\,\mathrm N$, $F_{mst}=0{,}15N\approx5{,}09\,\mathrm N$; $W_{ms}=-F_{mst}L\approx-25{,}5\,\mathrm J$. Phản lực vuông góc với dịch chuyển: $W_N=0$.
+
+**2.** Gia tốc: $a=g(\sin30^\circ-0{,}15\cos30^\circ)\approx9{,}8\times0{,}370\approx3{,}63\,\mathrm{m/s^2}$; $v_B=\sqrt{2aL}\approx\sqrt{36{,}3}\approx6{,}0\,\mathrm{m/s}$.
+
+**Nhận xét (chuẩn bị cho bài sau):** Tổng công $98-25{,}5\approx72{,}5\,\mathrm J$ bằng đúng động năng tại B: $\tfrac12\times4\times6{,}02^2\approx72{,}5\,\mathrm J$. Đó là nội dung của định lý động năng.
+
+</details>
+</div>
+
+<div data-question-id="bai-9-sbt-043" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 43. Trạm thủy điện nhỏ
+
+Trạm thủy điện nhỏ có lưu lượng nước $4\,\mathrm{m^3/s}$ đổ từ độ cao $25\,\mathrm m$; hiệu suất tổng cộng của tua-bin và máy phát là $80\%$; khối lượng riêng của nước $1000\,\mathrm{kg/m^3}$, $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính công suất điện của trạm.
+2. Dùng toàn bộ điện năng phát ra trong 1 giờ để sạc pin xe máy điện, mỗi bộ pin $3{,}5\,\mathrm{kWh}$ (bỏ qua hao phí khi sạc). Sạc đầy được tối đa bao nhiêu bộ pin?
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Mỗi giây có $m=4000\,\mathrm{kg}$ nước đổ xuống; công suất toàn phần $\mathcal P_{\text{tp}}=\dfrac{mgh}{t}=4000\times9{,}8\times25=980\,\mathrm{kW}$. Công suất điện $\mathcal P=0{,}8\times980=784\,\mathrm{kW}$.
+
+**2.** Điện năng trong 1 giờ: $A=784\,\mathrm{kWh}$. Số bộ pin: $\dfrac{784}{3{,}5}=224$ bộ.
+
+</details>
+</div>
+
+<div data-question-id="bai-9-sbt-044" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 44. Công suất tức thời và công suất trung bình
+
+Xe kéo $800\,\mathrm{kg}$ bắt đầu chuyển động nhanh dần đều từ nghỉ dưới tác dụng của lực kéo không đổi $F_k=2000\,\mathrm N$; lực ma sát không đổi $F_{ms}=400\,\mathrm N$.
+
+1. Tính thời gian để xe đạt $20\,\mathrm{m/s}$ và công suất tức thời của lực kéo lúc đó.
+2. Tính công suất trung bình của lực kéo và của lực ma sát trong khoảng thời gian trên.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** $a=\dfrac{2000-400}{800}=2\,\mathrm{m/s^2}$; $t_1=\dfrac{20}{2}=10\,\mathrm s$. Công suất tức thời $\mathcal P=F_kv=2000\times20=40\,\mathrm{kW}$.
+
+**2.** Quãng đường $s=\tfrac12at_1^2=100\,\mathrm m$.
+
+$$
+\overline{\mathcal P}_k=\frac{F_ks}{t_1}=\frac{2\times10^5}{10}=20\,\mathrm{kW},\qquad \overline{\mathcal P}_{ms}=\frac{-F_{ms}s}{t_1}=\frac{-4\times10^4}{10}=-4\,\mathrm{kW}.
+$$
+
+**Nhận xét:** Vận tốc tăng đều từ 0 đến 20 m/s nên vận tốc trung bình là 10 m/s, và $\overline{\mathcal P}_k=F_k\bar v=20\,\mathrm{kW}$, bằng một nửa công suất tức thời cuối. Công suất của ma sát âm vì ma sát lấy năng lượng khỏi xe.
+
+</details>
+</div>
+
+<div data-question-id="bai-9-sbt-045" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 45. Công và công suất của trọng lực khi ném ngang
+
+Từ đỉnh tháp cao $45\,\mathrm m$, ném ngang viên bi $200\,\mathrm g$ với tốc độ $15\,\mathrm{m/s}$; $g=10\,\mathrm{m/s^2}$, bỏ qua lực cản.
+
+1. Tính công của trọng lực từ lúc ném đến khi chạm đất.
+2. Tính công suất tức thời của trọng lực ngay trước khi chạm đất.
+
+<ThrowWorkDiagram />
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+**1.** Trọng lực không đổi, hướng xuống; độ dịch chuyển theo phương thẳng đứng là $45\,\mathrm m$ hướng xuống. Thành phần ngang của độ dịch chuyển vuông góc với trọng lực nên không góp phần vào công:
+
+$$
+W_P=mgh=0{,}2\times10\times45=90\,\mathrm J.
+$$
+
+**2.** Thời gian rơi $t=\sqrt{2h/g}=3\,\mathrm s$; ngay trước khi chạm đất $v_y=gt=30\,\mathrm{m/s}$, $v_x=15\,\mathrm{m/s}$. Góc giữa trọng lực và vận tốc thỏa $v\cos\alpha=v_y$:
+
+$$
+\mathcal P=mgv\cos\alpha=mg\,v_y=2\times30=60\,\mathrm W.
+$$
+
+</details>
+</div>
+
+</Section>
+
+</div>

@@ -1,0 +1,330 @@
+import { TorqueWrench, SeesawBalance, LadderSlip, DoorLeverArm, CoupleWheel, BracketDiagram, LadderExample } from './components/Lesson8Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Hiểu momen lực đặc trưng cho tác dụng làm quay; xác định đúng cánh tay đòn.
+- Vận dụng quy tắc momen lực và momen ngẫu lực.
+- Nêu và vận dụng hai điều kiện cân bằng của vật rắn.
+- Giải bài toán cân bằng và động lực học theo quy trình 6 bước.
+
+</InfoBox>
+
+<Section title="A. Mở đầu — Lực làm vật quay" icon="rocket">
+
+**Vặn con ốc bị gỉ.** Dùng cờ-lê cán ngắn, người thợ không vặn được con ốc. Thay bằng cờ-lê cán dài gấp đôi và đặt tay ở cuối cán, kéo vuông góc với cán, con ốc xoay ra dễ dàng. Vì sao cùng một độ lớn lực, vị trí đặt tay và hướng của lực lại quyết định việc vật có quay hay không?
+
+**Cần cẩu tháp.** Cánh tay cần cẩu vươn dài hàng chục mét để nâng dầm thép nặng hàng tấn. Ở phía đối diện luôn có các khối bê tông nặng gọi là **đối trọng**. Nhờ nguyên lý nào mà đối trọng giữ cho cả tháp cẩu không bị lật?
+
+**Đi trên dây.** Vì sao nghệ sĩ xiếc đi trên dây cáp mảnh mà không ngã, và vì sao cây sào dài giúp họ giữ thăng bằng dễ hơn?
+
+<InfoBox type="info" title="Câu hỏi dẫn dắt">
+
+1. Tác dụng làm quay của một lực phụ thuộc vào những yếu tố nào?
+2. Cần điều kiện gì để một vật rắn đứng yên, không tịnh tiến và không quay?
+3. Có quy trình chung nào để giải các bài toán động lực học và cân bằng?
+
+</InfoBox>
+
+</Section>
+
+<Section title="B. Momen lực" icon="book">
+
+### 1. Định nghĩa
+
+**Momen lực** đối với một trục quay là đại lượng đặc trưng cho **tác dụng làm quay** của lực quanh trục đó. Với lực nằm trong mặt phẳng vuông góc với trục quay:
+
+$$
+M=F\cdot d,
+$$
+
+trong đó $F$ là độ lớn của lực (N), $d$ là **cánh tay đòn** (m). Đơn vị của momen lực là **niutơn mét** ($\mathrm{N\cdot m}$).
+
+<InfoBox type="warning" title="Không viết đơn vị momen lực là jun">
+
+$\mathrm{N\cdot m}$ có cùng thứ nguyên với jun (J), nhưng momen lực đặc trưng cho tác dụng làm quay, còn công đặc trưng cho năng lượng được truyền. Vì vậy ta luôn viết đơn vị momen lực là $\mathrm{N\cdot m}$.
+
+</InfoBox>
+
+### 2. Cánh tay đòn
+
+- **Giá của lực** là đường thẳng chứa vectơ lực.
+- **Cánh tay đòn** $d$ là **khoảng cách vuông góc từ trục quay đến giá của lực**, không phải khoảng cách từ trục quay đến điểm đặt lực.
+
+Gọi $r$ là khoảng cách từ trục quay đến điểm đặt lực, $\varphi$ là góc giữa đoạn thẳng nối trục quay với điểm đặt lực và vectơ lực:
+
+$$
+d=r\sin\varphi\qquad\Rightarrow\qquad M=F\,r\sin\varphi.
+$$
+
+- Giá của lực **đi qua trục quay** ($\varphi=0^\circ$ hoặc $180^\circ$): $d=0$, $M=0$, lực không làm vật quay.
+- Lực **vuông góc** với đoạn nối ($\varphi=90^\circ$): $d=r$, momen lớn nhất.
+
+<TorqueWrench />
+
+**Cách quan sát:** Giữ nguyên $F$ và $r$, thay đổi góc $\varphi$. Đoạn màu xanh lá (cánh tay đòn) ngắn lại khi giá của lực tiến gần trục quay và bằng 0 khi giá của lực đi qua O.
+
+<InfoBox type="info" title="Mở rộng — Momen lực là một vectơ">
+
+Ở các lớp trên, momen lực được định nghĩa là vectơ $\vec M=\vec r\times\vec F$, có phương dọc theo trục quay và chiều xác định theo quy tắc bàn tay phải (khum các ngón tay theo chiều từ $\vec r$ sang $\vec F$, ngón cái chỉ chiều $\vec M$). Trong chương trình lớp 10, ta chỉ cần độ lớn $M=Fd$ và chiều quay (cùng hay ngược chiều kim đồng hồ).
+
+</InfoBox>
+
+</Section>
+
+<Section title="C. Quy tắc momen lực và ngẫu lực" icon="book">
+
+### 1. Quy tắc momen lực
+
+Muốn cho một vật có trục quay cố định nằm cân bằng thì **tổng các momen lực có xu hướng làm vật quay theo một chiều phải bằng tổng các momen lực có xu hướng làm vật quay theo chiều ngược lại**:
+
+$$
+\sum M_{\circlearrowleft}=\sum M_{\circlearrowright},
+$$
+
+với $\circlearrowleft$ chỉ các momen làm vật quay ngược chiều kim đồng hồ, $\circlearrowright$ chỉ các momen làm vật quay cùng chiều kim đồng hồ.
+
+Nếu quy ước momen làm vật quay theo một chiều mang dấu dương, chiều kia mang dấu âm, quy tắc viết gọn là $\sum M=0$.
+
+<SeesawBalance />
+
+**Thử:** Đặt $m_1=40\,\mathrm{kg}$ ở $d_1=1{,}5\,\mathrm m$, $m_2=30\,\mathrm{kg}$. Tìm $d_2$ để ván cân bằng, rồi kiểm tra bằng nút gợi ý. Bạn nhẹ hơn phải ngồi xa trục quay hơn.
+
+### 2. Ngẫu lực
+
+**Ngẫu lực** là hệ hai lực song song, ngược chiều, có cùng độ lớn và cùng tác dụng vào một vật. Ví dụ: hai tay xoay vô-lăng, tay vặn vòi nước, vặn nắp chai.
+
+- Hợp lực của ngẫu lực bằng $\vec0$ nên ngẫu lực **không làm vật tịnh tiến**, chỉ làm vật quay.
+- Momen của ngẫu lực đối với một trục bất kỳ vuông góc với mặt phẳng chứa ngẫu lực:
+
+$$
+M=F\,d_1+F\,d_2=F\,(d_1+d_2)=F\,d,
+$$
+
+với $d$ là khoảng cách giữa hai giá của hai lực. Momen ngẫu lực **không phụ thuộc vị trí trục quay**.
+
+<CoupleWheel />
+
+</Section>
+
+<Section title="D. Điều kiện cân bằng của vật rắn" icon="book">
+
+Một vật rắn đứng yên khi nó **không tịnh tiến** và **không quay**. Cần đồng thời hai điều kiện:
+
+1. **Cân bằng lực** — tổng các lực tác dụng lên vật bằng 0:
+
+$$
+\sum\vec F=\vec0\quad\Leftrightarrow\quad\sum F_x=0,\ \ \sum F_y=0.
+$$
+
+2. **Cân bằng momen** — tổng momen của các lực đối với một trục quay bất kỳ bằng 0:
+
+$$
+\sum M=0.
+$$
+
+Chỉ thỏa mãn một điều kiện là chưa đủ. Ví dụ: ngẫu lực có $\sum\vec F=\vec0$ nhưng vẫn làm vật quay.
+
+### Trọng tâm và mặt chân đế
+
+- **Trọng tâm** $G$ là điểm đặt của trọng lực. Với vật đồng chất có dạng đối xứng, $G$ trùng tâm đối xứng. Trọng tâm có thể nằm ngoài phần vật chất (ví dụ chiếc nhẫn, khung chữ U).
+- Vật treo bằng một sợi dây đứng yên thì đường thẳng chứa dây đi qua trọng tâm.
+- Vật đặt trên mặt phẳng đỡ **không bị lật** khi giá của trọng lực đi qua **mặt chân đế** (phần diện tích giới hạn bởi các điểm tiếp xúc). Mặt chân đế càng rộng, trọng tâm càng thấp thì vật càng vững vàng.
+
+</Section>
+
+<Section title="E. Quy trình 6 bước giải bài toán động lực học và cân bằng" icon="map">
+
+1. **Chọn vật** (hoặc hệ vật) cần khảo sát; tóm tắt dữ kiện và yêu cầu.
+2. **Vẽ sơ đồ lực**: biểu diễn **tất cả lực do các vật khác tác dụng lên vật đã chọn** (trọng lực, phản lực, ma sát, lực căng, lực kéo…). Không vẽ lực do vật tác dụng lên vật khác.
+3. **Chọn hệ trục** $Oxy$ (thường một trục theo hướng chuyển động hoặc gia tốc) và, nếu cần, **chọn trục quay** đi qua điểm có nhiều lực chưa biết.
+4. **Lập phương trình**: định luật II Newton $\sum\vec F=m\vec a$ (với vật cân bằng $\vec a=\vec0$); thêm $\sum M=0$ nếu vật có thể quay.
+5. **Chiếu lên các trục và giải** hệ phương trình.
+6. **Kiểm tra và nhận xét**: đơn vị, dấu, độ lớn có hợp lý không; ý nghĩa thực tế của kết quả.
+
+Chọn hệ trục hay trục quay khác nhau có thể làm phép tính dài hay ngắn, nhưng **không làm thay đổi kết quả** của đại lượng vật lý.
+
+</Section>
+
+<Section title="F. Góc phân tích sâu" icon="idea">
+
+### 1. Bẫy: "cánh tay đòn là khoảng cách từ trục quay đến điểm đặt lực"
+
+Kéo cánh cửa tại tay nắm cách bản lề $r=0{,}8\,\mathrm m$. Nếu lực hướng **dọc theo cánh cửa** (giá của lực đi qua bản lề) thì dù $r=0{,}8\,\mathrm m$, cánh tay đòn vẫn bằng 0 và cửa không quay. Chỉ khi lực vuông góc với cánh cửa thì $d=r$.
+
+<DoorLeverArm />
+
+### 2. Với vật cân bằng, chọn trục quay ở đâu cũng được
+
+Thang tựa tường hay dầm cầu không có sẵn trục quay. Vậy phải lấy momen đối với điểm nào?
+
+*(Mở rộng)* Trong mặt phẳng, momen của lực $\vec F=(F_x;F_y)$ đặt tại điểm $(x;y)$ đối với gốc $O$ là $M_O=xF_y-yF_x$ (dương khi lực làm quay ngược chiều kim đồng hồ). Đổi sang điểm $O'(a;b)$:
+
+$$
+M_{O'}=\sum\big[(x_i-a)F_{iy}-(y_i-b)F_{ix}\big]=M_O-a\sum F_{iy}+b\sum F_{ix}.
+$$
+
+Khi vật cân bằng, $\sum F_{ix}=\sum F_{iy}=0$, nên $M_{O'}=M_O=0$.
+
+**Kết luận:** Với vật rắn cân bằng, tổng momen đối với **mọi** điểm đều bằng 0. Ta nên chọn trục quay tại điểm có **nhiều lực chưa biết đi qua nhất** để loại momen của chúng ra khỏi phương trình.
+
+<InfoBox type="warning" title="Lưu ý với vật đang có gia tốc">
+
+Nếu vật đang chuyển động tịnh tiến **có gia tốc** (ví dụ ô tô đang phanh), điều kiện "không quay" chỉ được viết dưới dạng $\sum M=0$ **đối với trục đi qua trọng tâm**. Lấy momen đối với điểm khác sẽ cho kết quả sai.
+
+</InfoBox>
+
+</Section>
+
+<Section title="G. Ví dụ minh họa" icon="target">
+
+### Ví dụ 1. Thang tựa tường nhẵn
+
+Một thang đồng chất dài $L=4\,\mathrm m$, khối lượng $m=15\,\mathrm{kg}$ tựa vào tường thẳng đứng nhẵn; chân thang đặt trên sàn ngang có hệ số ma sát nghỉ $\mu_n=0{,}4$. Thang hợp với sàn góc $\alpha=60^\circ$. Lấy $g=9{,}8\,\mathrm{m/s^2}$.
+
+a) Tính phản lực của tường và phản lực của sàn lên thang.
+
+b) Thang có bị trượt không? Tìm góc $\alpha$ nhỏ nhất để thang không trượt.
+
+<LadderExample />
+
+**Bước 1 — Chọn vật.** Xét chiếc thang; $P=mg=147\,\mathrm N$.
+
+**Bước 2 — Sơ đồ lực.** Trọng lực $\vec P$ tại trung điểm G; phản lực $\vec F_t$ của tường nhẵn tại B (vuông góc tường, tức nằm ngang); phản lực $\vec N$ của sàn tại A (thẳng đứng); ma sát nghỉ $\vec F_{msn}$ tại A (hướng vào tường, vì chân thang có xu hướng trượt ra xa tường).
+
+**Bước 3 — Chọn trục.** $Ox$ nằm ngang, $Oy$ thẳng đứng. Chọn trục quay tại **chân thang A**: $\vec N$ và $\vec F_{msn}$ đều đi qua A nên có momen bằng 0.
+
+**Bước 4 — Lập phương trình.**
+
+$$
+Oy:\ N-P=0;\qquad Ox:\ F_{msn}-F_t=0.
+$$
+
+Momen đối với A:
+
+$$
+F_t\cdot L\sin\alpha=P\cdot\frac L2\cos\alpha.
+$$
+
+**Bước 5 — Giải.**
+
+$$
+N=147\,\mathrm N,\qquad F_t=\frac{P}{2\tan\alpha}=\frac{147}{2\tan60^\circ}\approx42{,}4\,\mathrm N=F_{msn}.
+$$
+
+Phản lực tổng hợp của sàn: $R_A=\sqrt{N^2+F_{msn}^2}\approx153\,\mathrm N$.
+
+Ma sát nghỉ cực đại: $\mu_nN=0{,}4\times147=58{,}8\,\mathrm N>42{,}4\,\mathrm N$, nên **thang không trượt**.
+
+Thang sắp trượt khi $F_{msn}=\mu_nN=\mu_nP$, tức $\dfrac{P}{2\tan\alpha_{\min}}=\mu_nP$:
+
+$$
+\tan\alpha_{\min}=\frac1{2\mu_n}=1{,}25\quad\Rightarrow\quad\alpha_{\min}\approx51{,}3^\circ.
+$$
+
+**Bước 6 — Nhận xét.** Dựng thang dốc hơn ($\alpha>51{,}3^\circ$) thì ma sát cần thiết nhỏ hơn và thang an toàn hơn; dựng thang quá thoải thì ma sát không đủ giữ chân thang. Kết quả không phụ thuộc chiều dài và khối lượng thang.
+
+<LadderSlip />
+
+### Ví dụ 2. Giá treo hàng gắn tường
+
+Thanh nhẹ AB dài $2\,\mathrm m$ quay quanh bản lề A gắn vào tường. Đầu B được giữ để thanh nằm ngang nhờ dây nhẹ BC hợp với thanh góc $\theta=30^\circ$. Tại D cách A một đoạn $AD=1{,}5\,\mathrm m$ treo thùng hàng khối lượng $40\,\mathrm{kg}$. Lấy $g=9{,}8\,\mathrm{m/s^2}$. Tính lực căng dây BC và phản lực của bản lề A lên thanh.
+
+<BracketDiagram />
+
+**Bước 1–2.** Xét thanh AB, chịu: trọng lượng thùng hàng $P=392\,\mathrm N$ tại D (hướng xuống), lực căng $\vec T$ tại B (dọc dây về phía C), phản lực bản lề $\vec R_A$ chưa biết hướng, phân tích thành $R_{Ax}$, $R_{Ay}$.
+
+**Bước 3.** Gốc A, $Ox$ từ A sang B, $Oy$ thẳng đứng lên. Trục quay tại A để loại $\vec R_A$.
+
+**Bước 4–5.** Cánh tay đòn của $\vec T$ đối với A là $AB\sin30^\circ=1\,\mathrm m$:
+
+$$
+T\cdot1=392\times1{,}5\quad\Rightarrow\quad T=588\,\mathrm N.
+$$
+
+Cân bằng lực:
+
+$$
+Ox:\ R_{Ax}-T\cos30^\circ=0\Rightarrow R_{Ax}\approx509{,}2\,\mathrm N;\qquad Oy:\ R_{Ay}+T\sin30^\circ-P=0\Rightarrow R_{Ay}=98\,\mathrm N.
+$$
+
+$$
+R_A=\sqrt{509{,}2^2+98^2}\approx518{,}6\,\mathrm N,\qquad \tan\varphi=\frac{98}{509{,}2}\Rightarrow\varphi\approx10{,}9^\circ.
+$$
+
+Phản lực của bản lề hướng ra xa tường, chếch lên trên $10{,}9^\circ$ so với phương ngang.
+
+**Bước 6 — Nhận xét.** Lực căng dây ($588\,\mathrm N$) lớn hơn trọng lượng thùng hàng ($392\,\mathrm N$) vì dây nghiêng chỉ $30^\circ$: thành phần thẳng đứng $T\sin30^\circ$ mới là phần đỡ tải. Góc $\theta$ càng nhỏ thì dây càng phải căng. Khi thiết kế, cần chọn góc và loại cáp phù hợp.
+
+</Section>
+
+<Section title="H. Ghi nhớ" icon="check">
+
+1. Momen lực $M=Fd$; cánh tay đòn $d$ là khoảng cách **vuông góc** từ trục quay đến **giá** của lực.
+2. Quy tắc momen: tổng momen theo chiều này bằng tổng momen theo chiều ngược lại.
+3. Ngẫu lực có hợp lực bằng 0, momen $M=Fd$ không phụ thuộc trục quay.
+4. Vật rắn cân bằng khi $\sum\vec F=\vec0$ **và** $\sum M=0$; với vật cân bằng, được chọn trục quay tùy ý.
+
+</Section>
+
+<Section title="I. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<Quiz
+  id="bai-8-exercises-001"
+  question={<>{"Câu 1. Dùng lực "}<Math inline>{"F"}</Math>{" tác dụng vào cờ-lê để vặn ốc. Tác dụng làm quay con ốc của lực "}<Math inline>{"F"}</Math>{" bằng 0 khi"}</>}
+  options={[
+    <>{"lực vuông góc với cán cờ-lê."}</>,
+    <>{"lực hợp với cán cờ-lê góc "}<Math inline>{"45^\\circ"}</Math>{"."}</>,
+    <>{"giá của lực đi qua tâm con ốc (trục quay)."}</>,
+    <>{"lực đặt ở điểm xa nhất của cán cờ-lê."}</>
+  ]}
+  correctIndex={2}
+  explanation={<>{"Giá của lực đi qua trục quay thì cánh tay đòn "}<Math inline>{"d=0"}</Math>{", nên "}<Math inline>{"M=F\\cdot0=0"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-exercises-002"
+  question={<>{"Câu 2. Một người tác dụng lực "}<Math inline>{"F=50\\,\\mathrm N"}</Math>{" vuông góc với cánh cửa, tại mép cửa cách bản lề "}<Math inline>{"0{,}8\\,\\mathrm m"}</Math>{". Momen của lực đối với bản lề là"}</>}
+  options={[
+    <><Math inline>{"40\\,\\mathrm{N\\cdot m}"}</Math></>,
+    <><Math inline>{"62{,}5\\,\\mathrm{N\\cdot m}"}</Math></>,
+    <><Math inline>{"0\\,\\mathrm{N\\cdot m}"}</Math></>,
+    <><Math inline>{"20\\,\\mathrm{N\\cdot m}"}</Math></>
+  ]}
+  correctIndex={0}
+  explanation={<>{"Lực vuông góc với cánh cửa nên "}<Math inline>{"d=r=0{,}8\\,\\mathrm m"}</Math>{": "}<Math inline>{"M=50\\times0{,}8=40\\,\\mathrm{N\\cdot m}"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-8-exercises-003"
+  question={<>{"Câu 3. Hai lực của một ngẫu lực có độ lớn "}<Math inline>{"20\\,\\mathrm N"}</Math>{", khoảng cách giữa hai giá của lực là "}<Math inline>{"30\\,\\mathrm{cm}"}</Math>{". Momen của ngẫu lực là"}</>}
+  options={[
+    <><Math inline>{"0\\,\\mathrm{N\\cdot m}"}</Math></>,
+    <><Math inline>{"6\\,\\mathrm{N\\cdot m}"}</Math></>,
+    <><Math inline>{"12\\,\\mathrm{N\\cdot m}"}</Math></>,
+    <><Math inline>{"600\\,\\mathrm{N\\cdot m}"}</Math></>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"M=F\\cdot d=20\\times0{,}3=6\\,\\mathrm{N\\cdot m}"}</Math>{". Lưu ý đổi 30 cm = 0,3 m."}</>}
+/>
+
+<div data-question-id="bai-8-exercises-004" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 4. Vì sao khi xách xô nước nặng bằng tay phải, ta thường nghiêng người sang trái và dang tay trái ra?
+
+Hãy giải thích bằng trọng tâm và mặt chân đế.
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Hệ "người + xô" có trọng tâm chung. Khi xô ở bên phải, trọng tâm chung dịch sang phải; nếu giá của trọng lực đi ra ngoài mặt chân đế (vùng giới hạn bởi hai bàn chân), trọng lực tạo momen làm người ngã sang phải.
+
+Nghiêng thân và dang tay trái ra làm một phần khối lượng cơ thể dịch sang trái, đưa trọng tâm chung trở về phía trên mặt chân đế. Khi đó momen của trọng lực đối với mép chân đế không còn làm người đổ, người đứng vững.
+
+</details>
+</div>
+
+</Section>
+
+</div>

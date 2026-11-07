@@ -1,6 +1,6 @@
 # Quản lý bài giảng và bài tập
 
-Các bài hiện tại thuộc **Vật lý lớp 10**; bài 1–4 thuộc chương Động học, bài 5–6 thuộc chương Động lực học:
+Các bài hiện tại thuộc **Vật lý lớp 10**; bài 1–4 thuộc chương Động học, bài 5–8 thuộc chương Động lực học, bài 9–10 thuộc chương Năng lượng, công và công suất, bài 11–12 thuộc chương Động lượng, bài 13 thuộc chương Chuyển động tròn, bài 14 thuộc chương Biến dạng của vật rắn, bài 15 thuộc chương Áp suất chất lưu:
 
 - `bai-1`: Quãng đường & Độ dịch chuyển.
 - `bai-2`: Tốc độ, vận tốc và thực hành đo tốc độ.
@@ -8,6 +8,15 @@ Các bài hiện tại thuộc **Vật lý lớp 10**; bài 1–4 thuộc chươ
 - `bai-4`: Rơi tự do và chuyển động ném.
 - `bai-5`: Tổng hợp và phân tích lực.
 - `bai-6`: Ba định luật Newton.
+- `bai-7`: Các lực trong thực tiễn.
+- `bai-8`: Momen lực và cân bằng của vật rắn.
+- `bai-9`: Năng lượng, công và công suất.
+- `bai-10`: Động năng, thế năng và định luật bảo toàn cơ năng.
+- `bai-11`: Động lượng và định luật bảo toàn động lượng.
+- `bai-12`: Thực hành khảo sát va chạm.
+- `bai-13`: Động học và động lực học của chuyển động tròn.
+- `bai-14`: Biến dạng của vật rắn và định luật Hooke.
+- `bai-15`: Áp suất chất lưu và ứng dụng.
 
 ## Sửa nội dung ở đâu?
 
@@ -48,7 +57,73 @@ content/lessons/
     exercises.mdx            # 45 câu sách bài tập có lời giải
     components/
       Lesson6Figures.tsx     # 3 hình tĩnh và 3 mô phỏng tương tác
+  bai-7/
+    meta.ts
+    theory.mdx               # Trọng lực, lực căng, ma sát, lực cản và lực nâng
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson7Figures.tsx     # 3 mô phỏng (ma sát, thang máy, tốc độ giới hạn) và 4 hình
+      Lesson7ExerciseFigures.tsx
+  bai-8/
+    meta.ts
+    theory.mdx               # Momen lực, ngẫu lực, cân bằng vật rắn, quy trình 6 bước
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson8Figures.tsx     # 3 mô phỏng (cờ-lê, bập bênh, thang) và 4 hình
+      Lesson8ExerciseFigures.tsx
+  bai-9/
+    meta.ts
+    theory.mdx               # Năng lượng, công, công suất, hiệu suất
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson9Figures.tsx     # 3 mô phỏng (công theo góc, leo dốc, hiệu suất) và 2 hình
+      Lesson9ExerciseFigures.tsx
+  bai-10/
+    meta.ts
+    theory.mdx               # Động năng, thế năng, bảo toàn cơ năng
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson10Figures.tsx    # 3 mô phỏng (máng trượt, mốc thế năng, con lắc vướng đinh) và 1 hình
+      Lesson10ExerciseFigures.tsx
+  bai-11/
+    meta.ts
+    theory.mdx               # Động lượng, xung lượng, bảo toàn động lượng, va chạm, phản lực
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson11Figures.tsx    # 3 mô phỏng (va chạm, xung lượng, giật lùi) và 1 hình
+      Lesson11ExerciseFigures.tsx
+  bai-12/
+    meta.ts
+    theory.mdx               # Thực hành: cổng quang điện, va chạm mềm và đàn hồi, xử lý sai số
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson12Figures.tsx    # 2 mô phỏng (máng đệm khí ảo, bề rộng tấm chắn sáng) và 1 hình
+  bai-13/
+    meta.ts
+    theory.mdx               # Radian, ω, T, f, gia tốc và lực hướng tâm, vào cua, cầu vồng/cầu lõm
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson13Figures.tsx    # 3 mô phỏng (chuyển động tròn đều, xe vào cua, áp lực lên cầu)
+      Lesson13ExerciseFigures.tsx
+  bai-14/
+    meta.ts
+    theory.mdx               # Biến dạng, định luật Hooke; mở rộng ứng suất, suất đàn hồi, ghép lò xo
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson14Figures.tsx    # 2 mô phỏng (Hooke và giới hạn đàn hồi, ghép lò xo) và 2 hình
+      Lesson14ExerciseFigures.tsx
+      springPath.ts          # Hàm vẽ lò xo dùng chung cho hình lý thuyết và bài tập
+  bai-15/
+    meta.ts
+    theory.mdx               # Áp suất, p = p₀ + ρgh, Pascal, Torricelli, Archimedes
+    exercises.mdx            # 45 câu sách bài tập có lời giải
+    components/
+      Lesson15Figures.tsx    # 3 mô phỏng (áp suất theo độ sâu, máy nén thủy lực, vật nổi/chìm) và 2 hình
+      Lesson15ExerciseFigures.tsx
 ```
+
+Các hình từ bài 7 trở đi dùng chung khung `Figure`, `Diagram`, `Arrow`, `Slider` trong
+`components/lesson/FigureKit.tsx`.
 
 Mỗi bài cần **3 file chính**. Chỉ tạo thêm thư mục mô phỏng hoặc component khi cần.
 `meta.ts` là nguồn thông tin chung cho thư viện, tiêu đề trang, nhãn lớp và điều hướng.
@@ -63,16 +138,25 @@ Không viết lại tên bài hoặc đường dẫn chuyển trang vào MDX.
 - `/lesson/bai-4` và `/lesson/bai-4/bai-tap`.
 - `/lesson/bai-5` và `/lesson/bai-5/bai-tap`.
 - `/lesson/bai-6` và `/lesson/bai-6/bai-tap`.
+- `/lesson/bai-7` và `/lesson/bai-7/bai-tap`.
+- `/lesson/bai-8` và `/lesson/bai-8/bai-tap`.
+- `/lesson/bai-9` và `/lesson/bai-9/bai-tap`.
+- `/lesson/bai-10` và `/lesson/bai-10/bai-tap`.
+- `/lesson/bai-11` và `/lesson/bai-11/bai-tap`.
+- `/lesson/bai-12` và `/lesson/bai-12/bai-tap`.
+- `/lesson/bai-13` và `/lesson/bai-13/bai-tap`.
+- `/lesson/bai-14` và `/lesson/bai-14/bai-tap`.
+- `/lesson/bai-15` và `/lesson/bai-15/bai-tap`.
 
 Khối lớp là dữ liệu `grade`, không suy ra từ tên bài hay URL. Slug phải duy nhất trong
 toàn bộ danh mục; có thể dùng `lop-11-bai-1` cho một bài lớp 11 sau này.
 
 ## Thêm bài mới
 
-1. Tạo thư mục mới (ví dụ `content/lessons/bai-7/`) và ba file sau.
+1. Tạo thư mục mới (ví dụ `content/lessons/bai-16/`) và ba file sau.
 2. Đăng ký metadata **một lần** trong `lib/lessons.ts`:
-   thêm `import bai7 from '@/content/lessons/bai-7/meta';`, rồi thêm `bai7` vào mảng
-   `[bai1, bai2, bai3, bai4, bai5, bai6, bai7]`. Thư viện và các trang dùng chung sẽ đọc danh mục này.
+   thêm `import bai16 from '@/content/lessons/bai-16/meta';`, rồi thêm `bai16` vào mảng
+   `[bai1, bai2, bai3, bai4, bai5, bai6, bai7, bai8, bai9, bai10, bai11, bai12, bai13, bai14, bai15, bai16]`. Thư viện và các trang dùng chung sẽ đọc danh mục này.
 3. Chạy `npm run build` để kiểm tra MDX, TypeScript và việc tạo đủ trang.
 
 Không cần tạo route mới hay sửa `TabsBar`, `TopMenu`, `mdx-components.tsx`.
@@ -84,12 +168,12 @@ Trong PowerShell nếu `npm.ps1` bị chặn, dùng `npm.cmd run build`.
 import type { LessonMeta } from '@/lib/lessons';
 
 export default {
-  slug: 'bai-7', // Trùng tên thư mục; dùng chữ thường, số và dấu gạch ngang.
+  slug: 'bai-16', // Trùng tên thư mục; dùng chữ thường, số và dấu gạch ngang.
   grade: 10,
   subject: 'Vật lý',
   chapter: 'Động lực học',
-  order: 7,
-  title: 'Bài 7: Tên bài học',
+  order: 16,
+  title: 'Bài 16: Tên bài học',
   description: 'Mô tả ngắn nội dung bài học.',
 } satisfies LessonMeta;
 ```
@@ -114,7 +198,7 @@ Tốc độ trung bình: <Math inline>{"v = \\frac{s}{t}"}</Math>.
 <Section title="Bài tập luyện tập" icon="edit">
 
 <Quiz
-  id="bai-7-exercises-001"
+  id="bai-16-exercises-001"
   question="Một vật đi 10 m trong 2 s. Tốc độ trung bình là bao nhiêu?"
   options={['2 m/s', '5 m/s', '10 m/s', '20 m/s']}
   correctIndex={1}

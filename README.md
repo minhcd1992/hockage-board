@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Bài giảng và bài tập
 
-Nội dung nằm trong `content/lessons/`; bốn bài hiện tại thuộc **Vật lý lớp 10**.
+Nội dung nằm trong `content/lessons/`; mười lăm bài hiện tại thuộc **Vật lý lớp 10**.
 Xem [hướng dẫn thêm và sửa bài học](docs/lessons.md) để quản lý nội dung, mô phỏng và câu hỏi.
 
 ## Getting Started
@@ -40,5 +40,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
----
-*Note: This is a test change to verify GitHub pushing works correctly.*

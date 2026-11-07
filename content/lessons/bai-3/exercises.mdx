@@ -433,7 +433,7 @@ Xét từng ý a, b, c, d rồi mở phần giải thích để đối chiếu. 
       id: "d",
       text: <>{"Trước lần gặp lại, khoảng cách giữa hai xe đạt cực đại khi "}<Math inline>{"v_B=v_A"}</Math>{", tại "}<Math inline>{"t=7{,}5\\,\\mathrm{s}"}</Math>{"; khoảng cách cực đại là "}<Math inline>{"56{,}25\\,\\mathrm{m}"}</Math>{"."}</>,
       isTrue: true,
-      explanation: <>{"Khoảng cách "}<Math inline>{"D(t) = d_A - d_B = 15t - t^2"}</Math>{". "}<Math inline>{"D(t)"}</Math>{" đạt max khi đạo hàm "}<Math inline>{"\\frac{dD}{dt} = 15 - 2t = 0 \\Leftrightarrow v_A - v_B = 0 \\Rightarrow t = 7,5\\text{ s}"}</Math>{". "}<Math inline>{"D_{max} = 15(7,5) - (7,5)^2 = 56,25\\text{ m}"}</Math>{"."}</>
+      explanation: <>{"Khoảng cách "}<Math inline>{"D(t) = d_A - d_B = 15t - t^2"}</Math>{". "}<Math inline>{"D(t)"}</Math>{" viết lại thành "}<Math inline>{"D(t) = 56,25 - (t - 7,5)^2"}</Math>{", nên lớn nhất khi "}<Math inline>{"t = 7,5\\text{ s}"}</Math>{", đúng lúc "}<Math inline>{"v_B = 2t = 15\\text{ m/s} = v_A"}</Math>{". "}<Math inline>{"D_{max} = 15(7,5) - (7,5)^2 = 56,25\\text{ m}"}</Math>{"."}</>
     }
   ]}
 />
@@ -629,7 +629,7 @@ Nhập kết quả dạng số theo đơn vị trong đề. Bấm **Xem lời gi
   id="bai-3-exercises-034"
   question={<>{"Câu 34: Phương trình tọa độ của một chất điểm chuyển động thẳng dọc theo trục "}<Math inline>{"Ox"}</Math>{" là "}<Math inline>{"x = 5 + 2t + t^2\\text{ (m, s)}"}</Math>{". Xác định tốc độ của chất điểm tại thời điểm "}<Math inline>{"t = 3\\text{ s}"}</Math>{" (đơn vị: "}<Math inline>{"\\text{m/s}"}</Math>{")."}</>}
   answer="8"
-  explanation={<>{"Vận tốc tức thời "}<Math inline>{"v(t) = x'(t) = 2 + 2t"}</Math>{". Tại "}<Math inline>{"t = 3\\text{ s} \\Rightarrow v(3) = 2 + 2(3) = 8\\text{ m/s}"}</Math>{"."}</>}
+  explanation={<>{"Đối chiếu với "}<Math inline>{"x = x_0 + v_0 t + \\frac{1}{2}at^2"}</Math>{": "}<Math inline>{"v_0 = 2\\text{ m/s}, a = 2\\text{ m/s}^2 \\Rightarrow v(t) = 2 + 2t"}</Math>{". Tại "}<Math inline>{"t = 3\\text{ s} \\Rightarrow v(3) = 2 + 2(3) = 8\\text{ m/s}"}</Math>{"."}</>}
 />
 
 <QuizShort
@@ -832,7 +832,7 @@ Trong mô hình lý tưởng, gia tốc có bước nhảy tại $t=10,\ 40,\ 50
 
 <h3 className="text-xl font-bold text-blue-800">Câu 44. Cổng quang điện và xử lý sai số</h3>
 
-Xe lăn trên máng nghiêng qua hai cổng quang điện A, B nối với đồng hồ MC964. Khoảng cách hai cổng $L=(0{,}500\pm0{,}002)\,\mathrm{m}$; bề rộng tấm chắn $s=(20{,}0\pm0{,}1)\,\mathrm{mm}$.
+Xe lăn trên máng nghiêng qua hai cổng quang điện A, B nối với đồng hồ MC964. Khoảng cách hai cổng $L=(0{,}720\pm0{,}002)\,\mathrm{m}$; bề rộng tấm chắn $s=(20{,}0\pm0{,}1)\,\mathrm{mm}$.
 
 <CompareTable title="Năm lần đo thời gian" columns={['Lần đo', 'ΔtA (s)', 'ΔtB (s)', 'tAB (s)']}
   rows={[
@@ -874,7 +874,7 @@ $$
 $$
 
 
-**Kiểm tra tính nhất quán của số liệu:** Nếu chuyển động có gia tốc không đổi, khoảng cách suy ra là
+**Kiểm tra tính nhất quán của số liệu:** Nếu gia tốc không đổi, khoảng cách giữa hai cổng suy ra từ vận tốc là
 
 
 $$
@@ -882,7 +882,7 @@ L_{\mathrm{tinh}}=\frac{v_A+v_B}{2}T=0{,}72\,\mathrm{m},
 $$
 
 
-khác đáng kể với $L=0{,}500\,\mathrm{m}$ trong đề. Vì vậy, $0{,}333\,\mathrm{m/s^2}$ chỉ là kết quả tính theo nhóm số liệu thời gian đã cho; cần kiểm tra lại cách đo thời gian, khoảng cách và giả thiết gia tốc không đổi trước khi chấp nhận kết quả thực nghiệm.
+khớp với $L=0{,}720\,\mathrm{m}$ đo bằng thước. Số liệu nhất quán với giả thiết xe chuyển động nhanh dần đều.
 
 **c) Truyền sai số — Mở rộng**
 
@@ -926,7 +926,7 @@ $$
 $$
 
 
-Kết quả **ước lượng có điều kiện**: $a\approx(0{,}333\pm0{,}024)\,\mathrm{m/s^2}$. Đây chưa phải sai số đầy đủ của phép đo, chưa khắc phục mâu thuẫn với $L$, và không suy ra được kết quả $\pm0{,}018\,\mathrm{m/s^2}$ bằng cách cộng bốn phần trăm sai số như lời giải ban đầu.
+**Kết quả:** $a\approx(0{,}333\pm0{,}024)\,\mathrm{m/s^2}$. Sai số này mới gồm phần ngẫu nhiên của thời gian và sai số của bề rộng tấm chắn; khi biết sai số dụng cụ của đồng hồ cần cộng thêm vào $\Delta A,\Delta B,\Delta T$.
 
 </details>
 </div>

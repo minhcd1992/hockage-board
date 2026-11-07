@@ -4,7 +4,7 @@ import { CanvasRenderer } from '../engine/CanvasRenderer';
 import { Camera } from '../engine/Camera';
 import { useBoardStore } from '../store/useBoardStore';
 
-export async function loadPDFToScene(file: File, scene: Scene, renderer: CanvasRenderer, camera: Camera) {
+export async function loadPDFToScene(file: File, scene: Scene, renderer: CanvasRenderer, camera: Camera): Promise<PdfObject[]> {
   // Use exact same pdf.js version as omniboard for perfect compatibility
   if (!(window as any).pdfjsLib) {
     await new Promise((resolve, reject) => {
@@ -30,6 +30,7 @@ export async function loadPDFToScene(file: File, scene: Scene, renderer: CanvasR
     scene.objects = [];
     scene.clearSelection();
 
+    const pages: PdfObject[] = [];
     let currentY = 0;
     const PAGE_SPACING = 20;
 
@@ -44,6 +45,7 @@ export async function loadPDFToScene(file: File, scene: Scene, renderer: CanvasR
       
       // Add to scene
       scene.addObject(pdfObj);
+      pages.push(pdfObj);
       
       // Move Y down for the next page
       currentY += viewport.height + PAGE_SPACING;
@@ -69,8 +71,10 @@ export async function loadPDFToScene(file: File, scene: Scene, renderer: CanvasR
     }
     // Force a re-render
     renderer.renderMain();
+    return pages;
   } catch (error) {
     console.error("Error loading PDF:", error);
     alert("Failed to load PDF.");
+    return [];
   }
 }

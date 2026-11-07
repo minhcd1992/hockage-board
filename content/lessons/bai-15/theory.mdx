@@ -1,0 +1,261 @@
+import { PressureDepthSim, HydrostaticParadoxDiagram, HydraulicPressSim, TorricelliDiagram, BuoyancySim } from './components/Lesson15Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Nêu được định nghĩa áp suất và đơn vị đo; vận dụng $p=F/S$.
+- Thành lập và vận dụng được công thức $p=p_0+\rho gh$; phân biệt áp suất tuyệt đối và áp suất dư.
+- Phát biểu và vận dụng được định luật Pascal, nguyên lý máy nén thủy lực.
+- Giải thích được thí nghiệm Torricelli; vận dụng lực đẩy Archimedes và điều kiện vật nổi, chìm.
+
+</InfoBox>
+
+<Section title="A. Mở đầu" icon="rocket">
+
+**Tàu ngầm.** Ở độ sâu $1000\,\mathrm m$ dưới biển, mỗi mét vuông vỏ tàu ngầm chịu lực nén khoảng $10^7\,\mathrm N$, tương đương trọng lượng của hơn 1000 tấn. Lực nén đó từ đâu ra, và nó tăng theo độ sâu theo quy luật nào?
+
+**Kích thủy lực.** Ở gara sửa xe, người thợ chỉ cần ấn cần kích bằng một lực vừa phải mà nâng được cả chiếc ô tô nặng hơn hai tấn. Làm thế nào một lực nhỏ lại tạo ra được lực nâng lớn gấp hàng trăm lần?
+
+**Ống hút.** Khi uống nước dừa bằng ống hút, có phải miệng ta "kéo" nước lên không? Thực ra, khi ta làm giảm áp suất không khí trong ống, chính áp suất của khí quyển lên mặt nước trong quả dừa đã đẩy nước dâng lên.
+
+</Section>
+
+<Section title="B. Áp suất và áp suất chất lỏng" icon="book">
+
+### 1. Áp suất
+
+Chất lưu (chất lỏng và chất khí) không có hình dạng riêng và dễ chảy. Các phân tử chất lưu va chạm liên tục vào bề mặt tiếp xúc, tạo ra lực ép vuông góc lên bề mặt đó, gọi là **áp lực** $F$. **Áp suất** đặc trưng cho tác dụng của áp lực trên một đơn vị diện tích:
+
+$$
+p=\frac{F}{S}.
+$$
+
+Đơn vị SI là **paxcan**: $1\,\mathrm{Pa}=1\,\mathrm{N/m^2}$. Các đơn vị khác: $1\,\mathrm{bar}=10^5\,\mathrm{Pa}$; $1\,\mathrm{atm}=101\,325\,\mathrm{Pa}$; $1\,\mathrm{mmHg}\approx133{,}3\,\mathrm{Pa}$.
+
+### 2. Áp suất tăng theo độ sâu
+
+Xét một cột chất lỏng đứng yên, khối lượng riêng $\rho$, tiết diện $S$, cao $h$, mặt trên ở mặt thoáng (áp suất $p_0$). Cột chất lỏng cân bằng dưới tác dụng của: áp lực $p_0S$ ở mặt trên (hướng xuống), trọng lượng $\rho Shg$ (hướng xuống) và áp lực $pS$ ở mặt dưới (hướng lên). Áp lực lên mặt bên của cột cân bằng nhau. Do đó $pS=p_0S+\rho Shg$, hay
+
+$$
+p=p_0+\rho gh.
+$$
+
+- $p$ là **áp suất tuyệt đối** ở độ sâu $h$; $p_0$ là áp suất ở mặt thoáng (thường là áp suất khí quyển $\approx1{,}013\times10^5\,\mathrm{Pa}$).
+- $p_{\text{dư}}=p-p_0=\rho gh$ là **áp suất dư** (phần áp suất do chất lỏng gây ra). Áp kế thường chỉ áp suất dư.
+- Tổng quát, hai điểm trong cùng một chất lỏng đứng yên chênh nhau độ sâu $\Delta h$ thì $\Delta p=\rho g\,\Delta h$.
+
+<InfoBox type="warning" title="Hệ quả">
+
+- Các điểm nằm trên cùng một mặt phẳng ngang trong một chất lỏng đứng yên, đồng chất thì có cùng áp suất. Đó là cơ sở của **bình thông nhau**: mặt thoáng ở các nhánh chứa cùng một chất lỏng nằm ngang bằng nhau.
+- Áp suất tại một điểm tác dụng như nhau theo mọi hướng, và không phụ thuộc hình dạng bình chứa.
+
+</InfoBox>
+
+<PressureDepthSim />
+
+</Section>
+
+<Section title="C. Định luật Pascal và máy nén thủy lực" icon="book">
+
+### 1. Định luật Pascal
+
+<InfoBox type="info" title="Định luật Pascal">
+
+Độ tăng áp suất lên một chất lỏng chứa trong bình kín được truyền nguyên vẹn đến mọi điểm của chất lỏng và đến thành bình.
+
+</InfoBox>
+
+Từ $p=p_0+\rho gh$ cũng thấy được điều này: tăng $p_0$ thêm $\Delta p$ thì áp suất ở mọi độ sâu cũng tăng đúng $\Delta p$. Định luật được Blaise Pascal phát biểu vào giữa thế kỉ XVII.
+
+### 2. Máy nén thủy lực
+
+Hai xi-lanh thông nhau chứa đầy dầu, đậy bằng hai pittông có tiết diện $S_1<S_2$. Tác dụng lực $F_1$ lên pittông nhỏ tạo ra độ tăng áp suất $\Delta p=F_1/S_1$, được truyền nguyên vẹn tới pittông lớn:
+
+$$
+\frac{F_1}{S_1}=\frac{F_2}{S_2}\quad\Longrightarrow\quad F_2=F_1\,\frac{S_2}{S_1}.
+$$
+
+Lực được khuếch đại $S_2/S_1$ lần. Nhưng dầu gần như không nén được, nên thể tích bị đẩy đi ở hai bên bằng nhau: $S_1s_1=S_2s_2$. Do đó
+
+$$
+F_1s_1=F_2s_2:
+$$
+
+**được lợi bao nhiêu lần về lực thì thiệt bấy nhiêu lần về đường đi**; công không thay đổi (bỏ qua ma sát). Máy nén thủy lực được dùng trong kích nâng ô tô, phanh dầu, máy ép, máy xúc.
+
+<HydraulicPressSim />
+
+</Section>
+
+<Section title="D. Áp suất khí quyển và thí nghiệm Torricelli" icon="book">
+
+Trái Đất được bao bọc bởi lớp không khí dày hàng trăm kilômét. Không khí có trọng lượng nên gây ra áp suất lên mọi vật trong nó: **áp suất khí quyển** $p_0$. Càng lên cao, lớp không khí phía trên càng mỏng và loãng nên áp suất khí quyển càng giảm.
+
+Năm 1643, Evangelista Torricelli đổ đầy thủy ngân vào một ống thủy tinh dài khoảng $1\,\mathrm m$, một đầu kín, bịt đầu hở rồi úp ngược ống vào chậu thủy ngân. Khi bỏ tay ra, thủy ngân trong ống tụt xuống và dừng ở độ cao khoảng $h=760\,\mathrm{mm}$ so với mặt thủy ngân trong chậu; phía trên cột thủy ngân gần như là chân không.
+
+$$
+p_0=\rho_{\text{Hg}}\,g\,h=13\,600\times9{,}81\times0{,}760\approx1{,}013\times10^5\,\mathrm{Pa}.
+$$
+
+Áp suất khí quyển vì vậy thường được đo bằng **milimét thủy ngân** (mmHg): áp suất khí quyển chuẩn là $760\,\mathrm{mmHg}=1\,\mathrm{atm}$. Chiều cao cột thủy ngân không phụ thuộc đường kính ống, và nếu nghiêng ống thì cột thủy ngân dài ra nhưng độ cao thẳng đứng vẫn là $h$.
+
+<TorricelliDiagram />
+
+</Section>
+
+<Section title="E. Lực đẩy Archimedes" icon="book">
+
+### 1. Nguồn gốc
+
+Xét một khối hộp chìm trong chất lỏng, mặt trên ở độ sâu $h_1$, mặt dưới ở độ sâu $h_2$, diện tích mỗi mặt $S$. Áp lực lên các mặt bên cân bằng nhau. Áp suất ở mặt dưới lớn hơn ở mặt trên một lượng $\rho g(h_2-h_1)$, nên hợp lực của chất lỏng hướng **lên**:
+
+$$
+F_A=\rho g(h_2-h_1)S=\rho gV.
+$$
+
+Lực đẩy Archimedes chính là hợp lực của các áp lực chất lưu tác dụng lên toàn bộ bề mặt vật.
+
+### 2. Định luật Archimedes
+
+<InfoBox type="info" title="Định luật Archimedes">
+
+Vật nhúng trong chất lưu (chìm hoàn toàn hay một phần) chịu một lực đẩy thẳng đứng hướng lên, có độ lớn bằng trọng lượng của phần chất lưu bị vật chiếm chỗ: $F_A=\rho_{\text{lưu}}\,g\,V_{\text{chiếm chỗ}}$.
+
+</InfoBox>
+
+### 3. Điều kiện nổi, chìm
+
+Với vật đặc đồng chất nhúng chìm hoàn toàn: $P=\rho_{\text{vật}}gV$, $F_A=\rho_{\text{lỏng}}gV$.
+
+- $\rho_{\text{vật}}>\rho_{\text{lỏng}}$: $P>F_A$, vật chìm xuống.
+- $\rho_{\text{vật}}=\rho_{\text{lỏng}}$: vật lơ lửng.
+- $\rho_{\text{vật}}<\rho_{\text{lỏng}}$: vật nổi lên; khi nổi cân bằng trên mặt thoáng, $F_A=P$ nên $\dfrac{V_{\text{chìm}}}{V}=\dfrac{\rho_{\text{vật}}}{\rho_{\text{lỏng}}}$.
+
+Với vật rỗng hay ghép nhiều chất (tàu thủy, tàu ngầm, phao), dùng **khối lượng riêng trung bình** $m/V$. Tàu ngầm lặn bằng cách bơm nước vào khoang dằn và nổi lên bằng cách dùng khí nén đẩy nước ra.
+
+<BuoyancySim />
+
+</Section>
+
+<Section title="F. Góc phân tích sâu" icon="idea">
+
+### 1. Nghịch lý thủy tĩnh
+
+Ba bình hình dạng khác nhau, cùng diện tích đáy $S$, chứa nước đến cùng độ cao $h$. Bình loe miệng chứa nhiều nước nhất, nên nhiều người nghĩ áp lực lên đáy của nó lớn nhất. Thực ra áp suất ở đáy cả ba bình đều bằng $p_0+\rho gh$, nên áp lực của nước lên đáy đều bằng $\rho ghS$ (chưa kể phần do khí quyển).
+
+Lý do: ở bình loe, thành bình nghiêng **đỡ** bớt một phần trọng lượng nước; ở bình thu hẹp miệng, thành bình nghiêng **ép** thêm lên khối nước. Áp lực lên đáy chỉ bằng trọng lượng nước khi bình là hình trụ thẳng đứng.
+
+<HydrostaticParadoxDiagram />
+
+### 2. Vì sao áp kế Torricelli dùng thủy ngân mà không dùng nước?
+
+Nước nhẹ hơn thủy ngân khoảng 13,6 lần. Để cân bằng áp suất khí quyển, cột nước phải cao
+
+$$
+h_{\text{nước}}=\frac{p_0}{\rho_{\text{nước}}g}=\frac{1{,}013\times10^5}{1000\times9{,}81}\approx10{,}3\,\mathrm m,
+$$
+
+tức cao bằng một tòa nhà ba tầng. Một ống như vậy rất cồng kềnh; ngoài ra hơi nước bay lên chiếm khoảng trống phía trên cột nước làm kết quả kém chính xác. Thủy ngân nặng và ít bay hơi nên chỉ cần ống dài khoảng 1 m. Vì thủy ngân độc, ngày nay người ta thường dùng áp kế kim loại hoặc cảm biến điện tử.
+
+</Section>
+
+<Section title="G. Ví dụ minh họa" icon="target">
+
+### Ví dụ 1. Kích thủy lực nâng ô tô
+
+Kích thủy lực có xi-lanh nhỏ đường kính $d_1=2\,\mathrm{cm}$, xi-lanh lớn đường kính $d_2=20\,\mathrm{cm}$. Trên pittông lớn đặt ô tô $m=2600\,\mathrm{kg}$; $g=9{,}8\,\mathrm{m/s^2}$.
+
+1. Tính lực tối thiểu cần tác dụng lên pittông nhỏ.
+2. Ấn pittông nhỏ xuống $30\,\mathrm{cm}$ thì ô tô được nâng lên bao nhiêu?
+
+**Giải.** $\dfrac{S_2}{S_1}=\left(\dfrac{d_2}{d_1}\right)^2=100$; $F_2=mg=25\,480\,\mathrm N$.
+
+1. $F_1=\dfrac{F_2}{100}=254{,}8\,\mathrm N$, bằng trọng lượng của vật khoảng 26 kg.
+2. $s_2=\dfrac{s_1}{100}=0{,}3\,\mathrm{cm}=3\,\mathrm{mm}$.
+
+**Nhận xét.** Lực được khuếch đại 100 lần nhưng mỗi lần ấn xe chỉ lên 3 mm; muốn nâng xe lên cao phải bơm nhiều lần. Kích thật còn dùng thêm cần gạt (đòn bẩy) để giảm tiếp lực tay.
+
+### Ví dụ 2. Tàu ngầm ở độ sâu 600 m
+
+Tàu ngầm thể tích $V=500\,\mathrm{m^3}$ lặn ở độ sâu $600\,\mathrm m$; nước biển $\rho=1030\,\mathrm{kg/m^3}$; $p_0=1{,}01\times10^5\,\mathrm{Pa}$; $g=9{,}8\,\mathrm{m/s^2}$. Trong tàu giữ áp suất bằng $p_0$.
+
+1. Tính áp suất tuyệt đối của nước ở độ sâu đó, và lực mà nước ép lên cửa sổ quan sát hình tròn bán kính $20\,\mathrm{cm}$; lực tổng hợp lên cửa sổ là bao nhiêu?
+2. Tính lực đẩy Archimedes lên tàu.
+
+**Giải.**
+
+1. $p=1{,}01\times10^5+1030\times9{,}8\times600\approx6{,}16\times10^6\,\mathrm{Pa}$, gấp khoảng 61 lần áp suất khí quyển. Cửa sổ có $S=\pi\times0{,}2^2\approx0{,}126\,\mathrm{m^2}$. Nước ép lên mặt ngoài cửa sổ một lực $pS\approx7{,}74\times10^5\,\mathrm N$. Không khí trong tàu ép ngược lại $p_0S$, nên lực tổng hợp là $(p-p_0)S=\rho ghS\approx7{,}61\times10^5\,\mathrm N$, bằng trọng lượng của khoảng 78 tấn.
+2. $F_A=\rho gV=1030\times9{,}8\times500\approx5{,}05\times10^6\,\mathrm N$.
+
+**Nhận xét.** Cửa sổ tàu lặn sâu phải làm bằng vật liệu trong suốt rất bền (như acrylic dày). Lực đẩy Archimedes không phụ thuộc độ sâu; tàu lặn hay nổi được là nhờ thay đổi trọng lượng bằng cách bơm nước vào hoặc ra khỏi khoang dằn.
+
+</Section>
+
+<Section title="H. Ghi nhớ" icon="check">
+
+1. $p=F/S$; $1\,\mathrm{Pa}=1\,\mathrm{N/m^2}$; $1\,\mathrm{atm}\approx1{,}013\times10^5\,\mathrm{Pa}=760\,\mathrm{mmHg}$.
+2. $p=p_0+\rho gh$; áp suất dư $\rho gh$; các điểm cùng độ sâu trong chất lỏng đứng yên có cùng áp suất.
+3. Định luật Pascal; máy nén thủy lực $F_2/F_1=S_2/S_1$, $F_1s_1=F_2s_2$.
+4. Torricelli: $p_0=\rho_{\text{Hg}}gh$, $h\approx760\,\mathrm{mm}$.
+5. $F_A=\rho_{\text{lưu}}gV_{\text{chiếm chỗ}}$; so sánh khối lượng riêng (trung bình) của vật với chất lỏng để biết vật nổi hay chìm.
+
+</Section>
+
+<Section title="I. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<Quiz
+  id="bai-15-exercises-001"
+  question={<>{"Câu 1. Đơn vị nào sau đây KHÔNG phải là đơn vị áp suất?"}</>}
+  options={[
+    <><Math inline>{"\\mathrm{Pa}"}</Math></>,
+    <><Math inline>{"\\mathrm{N/m^2}"}</Math></>,
+    <><Math inline>{"\\mathrm{atm}"}</Math></>,
+    <><Math inline>{"\\mathrm{J/s}"}</Math></>
+  ]}
+  correctIndex={3}
+  explanation={<><Math inline>{"\\mathrm{J/s}"}</Math>{" là oát (W), đơn vị công suất."}</>}
+/>
+
+<Quiz
+  id="bai-15-exercises-002"
+  question={<>{"Câu 2. Người lặn ở độ sâu "}<Math inline>{"10\\,\\mathrm m"}</Math>{" trong nước hồ ("}<Math inline>{"\\rho=1000\\,\\mathrm{kg/m^3}"}</Math>{"); "}<Math inline>{"g=10\\,\\mathrm{m/s^2}"}</Math>{"; "}<Math inline>{"p_0=10^5\\,\\mathrm{Pa}"}</Math>{". Áp suất tuyệt đối tác dụng lên người là"}</>}
+  options={[
+    <><Math inline>{"10^5\\,\\mathrm{Pa}"}</Math></>,
+    <><Math inline>{"2\\times10^5\\,\\mathrm{Pa}"}</Math></>,
+    <><Math inline>{"10^4\\,\\mathrm{Pa}"}</Math></>,
+    <><Math inline>{"3\\times10^5\\,\\mathrm{Pa}"}</Math></>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"p=10^5+1000\\times10\\times10=2\\times10^5\\,\\mathrm{Pa}"}</Math>{": cứ xuống sâu khoảng 10 m nước, áp suất tăng thêm khoảng 1 atm."}</>}
+/>
+
+<Quiz
+  id="bai-15-exercises-003"
+  question={<>{"Câu 3. Máy nén thủy lực có "}<Math inline>{"S_1=5\\,\\mathrm{cm^2}"}</Math>{", "}<Math inline>{"S_2=250\\,\\mathrm{cm^2}"}</Math>{". Tác dụng lực "}<Math inline>{"100\\,\\mathrm N"}</Math>{" lên pittông nhỏ thì lực nâng ở pittông lớn là"}</>}
+  options={[
+    <><Math inline>{"5000\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"2500\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"20\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"500\\,\\mathrm N"}</Math></>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"F_2=F_1\\dfrac{S_2}{S_1}=100\\times50=5000\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<div data-question-id="bai-15-exercises-004" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 4. Vì sao đầu kim tiêm được mài rất nhọn?
+
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Đầu kim nhọn có diện tích tiếp xúc $S$ với da rất nhỏ. Theo $p=\dfrac{F}{S}$, với cùng một lực ấn nhỏ $F$, áp suất ở đầu kim rất lớn nên kim dễ xuyên qua da. Người tiêm chỉ cần ấn nhẹ, mũi kim đi vào nhanh và gọn, bệnh nhân ít đau hơn.
+
+</details>
+</div>
+
+</Section>
+
+</div>

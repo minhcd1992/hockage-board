@@ -1,0 +1,248 @@
+import { MicroSpringDiagram, HookeLab, SpringCombinationSim, SpringScaleParadox } from './components/Lesson14Figures'
+
+<div className="min-w-0 [&_.katex-display]:overflow-x-auto [&_.katex-display]:overflow-y-hidden [&_.katex-display]:py-1 [&_.flex>div]:min-w-0 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:my-1 [&_p]:my-3 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-blue-800">
+
+<InfoBox type="info" title="Mục tiêu bài học">
+
+- Phân biệt được biến dạng kéo, biến dạng nén; biến dạng đàn hồi và biến dạng dẻo; nêu được giới hạn đàn hồi.
+- Nêu được đặc điểm của lực đàn hồi của lò xo; phát biểu và vận dụng được định luật Hooke $F_{\text{đh}}=k|\Delta L|$.
+- Giải thích được nguồn gốc của lực đàn hồi từ tương tác giữa các phân tử.
+- Mở rộng: ứng suất, biến dạng tỉ đối, suất đàn hồi (môđun Young); ghép lò xo; cắt lò xo.
+
+</InfoBox>
+
+<Section title="A. Mở đầu" icon="rocket">
+
+**Giảm xóc ô tô.** Khi ô tô chở đầy người đi qua gờ giảm tốc, các lò xo giảm xóc ở bánh xe bị nén lại rồi dãn trở về, nhờ đó hành khách chỉ cảm thấy một nhịp nhún nhẹ. Lực nào chống lại sự nén và đẩy lò xo về chiều dài ban đầu?
+
+**Dây cáp cầu treo.** Các sợi cáp thép của cầu treo, cầu dây văng chịu lực kéo rất lớn từ mặt cầu và xe cộ. Dù vậy chúng chỉ dãn ra rất ít so với chiều dài của mình và vẫn làm việc an toàn trong hàng chục năm. Người ta tính khả năng chịu lực của cáp dựa vào đâu?
+
+**Thước nhựa và khung xe.** Uốn nhẹ thước nhựa rồi thả ra, thước bật về hình dạng cũ. Nhưng sau một vụ va chạm mạnh, khung thép ô tô bị móp và không tự trở lại được. Ranh giới giữa **khôi phục hoàn toàn** và **biến dạng vĩnh viễn** là gì?
+
+</Section>
+
+<Section title="B. Biến dạng của vật rắn" icon="book">
+
+### 1. Biến dạng kéo và biến dạng nén
+
+Khi chịu tác dụng của lực, vật rắn bị thay đổi hình dạng hoặc kích thước: vật bị **biến dạng**. Với một vật dạng thanh hay lò xo có chiều dài tự nhiên $L_0$, chiều dài lúc biến dạng $L$:
+
+- **Biến dạng kéo:** $L>L_0$, vật dài ra (kéo dãn lò xo, dây cáp treo vật).
+- **Biến dạng nén:** $L<L_0$, vật ngắn lại (lò xo giảm xóc, cột nhà chịu tải).
+
+Độ lớn $|\Delta L|=|L-L_0|$ gọi là **độ biến dạng** (độ dãn hoặc độ nén). Ngoài ra vật rắn còn có thể bị uốn, xoắn hoặc cắt; trong bài này ta chỉ xét kéo và nén.
+
+### 2. Biến dạng đàn hồi và biến dạng dẻo
+
+- **Biến dạng đàn hồi:** khi thôi tác dụng lực, vật **trở lại hoàn toàn** hình dạng và kích thước ban đầu (lò xo, dây cao su, thước nhựa uốn nhẹ).
+- **Biến dạng dẻo (biến dạng không đàn hồi):** khi thôi tác dụng lực, vật **không trở lại** hình dạng ban đầu (đất nặn, khung xe bị móp, dây đồng bị kéo quá mạnh).
+- **Giới hạn đàn hồi:** giới hạn mà trong đó vật còn giữ được tính đàn hồi. Với một lò xo, có thể hiểu là độ lớn lực (hoặc độ biến dạng) lớn nhất mà lò xo còn trở về chiều dài cũ. Vượt quá giới hạn này, vật bị biến dạng dẻo; nếu tiếp tục tăng lực, vật có thể bị gãy, đứt.
+
+### 3. Nguồn gốc của lực đàn hồi
+
+Các nguyên tử, phân tử trong vật rắn nằm ở những vị trí cân bằng nhờ lực tương tác giữa chúng (có bản chất điện). Có thể hình dung mỗi liên kết như một **lò xo rất nhỏ**:
+
+- Ở khoảng cách cân bằng $r_0$: lực hút và lực đẩy cân bằng nhau.
+- Khi vật bị **kéo**, khoảng cách tăng ($r>r_0$): lực hút chiếm ưu thế, kéo các hạt lại gần nhau.
+- Khi vật bị **nén**, khoảng cách giảm ($r<r_0$): lực đẩy tăng mạnh, đẩy các hạt ra xa nhau.
+
+Tổng hợp vô số lực nhỏ đó tạo nên **lực đàn hồi** mà vật biến dạng tác dụng lên các vật tiếp xúc với nó.
+
+<MicroSpringDiagram />
+
+</Section>
+
+<Section title="C. Lực đàn hồi của lò xo và định luật Hooke" icon="book">
+
+### 1. Đặc điểm của lực đàn hồi của lò xo
+
+- **Điểm đặt:** tại vật tiếp xúc (hoặc gắn) với đầu lò xo.
+- **Phương:** trùng với trục của lò xo.
+- **Chiều:** ngược với chiều biến dạng của lò xo. Lò xo bị dãn thì lực đàn hồi hướng vào trong lò xo (kéo vật về); lò xo bị nén thì lực đàn hồi hướng ra ngoài (đẩy vật ra).
+
+### 2. Định luật Hooke
+
+<InfoBox type="info" title="Định luật Hooke">
+
+Trong giới hạn đàn hồi, độ lớn của lực đàn hồi của lò xo tỉ lệ thuận với độ biến dạng của lò xo:
+
+$$
+F_{\text{đh}}=k\,|\Delta L|=k\,|L-L_0|.
+$$
+
+</InfoBox>
+
+- $k$ là **độ cứng** của lò xo, đơn vị $\mathrm{N/m}$. Lò xo có $k$ lớn thì khó biến dạng. Độ cứng phụ thuộc vật liệu làm dây, đường kính dây, đường kính vòng xoắn và số vòng (tức là chiều dài) của lò xo; nó **không** phụ thuộc lực tác dụng.
+- Đồ thị $F_{\text{đh}}$ theo $|\Delta L|$ là đoạn thẳng đi qua gốc tọa độ, hệ số góc bằng $k$.
+
+**Dạng đại số.** Chọn trục $Ox$ dọc trục lò xo, gốc $O$ tại vị trí đầu lò xo khi lò xo không biến dạng, $x$ là tọa độ của đầu lò xo:
+
+$$
+F_x=-kx.
+$$
+
+Dấu trừ cho biết lực đàn hồi luôn ngược dấu với $x$: nó luôn hướng về vị trí lò xo không biến dạng.
+
+**Treo vật vào lò xo.** Khi vật đứng yên, lực đàn hồi cân bằng trọng lực: $k\,\Delta L=mg$. Đây là cách đơn giản để đo độ cứng $k$: treo các vật có khối lượng khác nhau, đo độ dãn, rồi vẽ đồ thị.
+
+<HookeLab />
+
+</Section>
+
+<Section title="D. Mở rộng: ứng suất và suất đàn hồi" icon="idea">
+
+Với một thanh hoặc dây đồng chất, chiều dài $L_0$, tiết diện $S$, chịu lực kéo (hoặc nén) $F$ dọc trục:
+
+- **Ứng suất** $\sigma=\dfrac{F}{S}$, đơn vị $\mathrm{N/m^2}=\mathrm{Pa}$.
+- **Biến dạng tỉ đối** $\varepsilon=\dfrac{|\Delta L|}{L_0}$, không có đơn vị.
+- Trong giới hạn đàn hồi, $\sigma=E\varepsilon$, tức là
+
+$$
+\frac{F}{S}=E\,\frac{|\Delta L|}{L_0}\quad\Longrightarrow\quad k=E\,\frac{S}{L_0}.
+$$
+
+$E$ là **suất đàn hồi** (môđun Young) của vật liệu, đơn vị $\mathrm{Pa}$; nó chỉ phụ thuộc vật liệu, không phụ thuộc kích thước vật. Thép có $E\approx2\times10^{11}\,\mathrm{Pa}$, nhôm khoảng $7\times10^{10}\,\mathrm{Pa}$, cao su chỉ cỡ $10^6$–$10^7\,\mathrm{Pa}$. Thanh càng to và càng ngắn thì càng cứng.
+
+</Section>
+
+<Section title="E. Mở rộng: ghép lò xo" icon="idea">
+
+**Ghép song song.** Hai lò xo có cùng độ biến dạng; lực tác dụng chia cho hai lò xo: $F=k_1\Delta L+k_2\Delta L$, nên
+
+$$
+k_{\text{tđ}}=k_1+k_2.
+$$
+
+Hệ cứng hơn mỗi lò xo thành phần.
+
+**Ghép nối tiếp.** Hai lò xo chịu cùng một lực $F$; độ biến dạng cộng lại: $\Delta L=\dfrac{F}{k_1}+\dfrac{F}{k_2}$, nên
+
+$$
+\frac{1}{k_{\text{tđ}}}=\frac1{k_1}+\frac1{k_2}\quad\Longrightarrow\quad k_{\text{tđ}}=\frac{k_1k_2}{k_1+k_2}.
+$$
+
+Hệ mềm hơn mỗi lò xo thành phần.
+
+<SpringCombinationSim />
+
+</Section>
+
+<Section title="F. Góc phân tích sâu" icon="idea">
+
+### 1. Cắt đôi lò xo thì độ cứng thay đổi thế nào?
+
+Nhiều học sinh nghĩ rằng lò xo làm cùng một vật liệu thì cắt ngắn vẫn có cùng $k$. Hãy coi lò xo dài $L_0$, độ cứng $k$ như hai nửa giống nhau ghép nối tiếp. Kéo bằng lực $F$, cả lò xo dãn $\Delta L=F/k$, còn mỗi nửa chịu cùng lực $F$ nhưng chỉ dãn $\Delta L/2$. Do đó độ cứng của mỗi nửa là
+
+$$
+k'=\frac{F}{\Delta L/2}=2k.
+$$
+
+Tổng quát, các đoạn cắt ra từ cùng một lò xo có $kL_0=\text{hằng số}$: **đoạn càng ngắn càng cứng**.
+
+### 2. Kéo hai đầu lực kế bằng hai lực 10 N thì lực kế chỉ bao nhiêu?
+
+Không phải 0 N (lò xo rõ ràng đang dãn), cũng không phải 20 N. Hãy so với trường hợp móc một đầu lực kế vào tường và kéo đầu kia bằng 10 N: theo định luật III Newton, tường cũng giữ đầu kia bằng 10 N và lực kế chỉ 10 N. Khi hai người cùng kéo, người bên trái đóng đúng vai trò của bức tường. Vậy lực kế chỉ **10 N**: số chỉ của lực kế là lực kéo ở **một** đầu.
+
+<SpringScaleParadox />
+
+</Section>
+
+<Section title="G. Ví dụ minh họa" icon="target">
+
+### Ví dụ 1. Lò xo giảm xóc ô tô
+
+Lò xo giảm xóc ở một bánh trước của ô tô có chiều dài tự nhiên $L_0=35\,\mathrm{cm}$. Khi xe đứng yên, lò xo chịu lực nén $6500\,\mathrm N$ và dài $L_1=28\,\mathrm{cm}$.
+
+1. Tính độ cứng của lò xo.
+2. Khi xe chở thêm hàng, lực nén tăng lên $9750\,\mathrm N$. Tính chiều dài lò xo lúc đó (vẫn trong giới hạn đàn hồi).
+
+**Giải.**
+
+1. Độ nén $|\Delta L_1|=35-28=7\,\mathrm{cm}=0{,}07\,\mathrm m$, nên $k=\dfrac{6500}{0{,}07}\approx9{,}29\times10^4\,\mathrm{N/m}$.
+2. Lực nén tăng $1{,}5$ lần nên độ nén cũng tăng $1{,}5$ lần: $|\Delta L_2|=1{,}5\times7=10{,}5\,\mathrm{cm}$, do đó $L_2=35-10{,}5=24{,}5\,\mathrm{cm}$.
+
+**Nhận xét.** Độ cứng của lò xo giảm xóc rất lớn (gần $93\,000\,\mathrm{N/m}$) nên dưới tải hàng nghìn newton, nó chỉ bị nén khoảng chục xentimét và gầm xe không chạm đất.
+
+### Ví dụ 2 (mở rộng). Dây cáp thép
+
+Sợi cáp thép dài $L_0=50\,\mathrm m$, tiết diện $S=40\,\mathrm{cm^2}=4\times10^{-3}\,\mathrm{m^2}$, suất đàn hồi $E=2{,}0\times10^{11}\,\mathrm{Pa}$, chịu lực kéo $F=8{,}0\times10^5\,\mathrm N$.
+
+1. Tính ứng suất trong cáp.
+2. Tính độ dãn và độ cứng của sợi cáp.
+
+**Giải.**
+
+1. $\sigma=\dfrac{F}{S}=\dfrac{8\times10^5}{4\times10^{-3}}=2{,}0\times10^8\,\mathrm{Pa}=200\,\mathrm{MPa}$.
+2. $\Delta L=\dfrac{FL_0}{ES}=\dfrac{8\times10^5\times50}{2\times10^{11}\times4\times10^{-3}}=0{,}05\,\mathrm m=5{,}0\,\mathrm{cm}$; $k=\dfrac{ES}{L_0}=1{,}6\times10^7\,\mathrm{N/m}$.
+
+**Nhận xét.** Cáp dài 50 m chỉ dãn 5 cm, tức một phần nghìn chiều dài. Ứng suất $200\,\mathrm{MPa}$ thấp hơn nhiều so với giới hạn bền của thép làm cáp (từ vài trăm đến hơn một nghìn megapascal tùy loại); người kĩ sư luôn chọn cáp sao cho còn một **hệ số an toàn** đủ lớn.
+
+</Section>
+
+<Section title="H. Ghi nhớ" icon="check">
+
+1. Biến dạng đàn hồi: thôi lực thì vật trở lại như cũ. Vượt giới hạn đàn hồi: biến dạng dẻo hoặc gãy.
+2. Lực đàn hồi của lò xo có phương trùng trục lò xo, ngược chiều biến dạng.
+3. Định luật Hooke: trong giới hạn đàn hồi, $F_{\text{đh}}=k|\Delta L|$; dạng đại số $F_x=-kx$.
+4. Treo vật đứng yên: $k\Delta L=mg$.
+5. Mở rộng: $\sigma=F/S$, $\varepsilon=|\Delta L|/L_0$, $\sigma=E\varepsilon$, $k=ES/L_0$; song song $k_{\text{tđ}}=k_1+k_2$, nối tiếp $1/k_{\text{tđ}}=1/k_1+1/k_2$; cắt lò xo $kL_0=\text{const}$.
+
+</Section>
+
+<Section title="I. Luyện tập nhanh — bốn câu nền tảng" icon="idea">
+
+<Quiz
+  id="bai-14-exercises-001"
+  question={<>{"Câu 1. Đặt một vật nặng lên đầu trên của một lò xo thẳng đứng đặt trên mặt bàn. Lực đàn hồi do lò xo tác dụng lên vật"}</>}
+  options={[
+    <>{"hướng thẳng đứng từ trên xuống."}</>,
+    <>{"hướng thẳng đứng từ dưới lên."}</>,
+    <>{"nằm ngang, vuông góc với lò xo."}</>,
+    <>{"bằng 0 vì lò xo không biến dạng."}</>
+  ]}
+  correctIndex={1}
+  explanation={<>{"Lò xo bị nén nên lực đàn hồi chống lại sự nén, đẩy vật lên."}</>}
+/>
+
+<Quiz
+  id="bai-14-exercises-002"
+  question={<>{"Câu 2. Lò xo có "}<Math inline>{"k=100\\,\\mathrm{N/m}"}</Math>{", chiều dài tự nhiên "}<Math inline>{"20\\,\\mathrm{cm}"}</Math>{". Treo vật vào thì lò xo dài "}<Math inline>{"25\\,\\mathrm{cm}"}</Math>{". Độ lớn lực đàn hồi là"}</>}
+  options={[
+    <><Math inline>{"500\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"5\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"25\\,\\mathrm N"}</Math></>,
+    <><Math inline>{"20\\,\\mathrm N"}</Math></>
+  ]}
+  correctIndex={1}
+  explanation={<><Math inline>{"|\\Delta L|=0{,}05\\,\\mathrm m"}</Math>{"; "}<Math inline>{"F_{\\text{đh}}=100\\times0{,}05=5\\,\\mathrm N"}</Math>{"."}</>}
+/>
+
+<Quiz
+  id="bai-14-exercises-003"
+  question={<>{"Câu 3. Lò xo dài "}<Math inline>{"60\\,\\mathrm{cm}"}</Math>{", độ cứng "}<Math inline>{"120\\,\\mathrm{N/m}"}</Math>{" được cắt thành hai đoạn "}<Math inline>{"20\\,\\mathrm{cm}"}</Math>{" và "}<Math inline>{"40\\,\\mathrm{cm}"}</Math>{". Độ cứng của đoạn "}<Math inline>{"20\\,\\mathrm{cm}"}</Math>{" là"}</>}
+  options={[
+    <><Math inline>{"360\\,\\mathrm{N/m}"}</Math></>,
+    <><Math inline>{"40\\,\\mathrm{N/m}"}</Math></>,
+    <><Math inline>{"180\\,\\mathrm{N/m}"}</Math></>,
+    <><Math inline>{"240\\,\\mathrm{N/m}"}</Math></>
+  ]}
+  correctIndex={0}
+  explanation={<><Math inline>{"kL_0"}</Math>{" không đổi: "}<Math inline>{"k_1=\\dfrac{120\\times60}{20}=360\\,\\mathrm{N/m}"}</Math>{". Đoạn ngắn hơn thì cứng hơn."}</>}
+/>
+
+<div data-question-id="bai-14-exercises-004" className="rounded-xl border border-slate-200 bg-white p-4">
+
+### Câu 4. Vì sao xe tải nặng dùng nhíp gồm nhiều lá thép chồng lên nhau, hoặc nhiều lò xo đặt song song, thay vì một lò xo duy nhất?
+
+
+<details>
+<summary className="cursor-pointer font-semibold text-green-700">Xem lời giải chi tiết</summary>
+
+Xe tải nặng cần hệ treo rất cứng để không bị nén sát xuống dưới tải trọng hàng chục tấn. Nhiều lá thép hoặc nhiều lò xo cùng đỡ tải hoạt động giống như các lò xo ghép song song: độ cứng tương đương bằng tổng độ cứng thành phần, $k_{\text{tđ}}=k_1+k_2+\dots$, nên hệ cứng hơn hẳn. Đồng thời tải trọng được chia cho từng lá hoặc từng lò xo, mỗi chiếc chịu lực nhỏ hơn và không bị vượt quá giới hạn đàn hồi, nên bền và an toàn hơn. Với nhíp, khi tải nhẹ chỉ một vài lá làm việc, khi tải nặng thêm nhiều lá cùng chịu lực, giúp xe êm khi chạy không và vẫn đủ cứng khi chở đầy.
+
+</details>
+</div>
+
+</Section>
+
+</div>
