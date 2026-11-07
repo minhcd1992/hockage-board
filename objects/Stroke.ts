@@ -1,6 +1,7 @@
 import { BoardObject, Point, Rect, pointInRect, rectsIntersect, segmentIntersectsRect } from '../types';
 import { inkPath, inkSamples } from '../engine/InkGeometry';
 import { INK_LOOKAHEAD, stabilizeInkPoint } from '../engine/InkStabilizer';
+import { InkFilter } from '../engine/InkFilter';
 
 export class Stroke extends BoardObject {
   points: Point[];
@@ -10,6 +11,11 @@ export class Stroke extends BoardObject {
   revision = 0;
   private inputZoom: number;
   private inputPoints: Point[] = [];
+  // Stabilizer input: speed-filtered controls, except the start (never moves)
+  // and the tip (always the exact pen position, so filtering adds no latency).
+  private sourcePoints: Point[] = [];
+  private filteredTip: Point | null = null;
+  private inkFilter: InkFilter;
 
   get stableThrough() {
     return Math.max(0, this.points.length - INK_LOOKAHEAD - 2);
@@ -22,7 +28,9 @@ export class Stroke extends BoardObject {
     }
     return this.samplesCache.samples;
   }
-  private outlineCache: { path: Path2D; size: number; highlighter: boolean; points: Point[]; count: number } | null = null;
+  // dx/dy: translation applied since the path was built. Moving a selection
+  // shifts the cached outline instead of rebuilding it on every pointer event.
+  private outlineCache: { path: Path2D; size: number; highlighter: boolean; points: Point[]; count: number; dx: number; dy: number } | null = null;
   
   isEraser: boolean = false;
   isHighlighter: boolean = false;
@@ -38,12 +46,19 @@ export class Stroke extends BoardObject {
     this.isEraser = isEraser;
     this.isHighlighter = isHighlighter;
     this.inputZoom = Math.max(0.1, input.zoom ?? 1);
+    this.inkFilter = new InkFilter(this.inputZoom);
   }
 
   addPoint(p: Point) {
     if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) return;
+    // Every hardware sample advances the filter, including stationary repeats,
+    // so a paused pen lets the filtered position settle onto the real one.
+    const filtered = this.inkFilter.filter(p);
     const last = this.inputPoints.at(-1);
-    if (last?.x === p.x && last.y === p.y && last.pressure === p.pressure) return;
+    if (last?.x === p.x && last.y === p.y && last.pressure === p.pressure) {
+      if (this.filteredTip) this.filteredTip = filtered;
+      return;
+    }
     const anchor = this.inputPoints.at(-2);
     // Both native pen and mouse-mode tablets use distance-based controls.
     // Retain a mutable, exact tip between anchors instead of recording every
@@ -53,12 +68,17 @@ export class Stroke extends BoardObject {
       this.inputPoints[this.inputPoints.length - 1] = { ...p };
     } else {
       this.inputPoints.push({ ...p });
+      // The previous tip becomes an interior control: use its filtered value.
+      const previous = this.inputPoints.length - 2;
+      if (previous > 0 && this.filteredTip) this.sourcePoints[previous] = this.filteredTip;
     }
+    const count = this.inputPoints.length;
+    this.sourcePoints[count - 1] = { ...p };
+    this.filteredTip = filtered;
     // Refit only the controls touched by the newest sample. Always fit from
     // measured controls, never previously smoothed output (no cumulative drift).
-    const count = this.inputPoints.length;
     for (let i = Math.max(0, count - INK_LOOKAHEAD - 1); i < count; i++) {
-      this.points[i] = { ...stabilizeInkPoint(this.inputPoints, i, this.inputZoom) };
+      this.points[i] = { ...stabilizeInkPoint(this.sourcePoints, i, this.inputZoom) };
     }
     this.revision++;
     this.outlineCache = null;
@@ -72,13 +92,14 @@ export class Stroke extends BoardObject {
     if (!cache || cache.size !== this.size || cache.highlighter !== this.isHighlighter ||
         cache.points !== this.points || cache.count !== this.points.length) {
       cache = { path: inkPath(this.points, this.size, this.isHighlighter), size: this.size,
-        highlighter: this.isHighlighter, points: this.points, count: this.points.length };
+        highlighter: this.isHighlighter, points: this.points, count: this.points.length, dx: 0, dy: 0 };
       this.outlineCache = cache;
     }
     ctx.save();
     ctx.globalCompositeOperation = this.isEraser ? 'destination-out' : 'source-over';
     ctx.globalAlpha = this.isHighlighter ? 0.4 : 1;
     ctx.fillStyle = this.isEraser ? '#000' : this.color;
+    if (cache.dx || cache.dy) ctx.translate(cache.dx, cache.dy);
     ctx.fill(cache.path);
     ctx.restore();
   }
@@ -207,11 +228,18 @@ export class Stroke extends BoardObject {
   }
 
   _translate(dx: number, dy: number): void {
-    this.outlineCache = null;
+    if (this.outlineCache) {
+      this.outlineCache.dx += dx;
+      this.outlineCache.dy += dy;
+    }
     this.samplesCache = null;
-    for (const p of [...this.points, ...this.inputPoints]) {
+    for (const p of [...this.points, ...this.inputPoints, ...this.sourcePoints]) {
       p.x += dx;
       p.y += dy;
+    }
+    if (this.filteredTip) {
+      this.filteredTip.x += dx;
+      this.filteredTip.y += dy;
     }
   }
 
@@ -226,6 +254,8 @@ export class Stroke extends BoardObject {
       { zoom: this.inputZoom });
     s.points = this.points.map(p => ({ ...p }));
     s.inputPoints = this.inputPoints.map(p => ({ ...p }));
+    s.sourcePoints = this.sourcePoints.map(p => ({ ...p }));
+    s.filteredTip = this.filteredTip && { ...this.filteredTip };
     s.isDrawing = this.isDrawing;
     s.copyTransforms(this);
     return s;

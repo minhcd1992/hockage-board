@@ -30,9 +30,10 @@ for (const points of [
   [{x:0,y:0},{x:0.00001,y:0},{x:100,y:1}],
 ]) assert.ok(inkSamples(points).every(p => Number.isFinite(p.x) && Number.isFinite(p.y)), 'duplicates, reversals and uneven spacing stay finite');
 let scale = 1;
-let renderedPath;
+let renderedPath, translated = [];
 const ctx = {
   save() {}, restore() {},
+  translate: (x, y) => { translated.push([x, y]); },
   getTransform: () => ({ a: scale, b: 0 }),
   fill: path => { renderedPath = path; },
 };
@@ -50,9 +51,17 @@ assert.equal(renderedPath, previous, 'zoom reuses world-space geometry');
 stroke.color = '#f00';
 stroke._draw(ctx);
 assert.equal(renderedPath, previous, 'color does not rebuild geometry');
+// Moving a selection offsets the cached outline instead of rebuilding it.
+translated = [];
+stroke.translate(5, 3);
+stroke._draw(ctx);
+assert.equal(renderedPath, previous, 'translation reuses the cached path');
+assert.deepEqual(translated, [[5, 3]], 'cached path is drawn at the translated offset');
+stroke.translate(1, 1);
+stroke._draw(ctx);
+assert.deepEqual(translated.at(-1), [6, 4], 'offsets accumulate across drags');
 for (const change of [
   () => { stroke.size = 4; },
-  () => stroke.translate(5, 3),
   () => stroke.addPoint({ x: 30, y: 15 }),
   () => { stroke.points = stroke.points.map(p => ({ ...p })); },
 ]) {

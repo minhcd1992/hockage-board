@@ -239,7 +239,8 @@ export class PointerManager {
       y: e.clientY - rect.top,
       pressure: pressure,
       tiltX: e.tiltX,
-      tiltY: e.tiltY
+      tiltY: e.tiltY,
+      t: e.timeStamp,
     };
   }
 }

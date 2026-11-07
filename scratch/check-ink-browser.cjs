@@ -103,7 +103,7 @@ const lesson = process.argv[3] === 'lesson';
     const sources = {};
     for (const [name, path] of Object.entries({
       '../types':'types/index.ts', './InkGeometry':'engine/InkGeometry.ts',
-      '../engine/InkStabilizer':'engine/InkStabilizer.ts', './Camera':'engine/Camera.ts', '../objects/Stroke':'objects/Stroke.ts',
+      '../engine/InkStabilizer':'engine/InkStabilizer.ts', '../engine/InkFilter':'engine/InkFilter.ts', './Camera':'engine/Camera.ts', '../objects/Stroke':'objects/Stroke.ts',
       './LiveInk':'engine/LiveInk.ts',
     })) sources[name] = compile(fs.readFileSync(path,'utf8'));
     sources['./AcceptedStroke'] = compile(fs.readFileSync('scratch/fixtures/quadratic-v4-stroke.txt','utf8'));

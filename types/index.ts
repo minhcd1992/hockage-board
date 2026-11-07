@@ -29,6 +29,8 @@ export interface Point {
   pressure?: number;
   tiltX?: number;
   tiltY?: number;
+  /** Input timestamp (ms, PointerEvent.timeStamp). Enables time-based ink filtering. */
+  t?: number;
 }
 
 export interface Rect {

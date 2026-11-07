@@ -789,7 +789,20 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     // Drag selection state
     let isDraggingSelection = false;
     let selectionDragStartPoint: Point | null = null;
+    let selectionDragOriginScreen: Point | null = null;
     let hasMovedSelection = false;
+    // Click (without drag) on one object of a multi-selection selects only it.
+    let soloSelectOnClick: string | null = null;
+
+    // Pointer events can arrive at 120-240 Hz; repaint the scene once per frame.
+    let mainNeedsRender = false;
+    const scheduleRenderMain = () => { mainNeedsRender = true; };
+    const startSelectionDrag = (worldP: Point, screenP: Point) => {
+      isDraggingSelection = true;
+      selectionDragStartPoint = worldP;
+      selectionDragOriginScreen = { x: screenP.x, y: screenP.y };
+      hasMovedSelection = false;
+    };
     
     // Transform state
     let transformAction: AnchorKey | 'rotate' | 'scale_tl' | 'scale_tr' | 'scale_bl' | 'scale_br' | 'scale_tc' | 'scale_bc' | 'scale_lc' | 'scale_rc' | null = null;
@@ -857,6 +870,12 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         lastZoom = engine.camera.zoom;
         lastGridEnabled = state.gridEnabled;
         lastTheme = state.theme;
+        mainNeedsRender = false;
+      }
+
+      if (mainNeedsRender) {
+        mainNeedsRender = false;
+        engine.renderer.renderMain();
       }
 
       if (htmlLayerRef.current) {
@@ -1262,6 +1281,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         }
 
         if (hitObj) {
+          soloSelectOnClick = null;
           if (!hitObj.selected) {
             engine.scene.toggleSelection(hitObj.id, e.shiftKey);
             engine.renderer.renderMain();
@@ -1269,6 +1289,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             hitObj.selected = false;
             engine.renderer.renderMain();
             return;
+          } else if (!e.shiftKey && engine.scene.getSelectedObjects().length > 1) {
+            soloSelectOnClick = hitObj.id;
           }
 
           let consumed = false;
@@ -1283,12 +1305,23 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
             return; // Don't drag the whole selection
           }
 
-          isDraggingSelection = true;
-          selectionDragStartPoint = worldP;
-          hasMovedSelection = false;
+          startSelectionDrag(worldP, p);
           return;
         }
-        
+
+        // Empty space inside the selection frame grabs the whole selection,
+        // like other editors (e.g. the hollow middle of a selected circle).
+        // Shift+drag still starts a marquee to add more objects.
+        if (bounds && !anchors.length && !e.shiftKey) {
+          const pad = 4 / engine.camera.zoom;
+          if (worldP.x >= bounds.x - pad && worldP.x <= bounds.x + bounds.w + pad &&
+              worldP.y >= bounds.y - pad && worldP.y <= bounds.y + bounds.h + pad) {
+            soloSelectOnClick = null;
+            startSelectionDrag(worldP, p);
+            return;
+          }
+        }
+
         isDraggingSelection = false;
         engine.selectionRect = { start: worldP, end: worldP };
         if (state.tool === 'select-object' && !e.shiftKey) {
@@ -1391,15 +1424,10 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
            for (const obj of selected) resizeObject(obj, fixedPoint, scaleX, scaleY);
         }
 
-        const selectedIds = selected.map(o => o.id);
-        engine.scene.objects = engine.scene.objects.map(o => {
-            if (selectedIds.includes(o.id)) {
-                return selected.find(s => s.id === o.id)!;
-            }
-            return o;
-        });
+        const byId = new Map(selected.map(o => [o.id, o]));
+        engine.scene.objects = engine.scene.objects.map(o => byId.get(o.id) ?? o);
 
-        engine.renderer.renderMain();
+        scheduleRenderMain();
 
       }
     };
@@ -1505,21 +1533,33 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       }
 
       if (transformAction && pointer.isPointerDown) {
+        pointer.pendingPoints = [];
         applySelectionTransform(worldP, e.shiftKey);
       } else if (isDraggingSelection && selectionDragStartPoint && engine.pointer.isPointerDown) {
-        const dx = worldP.x - selectionDragStartPoint.x;
-        const dy = worldP.y - selectionDragStartPoint.y;
-        
-        engine.scene.objects = engine.scene.objects.map(obj => {
-          if (!obj.selected || obj.locked) return obj;
-          const copy = transformCopy(obj);
-          copy.translate(dx, dy);
-          return copy;
-        });
-        
-        selectionDragStartPoint = worldP;
-        hasMovedSelection = true;
-        engine.renderer.renderMain();
+        pointer.pendingPoints = [];
+        if (!hasMovedSelection && selectionDragOriginScreen) {
+          // Ignore pen/hand tremor on a click so it does not nudge objects.
+          const threshold = e.pointerType === 'mouse' ? 3 : 6;
+          if (Math.hypot(p.x - selectionDragOriginScreen.x, p.y - selectionDragOriginScreen.y) >= threshold) {
+            // Copy-on-write once per drag: history snapshots keep the originals,
+            // and the copies are then moved in place (cheap, cached geometry).
+            engine.scene.objects = engine.scene.objects.map(obj =>
+              obj.selected && !obj.locked ? transformCopy(obj) : obj);
+            hasMovedSelection = true;
+            soloSelectOnClick = null;
+          }
+        }
+        if (hasMovedSelection) {
+          const dx = worldP.x - selectionDragStartPoint.x;
+          const dy = worldP.y - selectionDragStartPoint.y;
+          if (dx || dy) {
+            for (const obj of engine.scene.objects) {
+              if (obj.selected && !obj.locked) obj.translate(dx, dy);
+            }
+            selectionDragStartPoint = worldP;
+            scheduleRenderMain();
+          }
+        }
       }
 
       if (state.tool === 'eraser-object' && engine.pointer.isPointerDown) {
@@ -1576,6 +1616,11 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
                    break;
                  }
                }
+             }
+             if (cursor === 'default' && bounds && !anchors.length && !e.shiftKey &&
+                 worldP.x >= bounds.x && worldP.x <= bounds.x + bounds.w &&
+                 worldP.y >= bounds.y && worldP.y <= bounds.y + bounds.h) {
+               cursor = 'move';
              }
           }
           interactionLayerRef.current.style.cursor = cursor;
@@ -1684,9 +1729,18 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         engine.renderer.renderMain();
       } else if (isDraggingSelection) {
         isDraggingSelection = false;
+        selectionDragOriginScreen = null;
         if (hasMovedSelection) {
+          hasMovedSelection = false;
           engine.scene.saveState();
+          mainNeedsRender = false;
+          engine.renderer.renderMain();
+        } else if (soloSelectOnClick) {
+          engine.scene.toggleSelection(soloSelectOnClick, false);
+          engine.renderer.renderMain();
+          window.dispatchEvent(new Event('requestBoardRender'));
         }
+        soloSelectOnClick = null;
       } else if (state.tool === 'snip' && engine.snipRect) {
         engine.snipRect.end = worldP;
         const { start, end } = engine.snipRect;
@@ -1833,7 +1887,11 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
       syncLessonActivity();
       arcState = 'idle';
       bezierState = 'idle';
+      if (isDraggingSelection && hasMovedSelection) engine.scene.saveState();
       isDraggingSelection = false;
+      hasMovedSelection = false;
+      selectionDragOriginScreen = null;
+      soloSelectOnClick = null;
       if (transformAction) {
         engine.scene.objects = engine.scene.objects.map(obj => transformInitialObjects.find(initial => initial.id === obj.id) ?? obj);
         engine.renderer.renderMain();
