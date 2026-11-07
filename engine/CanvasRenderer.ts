@@ -62,12 +62,19 @@ export class CanvasRenderer {
   // A new stroke is on top of the existing scene; do not repaint every old
   // object on every pen lift. Full render remains for undo/zoom/selection.
   commitStroke(stroke: Stroke) {
-    this.mainCtx.save();
-    this.camera.applyTransform(this.mainCtx);
-    stroke.draw(this.mainCtx);
-    this.mainCtx.restore();
-    this.drawWhiteboardOverlays(this.mainCtx);
-    this.liveInk.clear();
+    // Show the pen-up sample, then copy the live pixels exactly. Re-rasterizing
+    // here would change edge anti-aliasing at the moment of pen lift, which
+    // reads as a flicker; the next full render uses the scene geometry anyway.
+    this.liveInk.render();
+    const ctx = this.mainCtx;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // The live layer draws opaque ink and applies highlighter alpha via CSS.
+    ctx.globalAlpha = stroke.isHighlighter ? 0.4 : 1;
+    ctx.drawImage(this.draftCanvas, 0, 0);
+    ctx.restore();
+    this.drawWhiteboardOverlays(ctx);
+    this.liveInk.handOff();
   }
 
   clearContext(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {

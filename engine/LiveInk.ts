@@ -15,6 +15,7 @@ export class LiveInk {
   private inputType = 'unknown';
   private inputEvent = 'unknown';
   private metrics = { batches: 0, samples: 0, maxInputAgeMs: 0, maxDrawMs: 0 };
+  private releaseFrame = 0;
 
   constructor(private canvas: HTMLCanvasElement, private ctx: CanvasRenderingContext2D, private camera: Camera) {
     this.backing = document.createElement('canvas');
@@ -105,6 +106,25 @@ export class LiveInk {
     this.metrics.maxDrawMs = Math.max(this.metrics.maxDrawMs, performance.now() - start);
   }
 
+  /**
+   * The finished stroke is now on the main canvas. This surface is
+   * desynchronized: clearing its pixels shows up immediately, while the main
+   * canvas only updates with the next compositor frame, which leaves a
+   * one-frame gap (a visible flash). A CSS change is committed in the same
+   * frame as the main canvas, so hide via CSS now and erase pixels later.
+   */
+  handOff() {
+    this.stroke = null;
+    this.canvas.style.visibility = 'hidden';
+    cancelAnimationFrame(this.releaseFrame);
+    this.releaseFrame = requestAnimationFrame(() => {
+      this.releaseFrame = requestAnimationFrame(() => {
+        this.releaseFrame = 0;
+        this.clear();
+      });
+    });
+  }
+
   // Canvas resize or camera changes invalidate pixels, but never sample data.
   redraw() {
     this.erasePixels();
@@ -131,6 +151,11 @@ export class LiveInk {
   }
 
   clear() {
+    if (this.releaseFrame) {
+      cancelAnimationFrame(this.releaseFrame);
+      this.releaseFrame = 0;
+    }
+    this.canvas.style.visibility = '';
     this.stroke = null;
     this.renderedRevision = -1;
     this.resetBacking();

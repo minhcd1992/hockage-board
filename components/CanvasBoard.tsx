@@ -40,6 +40,10 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   const draftCanvasRef = useRef<HTMLCanvasElement>(null);
   const interactionLayerRef = useRef<HTMLCanvasElement>(null);
   const htmlLayerRef = useRef<HTMLDivElement>(null);
+  // Per-board refs: every PDF tab renders its own scrollbar, so a shared DOM id
+  // would always resolve to the first tab's element.
+  const scrollbarRef = useRef<HTMLDivElement>(null);
+  const scrollbarThumbRef = useRef<HTMLDivElement>(null);
 
   // Engine refs
   const engineRef = useRef<{
@@ -432,8 +436,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   }, []); // Global shortcuts
 
   const updateScrollbar = () => {
-    const scrollbarThumb = document.getElementById(`v-scrollbar-thumb-${file ? 'pdf' : 'whiteboard'}`);
-    const scrollbar = document.getElementById(`v-scrollbar-${file ? 'pdf' : 'whiteboard'}`);
+    const scrollbarThumb = scrollbarThumbRef.current;
+    const scrollbar = scrollbarRef.current;
     if (!scrollbarThumb || !scrollbar) return;
     
     if (fileType === 'html') {
@@ -483,7 +487,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     const viewH = window.innerHeight;
     const clickY = e.clientY;
     
-    const scrollbarThumb = document.getElementById(`v-scrollbar-thumb-${file ? 'pdf' : 'whiteboard'}`);
+    const scrollbarThumb = scrollbarThumbRef.current;
     if (!scrollbarThumb) return;
     
     const thumbRect = scrollbarThumb.getBoundingClientRect();
@@ -1957,6 +1961,15 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
     }
   }, [file, fileType]);
 
+  // Pages load asynchronously and hidden tabs keep their camera, so the render
+  // loop's camera-change check alone would leave the scrollbar stale.
+  useEffect(() => {
+    if (!isActive) return;
+    const frame = requestAnimationFrame(() => updateScrollbar());
+    return () => cancelAnimationFrame(frame);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pdfPages, isActive]);
+
   useEffect(() => {
     if (tool !== 'select-object' && engineRef.current) {
       engineRef.current.scene.clearSelection();
@@ -2308,7 +2321,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
 
         {/* Scrollbar */}
         <div
-          id={`v-scrollbar-${file ? 'pdf' : 'whiteboard'}`}
+          ref={scrollbarRef}
           onPointerDown={handleScrollbarTrackClick}
           style={{
             position: 'absolute',
@@ -2324,7 +2337,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
           }}
         >
           <div
-            id={`v-scrollbar-thumb-${file ? 'pdf' : 'whiteboard'}`}
+            ref={scrollbarThumbRef}
             onPointerDown={handleScrollbarDragStart}
             style={{
               position: 'absolute',
