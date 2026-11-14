@@ -24,7 +24,7 @@ export const Section: React.FC<SectionProps> = ({ title, icon, children }) => {
   };
 
   return (
-    <section className="bg-white/95 backdrop-blur-md border border-gray-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-2xl p-6 md:p-8 mb-8 border-l-4 border-l-blue-500">
+    <section className="bg-white/95 border border-gray-200 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-2xl p-6 md:p-8 mb-8 border-l-4 border-l-blue-500">
       <h2 className="text-2xl font-bold text-blue-800 mb-4 border-b-2 border-blue-200 pb-2 flex items-center">
         {icon && (
           <span className="bg-blue-100 text-blue-800 rounded-full w-8 h-8 inline-flex items-center justify-center mr-3 font-bold">

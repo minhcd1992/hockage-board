@@ -109,14 +109,38 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
   const laserPointsRef = useRef<{x: number, y: number, time: number}[]>([]);
   const laserFrameRef = useRef<number | null>(null);
 
-  const syncLessonActivity = React.useCallback(() => {
+  const lessonPauseRef = useRef<{ sent: boolean | null; timer: ReturnType<typeof setTimeout> | null }>({ sent: null, timer: null });
+
+  // The lesson shares this page's main thread. Handwriting is a burst of short
+  // strokes: resuming simulations in the gap after every pen lift makes the
+  // lesson re-render exactly when the next stroke starts. Pause at once, but
+  // resume only after the pen has rested (`afterStroke`).
+  const syncLessonActivity = React.useCallback((afterStroke = false) => {
     if (fileType !== 'lesson') return;
-    const frame = htmlLayerRef.current?.querySelector('iframe');
-    frame?.contentWindow?.postMessage({
-      type: 'board-lesson-activity',
-      paused: !isActiveRef.current || !!engineRef.current?.currentStroke,
-    }, window.location.origin);
+    const state = lessonPauseRef.current;
+    if (state.timer !== null) {
+      clearTimeout(state.timer);
+      state.timer = null;
+    }
+    const post = () => {
+      state.timer = null;
+      const paused = !isActiveRef.current || !!engineRef.current?.currentStroke;
+      if (state.sent === paused) return;
+      state.sent = paused;
+      const frame = htmlLayerRef.current?.querySelector('iframe');
+      frame?.contentWindow?.postMessage({ type: 'board-lesson-activity', paused }, window.location.origin);
+    };
+    if (afterStroke) state.timer = setTimeout(post, 500);
+    else post();
   }, [fileType]);
+
+  useEffect(() => {
+    const state = lessonPauseRef.current;
+    return () => {
+      if (state.timer !== null) clearTimeout(state.timer);
+      state.timer = null;
+    };
+  }, []);
 
   useEffect(() => {
     const ready = (event: MessageEvent) => {
@@ -135,6 +159,8 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         } catch {
           // Ignore cross-origin errors if any
         }
+        // A freshly loaded lesson document has not received any state yet.
+        lessonPauseRef.current.sent = null;
         syncLessonActivity();
       }
     };
@@ -1668,7 +1694,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         engine.scene.addObject(stroke);
         engine.renderer.commitStroke(stroke);
         engine.currentStroke = null;
-        syncLessonActivity();
+        syncLessonActivity(true);
         draftNeedsUpdate = false;
       } else if (state.tool === 'bezier' && currentBezierShape) {
          if (bezierState === 'drawing-line') {
@@ -1888,7 +1914,7 @@ export function CanvasBoard({ file, fileType, url, isActive }: { file?: File, fi
         engine.renderer.clearDraft();
         draftNeedsUpdate = false;
       }
-      syncLessonActivity();
+      syncLessonActivity(true);
       arcState = 'idle';
       bezierState = 'idle';
       if (isDraggingSelection && hasMovedSelection) engine.scene.saveState();

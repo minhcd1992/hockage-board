@@ -71,6 +71,14 @@ Các kiểm tra tự động không thay thế thử trên XP-Pen thật với c
 
 ## Bài giảng và toàn màn hình
 
-`lib/lessonAnimation.ts` quản lý RAF riêng. Khi viết hoặc tab bị ẩn, iframe cùng origin dừng animation; nhấc bút thì tiếp tục, đồng hồ mô phỏng trừ thời gian pause. CSS animation cũng tạm dừng. Không can thiệp HTML bên ngoài.
+`lib/lessonAnimation.ts` quản lý RAF riêng. Khi viết hoặc tab bị ẩn, iframe cùng origin dừng animation; đồng hồ mô phỏng trừ thời gian pause. CSS animation cũng tạm dừng. Không can thiệp HTML bên ngoài.
+
+Iframe bài giảng dùng chung main thread với bảng, nên mọi việc nó làm lúc đặt/nhấc bút đều thành độ trễ của nét:
+
+- Dừng CSS animation bằng `document.getAnimations()` (pause/play từng animation), không dùng quy tắc `html[data-board-paused] *`. Quy tắc đó buộc tính lại style cho mọi phần tử ở mỗi lần đặt và nhấc bút: 37–158 ms mỗi lần trên `bai-1/bai-tap` (16 600 phần tử), tổng 5,8 s cho 40 nét. Thuộc tính `data-board-paused` chỉ còn là dấu trạng thái; không stylesheet nào được chọn theo nó.
+- Dừng ngay khi đặt bút, nhưng chỉ chạy lại sau khi bút nghỉ 500 ms (`syncLessonActivity(true)`), để mô phỏng không render lại giữa hai nét của cùng một chữ.
+- `Section` không dùng `backdrop-blur`: nền phía sau là màu đồng nhất nên blur không đổi hình ảnh, nhưng buộc GPU blur lại cả khối mỗi khi nét bút phía trên thay đổi.
+
+Đo bằng Chrome headless, 40 nét ngắn liên tiếp trên `bai-1/bai-tap`: tổng thời gian tính style 5 794 → 13 ms, khung hình chậm hơn 25 ms: 81 → 0–1, tuổi event lớn nhất khi bắt đầu xử lý 87 → 3 ms (khi trang đã ổn định; một lần major GC sau khi tải trang vẫn có thể gây một khung chậm). Chưa đo được trên XP-Pen thật.
 
 Nút cạnh **Lưu thành PDF** đưa cả app vào toàn màn hình, bao gồm menu và các tab. Bấm lại hoặc Esc để thoát. Trạng thái theo `fullscreenchange`; lỗi yêu cầu được hiển thị ở thanh công cụ.

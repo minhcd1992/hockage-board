@@ -85,7 +85,11 @@ const lesson = process.argv[3] === 'lesson';
     const diagnostics = await evaluate(`(() => { window.testCanvas.dispatchEvent(new Event('board-ink-diagnostics')); return JSON.parse(window.testCanvas.dataset.inkDiagnostics); })()`);
     assert.equal(diagnostics.engine, 'quadratic-v4.1', 'browser is serving the replacement engine');
     if (lesson) {
+      // Resume is deferred until the pen has rested, so that the lesson does
+      // not restart its animations between two strokes of the same word.
       await new Promise(resolve => setTimeout(resolve,100));
+      assert.equal(await evaluate(`document.querySelector('iframe').contentDocument.documentElement.hasAttribute('data-board-paused')`), true, 'lesson stays paused between strokes');
+      await new Promise(resolve => setTimeout(resolve,700));
       assert.equal(await evaluate(`document.querySelector('iframe').contentDocument.documentElement.hasAttribute('data-board-paused')`), false, 'lesson resumes after writing');
     }
     for (const [key, expected] of [['z', false], ['y', true]]) {

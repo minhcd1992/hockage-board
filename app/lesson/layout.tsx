@@ -21,9 +21,27 @@ export default function LessonLayout({ children }: { children: React.ReactNode }
 
   React.useEffect(() => {
     let boardPaused = false;
+    // Pause CSS animations one by one. A `html[data-board-paused] *` rule would
+    // restyle every element of the lesson at each pen-down and pen-up, which
+    // blocks the shared main thread for 20-150 ms on a long page: exactly when
+    // the board has to draw the first samples of a stroke.
+    const pausedAnimations = new Set<Animation>();
     const sync = () => {
       const paused = boardPaused || document.hidden;
       setLessonPaused(paused);
+      if (paused) {
+        for (const animation of document.getAnimations()) {
+          if (animation.playState !== 'running') continue;
+          animation.pause();
+          pausedAnimations.add(animation);
+        }
+      } else {
+        for (const animation of pausedAnimations) {
+          if (animation.playState === 'paused') animation.play();
+        }
+        pausedAnimations.clear();
+      }
+      // State marker only; no stylesheet may select on it (see above).
       document.documentElement.toggleAttribute('data-board-paused', paused);
     };
     const onMessage = (event: MessageEvent) => {
@@ -59,6 +77,10 @@ export default function LessonLayout({ children }: { children: React.ReactNode }
       document.removeEventListener('visibilitychange', sync);
       document.removeEventListener('click', onClick);
       setLessonPaused(false);
+      for (const animation of pausedAnimations) {
+        if (animation.playState === 'paused') animation.play();
+      }
+      pausedAnimations.clear();
       document.documentElement.removeAttribute('data-board-paused');
       document.documentElement.removeAttribute('data-board-ready');
     };
@@ -66,7 +88,6 @@ export default function LessonLayout({ children }: { children: React.ReactNode }
 
   return (
     <div className={`${isInIframe ? 'min-h-screen h-auto overflow-visible' : 'h-screen overflow-y-auto'} w-full bg-slate-50 text-slate-800 text-base leading-[1.6]`}>
-      <style>{'html[data-board-paused] *, html[data-board-paused] *::before, html[data-board-paused] *::after { animation-play-state: paused !important; }'}</style>
       <main className="w-full px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48 py-8 md:py-12">
         {children}
       </main>
